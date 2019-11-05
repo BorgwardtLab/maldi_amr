@@ -2,14 +2,14 @@
 # @Author: weisc
 # @Date:   2019-09-18 17:25:56
 # @Last Modified by:   weisc
-# @Last Modified time: 2019-10-16 13:56:06
+# @Last Modified time: 2019-11-05 09:46:32
 
 
 import numpy as np
 from sklearn.metrics import roc_auc_score, confusion_matrix, f1_score, roc_curve, auc, precision_recall_curve, average_precision_score, classification_report
 from collections import Counter
 
-from MaldiAI_pub1.utils    import calc_pos_class_ratio, calc_sample_size, vme_auc_curve, vme_auc_score
+from .utils    import calc_pos_class_ratio, calc_sample_size, vme_auc_curve, vme_auc_score
 
 class Metrics():
 

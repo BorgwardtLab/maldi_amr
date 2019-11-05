@@ -2,7 +2,7 @@
 # @Author: weisc
 # @Date:   2019-09-17 13:02:55
 # @Last Modified by:   weisc
-# @Last Modified time: 2019-11-04 11:34:57
+# @Last Modified time: 2019-11-05 13:04:48
 ## -*- coding: utf-8 -*-
 
 #-----------------------------------------------------------------------------
@@ -111,12 +111,12 @@ def bin_separation(mz, intensity, bin_size):
     return histogram_intensities
 
 
-def bin_separation_new(mz, intensity, bin_size):
-    # 2000 mz to 20000 mz
-    binsteps = np.arange(2000,20000+int(bin_size),int(bin_size))
-    index = np.digitize(np.array(mz),binsteps)
-    histogram_intensities = [sum(list(compress(intensity, index == i))) for i in range(1,len(binsteps)+1)]
-    return np.asarray(histogram_intensities)
+# def bin_separation_new(mz, intensity, bin_size):
+#     # 2000 mz to 20000 mz
+#     binsteps = np.arange(2000,20000+int(bin_size),int(bin_size))
+#     index = np.digitize(np.array(mz),binsteps)
+#     histogram_intensities = [sum(list(compress(intensity, index == i))) for i in range(1,len(binsteps)+1)]
+#     return np.asarray(histogram_intensities)
 
 
 def read_maldi(spectra_dir, resist_dir, bin_size):
@@ -153,48 +153,47 @@ def read_maldi(spectra_dir, resist_dir, bin_size):
     return [all_bin_intesities, all_resistancies, all_fileid, names_reagents]
 
 
-def read_and_bin_preprocessed_spectra(spectra_dir, bin_size, id_lower=1, id_upper=10, verbose=False):
-    list_spectra = [g for g in os.listdir(spectra_dir) if not g.startswith('.')]
-    d_spectra = {}
+# def read_and_bin_preprocessed_spectra(spectra_dir, bin_size, id_lower=1, id_upper=10, verbose=False):
+#     list_spectra = [g for g in os.listdir(spectra_dir) if not g.startswith('.')]
+#     d_spectra = {}
 
 
-    # go through all files in spectra directory
-    for i,filename in enumerate(list_spectra):
-        swapid = re.split('/',filename)[-1].replace('_spectraPreprocessed.txt', '')        
+#     # go through all files in spectra directory
+#     for i,filename in enumerate(list_spectra):
+#         swapid = re.split('/',filename)[-1].replace('_spectraPreprocessed.txt', '')        
 
-        # include for Aarau
-        # swapid = '_'.join([swapid, re.split('/',filename)[-1].split('_')[1]])
+#         # include for Aarau
+#         # swapid = '_'.join([swapid, re.split('/',filename)[-1].split('_')[1]])
         
-        if verbose: print('current sample ID: {}'.format(swapid))
+#         if verbose: print('current sample ID: {}'.format(swapid))
 
-        # check constraints for spectra id length
-        if len(swapid)<id_lower or len(swapid)>id_upper:
-            if verbose: print('SamplesID length out of bounds {} and {}. continue.'.format(id_lower, id_upper))
-            continue
+#         # check constraints for spectra id length
+#         if len(swapid)<id_lower or len(swapid)>id_upper:
+#             if verbose: print('SamplesID length out of bounds {} and {}. continue.'.format(id_lower, id_upper))
+#             continue
 
-        # read in data
-        [mz, intensity] = read_single_spectra(spectra_dir, filename)
-        if mz == [] or intensity == []:
-            if verbose: print('Empty spectra file. continue.')
-            continue
+#         # read in data
+#         [mz, intensity] = read_single_spectra(spectra_dir, filename)
+#         if mz == [] or intensity == []:
+#             if verbose: print('Empty spectra file. continue.')
+#             continue
 
-        # separate spectra into bins
-        if len(mz) > 0:
-            bin_intensities = bin_separation(mz, intensity, bin_size)
+#         # separate spectra into bins
+#         if len(mz) > 0:
+#             bin_intensities = bin_separation(mz, intensity, bin_size)
 
-            # add single spectra to full dataset
-            # if all_bin_intesities == []:
-            #     all_bin_intesities = bin_intensities[np.newaxis,:]
-            # else:
-            #     all_bin_intesities = np.r_[all_bin_intesities, bin_intensities[np.newaxis,:]]
+#             # add single spectra to full dataset
+#             # if all_bin_intesities == []:
+#             #     all_bin_intesities = bin_intensities[np.newaxis,:]
+#             # else:
+#             #     all_bin_intesities = np.r_[all_bin_intesities, bin_intensities[np.newaxis,:]]
 
-            d_spectra[swapid]=np.array(bin_intensities)
-        else:
-            if verbose: print('len(mz)!>0')
-# 
-    # all_bin_intesities = np.array(all_bin_intesities)
-    # return [all_bin_intesities, all_fileid]
-    return d_spectra
+#             d_spectra[swapid]=np.array(bin_intensities)
+#         else:
+#             if verbose: print('len(mz)!>0') 
+#     # all_bin_intesities = np.array(all_bin_intesities)
+#     # return [all_bin_intesities, all_fileid]
+#     return d_spectra
 
 
 # def save_binned_data(name, bin_size, all_bin_intesities, all_species = None):
@@ -353,9 +352,7 @@ def idres_metadata_validation(csvname):
                 idx_antibiotics.remove(idx_genus)
 
                 ab_names = [header[i] for i in idx_antibiotics]
-                # meta_dict['AB_names'] = ab_names
             else:
-                # brukerID = list(row)[idx_Bruker].replace('-','') # necessary for Aarau
                 brukerID = list(row)[idx_Bruker]
                 genus = list(row)[idx_genus]
                 species = list(row)[idx_species]
@@ -364,80 +361,33 @@ def idres_metadata_validation(csvname):
                 meta_dict[brukerID] = sample
     return meta_dict
 
-def idres_metadata_Aarau(csvname):
-    SampleMetadata = namedtuple('SampleMetadata', ['BrukerID', 'genus', 'species', 'resist'], verbose=False)
-    meta_dict = {}
+# def idres_metadata_Aarau(csvname):
+#     SampleMetadata = namedtuple('SampleMetadata', ['BrukerID', 'genus', 'species', 'resist'], verbose=False)
+#     meta_dict = {}
 
-    with open(csvname,'r') as f:
-        ff = csv.reader(f , dialect=csv.excel)
-        for j, row in enumerate(ff):
-            if j==0:
-                header = list(row)
-                idx_Bruker = header.index('sampleID')
-                idx_species = header.index('species')
-                idx_genus = header.index('genus')
+#     with open(csvname,'r') as f:
+#         ff = csv.reader(f , dialect=csv.excel)
+#         for j, row in enumerate(ff):
+#             if j==0:
+#                 header = list(row)
+#                 idx_Bruker = header.index('sampleID')
+#                 idx_species = header.index('species')
+#                 idx_genus = header.index('genus')
                 
-                idx_antibiotics = range(len(header))
-                idx_antibiotics.remove(idx_Bruker)
-                idx_antibiotics.remove(idx_species)
-                idx_antibiotics.remove(idx_genus)
+#                 idx_antibiotics = range(len(header))
+#                 idx_antibiotics.remove(idx_Bruker)
+#                 idx_antibiotics.remove(idx_species)
+#                 idx_antibiotics.remove(idx_genus)
 
-                meta_dict['AB_names'] = [header[i] for i in idx_antibiotics]
-            else:
-                brukerID = list(row)[idx_Bruker]
-                genus = list(row)[idx_genus]
-                species = list(row)[idx_species]
-                resist = [list(row)[i] for i in idx_antibiotics]
-                sample = SampleMetadata(brukerID, genus, species, resist)
-                meta_dict[brukerID] = sample
-    return meta_dict
-
-
-def read_resist(resist_dir,fileid):
-    path = os.path.join(resist_dir, '50_Klebsiella_biochem_ABres.xlsx')
-    wb = xlrd.open_workbook(path, 'r')
-    sheet = wb.sheet_by_index(0)
-    #file = open(os.path.join(resist_dir, '50_Klebsiella_biochem_ABres.txt'), 'r')
-    #lines = file.readlines()
-    resistance = []
-    curr_row = 0
-
-    names_unicode = sheet.row_values(0, start_colx=2, end_colx=None)
-    names = [s.encode('utf-8') for s in names_unicode]
-    names.insert(0, sheet.cell(0, 0).value.encode('utf-8'))
-
-    num_rows = sheet.nrows - 1
-    while curr_row < num_rows:
-        # first go through all ids and find the matching lineid
-        curr_row += 1
-        cell = sheet.cell(curr_row, 1)
-        lineid = int(cell.value)
-        if lineid == int(fileid):
-            #include species first
-            resistance.append(str(sheet.cell(rowx=curr_row,colx=0).value))
-            for j in range(2,sheet.ncols):
-                resistance.append(str(sheet.cell(rowx=curr_row,colx=j).value))
-
-    resistance = np.array(resistance)
-    # encode chemical and antibiotic resistance
-    resistance[resistance == 'n'] =     '0'
-    resistance[resistance == '(n)'] =     '0'
-    resistance[resistance == 'p'] =     '1'
-    resistance[resistance == 'R'] =     '0'
-    resistance[resistance == 'S'] =     '1'
-    resistance[resistance == 'I'] =     '0'#wrong   #TODO clean up
-    resistance[resistance == 'I*'] =     '0'#wrong
-    resistance[resistance == '-'] =     'NaN'#wrong
-    resistance[resistance == ''] =         'NaN'#wrong
-    resistance[resistance == ' '] =     'NaN'#wrong
-    resistance[resistance == 'U'] =     'NaN'#wrong
-    resistance[resistance == 'pneumoniae'] =      '1'#multiclass
-    resistance[resistance == 'variicola'] =     '2'#multiclass
-    resistance[resistance == 'oxytoca'] =         '3'#multiclass
-    resistance[resistance == 'michiganensis'] = '4'#multiclass
-    resistance[resistance == 'grimontii'] =     '5'#multiclass
-    resistance = resistance.astype(float)
-    return resistance, names
+#                 meta_dict['AB_names'] = [header[i] for i in idx_antibiotics]
+#             else:
+#                 brukerID = list(row)[idx_Bruker]
+#                 genus = list(row)[idx_genus]
+#                 species = list(row)[idx_species]
+#                 resist = [list(row)[i] for i in idx_antibiotics]
+#                 sample = SampleMetadata(brukerID, genus, species, resist)
+#                 meta_dict[brukerID] = sample
+#     return meta_dict
 
 
 def RSI_encoder(matrix):
@@ -589,7 +539,6 @@ def get_antibiotics_name_matching(match_from='LIESTAL', match_to='USB'):
 
         for j, row in enumerate(ff):
             if j==0:
-                print row
                 inidx = row.index(match_from)
                 outidx = row.index(match_to)
             else:

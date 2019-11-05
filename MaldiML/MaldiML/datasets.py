@@ -2,7 +2,7 @@
 # @Author: weisc
 # @Date:   2019-08-07 10:21:41
 # @Last Modified by:   weisc
-# @Last Modified time: 2019-09-18 17:28:39
+# @Last Modified time: 2019-11-05 09:45:35
 
 
 
@@ -21,7 +21,7 @@ from sklearn.preprocessing 		import label_binarize, normalize, LabelEncoder, Sta
 from scipy.spatial.distance 	import cdist
 from sklearn.pipeline 			import make_pipeline
 
-from MaldiAI_pub1.utils 		import calc_pos_class_ratio, calc_sample_size
+from .utils 		import calc_pos_class_ratio, calc_sample_size
 
 
 class Dataset():

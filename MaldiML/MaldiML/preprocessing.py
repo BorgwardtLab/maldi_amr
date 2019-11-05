@@ -2,15 +2,15 @@
 # @Author: weisc
 # @Date:   2019-08-30 16:28:01
 # @Last Modified by:   weisc
-# @Last Modified time: 2019-09-18 17:28:12
+# @Last Modified time: 2019-11-05 12:56:51
 
 
 import pickle
 import numpy as np
 import h5py
 # from sklearn.metrics import roc_auc_score, confusion_matrix, f1_score, roc_curve, auc, precision_recall_curve, average_precision_score, classification_report
-from MaldiAI_pub1.utils import idres_metadata_BrID, read_and_bin_preprocessed_spectra, RSI_encoder
-from MaldiAI_pub1.datasets import Dataset
+from .utils import idres_metadata_BrID, read_and_bin_preprocessed_spectra, RSI_encoder
+from .datasets import Dataset
 
 
 def read_MaldiAIobject(datanames, 
@@ -37,31 +37,32 @@ def read_MaldiAIobject(datanames,
         genus = dat.match_genus
         species = dat.match_species
 
-
     data = Dataset(X, y, list_AB, sample_ids, genus, species)
     data.check()
     return data
 
 
-def read_MaldiAIhdf5(datanames, 
-                   pickle_dir='/links/groups/borgwardt/Projects/maldi_tof_diagnostics/pub1/pickles/MaldiAIobjects/'):
+# TODO: use hdf5 format instead of pickle
+
+# def read_MaldiAIhdf5(datanames, 
+#                    pickle_dir='/links/groups/borgwardt/Projects/maldi_tof_diagnostics/pub1/pickles/MaldiAIobjects/'):
     
-    if isinstance(datanames, list):
-        datanames = datanames[0]
+#     if isinstance(datanames, list):
+#         datanames = datanames[0]
 
-    with h5py.File(pickle_dir+'MaldiAIobject_{}_allbins.hdf5'.format(datanames), 'r') as f:
-        X = f['X'][:,:]
-        y = f['y'][:,:]
-        list_AB = list(f['tasks'][:])
-        sample_ids = f['sample_ids'][:]
-        sample_genera = f['sample_genera'][:]
-        sample_species = f['sample_species'][:]
+#     with h5py.File(pickle_dir+'MaldiAIobject_{}_allbins.hdf5'.format(datanames), 'r') as f:
+#         X = f['X'][:,:]
+#         y = f['y'][:,:]
+#         list_AB = list(f['tasks'][:])
+#         sample_ids = f['sample_ids'][:]
+#         sample_genera = f['sample_genera'][:]
+#         sample_species = f['sample_species'][:]
 
-    y = map(lambda x: max(x,0),y)
-    print('check if y is the same!!')
-    data = Dataset(X, y, list_AB, sample_ids, sample_genera, sample_species)
-    data.check()
-    return data
+#     y = map(lambda x: max(x,0),y)
+#     print('check if y is the same!!')
+#     data = Dataset(X, y, list_AB, sample_ids, sample_genera, sample_species)
+#     data.check()
+#     return data
 
 
 def write_MaldiAIobject(datanames, 
@@ -162,30 +163,22 @@ class DataPreprocessing():
                     if self.verbose: print('\nAntibiotic names without match: {} {}'.format(new_ab-present_ab, present_ab-new_ab))
 
 
-
-            ##
-            ## still needs to be adjusted and cleaned
-            ##
-            # if name in ['KSBL','KSA','Viollier']:
-            #   print(name)
-            #   if name=='Aarau_PQN':
-            #       resist_dir='/links/groups/borgwardt/Data/ms_diagnostics/validation/Aarau/Aarau_IDRES_converted.csv'
-            #   elif name=='Madrid':
-            #       resist_dir='/links/groups/borgwardt/Data/ms_diagnostics/validation/Barcelona/Barcelona_IDRES_converted.csv'
-            #   else:
-            #       resist_dir='/links/groups/borgwardt/Data/ms_diagnostics/validation/{}/{}_IDRES_converted.csv'.format(name,name)
-
+            if name in ['KSBL','KSA','Viollier']:
+                if name == 'KSA':
+                    resist_dir='/links/groups/borgwardt/Data/ms_diagnostics/validation/Aarau/Aarau_IDRES_converted.csv'
+                else:
+                  resist_dir='/links/groups/borgwardt/Data/ms_diagnostics/validation/{}/{}_IDRES_converted.csv'.format(name,name)
                 
-            #   self.AMR_dict.update(utils.idres_metadata_validation(resist_dir))
-            #   self.AMR_ID = self.AMR_dict.keys()
+                self.AMR_dict.update(utils.idres_metadata_validation(resist_dir))
+                self.AMR_ID = self.AMR_dict.keys()
 
-            #   if self.list_AB == []:
-            #       self.list_AB = self.AMR_dict[self.AMR_ID[0]].list_AB
-            #   else:
-            #       present_ab = self.list_AB
-            #       new_ab = self.AMR_dict[self.AMR_ID[0]].list_AB
-            #       self.list_AB = list(set(present_ab).union(set(new_ab)))
-            #       print('\nAntibiotic names without match: {} {}'.format(set(new_ab)-set(present_ab), set(new_ab)-set(present_ab)))
+                if self.set_ab == set():
+                  self.set_ab = set(self.AMR_dict[self.AMR_ID[0]].list_AB)
+                else:
+                  present_ab = self.set_ab
+                  new_ab = set(self.AMR_dict[self.AMR_ID[0]].list_AB)
+                  self.set_ab = present_ab.intersection(new_ab)
+                  if self.verbose: print('\nAntibiotic names without match: {} {}'.format(new_ab-present_ab, present_ab-new_ab))
 
 
     def __match(self):

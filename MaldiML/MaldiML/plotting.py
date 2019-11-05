@@ -2,7 +2,7 @@
 # @Author: weisc
 # @Date:   2019-09-16 09:25:11
 # @Last Modified by:   weisc
-# @Last Modified time: 2019-10-01 10:55:54
+# @Last Modified time: 2019-11-05 09:46:41
 
 import numpy as np
 import scipy as sp
@@ -11,11 +11,11 @@ import seaborn as sns
 
 import os, xlrd, matplotlib, csv, re, six
 
-from MaldiAI_pub1.metrics       import *
-from MaldiAI_pub1.experiments   import *
-from MaldiAI_pub1.utils         import count_elements, anglicize_labels, shorten_labels, calc_pos_class_ratio, PosRatio_pval
-# from MaldiAI_pub1.utils import col_map as antibiotic2col_map
-from MaldiAI_pub1.utils import col_map_anglicize, col_map
+from .metrics       import *
+from .experiments   import *
+from .utils         import count_elements, anglicize_labels, shorten_labels, calc_pos_class_ratio, PosRatio_pval
+# from .utils import col_map as antibiotic2col_map
+from .utils import col_map_anglicize, col_map
 from string                     import ascii_letters
 from collections                import Counter, namedtuple
 from collections                import defaultdict as ddict
