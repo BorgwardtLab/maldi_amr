@@ -1,2 +1,2 @@
-# MaldiAI_pub1
-MaldiAI package used to run pipeline for pub1
+# MaldiML
+MaldiML package used to run pipeline (formerly named MaldiAI_pub1)
