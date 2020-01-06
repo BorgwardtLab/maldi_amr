@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: weisc
 # @Date:   2019-08-30 16:28:01
-# @Last Modified by:   weisc
-# @Last Modified time: 2019-11-05 12:56:51
+# @Last Modified by:   Caroline Weis
+# @Last Modified time: 2020-01-06 14:19:54
 
 
 import pickle
@@ -40,29 +40,6 @@ def read_MaldiAIobject(datanames,
     data = Dataset(X, y, list_AB, sample_ids, genus, species)
     data.check()
     return data
-
-
-# TODO: use hdf5 format instead of pickle
-
-# def read_MaldiAIhdf5(datanames, 
-#                    pickle_dir='/links/groups/borgwardt/Projects/maldi_tof_diagnostics/pub1/pickles/MaldiAIobjects/'):
-    
-#     if isinstance(datanames, list):
-#         datanames = datanames[0]
-
-#     with h5py.File(pickle_dir+'MaldiAIobject_{}_allbins.hdf5'.format(datanames), 'r') as f:
-#         X = f['X'][:,:]
-#         y = f['y'][:,:]
-#         list_AB = list(f['tasks'][:])
-#         sample_ids = f['sample_ids'][:]
-#         sample_genera = f['sample_genera'][:]
-#         sample_species = f['sample_species'][:]
-
-#     y = map(lambda x: max(x,0),y)
-#     print('check if y is the same!!')
-#     data = Dataset(X, y, list_AB, sample_ids, sample_genera, sample_species)
-#     data.check()
-#     return data
 
 
 def write_MaldiAIobject(datanames, 

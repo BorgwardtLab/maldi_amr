@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: weisc
 # @Date:   2019-09-17 13:02:55
-# @Last Modified by:   weisc
-# @Last Modified time: 2019-11-05 13:04:48
+# @Last Modified by:   Caroline Weis
+# @Last Modified time: 2020-01-06 13:25:11
 ## -*- coding: utf-8 -*-
 
 #-----------------------------------------------------------------------------
@@ -153,47 +153,47 @@ def read_maldi(spectra_dir, resist_dir, bin_size):
     return [all_bin_intesities, all_resistancies, all_fileid, names_reagents]
 
 
-# def read_and_bin_preprocessed_spectra(spectra_dir, bin_size, id_lower=1, id_upper=10, verbose=False):
-#     list_spectra = [g for g in os.listdir(spectra_dir) if not g.startswith('.')]
-#     d_spectra = {}
+def read_and_bin_preprocessed_spectra(spectra_dir, bin_size, id_lower=1, id_upper=10, verbose=False):
+    list_spectra = [g for g in os.listdir(spectra_dir) if not g.startswith('.')]
+    d_spectra = {}
 
 
-#     # go through all files in spectra directory
-#     for i,filename in enumerate(list_spectra):
-#         swapid = re.split('/',filename)[-1].replace('_spectraPreprocessed.txt', '')        
+    # go through all files in spectra directory
+    for i,filename in enumerate(list_spectra):
+        swapid = re.split('/',filename)[-1].replace('_spectraPreprocessed.txt', '')        
 
-#         # include for Aarau
-#         # swapid = '_'.join([swapid, re.split('/',filename)[-1].split('_')[1]])
+        # include for Aarau
+        # swapid = '_'.join([swapid, re.split('/',filename)[-1].split('_')[1]])
         
-#         if verbose: print('current sample ID: {}'.format(swapid))
+        if verbose: print('current sample ID: {}'.format(swapid))
 
-#         # check constraints for spectra id length
-#         if len(swapid)<id_lower or len(swapid)>id_upper:
-#             if verbose: print('SamplesID length out of bounds {} and {}. continue.'.format(id_lower, id_upper))
-#             continue
+        # check constraints for spectra id length
+        if len(swapid)<id_lower or len(swapid)>id_upper:
+            if verbose: print('SamplesID length out of bounds {} and {}. continue.'.format(id_lower, id_upper))
+            continue
 
-#         # read in data
-#         [mz, intensity] = read_single_spectra(spectra_dir, filename)
-#         if mz == [] or intensity == []:
-#             if verbose: print('Empty spectra file. continue.')
-#             continue
+        # read in data
+        [mz, intensity] = read_single_spectra(spectra_dir, filename)
+        if mz == [] or intensity == []:
+            if verbose: print('Empty spectra file. continue.')
+            continue
 
-#         # separate spectra into bins
-#         if len(mz) > 0:
-#             bin_intensities = bin_separation(mz, intensity, bin_size)
+        # separate spectra into bins
+        if len(mz) > 0:
+            bin_intensities = bin_separation(mz, intensity, bin_size)
 
-#             # add single spectra to full dataset
-#             # if all_bin_intesities == []:
-#             #     all_bin_intesities = bin_intensities[np.newaxis,:]
-#             # else:
-#             #     all_bin_intesities = np.r_[all_bin_intesities, bin_intensities[np.newaxis,:]]
+            # add single spectra to full dataset
+            # if all_bin_intesities == []:
+            #     all_bin_intesities = bin_intensities[np.newaxis,:]
+            # else:
+            #     all_bin_intesities = np.r_[all_bin_intesities, bin_intensities[np.newaxis,:]]
 
-#             d_spectra[swapid]=np.array(bin_intensities)
-#         else:
-#             if verbose: print('len(mz)!>0') 
-#     # all_bin_intesities = np.array(all_bin_intesities)
-#     # return [all_bin_intesities, all_fileid]
-#     return d_spectra
+            d_spectra[swapid]=np.array(bin_intensities)
+        else:
+            if verbose: print('len(mz)!>0') 
+    # all_bin_intesities = np.array(all_bin_intesities)
+    # return [all_bin_intesities, all_fileid]
+    return d_spectra
 
 
 # def save_binned_data(name, bin_size, all_bin_intesities, all_species = None):
