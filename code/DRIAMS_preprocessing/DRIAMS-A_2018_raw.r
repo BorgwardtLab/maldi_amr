@@ -17,10 +17,10 @@ options(warn=0)
 
 SINK_FILE = paste('./DRIAMS-A_2018_',Sys.Date(),'.log', sep='')
 
-sink(SINK_FILE, append=FALSE, split=FALSE)
+#sink(SINK_FILE, append=FALSE, split=FALSE)
 
 FID_DIR = '/links/groups/borgwardt/Data/ms_diagnostics/USB/spectra_folder_for_IDRES/2018/2018_m1/'
-OUT_DIR = '/links/groups/borgwardt/Data/DRIAMS/DRIAMS-A/raw/2018'
+OUT_DIR = '/links/groups/borgwardt/Data/DRIAMS/DRIAMS-A/raw/2018/'
 
 
 list_files = list.files(path=FID_DIR,pattern = "fid$", recursive = TRUE)
