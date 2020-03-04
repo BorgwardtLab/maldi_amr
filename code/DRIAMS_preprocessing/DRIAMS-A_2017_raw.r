@@ -13,9 +13,9 @@ options(warn=0)
 # define paths
 #########################################
 
-SINK_FILE = paste('./DRIAMS-A_2017_',Sys.Date(),'.log', sep='')
+SINK_FILE = paste('./log/DRIAMS-A_2017_',Sys.Date(),'.log', sep='')
 
-#sink(SINK_FILE, append=FALSE, split=FALSE)
+sink(SINK_FILE, append=FALSE, split=FALSE)
 
 FID_DIR = '/links/groups/borgwardt/Data/ms_diagnostics/USB/spectra_folder_for_IDRES/2017/2017_m1/'
 OUT_DIR = '/links/groups/borgwardt/Data/DRIAMS/DRIAMS-A/raw/2017/'
@@ -37,7 +37,7 @@ print(num_files)
 for (j in 1:length(list_files)){
 
     filename=paste(FID_DIR,list_files[j],sep="")
-    print(cat(c("\n", as.character(j), filename), sep="\n"))
+    cat(c("\n", as.character(j), filename), sep="\n")
 
     # get fileid
     spl = unlist(strsplit(list_files[j], "[/]"))
@@ -45,17 +45,25 @@ for (j in 1:length(list_files)){
     fileid = spl[which(idx==TRUE)-1]
     print(fileid)
 
-    if (nchar(fileid)<2){
-        print(fileid)
+    if (nchar(fileid)!=36){
+        print('Length fileid != 36')
         num_noid = num_noid+1
+        next
     }
 
     # Import fid files
     myspec = importBrukerFlex(filename, removeEmptySpectra=TRUE)
 
+    # Skip if spectra empty
+    if (length(myspec) == 0){
+        print('Spectra is empty')
+        num_noid = num_noid+1
+        next    
+    }
+
     rawMatrix <- data.frame(mass(myspec[[1]]),intensity(myspec[[1]]))
 
-    out_filename = paste(OUT_DIR,fileid,'_MALDI1_raw.txt',sep="")
+    out_filename = paste(OUT_DIR,fileid,'_MALDI1.txt',sep="")
     print(out_filename)
 
     # write file
@@ -86,7 +94,7 @@ print(num_files)
 for (j in 1:length(list_files)){
 
     filename=paste(FID_DIR,list_files[j],sep="")
-    print(cat(c("\n", as.character(j), filename), sep="\n"))
+    cat(c("\n", as.character(j), filename), sep="\n")
 
     # get fileid
     spl = unlist(strsplit(list_files[j], "[/]"))
@@ -94,17 +102,25 @@ for (j in 1:length(list_files)){
     fileid = spl[which(idx==TRUE)-1]
     print(fileid)
     
-    if (nchar(fileid)<2){
-        print(fileid)
+    if (nchar(fileid)!=36){
+        print('Length fileid != 36')
         num_noid = num_noid+1
+        next
     }
 
     # Import fid files
     myspec = importBrukerFlex(filename, removeEmptySpectra=TRUE)
 
+    # Skip if spectra empty
+    if (length(myspec) == 0){
+        print('Spectra is empty')
+        num_noid = num_noid+1
+        next    
+    }
+
     rawMatrix <- data.frame(mass(myspec[[1]]),intensity(myspec[[1]]))
 
-    out_filename = paste(OUT_DIR,fileid,'_MALDI2_raw.txt',sep="")
+    out_filename = paste(OUT_DIR,fileid,'_MALDI2.txt',sep="")
     print(out_filename)
 
     # write file
