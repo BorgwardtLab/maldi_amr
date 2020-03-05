@@ -105,7 +105,7 @@ if __name__ == '__main__':
         )
 
         # Bin spectra
-        bv = BinningVectorizer(100, min_bin=2000, max_bin=20000)
+        bv = BinningVectorizer(6000, min_bin=2000, max_bin=20000)
         X = bv.fit_transform(driams_dataset.X)
 
         # Stratified train--test split
@@ -175,6 +175,7 @@ if __name__ == '__main__':
             'seed': combination['seed'],
             'antibiotic': combination['antibiotic'],
             'species': combination['species'],
+            'best_params': grid_search.best_params_,
             'years': years,
             'y_score': y_score.tolist(),
             'y_pred': y_pred.tolist(),
