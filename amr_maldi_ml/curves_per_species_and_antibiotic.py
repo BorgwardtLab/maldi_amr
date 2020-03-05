@@ -102,7 +102,6 @@ if __name__ == '__main__':
                 combination['antibiotic'],
                 encoder=DRIAMSLabelEncoder(),
                 handle_missing_resistance_measurements='remove_if_all_missing',
-                nrows=1000,
         )
 
         # Bin spectra
