@@ -2,6 +2,7 @@
 
 import argparse
 import dotenv
+import json
 import os
 
 from maldi_learn.driams import DRIAMSDatasetExplorer
@@ -14,6 +15,9 @@ from maldi_learn.utilities import stratify_by_species_and_label
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import average_precision_score
+from sklearn.metrics import roc_auc_score
+from sklearn.model_selection import ParameterGrid
 
 dotenv.load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
@@ -29,6 +33,14 @@ if __name__ == '__main__':
     )
 
     args = parser.parse_args()
+
+    grid = ParameterGrid({
+        'species': ['Saureus', 'ecoli', 'Kpneu'],
+        'antibiotics': ['Cipro', 'Ceftriaxone', 'Amoxicillin'],
+    })
+
+    for combination in grid:
+        print(combination)
 
     explorer = DRIAMSDatasetExplorer(DRIAMS_ROOT)
 
@@ -47,6 +59,7 @@ if __name__ == '__main__':
                 antibiotics,
                 encoder=DRIAMSLabelEncoder(),
                 handle_missing_resistance_measurements='remove_if_all_missing',
+                nrows=2000,
     )
 
     # Bin spectra
@@ -54,7 +67,7 @@ if __name__ == '__main__':
     X = bv.fit_transform(driams_dataset.X)
 
     # Stratified train--test split
-    index_train, index_test = stratify_by_species_and_label(
+    train_index, test_index = stratify_by_species_and_label(
         driams_dataset.y,
         antibiotic='Ciprofloxacin'  # TODO: support more than one antibiotic
     )
@@ -62,9 +75,38 @@ if __name__ == '__main__':
     # Create labels
     y = driams_dataset.to_numpy('Ciprofloxacin')
 
-    # Fit the classifier
-    lr = LogisticRegression()
-    lr.fit(X[index_train], y[index_train])
-    y_pred = lr.predict(X[index_test])
+    X_train, y_train = X[train_index], y[train_index]
+    X_test, y_test = X[test_index], y[test_index]
 
-    print(accuracy_score(y_pred, y[index_test]))
+    # Fit the classifier and start calculating some summary metrics
+    lr = LogisticRegression()
+    lr.fit(X_train, y_train)
+    y_pred = lr.predict(X_test)
+    y_score = lr.predict_proba(X_test)
+
+    accuracy = accuracy_score(y_pred, y_test)
+    auprc = average_precision_score(y_test, y_score[:, 1], average='weighted')
+    auroc = roc_auc_score(y_test, y_score[:, 1], average='weighted')
+
+    # Prepare the output dictionary containing all information to
+    # reproduce the experiment.
+
+    output = {
+        'site': site,
+        'antibiotics': antibiotics,
+        'species': species,
+        'years': years,
+        'y_score': y_score.tolist(),
+        'y_pred': y_pred.tolist(),
+        'y_test': y_test.tolist(),
+        'accuracy': accuracy,
+        'aupprc': auprc,
+        'auroc': auroc,
+    }
+
+    print(json.dumps(
+        output,
+        indent=4
+    ))
+
+    # TODO: generate filename for input arguments
