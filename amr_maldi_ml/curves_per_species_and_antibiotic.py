@@ -51,7 +51,7 @@ if __name__ == '__main__':
 
     site = 'DRIAMS-A'
     years = ['2015', '2017']
-    _seeds = [123, 321]
+    _seeds = [344, 172, 188, 270, 35, 164, 545, 480, 89, 409]
 
     # Create the output directory for storing all results of the
     # individual combinations.
