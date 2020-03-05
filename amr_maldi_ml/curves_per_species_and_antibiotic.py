@@ -33,23 +33,24 @@ if __name__ == '__main__':
     )
 
     args = parser.parse_args()
-    
+
     site = 'DRIAMS-A'
     years = ['2015', '2017']
     _seeds = [123, 321]
 
     #  create param grid for experiments
     grid = ParameterGrid([
-        {'species': ['Escherichia coli'],
-        'antibiotics': ['Ciprofloxacin'],
-        'seed': _seeds,
+        {
+            'species': ['Escherichia coli'],
+            'antibiotics': ['Ciprofloxacin'],
+            'seed': _seeds,
         },
         {
-        'species': ['Staphylococcus aureus'],
-        'antibiotics': ['Ciprofloxacin', 
-                        'Ceftriaxone', 
-                        'Amoxicillin-Clavulanic acid'],
-        'seed': _seeds,
+            'species': ['Staphylococcus aureus'],
+            'antibiotics': ['Ciprofloxacin',
+                            'Ceftriaxone',
+                            'Amoxicillin-Clavulanic acid'],
+            'seed': _seeds,
         }
     ])
 
@@ -62,14 +63,14 @@ if __name__ == '__main__':
         print(combination)
 
         driams_dataset = load_driams_dataset(
-                    explorer.root,
-                    site,
-                    years,
-                    combination['species'],
-                    combination['antibiotics'],
-                    encoder=DRIAMSLabelEncoder(),
-                    handle_missing_resistance_measurements='remove_if_all_missing',
-                    nrows=2000,
+                explorer.root,
+                site,
+                years,
+                combination['species'],
+                combination['antibiotics'],
+                encoder=DRIAMSLabelEncoder(),
+                handle_missing_resistance_measurements='remove_if_all_missing',
+                nrows=2000,
         )
 
         # Bin spectra
