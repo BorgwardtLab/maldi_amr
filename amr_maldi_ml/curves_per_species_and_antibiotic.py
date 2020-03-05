@@ -62,14 +62,31 @@ if __name__ == '__main__':
     input_grid = ParameterGrid([
         {
             'species': ['Escherichia coli'],
-            'antibiotic': ['Ciprofloxacin'],
+            'antibiotic': ['Ciprofloxacin',
+                           'Amoxicillin-Clavulanic acid',
+                           'Ceftriaxone',
+                           'Tobramycin',
+                           'Piperacillin-Tazobactam',
+                           'Cefepime'],
+            'seed': _seeds,
+        },
+        {
+            'species': ['Klebsiella pneumoniae'],
+            'antibiotic': ['Ciprofloxacin',
+                           'Amoxicillin-Clavulanic acid',
+                           'Ceftriaxone',
+                           'Tobramycin',
+                           'Piperacillin-Tazobactam',
+                           'Meropenem',
+                           'Cefepime'],
             'seed': _seeds,
         },
         {
             'species': ['Staphylococcus aureus'],
             'antibiotic': ['Ciprofloxacin',
-                           'Ceftriaxone',
-                           'Amoxicillin-Clavulanic acid'],
+                           'Penicillin',
+                           'Oxacillin',
+                           'Fusidic acid'],
             'seed': _seeds,
         }
     ])
