@@ -85,7 +85,7 @@ if __name__ == '__main__':
                 combination['antibiotic'],
                 encoder=DRIAMSLabelEncoder(),
                 handle_missing_resistance_measurements='remove_if_all_missing',
-                nrows=400,
+                nrows=1000,
         )
 
         # Bin spectra
@@ -176,4 +176,8 @@ if __name__ == '__main__':
         # file does not yet exist.
         if not os.path.exists(output_filename) or args.force:
             with open(output_filename, 'w') as f:
-                json.dump(output, f)
+                json.dump(output, f, indent=4)
+        else:
+            warnings.warn(
+                f'Skipping {output_filename} because it already exists.'
+            )
