@@ -45,7 +45,7 @@ if __name__ == '__main__':
         'seed': _seeds,
         },
         {
-        'species': ['Staphyloccous aureus'],
+        'species': ['Staphylococcus aureus'],
         'antibiotics': ['Ciprofloxacin', 
                         'Ceftriaxone', 
                         'Amoxicillin-Clavulanic acid'],
@@ -79,7 +79,7 @@ if __name__ == '__main__':
         # Stratified train--test split
         train_index, test_index = stratify_by_species_and_label(
             driams_dataset.y,
-            antibiotic='Ciprofloxacin',  # TODO: support more than one antibiotic
+            antibiotic=combination['antibiotics'],  # TODO: support more than one antibiotic
             random_state=combination['seed'],
         )
 
