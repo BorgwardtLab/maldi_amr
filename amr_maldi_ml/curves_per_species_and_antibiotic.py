@@ -4,6 +4,7 @@ import argparse
 import dotenv
 import json
 import os
+import warnings
 
 import numpy as np
 
@@ -15,6 +16,7 @@ from maldi_learn.driams import load_driams_dataset
 from maldi_learn.vectorization import BinningVectorizer
 from maldi_learn.utilities import stratify_by_species_and_label
 
+from sklearn.exceptions import ConvergenceWarning
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import average_precision_score
@@ -96,11 +98,11 @@ if __name__ == '__main__':
 
         param_grid = [
             {
-                'lr__C': 10.0 ** np.arange(-3, 4),  # 10^{-3}..10^{3}
-                'lr__penalty': ['l1', 'l2'],
+                'C': 10.0 ** np.arange(-3, 4),  # 10^{-3}..10^{3}
+                'penalty': ['l1', 'l2'],
             },
             {
-                'lr__penalty': ['none'],
+                'penalty': ['none'],
             }
         ]
 
@@ -109,7 +111,7 @@ if __name__ == '__main__':
         # Fit the classifier and start calculating some summary metrics.
         # All of this is wrapped in cross-validation based on the grid
         # defined above.
-        lr = LogisticRegression(solver='saga')
+        lr = LogisticRegression(solver='saga', max_iter=500)
         grid_search = GridSearchCV(
                         lr,
                         param_grid=param_grid,
@@ -117,7 +119,16 @@ if __name__ == '__main__':
                         scoring='roc_auc'
         )
 
-        grid_search.fit(X_train, y_train)
+        # Ignore these warnings only for the grid search process. The
+        # reason is that some of the jobs will inevitably *fail* to
+        # converge because of bad `C` values. We are not interested in
+        # them anyway.
+        with warnings.catch_warnings():
+            warnings.filterwarnings('ignore', category=ConvergenceWarning)
+            warnings.filterwarnings('ignore', category=UserWarning)
+
+            grid_search.fit(X_train, y_train)
+
         y_pred = grid_search.predict(X_test)
         y_score = grid_search.predict_proba(X_test)
 
