@@ -88,6 +88,8 @@ for (j in 1:length(list_files)){
     writeLines(paste("# ", fileid), file_con)
     write.table(spectraMatrix, file_con, sep=" ", row.names=FALSE)
     num_processed = num_processed+1
+    flush(file_con)
+    close(file_con)
 }
 
 
