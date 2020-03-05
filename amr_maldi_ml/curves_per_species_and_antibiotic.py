@@ -142,7 +142,7 @@ if __name__ == '__main__':
                         param_grid=param_grid,
                         cv=n_folds,
                         scoring='roc_auc',
-                        njobs=24,
+                        n_jobs=24,
         )
 
         # Ignore these warnings only for the grid search process. The
