@@ -9,6 +9,8 @@ import warnings
 
 import numpy as np
 
+from utilities import generate_output_filename
+
 from maldi_learn.driams import DRIAMSDatasetExplorer
 from maldi_learn.driams import DRIAMSLabelEncoder
 
@@ -51,6 +53,10 @@ if __name__ == '__main__':
     years = ['2015', '2017']
     _seeds = [123, 321]
 
+    # Create the output directory for storing all results of the
+    # individual combinations.
+    os.makedirs(args.output, exist_ok=True)
+
     # Create input grid for the subsequent experiments. Not all
     # combinations are useful, hence we specify them in a list.
     input_grid = ParameterGrid([
@@ -76,10 +82,10 @@ if __name__ == '__main__':
                 site,
                 years,
                 combination['species'],
-                combination['antibiotics'],
+                combination['antibiotic'],
                 encoder=DRIAMSLabelEncoder(),
                 handle_missing_resistance_measurements='remove_if_all_missing',
-                nrows=2000,
+                nrows=400,
         )
 
         # Bin spectra
@@ -89,12 +95,12 @@ if __name__ == '__main__':
         # Stratified train--test split
         train_index, test_index = stratify_by_species_and_label(
             driams_dataset.y,
-            antibiotic=combination['antibiotics'],  # TODO: support more than one antibiotic
+            antibiotic=combination['antibiotic'],
             random_state=combination['seed'],
         )
 
         # Create labels
-        y = driams_dataset.to_numpy(combination['antibiotics'])
+        y = driams_dataset.to_numpy(combination['antibiotic'])
 
         X_train, y_train = X[train_index], y[train_index]
         X_test, y_test = X[test_index], y[test_index]
@@ -161,10 +167,13 @@ if __name__ == '__main__':
             'auroc': auroc,
         }
 
-        print(json.dumps(
-            output,
-            indent=4
-        ))
+        output_filename = generate_output_filename(
+            args.output,
+            output
+        )
 
-        # TODO: generate filename for input arguments
-        # TODO: store output
+        # Only write if we either are running in `force` mode, or the
+        # file does not yet exist.
+        if not os.path.exists(output_filename) or args.force:
+            with open(output_filename, 'w') as f:
+                json.dump(output, f)
