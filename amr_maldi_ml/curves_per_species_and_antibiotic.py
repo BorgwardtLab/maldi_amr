@@ -3,6 +3,7 @@
 import argparse
 import dotenv
 import json
+import logging
 import pathlib
 import os
 import warnings
@@ -32,6 +33,14 @@ DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
 
 
 if __name__ == '__main__':
+
+    # Basic log configuration to ensure that we see where the process
+    # spends most of its time.
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s %(message)s'
+    )
+
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
@@ -56,6 +65,10 @@ if __name__ == '__main__':
     # Create the output directory for storing all results of the
     # individual combinations.
     os.makedirs(args.output, exist_ok=True)
+
+    logging.info(f'Site: {site}')
+    logging.info(f'Years: {years}')
+    logging.info(f'Seeds: {_seeds}')
 
     # Create input grid for the subsequent experiments. Not all
     # combinations are useful, hence we specify them in a list.
@@ -93,20 +106,38 @@ if __name__ == '__main__':
 
     explorer = DRIAMSDatasetExplorer(DRIAMS_ROOT)
 
+    # How many jobs to use to run this experiment. Should be made
+    # configurable ideally.
+    n_jobs = 24
+
     for combination in input_grid:
+
+        species = combination['species']
+        antibiotic = combination['antibiotic']
+
         driams_dataset = load_driams_dataset(
                 explorer.root,
                 site,
                 years,
-                combination['species'],
-                combination['antibiotic'],
+                species=species,
+                antibiotics=antibiotic,  # Only a single one for this run
                 encoder=DRIAMSLabelEncoder(),
                 handle_missing_resistance_measurements='remove_if_all_missing',
         )
 
+        logging.info(f'Loaded data set for {species} and {antibiotic}')
+
         # Bin spectra
-        bv = BinningVectorizer(6000, min_bin=2000, max_bin=20000)
+        bv = BinningVectorizer(
+                6000,
+                min_bin=2000,
+                max_bin=20000,
+                n_jobs=n_jobs,
+            )
+
         X = bv.fit_transform(driams_dataset.X)
+
+        logging.info('Finished vectorisation')
 
         # Stratified train--test split
         train_index, test_index = stratify_by_species_and_label(
@@ -142,7 +173,7 @@ if __name__ == '__main__':
                         param_grid=param_grid,
                         cv=n_folds,
                         scoring='roc_auc',
-                        n_jobs=24,
+                        n_jobs=n_jobs,
         )
 
         # Ignore these warnings only for the grid search process. The
@@ -193,9 +224,11 @@ if __name__ == '__main__':
         # Only write if we either are running in `force` mode, or the
         # file does not yet exist.
         if not os.path.exists(output_filename) or args.force:
+            logging.info(f'Saving {os.path.basename(output_filename)}')
+
             with open(output_filename, 'w') as f:
                 json.dump(output, f, indent=4)
         else:
-            warnings.warn(
+            logging.warning(
                 f'Skipping {output_filename} because it already exists.'
             )
