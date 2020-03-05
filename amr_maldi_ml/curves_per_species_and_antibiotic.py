@@ -33,80 +33,91 @@ if __name__ == '__main__':
     )
 
     args = parser.parse_args()
+    
+    site = 'DRIAMS-A'
+    years = ['2015', '2017']
+    _seeds = [123, 321]
 
-    grid = ParameterGrid({
-        'species': ['Saureus', 'ecoli', 'Kpneu'],
-        'antibiotics': ['Cipro', 'Ceftriaxone', 'Amoxicillin'],
-    })
-
-    for combination in grid:
-        print(combination)
+    #  create param grid for experiments
+    grid = ParameterGrid([
+        {'species': ['Escherichia coli'],
+        'antibiotics': ['Ciprofloxacin'],
+        'seed': _seeds,
+        },
+        {
+        'species': ['Staphyloccous aureus'],
+        'antibiotics': ['Ciprofloxacin', 
+                        'Ceftriaxone', 
+                        'Amoxicillin-Clavulanic acid'],
+        'seed': _seeds,
+        }
+    ])
 
     explorer = DRIAMSDatasetExplorer(DRIAMS_ROOT)
 
     # Set of default parameters; should be made adjustable for running
     # the comparison at larger scales.
-    site = 'DRIAMS-A'
-    years = ['2015', '2017']
-    species = 'Staphylococcus aureus'
-    antibiotics = ['Ciprofloxacin', 'Penicillin.ohne.Meningitis']
 
-    driams_dataset = load_driams_dataset(
-                explorer.root,
-                site,
-                years,
-                species,
-                antibiotics,
-                encoder=DRIAMSLabelEncoder(),
-                handle_missing_resistance_measurements='remove_if_all_missing',
-                nrows=2000,
-    )
+    for combination in grid:
+        print(combination)
 
-    # Bin spectra
-    bv = BinningVectorizer(100, min_bin=2000, max_bin=20000)
-    X = bv.fit_transform(driams_dataset.X)
+        driams_dataset = load_driams_dataset(
+                    explorer.root,
+                    site,
+                    years,
+                    combination['species'],
+                    combination['antibiotics'],
+                    encoder=DRIAMSLabelEncoder(),
+                    handle_missing_resistance_measurements='remove_if_all_missing',
+                    nrows=2000,
+        )
 
-    # Stratified train--test split
-    train_index, test_index = stratify_by_species_and_label(
-        driams_dataset.y,
-        antibiotic='Ciprofloxacin'  # TODO: support more than one antibiotic
-    )
+        # Bin spectra
+        bv = BinningVectorizer(100, min_bin=2000, max_bin=20000)
+        X = bv.fit_transform(driams_dataset.X)
 
-    # Create labels
-    y = driams_dataset.to_numpy('Ciprofloxacin')
+        # Stratified train--test split
+        train_index, test_index = stratify_by_species_and_label(
+            driams_dataset.y,
+            antibiotic='Ciprofloxacin',  # TODO: support more than one antibiotic
+            random_state=combination['seed'],
+        )
 
-    X_train, y_train = X[train_index], y[train_index]
-    X_test, y_test = X[test_index], y[test_index]
+        # Create labels
+        y = driams_dataset.to_numpy(combination['antibiotics'])
 
-    # Fit the classifier and start calculating some summary metrics
-    lr = LogisticRegression()
-    lr.fit(X_train, y_train)
-    y_pred = lr.predict(X_test)
-    y_score = lr.predict_proba(X_test)
+        X_train, y_train = X[train_index], y[train_index]
+        X_test, y_test = X[test_index], y[test_index]
 
-    accuracy = accuracy_score(y_pred, y_test)
-    auprc = average_precision_score(y_test, y_score[:, 1], average='weighted')
-    auroc = roc_auc_score(y_test, y_score[:, 1], average='weighted')
+        # Fit the classifier and start calculating some summary metrics
+        lr = LogisticRegression()
+        lr.fit(X_train, y_train)
+        y_pred = lr.predict(X_test)
+        y_score = lr.predict_proba(X_test)
 
-    # Prepare the output dictionary containing all information to
-    # reproduce the experiment.
+        accuracy = accuracy_score(y_pred, y_test)
+        auprc = average_precision_score(y_test, y_score[:, 1], average='weighted')
+        auroc = roc_auc_score(y_test, y_score[:, 1], average='weighted')
 
-    output = {
-        'site': site,
-        'antibiotics': antibiotics,
-        'species': species,
-        'years': years,
-        'y_score': y_score.tolist(),
-        'y_pred': y_pred.tolist(),
-        'y_test': y_test.tolist(),
-        'accuracy': accuracy,
-        'aupprc': auprc,
-        'auroc': auroc,
-    }
+        # Prepare the output dictionary containing all information to
+        # reproduce the experiment.
 
-    print(json.dumps(
-        output,
-        indent=4
-    ))
+        output = {
+            'site': site,
+            'antibiotics': combination['antibiotics'],
+            'species': combination['species'],
+            'years': years,
+            'y_score': y_score.tolist(),
+            'y_pred': y_pred.tolist(),
+            'y_test': y_test.tolist(),
+            'accuracy': accuracy,
+            'aupprc': auprc,
+            'auroc': auroc,
+        }
+
+        print(json.dumps(
+            output,
+            indent=4
+        ))
 
     # TODO: generate filename for input arguments
