@@ -3,6 +3,7 @@
 import argparse
 import dotenv
 import json
+import pathlib
 import os
 import warnings
 
@@ -32,9 +33,16 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        '-A', '--all',
+        '-o', '--output',
+        default=pathlib.Path(__file__).resolve().parent.parent / 'results',
+        type=str,
+        help='Output path for storing the results.'
+    )
+
+    parser.add_argument(
+        '-f', '--force',
         action='store_true',
-        help='If specified, use *all* available antibiotics and species.'
+        help='If set, overwrites all files. Else, skips existing files.'
     )
 
     args = parser.parse_args()
@@ -48,26 +56,21 @@ if __name__ == '__main__':
     input_grid = ParameterGrid([
         {
             'species': ['Escherichia coli'],
-            'antibiotics': ['Ciprofloxacin'],
+            'antibiotic': ['Ciprofloxacin'],
             'seed': _seeds,
         },
         {
             'species': ['Staphylococcus aureus'],
-            'antibiotics': ['Ciprofloxacin',
-                            'Ceftriaxone',
-                            'Amoxicillin-Clavulanic acid'],
+            'antibiotic': ['Ciprofloxacin',
+                           'Ceftriaxone',
+                           'Amoxicillin-Clavulanic acid'],
             'seed': _seeds,
         }
     ])
 
     explorer = DRIAMSDatasetExplorer(DRIAMS_ROOT)
 
-    # Set of default parameters; should be made adjustable for running
-    # the comparison at larger scales.
-
     for combination in input_grid:
-        print(combination)
-
         driams_dataset = load_driams_dataset(
                 explorer.root,
                 site,
@@ -147,7 +150,7 @@ if __name__ == '__main__':
         output = {
             'site': site,
             'seed': combination['seed'],
-            'antibiotics': combination['antibiotics'],
+            'antibiotic': combination['antibiotic'],
             'species': combination['species'],
             'years': years,
             'y_score': y_score.tolist(),
