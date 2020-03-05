@@ -1,11 +1,10 @@
-"""
-"""
+"""Calculate performance curves for species--antitbiotic combinations."""
 
+import argparse
 import dotenv
 import os
 
 from maldi_learn.driams import DRIAMSDatasetExplorer
-from maldi_learn.driams import DRIAMSDataset
 from maldi_learn.driams import DRIAMSLabelEncoder
 
 from maldi_learn.driams import load_driams_dataset
@@ -18,36 +17,55 @@ from sklearn.metrics import accuracy_score
 
 dotenv.load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
-       
-explorer = DRIAMSDatasetExplorer(DRIAMS_ROOT)
 
 
-driams_dataset = load_driams_dataset(
-            explorer.root,
-            'DRIAMS-A',
-            ['2015', '2017'],
-            'Staphylococcus aureus',
-            ['Ciprofloxacin', 'Penicillin.ohne.Meningitis'],
-            encoder=DRIAMSLabelEncoder(),
-            handle_missing_resistance_measurements='remove_if_all_missing',
-)
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
 
+    parser.add_argument(
+        '-A', '--all',
+        type=bool,
+        action='store_true',
+        help='If specified, use *all* available antibiotics and species.'
+    )
 
-# bin spectra
-bv = BinningVectorizer(100, min_bin=2000, max_bin=20000)
-X = bv.fit_transform(driams_dataset.X)
+    args = parser.parse_args()
 
-# train-test split
-index_train, index_test = stratify_by_species_and_label(driams_dataset.y, antibiotic='Ciprofloxacin')
-print(index_train)
-print(index_test)
+    explorer = DRIAMSDatasetExplorer(DRIAMS_ROOT)
 
-y = driams_dataset.to_numpy('Ciprofloxacin')
-print(y[index_train].dtype)
-print(X[index_train].shape)
+    # Set of default parameters; should be made adjustable for running
+    # the comparison at larger scales.
+    site = 'DRIAMS-A'
+    years = ['2015', '2017']
+    species = 'Staphylococcus aureus'
+    antibiotics = ['Ciprofloxacin', 'Penicillin.ohne.Meningitis']
 
-lr = LogisticRegression()
-lr.fit(X[index_train], y[index_train])
-y_pred = lr.predict(X[index_test])
+    driams_dataset = load_driams_dataset(
+                explorer.root,
+                site,
+                years,
+                species,
+                antibiotics,
+                encoder=DRIAMSLabelEncoder(),
+                handle_missing_resistance_measurements='remove_if_all_missing',
+    )
 
-print(accuracy_score(y_pred, y[index_test]))
+    # Bin spectra
+    bv = BinningVectorizer(100, min_bin=2000, max_bin=20000)
+    X = bv.fit_transform(driams_dataset.X)
+
+    # Stratified train--test split
+    index_train, index_test = stratify_by_species_and_label(
+        driams_dataset.y,
+        antibiotic='Ciprofloxacin'  # TODO: support more than one antibiotic
+    )
+
+    # Create labels
+    y = driams_dataset.to_numpy('Ciprofloxacin')
+
+    # Fit the classifier
+    lr = LogisticRegression()
+    lr.fit(X[index_train], y[index_train])
+    y_pred = lr.predict(X[index_test])
+
+    print(accuracy_score(y_pred, y[index_test]))
