@@ -24,7 +24,6 @@ if __name__ == '__main__':
 
     parser.add_argument(
         '-A', '--all',
-        type=bool,
         action='store_true',
         help='If specified, use *all* available antibiotics and species.'
     )
