@@ -119,7 +119,7 @@ def _run_experiment(
         warnings.filterwarnings('ignore', category=ConvergenceWarning)
         warnings.filterwarnings('ignore', category=UserWarning)
 
-        with joblib.parallel_backend('loky', n_jobs):
+        with joblib.parallel_backend('threading', n_jobs):
             grid_search.fit(X_train, y_train)
 
     y_pred = grid_search.predict(X_test)
@@ -229,7 +229,11 @@ if __name__ == '__main__':
 
     logging.info(f'Site: {site}')
     logging.info(f'Years: {years}')
-    logging.info(f'Seeds: {seeds}')
+
+    if args.seed:
+        logging.info(f'Seed: {args.seed}')
+    else:
+        logging.info(f'Seeds: {seeds}')
 
     # Create input grid for the subsequent experiments. Not all
     # combinations are useful, hence we specify them in a list.
