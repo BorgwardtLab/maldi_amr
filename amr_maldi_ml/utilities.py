@@ -9,7 +9,7 @@ def _encode(s):
     return s.replace(' ', '_')
 
 
-def generate_output_filename(root, data):
+def generate_output_filename(root, data, suffix=None):
     """Generate output filename for dictionary.
 
     Given a root folder for storing output files, creates a filename
@@ -23,6 +23,11 @@ def generate_output_filename(root, data):
     data : dict
         Data dictionary; containing a few required keys, such as
         `antibiotic`, and many optional ones.
+
+    suffix : str, optional
+        Contains a suffix that is appended to the filename before the
+        extension. This is useful when describing certain experiments
+        that cannot be fully described by `data`.
 
     Returns
     -------
@@ -39,7 +44,14 @@ def generate_output_filename(root, data):
     site = data['site']
 
     filename = f'Site_{site}_' \
-               f'Species_{species}_Antibiotic_{antibiotic}_Seed_{seed}.json'
+               f'Species_{species}_Antibiotic_{antibiotic}_Seed_{seed}'
+
+    # Ensures that the suffix is only added if it exists. Else, we will
+    # add spurious underscores.
+    if suffix:
+        filename += f'_{suffix}'
+
+    filename += '.json'
     filename = os.path.join(root, filename)
 
     return filename

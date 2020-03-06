@@ -112,7 +112,7 @@ if __name__ == '__main__':
         # need to be created once.
         y = driams_dataset.to_numpy(antibiotic)
 
-        for X in [X_species, X_spectra]:
+        for X, t in zip([X_species, X_spectra], ['no_spectra', '']):
             X_train, y_train = X[train_index], y[train_index]
             X_test, y_test = X[test_index], y[test_index]
 
@@ -182,7 +182,8 @@ if __name__ == '__main__':
 
             output_filename = generate_output_filename(
                 output_path,
-                output
+                output,
+                suffix=t
             )
 
             # Only write if we either are running in `force` mode, or the
