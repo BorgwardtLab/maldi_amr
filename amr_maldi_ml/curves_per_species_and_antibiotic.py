@@ -57,7 +57,6 @@ def _run_experiment(
             antibiotics=antibiotic,  # Only a single one for this run
             encoder=DRIAMSLabelEncoder(),
             handle_missing_resistance_measurements='remove_if_all_missing',
-            nrows=1000,
     )
 
     logging.info(f'Loaded data set for {species} and {antibiotic}')
