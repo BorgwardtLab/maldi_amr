@@ -82,7 +82,7 @@ def _run_experiment(
     )
 
     # Create labels
-    y = driams_dataset.to_numpy(combination['antibiotic'])
+    y = driams_dataset.to_numpy(antibiotic)
 
     X_train, y_train = X[train_index], y[train_index]
     X_test, y_test = X[test_index], y[test_index]
@@ -139,9 +139,9 @@ def _run_experiment(
 
     output = {
         'site': site,
-        'seed': combination['seed'],
-        'antibiotic': combination['antibiotic'],
-        'species': combination['species'],
+        'seed': seed,
+        'antibiotic': antibiotic,
+        'species': species,
         'best_params': grid_search.best_params_,
         'years': years,
         'y_score': y_score.tolist(),
@@ -276,7 +276,13 @@ if __name__ == '__main__':
     # configurable ideally.
     n_jobs = 24
 
+    # Run all combinations and ignore everything else. Other arguments
+    # may be supplied, but we will not use them.
     if args.all:
+
+        logging.info('Running all experiments for pre-defined grid.')
+        logging.info('Ignoring *all* other parameters.')
+
         for combination in input_grid:
             species = combination['species']
             antibiotic = combination['antibiotic']
@@ -291,3 +297,19 @@ if __name__ == '__main__':
                 args.force,
                 n_jobs
             )
+    # Run a specific experiment: species, antibiotic, and seed have to
+    # be specified.
+    else:
+        assert args.species is not None 
+        assert args.antibiotic is not None
+        assert args.seed is not None
+
+        _run_experiment(
+            explorer.root,
+            args.species,
+            args.antibiotic,
+            args.seed,
+            args.output,
+            args.force,
+            n_jobs
+        )
