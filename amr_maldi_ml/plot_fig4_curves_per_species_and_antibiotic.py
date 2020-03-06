@@ -16,6 +16,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from sklearn.metrics import roc_curve, roc_auc_score, precision_recall_curve, average_precision_score
+from maldi_learn.metrics import very_major_error_score, major_error_score, vme_curve, vme_auc_score
+from utilities import maldi_col_map
 
 def plot_figure4(args):
 
@@ -53,7 +55,6 @@ def plot_figure4(args):
     # subset dataframe only relevant entries
     content = content.query('species==@args.species') 
     content = content.query('antibiotic==@args.antibiotic') 
-    print(content)
 
     # extract y_test and y_score from json files
     y_score_total = []
@@ -70,7 +71,8 @@ def plot_figure4(args):
     # ------------
     sns.set(style="whitegrid")
     fig, ax = plt.subplots(1, 3, figsize=(30,10))
-    
+    col_ab = maldi_col_map[args.antibiotic]
+ 
     # ------------
     # panel1: ROC curve
     # ------------
@@ -80,30 +82,31 @@ def plot_figure4(args):
     # TODO add zero to string of AUROC does not have 3 digits after comma
     lab = args.antibiotic + ' ' + str(rocauc)
 
-    ax[0].plot(fpr, tpr, linewidth=3.0)
+    ax[0].plot(fpr, tpr, color=col_ab, label=lab, linewidth=3.0)
     ax[0].plot([0, 1], [0, 1], color='black', linestyle='--')
 
     # ------------
     # panel2: PRAUC-1 curve
     # ------------
     precision, recall, thresholds = precision_recall_curve(y_test_total, y_score_total)
+    #TODO did we use weighted average in the main scripts?
     prauc = round(average_precision_score(y_test_total, y_score_total, average='weighted'), 3)
 
     lab = args.antibiotic + 'AUPRC: ' + str(prauc)
 
-    ax[1].step(recall, precision, alpha=1.0, where='post', linewidth=3.0)
+    ax[1].step(recall, precision, color=col_ab, alpha=1.0, where='post', linewidth=3.0)
 
     # ------------
     # panel3: VME curve
     # ------------
-    #vme, me_inv, thresholds = vme_auc_curve(list_ytrue[i], list_yprob[i])
-    #me = 1-me_inv
-    #vme_score = round(vme_auc_score(list_ytrue[i], list_yprob[i]),3)
+    vme, me_inv, thresholds = vme_curve(y_test_total, y_score_total)
+    me = 1-me_inv
+    vme_score = round(vme_auc_score(y_test_total, y_score_total),3)
     #pretty_vme = [str(pr)+'0' if len(str(pr))==3 else str(pr) for pr in [vme_score]]
 
-    #lab = lab+'AUVME: '+pretty_vme[0]
+    lab = args.antibiotic + 'AUVME: ' + str(vme_score)
 
-    #ax[2].step(vme, me, color=col, label=lab, alpha=1.0, where='post', linewidth=3.0)
+    ax[2].step(vme, me, color=col_ab, label=lab, alpha=1.0, where='post', linewidth=3.0)
 
 
     # ------------
@@ -115,7 +118,7 @@ def plot_figure4(args):
     ax[1].set_ylabel('Precision')
     ax[2].set_xlabel('Very major error')
     ax[2].set_ylabel('Major error')
-    #ax[0].legend(bbox_to_anchor=(0.99, 0.01), loc='lower right', prop={'family': 'DejaVu Sans Mono', 'size': 15})
+    ax[0].legend(bbox_to_anchor=(0.99, 0.01), loc='lower right', prop={'family': 'DejaVu Sans Mono', 'size': 15})
     #ax[1].legend(bbox_to_anchor=(0.01, 0.01), loc='lower left', prop={'family': 'DejaVu Sans Mono', 'size': 15})
     #ax[2].legend(bbox_to_anchor=(0.99, 0.99), loc='upper right', prop={'family': 'DejaVu Sans Mono', 'size': 15})
 
