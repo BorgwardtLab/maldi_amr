@@ -23,6 +23,7 @@ def plot_figure4(args):
 
     PATH_fig4 = '/links/groups/borgwardt/Projects/maldi_tof_diagnostics/amr_maldi_ml/results/fig4_curves_per_species_and_antibiotics/'
 
+    # TODO adjust plotting script for multiple antibiotics
 
     # create dataframe giving an overview of all files in path
     file_list = []
@@ -72,39 +73,54 @@ def plot_figure4(args):
     sns.set(style="whitegrid")
     fig, ax = plt.subplots(1, 3, figsize=(30,10))
     col_ab = maldi_col_map[args.antibiotic]
- 
+    antibiotic = args.antibiotic
+
+
     # ------------
     # panel1: ROC curve
     # ------------
     fpr, tpr, thresholds = roc_curve(y_test_total, y_score_total)
     rocauc = round(roc_auc_score(y_test_total, y_score_total), 3)
 
-    # TODO add zero to string of AUROC does not have 3 digits after comma
-    lab = args.antibiotic + ' ' + str(rocauc)
+    # add zero to string of AUROC if the value does not have 3 digits after comma
+    pretty_rocauc = [str(roc)+'0' if len(str(roc)) in [3,4] else str(roc) for roc in [rocauc]]
+    lab = '{}\t'.format(antibiotic).expandtabs()
+    if len(lab)<=15:
+        lab = '{}\t\t'.format(antibiotic).expandtabs()
+    lab = lab+'AUROC: '+pretty_rocauc[0]
 
     ax[0].plot(fpr, tpr, color=col_ab, label=lab, linewidth=3.0)
     ax[0].plot([0, 1], [0, 1], color='black', linestyle='--')
 
     # ------------
-    # panel2: PRAUC-1 curve
+    # panel2: PRAUC curve
     # ------------
     precision, recall, thresholds = precision_recall_curve(y_test_total, y_score_total)
     #TODO did we use weighted average in the main scripts?
     prauc = round(average_precision_score(y_test_total, y_score_total, average='weighted'), 3)
 
-    lab = args.antibiotic + 'AUPRC: ' + str(prauc)
+    # add zero to string of AUPRC if the value does not have 3 digits after comma
+    pretty_prauc = [str(pr)+'0' if len(str(pr)) in [3,4] else str(pr) for pr in [prauc]]
+    lab = '{}\t'.format(antibiotic).expandtabs()
+    if len(lab)<=15:
+        lab = '{}\t\t'.format(antibiotic).expandtabs()
+    lab = lab+'AUPRC: '+pretty_prauc[0]
 
-    ax[1].step(recall, precision, color=col_ab, alpha=1.0, where='post', linewidth=3.0)
+    ax[1].step(recall, precision, color=col_ab, label=lab, alpha=1.0, where='post', linewidth=3.0)
 
     # ------------
     # panel3: VME curve
     # ------------
+    # TODO check all functions for mistakes regarding the class label change
     vme, me_inv, thresholds = vme_curve(y_test_total, y_score_total)
     me = 1-me_inv
     vme_score = round(vme_auc_score(y_test_total, y_score_total),3)
-    #pretty_vme = [str(pr)+'0' if len(str(pr))==3 else str(pr) for pr in [vme_score]]
+    pretty_vme = [str(pr)+'0' if len(str(pr))==3 else str(pr) for pr in [vme_score]]
 
-    lab = args.antibiotic + 'AUVME: ' + str(vme_score)
+    lab = '{}\t'.format(antibiotic).expandtabs()
+    if len(lab)<=15:
+        lab = '{}\t\t'.format(antibiotic).expandtabs()
+    lab = lab+'AUVME: '+pretty_vme[0]
 
     ax[2].step(vme, me, color=col_ab, label=lab, alpha=1.0, where='post', linewidth=3.0)
 
@@ -119,8 +135,8 @@ def plot_figure4(args):
     ax[2].set_xlabel('Very major error')
     ax[2].set_ylabel('Major error')
     ax[0].legend(bbox_to_anchor=(0.99, 0.01), loc='lower right', prop={'family': 'DejaVu Sans Mono', 'size': 15})
-    #ax[1].legend(bbox_to_anchor=(0.01, 0.01), loc='lower left', prop={'family': 'DejaVu Sans Mono', 'size': 15})
-    #ax[2].legend(bbox_to_anchor=(0.99, 0.99), loc='upper right', prop={'family': 'DejaVu Sans Mono', 'size': 15})
+    ax[1].legend(bbox_to_anchor=(0.01, 0.01), loc='lower left', prop={'family': 'DejaVu Sans Mono', 'size': 15})
+    ax[2].legend(bbox_to_anchor=(0.99, 0.99), loc='upper right', prop={'family': 'DejaVu Sans Mono', 'size': 15})
 
     ax[0].set_xlim([-0.01,1.0])
     ax[0].set_ylim([0.0,1.01])
