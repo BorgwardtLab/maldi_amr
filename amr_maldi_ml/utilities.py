@@ -4,6 +4,11 @@
 import os
 
 
+def _encode(s):
+    """Encode string for filename generation."""
+    return s.replace(' ', '_')
+
+
 def generate_output_filename(root, data):
     """Generate output filename for dictionary.
 
@@ -27,9 +32,9 @@ def generate_output_filename(root, data):
     """
     # Default to using *all* species if the key is not present in the
     # data dictionary.
-    species = data.get('species', 'all')
+    species = _encode(data.get('species', 'all'))
 
-    antibiotic = data['antibiotic']
+    antibiotic = _encode(data['antibiotic'])
     seed = data['seed']
     site = data['site']
 
