@@ -19,7 +19,7 @@ run() {
   if [ -z "$BSUB" ]; then
     eval "$1";
   else
-    eval "${BSUB} \"${CMD}\"";
+    eval "${BSUB} $1";
   fi
 }
 
