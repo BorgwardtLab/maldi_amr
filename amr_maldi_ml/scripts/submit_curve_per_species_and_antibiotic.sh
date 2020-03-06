@@ -10,7 +10,7 @@ MAIN="poetry run python ../curves_per_species_and_antibiotic.py "
 # Try to be smart: if `bsub` does *not* exist on the system, we just
 # pretend that it is an empty command.
 if [ -x "$(command -v bsub)" ]; then
-  BSUB='bsub -W 23:59 -R "rusage[mem=8192]"'
+  BSUB='bsub -W 23:59 -R "rusage[mem=64000]"'
 fi
 
 # Evaluates its first argument either by submitting a job, or by
