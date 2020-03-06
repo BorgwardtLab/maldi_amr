@@ -52,11 +52,11 @@ col_list = [u'orangered', u'purple', u'royalblue', u'olivedrab', u'orange', u'vi
 
 #TODO adjust antibiotics to general naming
 maldi_col_map = {
-    'Ceftriaxon': col_list[0],
+    'Ceftriaxone': col_list[0],
     'Oxacillin': col_list[1],
     'Amoxicillin-Clavulanic acid': col_list[2],
     'Meropenem': col_list[3],
-    'Piperacillin...Tazobactam': col_list[4],
+    'Piperacillin-Tazobactam': col_list[4],
     'Ciprofloxacin': col_list[5],
     'Colistin': col_list[6],
     'Fluconazol': col_list[7],
