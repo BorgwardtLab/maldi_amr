@@ -123,6 +123,7 @@ if __name__ == '__main__':
                 antibiotics=antibiotic,  # Only a single one for this run
                 encoder=DRIAMSLabelEncoder(),
                 handle_missing_resistance_measurements='remove_if_all_missing',
+                nrows=1000,
         )
 
         logging.info(f'Loaded data set for {species} and {antibiotic}')
@@ -212,7 +213,7 @@ if __name__ == '__main__':
             'y_pred': y_pred.tolist(),
             'y_test': y_test.tolist(),
             'accuracy': accuracy,
-            'aupprc': auprc,
+            'auprc': auprc,
             'auroc': auroc,
         }
 
