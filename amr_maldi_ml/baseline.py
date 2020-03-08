@@ -70,6 +70,7 @@ if __name__ == '__main__':
         antibiotics=antibiotics,
         encoder=DRIAMSLabelEncoder(),
         handle_missing_resistance_measurements='remove_if_all_missing',
+        spectra_type='binned_6000',
     )
 
     logging.info('Loaded data set')
@@ -95,15 +96,9 @@ if __name__ == '__main__':
 
     logging.info('Created species-only feature vector')
 
-    bv = BinningVectorizer(
-            100,
-            min_bin=2000,
-            max_bin=20000,
-            n_jobs=-1,
-        )
-
-    # TODO: should load pre-processed data here
-    X_spectra = bv.fit_transform(driams_dataset.X)
+    # Create feature matrix from the binned spectra. We only need to
+    # consider the second column of each spectrum for this.
+    X = [spectrum.intensities for spectrum in driams_dataset.X]
 
     for antibiotic in antibiotics:
         logging.info(f'Performing experiment for {antibiotic}')
@@ -186,8 +181,6 @@ if __name__ == '__main__':
                 'auroc': auroc,
             }
 
-            print(t)
-            print(output_path)
             output_filename = generate_output_filename(
                 output_path,
                 output,
