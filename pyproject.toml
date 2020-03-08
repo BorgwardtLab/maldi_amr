@@ -8,6 +8,7 @@ authors = ["Caroline Weis <caroline.weis@bsse.ethz.ch>", "Bastian Rieck <bastian
 python = ">=3.6.1"
 maldi-learn = {git = "ssh://git@github.com/BorgwardtLab/maldi-learn.git"}
 numpy = "^1.18.1"
+pandas = "^1.0.1"
 tabulate = "^0.8.6"
 
 [tool.poetry.dev-dependencies]
