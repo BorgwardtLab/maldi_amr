@@ -170,11 +170,15 @@ if __name__ == '__main__':
     for antibiotic in antibiotics:
         logging.info(f'Performing experiment for {antibiotic}')
 
-        train_index, test_index = stratify_by_species_and_label(
-            driams_dataset.y,
-            antibiotic=antibiotic,
-            random_state=args.seed,
-        )
+        try:
+            train_index, test_index = stratify_by_species_and_label(
+                driams_dataset.y,
+                antibiotic=antibiotic,
+                random_state=args.seed,
+            )
+        except ValueError:
+            logging.warn('Unable to perform stratfication. Will continue '
+                         'with the next antibiotic.')
 
         # Labels are shared for both of these experiments, so they only
         # need to be created once.
