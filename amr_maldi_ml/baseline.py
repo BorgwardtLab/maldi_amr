@@ -165,7 +165,9 @@ if __name__ == '__main__':
 
     # Create feature matrix from the binned spectra. We only need to
     # consider the second column of each spectrum for this.
-    X_spectra = [spectrum.intensities for spectrum in driams_dataset.X]
+    X_spectra = np.asarray(
+                    [spectrum.intensities for spectrum in driams_dataset.X]
+                )
 
     for antibiotic in antibiotics:
         logging.info(f'Performing experiment for {antibiotic}')
@@ -177,12 +179,14 @@ if __name__ == '__main__':
                 random_state=args.seed,
             )
         except ValueError:
-            logging.warn('Unable to perform stratfication. Will continue '
-                         'with the next antibiotic.')
+            logging.warning('Unable to perform stratification. Will continue '
+                            'with the next antibiotic.')
+
+            continue
 
         # Labels are shared for both of these experiments, so they only
         # need to be created once.
-        y = driams_dataset.to_numpy(antibiotic)
+        y = driams_dataset.to_numpy(antibiotic, dtype=float)
 
         for X, t in zip([X_species, X_spectra], ['no_spectra', '']):
             X_train, y_train = X[train_index], y[train_index]
@@ -221,7 +225,13 @@ if __name__ == '__main__':
                 warnings.filterwarnings('ignore', category=UserWarning)
 
                 with joblib.parallel_backend('threading', -1):
-                    grid_search.fit(X_train, y_train)
+                    try:
+                        grid_search.fit(X_train, y_train)
+                    except ValueError:
+                        logging.warning('Unable to perform fit. Will '
+                                        'continue.')
+
+                        continue
 
             y_pred = grid_search.predict(X_test)
             y_score = grid_search.predict_proba(X_test)
