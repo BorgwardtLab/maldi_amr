@@ -44,8 +44,51 @@ DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
 # experiment. We always train on the same data set, using
 # *all* available years.
 site = 'DRIAMS-A'
-years = ['2015']                 # TODO: more years: '2016', '2017', '2018'
-antibiotics = ['Ciprofloxacin']  # TODO: more antibiotics
+years = ['2015', '2016', '2017', '2018']
+antibiotics = [
+    '5-Fluorocytosin',
+    'Amikacin',
+    'Amoxicillin',
+    'Amoxicillin-Clavulanic acid',
+    'Ampicillin-Amoxicillin',
+    'Anidulafungin',
+    'Aztreonam',
+    'Caspofungin',
+    'Cefazolin',
+    'Cefepime',
+    'Cefpodoxime',
+    'Ceftazidim',
+    'Cefuroxime',
+    'Ceftriaxone',
+    'Ciprofloxacin',
+    'Clindamycin',
+    'Colistin',
+    'Daptomycin',
+    'Ertapenem',
+    'Erythromycin',
+    'Fluconazole',
+    'Fosfomycin-Trometamol',
+    'Fusidic acid',
+    'Gentamicin',
+    'Imipenem',
+    'Itraconazole',
+    'Levofloxacin',`
+    'Meropenem',
+    'Micafungin',
+    'Nitrofurantoin',
+    'Norfloxacin',
+    'Oxacillin',
+    'Penicillin',
+    'Piperacillin-Tazobactam',
+    'Rifampicin',
+    'Teicoplanin',
+    'Tetracycline',
+    'Tobramycin',
+    'Trimethoprim-Sulfamethoxazole',
+    'Tigecycline',
+    'Vancomycin',
+    'Voriconazole',
+]
 
 # TODO: make configurable
 seed = 42
