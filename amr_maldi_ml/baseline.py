@@ -73,7 +73,7 @@ antibiotics = [
     'Gentamicin',
     'Imipenem',
     'Itraconazole',
-    'Levofloxacin',`
+    'Levofloxacin',
     'Meropenem',
     'Micafungin',
     'Nitrofurantoin',
@@ -165,7 +165,7 @@ if __name__ == '__main__':
 
     # Create feature matrix from the binned spectra. We only need to
     # consider the second column of each spectrum for this.
-    X = [spectrum.intensities for spectrum in driams_dataset.X]
+    X_spectra = [spectrum.intensities for spectrum in driams_dataset.X]
 
     for antibiotic in antibiotics:
         logging.info(f'Performing experiment for {antibiotic}')
