@@ -9,6 +9,7 @@ the performance that we obtain by looking at:
     2. *Only* the species information without considering any spectra
 """
 
+import argparse
 import dotenv
 import joblib
 import logging
@@ -90,13 +91,32 @@ antibiotics = [
     'Voriconazole',
 ]
 
-# TODO: make configurable
-seed = 42
-output_path = pathlib.Path(__file__).resolve().parent.parent / 'results'
-force = False
-
 
 if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        '-S', '--seed',
+        type=int,
+        help='Random seed to use for the experiment',
+        required=True
+    )
+
+    parser.add_argument(
+        '-o', '--output',
+        default=pathlib.Path(__file__).resolve().parent.parent / 'results',
+        type=str,
+        help='Output path for storing the results.'
+    )
+
+    parser.add_argument(
+        '-f', '--force',
+        action='store_true',
+        help='If set, overwrites all files. Else, skips existing files.'
+    )
+
+    args = parser.parse_args()
 
     # Basic log configuration to ensure that we see where the process
     # spends most of its time.
@@ -104,6 +124,10 @@ if __name__ == '__main__':
         level=logging.INFO,
         format='%(asctime)s %(message)s'
     )
+
+    logging.info(f'Site: {site}')
+    logging.info(f'Years: {years}')
+    logging.info(f'Seed: {args.seed}')
 
     driams_dataset = load_driams_dataset(
         DRIAMS_ROOT,
@@ -149,7 +173,7 @@ if __name__ == '__main__':
         train_index, test_index = stratify_by_species_and_label(
             driams_dataset.y,
             antibiotic=antibiotic,
-            random_state=seed,
+            random_state=args.seed,
         )
 
         # Labels are shared for both of these experiments, so they only
@@ -212,7 +236,7 @@ if __name__ == '__main__':
 
             output = {
                 'site': site,
-                'seed': seed,
+                'seed': args.seed,
                 'antibiotic': antibiotic,
                 'best_params': grid_search.best_params_,
                 'years': years,
@@ -225,14 +249,14 @@ if __name__ == '__main__':
             }
 
             output_filename = generate_output_filename(
-                output_path,
+                args.output,
                 output,
                 suffix=t
             )
 
             # Only write if we either are running in `force` mode, or the
             # file does not yet exist.
-            if not os.path.exists(output_filename) or force:
+            if not os.path.exists(output_filename) or args.force:
                 logging.info(f'Saving {os.path.basename(output_filename)}')
 
                 with open(output_filename, 'w') as f:
