@@ -13,6 +13,7 @@ jupyter = "^1.0.0"
 numpy = "^1.18.1"
 pandas = "^1.0.1"
 tabulate = "^0.8.6"
+python-dotenv = "^0.12.0"
 
 [tool.poetry.dev-dependencies]
 
