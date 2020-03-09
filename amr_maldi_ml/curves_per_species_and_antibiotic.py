@@ -76,21 +76,16 @@ def _run_experiment(
         random_state=seed,
     )
 
+    logging.info(len(train_index))
+    logging.info(len(test_index))
+
+    logging.info('Finished stratification')
+
     # Create labels
     y = driams_dataset.to_numpy(antibiotic)
 
     X_train, y_train = X[train_index], y[train_index]
     X_test, y_test = X[test_index], y[test_index]
-
-    param_grid = [
-        {
-            'C': 10.0 ** np.arange(-3, 4),  # 10^{-3}..10^{3}
-            'penalty': ['l1', 'l2'],
-        },
-        {
-            'penalty': ['none'],
-        }
-    ]
 
     n_folds = 5
 
@@ -98,8 +93,28 @@ def _run_experiment(
     # All of this is wrapped in cross-validation based on the grid
     # defined above.
     lr = LogisticRegression(solver='saga', max_iter=500)
+
+    pipeline = Pipeline(
+        steps=[
+            ('scaler', None),
+            ('lr', lr),
+        ]
+    )
+
+    param_grid = [
+        {
+            'scaler': ['passthrough', StandardScaler()],
+            'lr__C': 10.0 ** np.arange(-3, 4),  # 10^{-3}..10^{3}
+            'lr__penalty': ['l1', 'l2'],
+        },
+        {
+            'scaler': ['passthrough', StandardScaler()],
+            'lr__penalty': ['none'],
+        }
+    ]
+
     grid_search = GridSearchCV(
-                    lr,
+                    pipeline,
                     param_grid=param_grid,
                     cv=n_folds,
                     scoring='roc_auc',
