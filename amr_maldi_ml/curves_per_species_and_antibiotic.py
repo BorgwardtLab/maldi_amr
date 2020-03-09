@@ -18,7 +18,6 @@ from maldi_learn.driams import DRIAMSLabelEncoder
 
 from maldi_learn.driams import load_driams_dataset
 
-from maldi_learn.vectorization import BinningVectorizer
 from maldi_learn.utilities import stratify_by_species_and_label
 
 from sklearn.exceptions import ConvergenceWarning
@@ -28,6 +27,8 @@ from sklearn.metrics import average_precision_score
 from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import ParameterGrid
 from sklearn.model_selection import GridSearchCV
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
 dotenv.load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
@@ -46,7 +47,7 @@ def _run_experiment(
     seed,
     output_path,
     force,
-    n_jobs=24
+    n_jobs=-1
 ):
     """Run a single experiment for a given species--antibiotic combination."""
     driams_dataset = load_driams_dataset(
@@ -57,19 +58,14 @@ def _run_experiment(
             antibiotics=antibiotic,  # Only a single one for this run
             encoder=DRIAMSLabelEncoder(),
             handle_missing_resistance_measurements='remove_if_all_missing',
+            spectra_type='binned_6000',
     )
 
     logging.info(f'Loaded data set for {species} and {antibiotic}')
 
-    # Bin spectra
-    bv = BinningVectorizer(
-            6000,
-            min_bin=2000,
-            max_bin=20000,
-            n_jobs=n_jobs,
-        )
-
-    X = bv.fit_transform(driams_dataset.X)
+    # Create feature matrix from the binned spectra. We only need to
+    # consider the second column of each spectrum for this.
+    X = np.asarray([spectrum.intensities for spectrum in driams_dataset.X])
 
     logging.info('Finished vectorisation')
 
