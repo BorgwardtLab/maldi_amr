@@ -54,6 +54,7 @@ def clean_data(filename, outfile):
     ab_name_map = {
         'Amoxicillin...Clavulansaeure.bei.unkompliziertem.HWI': 'Amoxicillin-Clavulans.unkompl.HWI',
         'Amoxicillin-Clavulansaeure.unkompl.HWI':
+        # TODO HWI?
         'Amoxicillin-Clavulansaeure_uncomplicated_HWI',
         'Ampicillin...Amoxicillin': 'Ampicillin-Amoxicillin',
         'Amphotericin.B': 'Amphotericin-B',
