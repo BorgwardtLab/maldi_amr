@@ -7,6 +7,9 @@ authors = ["Caroline Weis <caroline.weis@bsse.ethz.ch>", "Bastian Rieck <bastian
 [tool.poetry.dependencies]
 python = ">=3.6.1"
 maldi-learn = {git = "ssh://git@github.com/BorgwardtLab/maldi-learn.git"}
+matplotlib = "^3.2.0"
+seaborn = "^0.10.0"
+jupyter = "^1.0.0"
 
 [tool.poetry.dev-dependencies]
 
