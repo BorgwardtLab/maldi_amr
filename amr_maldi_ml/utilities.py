@@ -118,6 +118,7 @@ ab_name_map = {
     'Amikacin 20 mg/l': 'Amikacin_20mg-l',
     'Aminoglykoside': 'Aminoglycosides',
     'Amoxicillin...Clavulansaeure.bei.unkompliziertem.HWI': 'Amoxicillin-Clavulanic acid_uncomplicated_HWI',
+    'Amoxicillin-Clavulansaeure.unkompl.HWI': 'Amoxicillin-Clavulanic acid_uncomplicated_HWI',
     'AMC-Amoxicillin/Clavulans\xc3\xa4ure': 'Amoxicillin-Clavulanic acid',
     'Amoxicillin/Clavulansaeure': 'Amoxicillin-Clavulanic acid',
     'Amoxicillin...Clavulansaeure': 'Amoxicillin-Clavulanic acid',

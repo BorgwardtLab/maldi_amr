@@ -5,6 +5,8 @@ import argparse
 import numpy as np
 import pandas as pd
 
+from amr_maldi_ml.utilities import ab_name_map
+
 
 def clean_data(filename, outfile):
     df = pd.read_csv(filename, low_memory=False, encoding='utf8')
@@ -51,67 +53,68 @@ def clean_data(filename, outfile):
     })
 
     
-    ab_name_map = {
-        'Amoxicillin...Clavulansaeure.bei.unkompliziertem.HWI': 'Amoxicillin-Clavulans.unkompl.HWI',
-        'Amoxicillin-Clavulansaeure.unkompl.HWI':
-        # TODO HWI?
-        'Amoxicillin-Clavulansaeure_uncomplicated_HWI',
-        'Ampicillin...Amoxicillin': 'Ampicillin-Amoxicillin',
-        'Amphotericin.B': 'Amphotericin-B',
-        'Piperacillin...Tazobactam': 'Piperacillin-Tazobactam',
-        'Amoxicillin...Clavulansaeure': 'Amoxicillin-Clavulanic acid',
-        'Fusidinsaeure': 'Fusidic acid',
-        # TODO Ceftazidim vs Ceftazidim.1
-        'Ceftazidim.1': 'Ceftazidime',
-        'Ceftazidim.Avibactam': 'Ceftazidime-Avibactam',
-        'X5.Fluorocytosin': '5-Fluorocytosin',
-        'Fosfomycin.Trometamol': 'Fosfomycin-Trometamol',
-        'Ceftolozan...Tazobactam': 'Ceftolozane-Tazobactam',
-        'Cefepim': 'Cefepime',
-        'Posaconazol': 'Posaconazole',
-        'Tigecyclin': 'Tigecycline',
-        'Cefpodoxim': 'Cefpodoxime',
-        'Ceftobiprol': 'Ceftobiprole',
-        'Fluconazol': 'Fluconazole',
-        'Cefuroxim': 'Cefuroxime',
-        'Tetracyclin': 'Tetracycline',
-        'Ticarcillin...Clavulansaeure': 'Ticarcillin-Clavulanic acid',
-        'Ceftriaxon': 'Ceftriaxone',
-        'Itraconazol': 'Itraconazole',
-        'Cotrimoxazol': 'Trimethoprim-Sulfamethoxazole',
-        'Minocyclin': 'Minocycline',
-        'Voriconazol': 'Voriconazole',
-        'Metronidazol': 'Metronidazole',
-        'Aminoglykoside': 'Aminoglycosides',
-        'Chinolone': 'Quinolones',
-        'Doxycyclin': 'Doxycycline',
-        'Cefixim': 'Cefixime',
-        'Meropenem.bei.Meningitis': 'Meropenem_with_meningitis',
-        'Meropenem.bei.Pneumonie': 'Meropenem_with_pneumonia',
-        'Meropenem.ohne.Meningitis': 'Meropenem_without_meningitis',
-        'Isoniazid.0.1.mg.l': 'Isoniazid_.1mg-l',
-        'Isoniazid.0.4.mg.l': 'Isoniazid_.4mg-l',
-        'Ethambutol.5.0.mg.l': 'Ethambutol_5mg-l',
-        'Pyrazinamid.100.0.mg.l': 'Pyrazinamid_100mg-l',
-        'Streptomycin.1.0.mg.l': 'Streptomycin_1mg-l',
-        'Rifampicin.1.0.mg.l': 'Rifampicin_1mg-l',
-        'Gentamicin.High.level': 'Gentamicin_high_level',
-        'Penicillin.bei.Endokarditis': 'Penicillin_with_endokarditis',
-        'Penicillin.bei.Meningitis': 'Penicillin_with_meningitis', 
-        'Penicillin.bei.Pneumonie': 'Penicillin_with_pneumonia', 
-        'Penicillin.bei.anderen.Infekten': 'Penicillin_other_infections_present', 
-        'Penicillin.ohne.Endokarditis': 'Penicillin_without_endokarditis',
-        # TODO
-        'Vancomycin.GRD': 'Vancomycin.GRD',
-        'Cefepim.1': 'Cefepim.1',
-        'Cefoxitin.Screen': 'Cefoxitin.Screen',
-    }
+    #ab_name_map = {
+    #    'Amoxicillin...Clavulansaeure.bei.unkompliziertem.HWI': 'Amoxicillin-Clavulans.unkompl.HWI',
+    #    'Amoxicillin-Clavulansaeure.unkompl.HWI':
+    #    # TODO HWI?
+    #    'Amoxicillin-Clavulansaeure_uncomplicated_HWI',
+    #    'Ampicillin...Amoxicillin': 'Ampicillin-Amoxicillin',
+    #    'Amphotericin.B': 'Amphotericin-B',
+    #    'Piperacillin...Tazobactam': 'Piperacillin-Tazobactam',
+    #    'Amoxicillin...Clavulansaeure': 'Amoxicillin-Clavulanic acid',
+    #    'Fusidinsaeure': 'Fusidic acid',
+    #    # TODO Ceftazidim vs Ceftazidim.1
+    #    'Ceftazidim.1': 'Ceftazidime',
+    #    'Ceftazidim.Avibactam': 'Ceftazidime-Avibactam',
+    #    'X5.Fluorocytosin': '5-Fluorocytosin',
+    #    'Fosfomycin.Trometamol': 'Fosfomycin-Trometamol',
+    #    'Ceftolozan...Tazobactam': 'Ceftolozane-Tazobactam',
+    #    'Cefepim': 'Cefepime',
+    #    'Posaconazol': 'Posaconazole',
+    #    'Tigecyclin': 'Tigecycline',
+    #    'Cefpodoxim': 'Cefpodoxime',
+    #    'Ceftobiprol': 'Ceftobiprole',
+    #    'Fluconazol': 'Fluconazole',
+    #    'Cefuroxim': 'Cefuroxime',
+    #    'Tetracyclin': 'Tetracycline',
+    #    'Ticarcillin...Clavulansaeure': 'Ticarcillin-Clavulanic acid',
+    #    'Ceftriaxon': 'Ceftriaxone',
+    #    'Itraconazol': 'Itraconazole',
+    #    'Cotrimoxazol': 'Trimethoprim-Sulfamethoxazole',
+    #    'Minocyclin': 'Minocycline',
+    #    'Voriconazol': 'Voriconazole',
+    #    'Metronidazol': 'Metronidazole',
+    #    'Aminoglykoside': 'Aminoglycosides',
+    #    'Chinolone': 'Quinolones',
+    #    'Doxycyclin': 'Doxycycline',
+    #    'Cefixim': 'Cefixime',
+    #    'Meropenem.bei.Meningitis': 'Meropenem_with_meningitis',
+    #    'Meropenem.bei.Pneumonie': 'Meropenem_with_pneumonia',
+    #    'Meropenem.ohne.Meningitis': 'Meropenem_without_meningitis',
+    #    'Isoniazid.0.1.mg.l': 'Isoniazid_.1mg-l',
+    #    'Isoniazid.0.4.mg.l': 'Isoniazid_.4mg-l',
+    #    'Ethambutol.5.0.mg.l': 'Ethambutol_5mg-l',
+    #    'Pyrazinamid.100.0.mg.l': 'Pyrazinamid_100mg-l',
+    #    'Streptomycin.1.0.mg.l': 'Streptomycin_1mg-l',
+    #    'Rifampicin.1.0.mg.l': 'Rifampicin_1mg-l',
+    #    'Gentamicin.High.level': 'Gentamicin_high_level',
+    #    'Penicillin.bei.Endokarditis': 'Penicillin_with_endokarditis',
+    #    'Penicillin.bei.Meningitis': 'Penicillin_with_meningitis', 
+    #    'Penicillin.bei.Pneumonie': 'Penicillin_with_pneumonia', 
+    #    'Penicillin.bei.anderen.Infekten': 'Penicillin_other_infections_present', 
+    #    'Penicillin.ohne.Endokarditis': 'Penicillin_without_endokarditis',
+    #    # TODO
+    #    'Vancomycin.GRD': 'Vancomycin.GRD',
+    #    'Cefepim.1': 'Cefepim.1',
+    #    'Cefoxitin.Screen': 'Cefoxitin.Screen',
+    #}
 
 
     # assert no duplicates in code
     assert len(df['code'].unique()) == df.shape[0], 'codes not unique.'
 
     # rename columns to standard antibiotic names
+    print('Columns not covered by antibiotic name maps:\n{}'.format([n for n in df.columns if n not in ab_name_map.keys()]))
     df = df.rename(columns=ab_name_map)
 
     # remove Dummy antibiotic
