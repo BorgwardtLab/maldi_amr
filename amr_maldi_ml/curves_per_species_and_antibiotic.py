@@ -215,9 +215,12 @@ if __name__ == '__main__':
         help='Random seed to use for the experiment'
     )
 
+    name = 'fig4_curves_per_species_and_antibiotics'
+
     parser.add_argument(
         '-o', '--output',
-        default=pathlib.Path(__file__).resolve().parent.parent / 'results',
+        default=pathlib.Path(__file__).resolve().parent.parent / 'results'
+                                                               / name,
         type=str,
         help='Output path for storing the results.'
     )
