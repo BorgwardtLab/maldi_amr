@@ -66,9 +66,12 @@ if __name__ == '__main__':
         required=True
     )
 
+    name = 'fig2_baseline'
+
     parser.add_argument(
         '-o', '--output',
-        default=pathlib.Path(__file__).resolve().parent.parent / 'results',
+        default=pathlib.Path(__file__).resolve().parent.parent / 'results'
+                                                               / name,
         type=str,
         help='Output path for storing the results.'
     )
@@ -80,6 +83,10 @@ if __name__ == '__main__':
     )
 
     args = parser.parse_args()
+
+    # Create the output directory for storing all results of the
+    # individual combinations.
+    os.makedirs(args.output, exist_ok=True)
 
     # Basic log configuration to ensure that we see where the process
     # spends most of its time.
