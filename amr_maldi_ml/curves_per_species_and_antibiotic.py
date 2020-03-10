@@ -42,6 +42,7 @@ years = ['2015', '2016', '2017', '2018']
 
 def _run_experiment(
     root,
+    fingerprints,
     species,
     antibiotic,
     seed,
@@ -75,9 +76,6 @@ def _run_experiment(
         antibiotic=antibiotic,
         random_state=seed,
     )
-
-    logging.info(len(train_index))
-    logging.info(len(test_index))
 
     logging.info('Finished stratification')
 
@@ -177,6 +175,10 @@ def _run_experiment(
         output_path,
         output
     )
+
+    # Add fingerprint information about the metadata files to make sure
+    # that the experiment is reproducible.
+    output['metadata_versions'] = fingerprints
 
     # Only write if we either are running in `force` mode, or the
     # file does not yet exist.
@@ -295,6 +297,7 @@ if __name__ == '__main__':
     ])
 
     explorer = DRIAMSDatasetExplorer(DRIAMS_ROOT)
+    metatda_fingerprints = explorer.metadata_fingerprints(site)
 
     # How many jobs to use to run this experiment. Should be made
     # configurable ideally.
@@ -314,6 +317,7 @@ if __name__ == '__main__':
 
             _run_experiment(
                 explorer.root,
+                metatda_fingerprints,
                 species,
                 antibiotic,
                 seed,
@@ -330,6 +334,7 @@ if __name__ == '__main__':
 
         _run_experiment(
             explorer.root,
+            metatda_fingerprints,
             args.species,
             args.antibiotic,
             args.seed,
