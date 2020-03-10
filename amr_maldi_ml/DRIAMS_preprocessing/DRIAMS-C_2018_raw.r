@@ -42,7 +42,7 @@ for (j in 1:length(list_files)){
     # get fileid
     spl = unlist(strsplit(list_files[j], "[/]"))
     idx = grepl('^[0-9]_[A-Z]([0-9]|[0-9][0-9])$',spl)
-    fileid = paste(spl[which(idx==TRUE)-1, spl[which(idx==TRUE)], sep='')
+    fileid = paste(spl[which(idx==TRUE)-1], spl[which(idx==TRUE)], sep='')
     print(fileid)
 
     if (nchar(fileid)<12){
