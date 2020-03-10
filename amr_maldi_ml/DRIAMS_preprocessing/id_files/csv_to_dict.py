@@ -1,5 +1,10 @@
 """
-File to create antibiotic naming dictionary from AB-matching.csv
+Print antibiotic naming dictionary to file
+based on input from AB-matching.csv
+
+The resulting dictionary was appended to
+amr_maldi_ml/utilities.py to serve as a 
+renaming map for all sites.
 """
 
 import numpy as np
