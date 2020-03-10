@@ -20,12 +20,12 @@ import warnings
 
 import numpy as np
 
+from maldi_learn.driams import DRIAMSDatasetExplorer
 from maldi_learn.driams import DRIAMSLabelEncoder
 
 from maldi_learn.driams import load_driams_dataset
 
 from maldi_learn.utilities import stratify_by_species_and_label
-from maldi_learn.vectorization import BinningVectorizer
 
 from utilities import generate_output_filename
 
@@ -35,8 +35,9 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import average_precision_score
 from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import GridSearchCV
+from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
-
+from sklearn.preprocessing import StandardScaler
 
 dotenv.load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
@@ -46,55 +47,17 @@ DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
 # *all* available years.
 site = 'DRIAMS-A'
 years = ['2015', '2016', '2017', '2018']
-antibiotics = [
-    '5-Fluorocytosin',
-    'Amikacin',
-    'Amoxicillin',
-    'Amoxicillin-Clavulanic acid',
-    'Ampicillin-Amoxicillin',
-    'Anidulafungin',
-    'Aztreonam',
-    'Caspofungin',
-    'Cefazolin',
-    'Cefepime',
-    'Cefpodoxime',
-    'Ceftazidim',
-    'Cefuroxime',
-    'Ceftriaxone',
-    'Ciprofloxacin',
-    'Clindamycin',
-    'Colistin',
-    'Daptomycin',
-    'Ertapenem',
-    'Erythromycin',
-    'Fluconazole',
-    'Fosfomycin-Trometamol',
-    'Fusidic acid',
-    'Gentamicin',
-    'Imipenem',
-    'Itraconazole',
-    'Levofloxacin',
-    'Meropenem',
-    'Micafungin',
-    'Nitrofurantoin',
-    'Norfloxacin',
-    'Oxacillin',
-    'Penicillin',
-    'Piperacillin-Tazobactam',
-    'Rifampicin',
-    'Teicoplanin',
-    'Tetracycline',
-    'Tobramycin',
-    'Trimethoprim-Sulfamethoxazole',
-    'Tigecycline',
-    'Vancomycin',
-    'Voriconazole',
-]
-
 
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        '-a', '--antibiotic',
+        type=str,
+        help='Antibiotic for which to run the experiment',
+        required=True,
+    )
 
     parser.add_argument(
         '-S', '--seed',
@@ -125,22 +88,26 @@ if __name__ == '__main__':
         format='%(asctime)s %(message)s'
     )
 
+    explorer = DRIAMSDatasetExplorer(DRIAMS_ROOT)
+    metadata_fingerprints = explorer.metadata_fingerprints(site)
+
     logging.info(f'Site: {site}')
     logging.info(f'Years: {years}')
     logging.info(f'Seed: {args.seed}')
+    logging.info(f'Antibiotic: {args.antibiotic}')
 
     driams_dataset = load_driams_dataset(
         DRIAMS_ROOT,
         site,
         years,
         '*',
-        antibiotics=antibiotics,
+        antibiotics=args.antibiotic,
         encoder=DRIAMSLabelEncoder(),
         handle_missing_resistance_measurements='remove_if_all_missing',
         spectra_type='binned_6000',
     )
 
-    logging.info('Loaded data set')
+    logging.info(f'Loaded data set for {args.antibiotic}')
 
     # Having loaded the data set, we have to generate two different
     # feature vectors:
@@ -169,113 +136,128 @@ if __name__ == '__main__':
                     [spectrum.intensities for spectrum in driams_dataset.X]
                 )
 
-    for antibiotic in antibiotics:
-        logging.info(f'Performing experiment for {antibiotic}')
+    train_index, test_index = stratify_by_species_and_label(
+        driams_dataset.y,
+        antibiotic=args.antibiotic,
+        random_state=args.seed,
+    )
 
-        try:
-            train_index, test_index = stratify_by_species_and_label(
-                driams_dataset.y,
-                antibiotic=antibiotic,
-                random_state=args.seed,
-            )
-        except ValueError:
-            logging.warning('Unable to perform stratification. Will continue '
-                            'with the next antibiotic.')
+    # Labels are shared for both of these experiments, so they only
+    # need to be created once.
+    y = driams_dataset.to_numpy(args.antibiotic, dtype=float)
 
-            continue
+    for X, t in zip([X_species, X_spectra], ['no_spectra', '']):
+        X_train, y_train = X[train_index], y[train_index]
+        X_test, y_test = X[test_index], y[test_index]
 
-        # Labels are shared for both of these experiments, so they only
-        # need to be created once.
-        y = driams_dataset.to_numpy(antibiotic, dtype=float)
+        n_folds = 5
 
-        for X, t in zip([X_species, X_spectra], ['no_spectra', '']):
-            X_train, y_train = X[train_index], y[train_index]
-            X_test, y_test = X[test_index], y[test_index]
+        # Fit the classifier and start calculating some summary metrics.
+        # All of this is wrapped in cross-validation based on the grid
+        # defined above.
+        lr = LogisticRegression(solver='saga', max_iter=500)
 
-            param_grid = [
-                {
-                    'C': 10.0 ** np.arange(-3, 4),  # 10^{-3}..10^{3}
-                    'penalty': ['l1', 'l2'],
-                },
-                {
-                    'penalty': ['none'],
-                }
+        pipeline = Pipeline(
+            steps=[
+                ('scaler', None),
+                ('lr', lr),
             ]
+        )
 
-            n_folds = 5
-
-            # Fit the classifier and start calculating some summary metrics.
-            # All of this is wrapped in cross-validation based on the grid
-            # defined above.
-            lr = LogisticRegression(solver='saga', max_iter=500)
-            grid_search = GridSearchCV(
-                            lr,
-                            param_grid=param_grid,
-                            cv=n_folds,
-                            scoring='roc_auc',
-                            n_jobs=-1,
-            )
-
-            # Ignore these warnings only for the grid search process. The
-            # reason is that some of the jobs will inevitably *fail* to
-            # converge because of bad `C` values. We are not interested in
-            # them anyway.
-            with warnings.catch_warnings():
-                warnings.filterwarnings('ignore', category=ConvergenceWarning)
-                warnings.filterwarnings('ignore', category=UserWarning)
-
-                with joblib.parallel_backend('threading', -1):
-                    try:
-                        grid_search.fit(X_train, y_train)
-                    except ValueError:
-                        logging.warning('Unable to perform fit. Will '
-                                        'continue.')
-
-                        continue
-
-            y_pred = grid_search.predict(X_test)
-            y_score = grid_search.predict_proba(X_test)
-
-            accuracy = accuracy_score(y_pred, y_test)
-
-            auprc = average_precision_score(
-                        y_test, y_score[:, 1],
-                        average='weighted'
-            )
-
-            auroc = roc_auc_score(y_test, y_score[:, 1], average='weighted')
-
-            # Prepare the output dictionary containing all information to
-            # reproduce the experiment.
-
-            output = {
-                'site': site,
-                'seed': args.seed,
-                'antibiotic': antibiotic,
-                'best_params': grid_search.best_params_,
-                'years': years,
-                'y_score': y_score.tolist(),
-                'y_pred': y_pred.tolist(),
-                'y_test': y_test.tolist(),
-                'accuracy': accuracy,
-                'auprc': auprc,
-                'auroc': auroc,
+        param_grid = [
+            {
+                'scaler': ['passthrough', StandardScaler()],
+                'lr__C': 10.0 ** np.arange(-3, 4),  # 10^{-3}..10^{3}
+                'lr__penalty': ['l1', 'l2'],
+            },
+            {
+                'scaler': ['passthrough', StandardScaler()],
+                'lr__penalty': ['none'],
             }
+        ]
 
-            output_filename = generate_output_filename(
-                args.output,
-                output,
-                suffix=t
+        grid_search = GridSearchCV(
+                        pipeline,
+                        param_grid=param_grid,
+                        cv=n_folds,
+                        scoring='roc_auc',
+                        n_jobs=-1,
+        )
+
+        logging.info('Starting grid search')
+
+        # Ignore these warnings only for the grid search process. The
+        # reason is that some of the jobs will inevitably *fail* to
+        # converge because of bad `C` values. We are not interested in
+        # them anyway.
+        with warnings.catch_warnings():
+            warnings.filterwarnings('ignore', category=ConvergenceWarning)
+            warnings.filterwarnings('ignore', category=UserWarning)
+
+            with joblib.parallel_backend('threading', -1):
+                grid_search.fit(X_train, y_train)
+
+        y_pred = grid_search.predict(X_test)
+        y_score = grid_search.predict_proba(X_test)
+
+        accuracy = accuracy_score(y_pred, y_test)
+
+        auprc = average_precision_score(
+                    y_test, y_score[:, 1],
+                    average='weighted'
+        )
+
+        auroc = roc_auc_score(y_test, y_score[:, 1], average='weighted')
+
+        # Replace information about the standard scaler prior to writing out
+        # the `best_params_` grid. The reason for this is that we cannot and
+        # probably do not want to serialise the scaler class. We only need
+        # to know *if* a scaler has been employed.
+        if 'scaler' in grid_search.best_params_:
+            scaler = grid_search.best_params_['scaler']
+            if scaler != 'passthrough':
+                grid_search.best_params_['scaler'] = type(scaler).__name__
+
+        # Prepare the output dictionary containing all information to
+        # reproduce the experiment.
+
+        output = {
+            'site': site,
+            'seed': args.seed,
+            'antibiotic': args.antibiotic,
+            'best_params': grid_search.best_params_,
+            'years': years,
+            'y_score': y_score.tolist(),
+            'y_pred': y_pred.tolist(),
+            'y_test': y_test.tolist(),
+            'accuracy': accuracy,
+            'auprc': auprc,
+            'auroc': auroc,
+        }
+
+        # Add fingerprint information about the metadata files to make sure
+        # that the experiment is reproducible.
+        output['metadata_versions'] = metadata_fingerprints
+
+        output_filename = generate_output_filename(
+            args.output,
+            output,
+            suffix=t
+        )
+
+        # Add this information after generating a file name because
+        # I want it to be kept out of there. This is slightly hacky
+        # but only required for this one experiment.
+        output['species'] = 'all' if not t else 'all (w/o spectra)'
+
+        # Only write if we either are running in `force` mode, or the
+        # file does not yet exist.
+        if not os.path.exists(output_filename) or args.force:
+            logging.info(f'Saving {os.path.basename(output_filename)}')
+
+            with open(output_filename, 'w') as f:
+                json.dump(output, f, indent=4)
+        else:
+            logging.warning(
+                f'Skipping {output_filename} because it already exists.'
             )
-
-            # Only write if we either are running in `force` mode, or the
-            # file does not yet exist.
-            if not os.path.exists(output_filename) or args.force:
-                logging.info(f'Saving {os.path.basename(output_filename)}')
-
-                with open(output_filename, 'w') as f:
-                    json.dump(output, f, indent=4)
-            else:
-                logging.warning(
-                    f'Skipping {output_filename} because it already exists.'
-                )
