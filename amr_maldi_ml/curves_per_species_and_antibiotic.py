@@ -297,7 +297,7 @@ if __name__ == '__main__':
     ])
 
     explorer = DRIAMSDatasetExplorer(DRIAMS_ROOT)
-    metatda_fingerprints = explorer.metadata_fingerprints(site)
+    metadata_fingerprints = explorer.metadata_fingerprints(site)
 
     # How many jobs to use to run this experiment. Should be made
     # configurable ideally.
@@ -317,7 +317,7 @@ if __name__ == '__main__':
 
             _run_experiment(
                 explorer.root,
-                metatda_fingerprints,
+                metadata_fingerprints,
                 species,
                 antibiotic,
                 seed,
@@ -334,7 +334,7 @@ if __name__ == '__main__':
 
         _run_experiment(
             explorer.root,
-            metatda_fingerprints,
+            metadata_fingerprints,
             args.species,
             args.antibiotic,
             args.seed,
