@@ -54,7 +54,7 @@ if __name__ == '__main__':
         # Create one row in the table containing the relevant
         # information for now.
         row = {
-            'species': data_raw['species'],
+            'species': data_raw.get('species', 'all'),
             'antibiotic': data_raw['antibiotic'],
         }
 
