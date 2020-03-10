@@ -24,6 +24,50 @@ run() {
 }
 
 for SEED in 344 172 188 270 35 164 545 480 89 409; do
-  CMD="${MAIN} --seed $SEED"
-  run "$CMD";
+  for ANTIBIOTIC in '5-Fluorocytosin'\
+      'Amikacin'\
+      'Amoxicillin'\
+      'Amoxicillin-Clavulanic acid'\
+      'Ampicillin-Amoxicillin'\
+      'Anidulafungin'\
+      'Aztreonam'\
+      'Caspofungin'\
+      'Cefazolin'\
+      'Cefepime'\
+      'Cefpodoxime'\
+      'Ceftazidim'\
+      'Cefuroxime'\
+      'Ceftriaxone'\
+      'Ciprofloxacin'\
+      'Clindamycin'\
+      'Colistin'\
+      'Daptomycin'\
+      'Ertapenem'\
+      'Erythromycin'\
+      'Fluconazole'\
+      'Fosfomycin-Trometamol'\
+      'Fusidic acid'\
+      'Gentamicin'\
+      'Imipenem'\
+      'Itraconazole'\
+      'Levofloxacin'\
+      'Meropenem'\
+      'Micafungin'\
+      'Nitrofurantoin'\
+      'Norfloxacin'\
+      'Oxacillin'\
+      'Penicillin'\
+      'Piperacillin-Tazobactam'\
+      'Rifampicin'\
+      'Teicoplanin'\
+      'Tetracycline'\
+      'Tobramycin'\
+      'Trimethoprim-Sulfamethoxazole'\
+      'Tigecycline'\
+      'Vancomycin'\
+      'Voriconazole';
+  do
+    CMD="${MAIN} --antibiotic \"$ANTIBIOTIC\" --seed $SEED --force"
+    run "$CMD";
+  done
 done
