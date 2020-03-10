@@ -6,10 +6,10 @@ Amikacin,Amikacin,Amikacin,AN-Amikacin,Amikacin,Amikacin
 Aminoglykoside,,,,,Aminoglycosides
 Amoxicillin...Clavulansaeure.bei.unkompliziertem.HWI,,,,,Amoxicillin-Clavulanic acid_uncomplicated_HWI
 Amoxicillin-Clavulansaeure.unkompl.HWI,,,,,Amoxicillin-Clavulanic acid_uncomplicated_HWI
-Amoxicillin-Clavulansaeure,Amoxicillin/Clavulansaeure,Amoxicillin-Clavulan,AMC-Amoxicillin/Clavulans\xc3\xa4ure,Amoxicillin...Clavulansaeure,Amoxicillin-Clavulanic acid
+Amoxicillin-Clavulansaeure,Amoxicillin/Clavulansäure,Amoxicillin-Clavulan,AMC-Amoxicillin/Clavulans\xc3\xa4ure,Amoxicillin...Clavulansaeure,Amoxicillin-Clavulanic acid
 Amoxicillin...Clavulansaeure,Amoxicillin/Clavulansaeure,Amoxicillin...Clavulansaeure,AMC-Amoxicillin/Clavulans\xc3\xa4ure,Amoxicillin...Clavulansaeure,Amoxicillin-Clavulanic acid
-Amoxicillin,,Amoxicillin,AMX-Amoxicillin,,Ampicillin-Amoxicillin
-,Ampicillin,Ampicillin,AM-Ampicillin,Ampicillin,Ampicillin-Amoxicillin
+Amoxicillin,,Amoxicillin,AMX-Amoxicillin,,Amoxicillin
+,Ampicillin,Ampicillin,AM-Ampicillin,Ampicillin,Ampicillin
 ,Benzylpenicillin,,P-Benzylpenicillin,,Benzylpenicillin
 ,Benzylpenicillin andere,,,,Benzylpenicillin_others
 ,Benzylpenicillin bei Meningitis,,,,Benzylpenicillin_with_meningitis
@@ -86,7 +86,7 @@ Ethambutol.5.0.mg.l,,Ethambutol 05.0,,,Ethambutol_5mg-l
 ,,Ethambutol 12.5,,,Ethambutol_12.5mg-l
 ,,Ethambutol 50,,,Ethambutol_50mg-l
 Fluconazol,,Fluconazol,,,Fluconazole
-Fosfomycin.Trometamol,,,,,Fosfomycin
+Fosfomycin.Trometamol,,,,,Fosfomycin-Trometamol
 Fosfomycin,Fosfomycin,Fosfomycin,FOS-Fosfomycin,Fosfomycin,Fosfomycin
 Fusidinsaeure,Fusidinsaeure,Fusidinsaeure,FA-Fusidins\xc3\xa4ure,Fusidinsaeure,Fusidic acid
 Fusidinsaeure,Fusidinsaeure,Fusidins\xc3\xa4ure,FA-Fusidins\xc3\xa4ure,Fusidinsaeure,Fusidic acid
@@ -164,7 +164,7 @@ Rifampicin,Rifampicin,Rifampicin,RA-Rifampicin,Rifampicin,Rifampicin
 ,,Spectinomycin,,,Spectinomycin
 Streptomycin.1.0.mg.l,,Streptomycin,,,Streptomycin
 Streptomycin.High.level,Strepomycin High Level,,,,Strepomycin_high_level
-Teicoplanin.GRD,,,,,Teicoplanin
+Teicoplanin.GRD,,,,,Teicoplanin_GRD
 Teicoplanin,Teicoplanin,Teicoplanin,TEC-Teicoplanin,Teicoplanin,Teicoplanin
 Tetracyclin,Tetracyclin,Tetracyclin,TE-Tetracyclin,Tetracyclin,Tetracycline
 ,,,TIC-Ticarcillin,Ticarcillin,Ticarcillin
@@ -172,7 +172,7 @@ Ticarcillin...Clavulansaeure,,Ticarcillin...Clavulansaeure,TCC-Ticarcillin/Clavu
 ,,,TEL-Telithromycin,,Telithromycin
 Tigecyclin,Tigecyclin,Tigecyclin,TGC-Tigecycline,Tigecyclin,Tigecycline
 Tobramycin,,Tobramycin,TM-Tobramycin,Tobramycin,Tobramycin
-Vancomycin.GRD,,,,,Vancomycin
+Vancomycin.GRD,,,,,Vancomycin_GRD
 Vancomycin,Vancomycin,Vancomycin,VA-Vancomycin,Vancomycin,Vancomycin
 Voriconazol,,Voriconazol,,,Voriconazole
 X5.Fluorocytosin,,X5.Fluorocytosin,,,5-Fluorocytosine

@@ -13,5 +13,5 @@ python DRIAMS-A_clean_id_file.py /links/groups/borgwardt/Projects/maldi_tof_diag
 python remove_overlap_17_18.py
 
 # DRIAMS-B
-#python DRIAMS-B_clean_id_file.py /links/groups/borgwardt/Projects/maldi_tof_diagnostics/amr_maldi_ml/codeAC/KSBL/KSBL_res_report.csv \
+# python DRIAMS-B_clean_id_file.py /links/groups/borgwardt/Projects/maldi_tof_diagnostics/amr_maldi_ml/codeAC/KSBL/KSBL_res_report.csv \
 #                        /links/groups/borgwardt/Data/DRIAMS/DRIAMS-B/id/2018/2018_clean.csv 
