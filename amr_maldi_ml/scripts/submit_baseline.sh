@@ -41,6 +41,7 @@ for SEED in 344 172 188 270 35 164 545 480 89 409; do
       'Ciprofloxacin'\
       'Clindamycin'\
       'Colistin'\
+      'Cotrimoxazol'\
       'Daptomycin'\
       'Ertapenem'\
       'Erythromycin'\
@@ -62,7 +63,6 @@ for SEED in 344 172 188 270 35 164 545 480 89 409; do
       'Teicoplanin'\
       'Tetracycline'\
       'Tobramycin'\
-      'Trimethoprim-Sulfamethoxazole'\
       'Tigecycline'\
       'Vancomycin'\
       'Voriconazole';
