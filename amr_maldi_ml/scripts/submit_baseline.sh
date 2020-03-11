@@ -24,7 +24,7 @@ run() {
 }
 
 for SEED in 344 172 188 270 35 164 545 480 89 409; do
-  for ANTIBIOTIC in '5-Fluorocytosin'\
+  for ANTIBIOTIC in '5-Fluorocytosine'\
       'Amikacin'\
       'Amoxicillin'\
       'Amoxicillin-Clavulanic acid'\
@@ -35,9 +35,9 @@ for SEED in 344 172 188 270 35 164 545 480 89 409; do
       'Cefazolin'\
       'Cefepime'\
       'Cefpodoxime'\
-      'Ceftazidim'\
-      'Cefuroxime'\
+      'Ceftazidime'\
       'Ceftriaxone'\
+      'Cefuroxime'\
       'Ciprofloxacin'\
       'Clindamycin'\
       'Colistin'\
