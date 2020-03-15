@@ -39,6 +39,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import StandardScaler
+from sklearn.utils import resample
 
 dotenv.load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
@@ -48,6 +49,110 @@ DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
 # *all* available years.
 site = 'DRIAMS-A'
 years = ['2015']  # TODO: , '2016', '2017', '2018']
+
+
+def run_experiment(X_train, y_train, X_test, y_test, n_folds):
+    """Run experiment for given train--test split.
+
+    This is the main function for training and testing a classifier. The
+    function is oblivious to the context of the training. It performs an
+    in-depth grid search and evaluates the results.
+
+    Parameters
+    ----------
+    X_train : array-like
+        Training data
+
+    y_train : list
+        Labels for the training data
+
+    X_test : array_like
+        Test data
+
+    y_test : list
+        Labels for the rest data
+
+    n_folds : int
+        Number of folds for internal cross-validation
+
+    Returns
+    -------
+    A dictionary containing measurement descriptions and their
+    corresponding values.
+    """
+    # Fit the classifier and start calculating some summary metrics.
+    # All of this is wrapped in cross-validation based on the grid
+    # defined above.
+    lr = LogisticRegression(solver='saga', max_iter=500)
+
+    pipeline = Pipeline(
+        steps=[
+            ('scaler', None),
+            ('lr', lr),
+        ]
+    )
+
+    param_grid = [
+        {
+            'scaler': ['passthrough', StandardScaler()],
+            'lr__C': 10.0 ** np.arange(-3, 4),  # 10^{-3}..10^{3}
+            'lr__penalty': ['l1', 'l2'],
+        },
+        {
+            'scaler': ['passthrough', StandardScaler()],
+            'lr__penalty': ['none'],
+        }
+    ]
+
+    grid_search = GridSearchCV(
+                    pipeline,
+                    param_grid=param_grid,
+                    cv=n_folds,
+                    scoring='roc_auc',
+                    n_jobs=-1,
+    )
+
+    logging.info('Starting grid search')
+
+    # Ignore these warnings only for the grid search process. The
+    # reason is that some of the jobs will inevitably *fail* to
+    # converge because of bad `C` values. We are not interested in
+    # them anyway.
+    with warnings.catch_warnings():
+        warnings.filterwarnings('ignore', category=ConvergenceWarning)
+        warnings.filterwarnings('ignore', category=UserWarning)
+
+        with joblib.parallel_backend('threading', -1):
+            grid_search.fit(X_train, y_train)
+
+    y_pred = grid_search.predict(X_test)
+    y_score = grid_search.predict_proba(X_test)
+
+    accuracy = accuracy_score(y_pred, y_test)
+    auprc = average_precision_score(y_test, y_score[:, 1])
+    auroc = roc_auc_score(y_test, y_score[:, 1])
+
+    # Replace information about the standard scaler prior to writing out
+    # the `best_params_` grid. The reason for this is that we cannot and
+    # probably do not want to serialise the scaler class. We only need
+    # to know *if* a scaler has been employed.
+    if 'scaler' in grid_search.best_params_:
+        scaler = grid_search.best_params_['scaler']
+        if scaler != 'passthrough':
+            grid_search.best_params_['scaler'] = type(scaler).__name__
+
+    # Prepare the results dictionary for this experiment.
+    results = {
+        'best_params': grid_search.best_params_,
+        'y_score': y_score.tolist(),
+        'y_pred': y_pred.tolist(),
+        'y_test': y_test.tolist(),
+        'accuracy': accuracy,
+        'auprc': auprc,
+        'auroc': auroc,
+    }
+
+    return results
 
 
 def subset_indices(y, indices, species):
@@ -78,7 +183,6 @@ def subset_indices(y, indices, species):
     subset of species-specific indices. The subset can be used for
     accessing vectors of spectra.
     """
-
     y = y.iloc[indices].copy()
     y.index = indices
     y = y.query('species == @args.species')
@@ -217,16 +321,35 @@ if __name__ == '__main__':
             y_train = driams_dataset.y.iloc[train_index]
             train_stratify_ = train_stratify
 
-        print(train_stratify_)
-        print(len(train_index), len(train_index_))
-        print(len(train_stratify_))
-
         y_train = driams_dataset.to_numpy(args.antibiotic, y=y_train)
 
         X_train = X[train_index_]
         X_test = X[test_index_]
 
         n_folds = 5
+
+        min_samples = 2
+        max_samples = len(train_index_)
+
+        # Create the sample sizes for which we want to repeat this
+        # experiment. By enforcing a fixed number of values, it is
+        # possible to run this for both scenarios without having a
+        # change in code.
+        samples_sizes = np.linspace(min_samples, max_samples, 20, dtype=int)
+
+        for n_samples in samples_sizes:
+            indices = resample(
+                        np.arange(max_samples),
+                        n_samples=n_samples,
+                        stratify=train_stratify_,
+                        random_state=args.seed,
+                        replace=False
+                    )
+
+            metrics = run_experiment(
+                X=X_train[indices],
+                y=y_train[indices]
+            )
 
         continue
 
