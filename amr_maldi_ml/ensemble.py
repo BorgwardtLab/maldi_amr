@@ -159,6 +159,7 @@ if __name__ == '__main__':
         encoder=DRIAMSLabelEncoder(),
         handle_missing_resistance_measurements='remove_if_all_missing',
         spectra_type='binned_6000',
+        nrows=1000,  # FIXME: remove after debugging
     )
 
     logging.info(f'Loaded data set')
@@ -169,9 +170,10 @@ if __name__ == '__main__':
 
     # Do the split only once in order to ensure that we are
     # predicting on the same samples subsequently.
-    train_index, test_index = stratify_by_species_and_label(
+    train_index, test_index, train_stratify, _ = stratify_by_species_and_label(
         driams_dataset.y,
         antibiotic=args.antibiotic,
+        return_stratification=True,
         random_state=args.seed,
     )
 
@@ -198,12 +200,26 @@ if __name__ == '__main__':
                 args.species
             )
 
+            # Sets all indices that are *valid* to be used in the
+            # subsequent subset of the indices.
+            mask = np.isin(
+                    train_index,
+                    train_index_,
+                    assume_unique=True)
+
+            train_stratify_ = train_stratify[mask]
+
         # Ensemble mode: just use the regular train index. The reason
         # for choosing a different variable name is because I do not
         # want to overwrite anything here.
         else:
             train_index_ = train_index
             y_train = driams_dataset.y.iloc[train_index]
+            train_stratify_ = train_stratify
+
+        print(train_stratify_)
+        print(len(train_index), len(train_index_))
+        print(len(train_stratify_))
 
         y_train = driams_dataset.to_numpy(args.antibiotic, y=y_train)
 
@@ -211,6 +227,8 @@ if __name__ == '__main__':
         X_test = X[test_index_]
 
         n_folds = 5
+
+        continue
 
         # Fit the classifier and start calculating some summary metrics.
         # All of this is wrapped in cross-validation based on the grid
