@@ -37,7 +37,6 @@ from sklearn.metrics import average_precision_score
 from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import StandardScaler
 from sklearn.utils import resample
 
@@ -48,7 +47,7 @@ DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
 # experiment. We always train on the same data set, using
 # *all* available years.
 site = 'DRIAMS-A'
-years = ['2015']  # TODO: , '2016', '2017', '2018']
+years = ['2015', '2016', '2017', '2018']
 
 
 def run_experiment(X_train, y_train, X_test, y_test, n_folds):
@@ -259,7 +258,6 @@ if __name__ == '__main__':
         encoder=DRIAMSLabelEncoder(),
         handle_missing_resistance_measurements='remove_if_all_missing',
         spectra_type='binned_6000',
-        nrows=2000,  # FIXME: remove after debugging
     )
 
     logging.info(f'Loaded data set')
@@ -345,7 +343,7 @@ if __name__ == '__main__':
         # change in code.
         min_samples = 30
         max_samples = len(train_index_)
-        samples_sizes = np.linspace(min_samples, max_samples, 3, dtype=int)
+        samples_sizes = np.linspace(min_samples, max_samples, 20, dtype=int)
 
         for n_samples in samples_sizes:
             indices = resample(
@@ -368,11 +366,13 @@ if __name__ == '__main__':
             # to be added to the full output directory.
             for key in results.keys():
                 if key in output:
-                    output[key] += results[key]
+                    output[key].append(results[key])
                 else:
                     output[key] = [results[key]]
 
-            output['n_samples'].append(n_samples)
+            # Store number of samples; the type cast to `int` ensures
+            # that the value can be serialised.
+            output['n_samples'].append(int(n_samples))
 
         # Add fingerprint information about the metadata files to make sure
         # that the experiment is reproducible.
