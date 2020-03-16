@@ -50,6 +50,31 @@ site = 'DRIAMS-A'
 years = ['2015', '2016', '2017', '2018']
 
 
+def get_min_samples(n_folds, y_train):
+    """Calculate number of minimum samples for CV-based scenarios.
+
+    This helper function checks the prevalence of the positive class and
+    uses it to calculate the number of minimum samples required in
+    a given cross validation scenario.
+
+    Parameters
+    ----------
+    n_folds : int
+        Number of folds to be used
+
+    y_train : array-like
+        Labels to be used for training
+
+    Returns
+    -------
+    Minimum number of samples required.
+    """
+    prevalence = (y_train == 1).sum() / len(y_train)
+    min_samples = int(np.ceil(n_folds / prevalence))
+
+    return min_samples
+
+
 def run_experiment(X_train, y_train, X_test, y_test, n_folds):
     """Run experiment for given train--test split.
 
@@ -196,7 +221,7 @@ if __name__ == '__main__':
         help='Antibiotic for which to run the experiment',
         required=True,
     )
-    
+
     parser.add_argument(
         '-s', '--species',
         type=str,
