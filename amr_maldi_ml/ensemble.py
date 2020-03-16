@@ -47,7 +47,7 @@ DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
 # experiment. We always train on the same data set, using
 # *all* available years.
 site = 'DRIAMS-A'
-years = ['2015', '2016', '2017', '2018']
+years = ['2015'] # , '2016', '2017', '2018']
 
 
 def run_experiment(X_train, y_train, X_test, y_test, n_folds):
@@ -336,20 +336,26 @@ if __name__ == '__main__':
         }
 
         n_folds = 5
+        n_scenarios = 20  # number of sampling scenarios to run
 
         # Create the sample sizes for which we want to repeat this
         # experiment. By enforcing a fixed number of values, it is
         # possible to run this for both scenarios without having a
         # change in code.
-        min_samples = 30
+        prevalence = (y_train == 1).sum() / len(y_train)
+        min_samples = np.ceil(n_folds / prevalence)
         max_samples = len(train_index_)
-        samples_sizes = np.linspace(min_samples, max_samples, 20, dtype=int)
+        samples_sizes = np.linspace(
+                            min_samples,
+                            max_samples,
+                            n_scenarios,
+                            dtype=int)
 
         for n_samples in samples_sizes:
             indices = resample(
                         np.arange(max_samples),
                         n_samples=n_samples,
-                        stratify=train_stratify_,
+                        stratify=y_train,
                         random_state=args.seed,
                         replace=False
                     )
