@@ -158,8 +158,13 @@ def run_experiment(X_train, y_train, X_test, y_test, n_folds):
     y_score = grid_search.predict_proba(X_test)
 
     accuracy = accuracy_score(y_pred, y_test)
-    auprc = average_precision_score(y_test, y_score[:, 1])
-    auroc = roc_auc_score(y_test, y_score[:, 1])
+
+    # Automatically choose the proper evaluation method for measuring
+    # requiring the selection of a minority class.
+    minority_class = np.argmin(np.bincount(y_test))
+
+    auprc = average_precision_score(y_test, y_score[:, minority_class])
+    auroc = roc_auc_score(y_test, y_score[:, minority_class])
 
     # Replace information about the standard scaler prior to writing out
     # the `best_params_` grid. The reason for this is that we cannot and
