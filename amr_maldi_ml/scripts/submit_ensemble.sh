@@ -24,27 +24,29 @@ run() {
 }
 
 for SEED in 344 172 188 270 35 164 545 480 89 409; do
-  for ANTIBIOTIC in 'Amoxicillin-Clavulanic acid' 'Ciprofloxacin'; do
-    for SPECIES in 'Escherichia coli' 'Staphylococcus aureus'; do
-      CMD="${MAIN} --species \"$SPECIES\" --antibiotic \"$ANTIBIOTIC\" --seed $SEED --force"
+  for INDEX in $(seq 0 19); do
+    for ANTIBIOTIC in 'Amoxicillin-Clavulanic acid' 'Ciprofloxacin'; do
+      for SPECIES in 'Escherichia coli' 'Staphylococcus aureus'; do
+        CMD="${MAIN} --index $INDEX --species \"$SPECIES\" --antibiotic \"$ANTIBIOTIC\" --seed $SEED --force"
+        run "$CMD";
+      done
+    done
+
+    for SPECIES in 'Escherichia coli' 'Klebsiella pneumoniae'; do
+      CMD="${MAIN} --index $INDEX --species \"$SPECIES\" --antibiotic \"Amikacin\" --seed $SEED --force"
       run "$CMD";
     done
-  done
 
-  for SPECIES in 'Escherichia coli' 'Klebsiella pneumoniae'; do
-    CMD="${MAIN} --species \"$SPECIES\" --antibiotic \"Amikacin\" --seed $SEED --force"
-    run "$CMD";
-  done
+    for ANTIBIOTIC in 'Ceftriaxone' 'Cefepime' 'Imipenem' 'Piperacillin-Tazobactam'; do
+      for SPECIES in 'Escherichia coli' 'Staphylococcus aureus' 'Staphylococcus epidermidis' 'Klebsiella pneumoniae'; do
+        CMD="${MAIN} --index $INDEX --species \"$SPECIES\" --antibiotic \"$ANTIBIOTIC\" --seed $SEED --force"
+        run "$CMD";
+      done
+    done
 
-  for ANTIBIOTIC in 'Ceftriaxone' 'Cefepime' 'Imipenem' 'Piperacillin-Tazobactam'; do
-    for SPECIES in 'Escherichia coli' 'Staphylococcus aureus' 'Staphylococcus epidermidis' 'Klebsiella pneumoniae'; do
-      CMD="${MAIN} --species \"$SPECIES\" --antibiotic \"$ANTIBIOTIC\" --seed $SEED --force"
+    for SPECIES in 'Staphylococcus aureus' 'Staphylococcus epidermidis'; do
+      CMD="${MAIN} --index $INDEX --species \"$SPECIES\" --antibiotic \"Gentamicin\" --seed $SEED --force"
       run "$CMD";
     done
-  done
-
-  for SPECIES in 'Staphylococcus aureus' 'Staphylococcus epidermidis'; do
-    CMD="${MAIN} --species \"$SPECIES\" --antibiotic \"Gentamicin\" --seed $SEED --force"
-    run "$CMD";
   done
 done
