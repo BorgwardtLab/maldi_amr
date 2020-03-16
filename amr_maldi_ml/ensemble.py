@@ -47,7 +47,7 @@ DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
 # experiment. We always train on the same data set, using
 # *all* available years.
 site = 'DRIAMS-A'
-years = ['2015'] # , '2016', '2017', '2018']
+years = ['2015', '2016', '2017', '2018']
 
 
 def run_experiment(X_train, y_train, X_test, y_test, n_folds):
@@ -196,7 +196,7 @@ if __name__ == '__main__':
         help='Antibiotic for which to run the experiment',
         required=True,
     )
-
+    
     parser.add_argument(
         '-s', '--species',
         type=str,
@@ -209,6 +209,20 @@ if __name__ == '__main__':
         type=int,
         help='Random seed to use for the experiment',
         required=True
+    )
+
+    parser.add_argument(
+        '--n-scenarios', '-n',
+        type=int,
+        default=20,
+        help='Number of scenarios (subsampling draws) to run',
+    )
+
+    parser.add_argument(
+        '--index', '-i',
+        type=int,
+        help='Index of scenario (subsampling draw) to run',
+        required=True,
     )
 
     name = 'fig3_ensemble'
@@ -228,6 +242,9 @@ if __name__ == '__main__':
     )
 
     args = parser.parse_args()
+
+    if not (0 <= args.index < args.n_scenarios):
+        raise RuntimeError(f'Scenario index {args.index} is out of range')
 
     # Create the output directory for storing all results of the
     # individual combinations.
@@ -336,7 +353,7 @@ if __name__ == '__main__':
         }
 
         n_folds = 5
-        n_scenarios = 20  # number of sampling scenarios to run
+        n_scenarios = args.n_scenarios
 
         # Create the sample sizes for which we want to repeat this
         # experiment. By enforcing a fixed number of values, it is
@@ -345,49 +362,48 @@ if __name__ == '__main__':
         prevalence = (y_train == 1).sum() / len(y_train)
         min_samples = np.ceil(n_folds / prevalence)
         max_samples = len(train_index_)
-        samples_sizes = np.linspace(
-                            min_samples,
-                            max_samples,
-                            n_scenarios,
-                            dtype=int)
+        sample_sizes = np.linspace(
+                           min_samples,
+                           max_samples,
+                           n_scenarios,
+                           dtype=int)
 
-        for n_samples in samples_sizes:
-            indices = resample(
-                        np.arange(max_samples),
-                        n_samples=n_samples,
-                        stratify=y_train,
-                        random_state=args.seed,
-                        replace=False
-                    )
+        n_samples = sample_sizes[args.index]
 
-            results = run_experiment(
-                X_train=X_train[indices],
-                y_train=y_train[indices],
-                X_test=X_test,
-                y_test=y_test,
-                n_folds=n_folds
-            )
+        indices = resample(
+                    np.arange(max_samples),
+                    n_samples=n_samples,
+                    stratify=y_train,
+                    random_state=args.seed,
+                    replace=False
+                )
 
-            # Assume that every key consists of a measurement that needs
-            # to be added to the full output directory.
-            for key in results.keys():
-                if key in output:
-                    output[key].append(results[key])
-                else:
-                    output[key] = [results[key]]
+        results = run_experiment(
+            X_train=X_train[indices],
+            y_train=y_train[indices],
+            X_test=X_test,
+            y_test=y_test,
+            n_folds=n_folds
+        )
 
-            # Store number of samples; the type cast to `int` ensures
-            # that the value can be serialised.
-            output['n_samples'].append(int(n_samples))
+        output.update(results)
+
+        # Store number of samples; the type cast to `int` ensures
+        # that the value can be serialised.
+        output['n_samples'] = int(n_samples)
 
         # Add fingerprint information about the metadata files to make sure
         # that the experiment is reproducible.
         output['metadata_versions'] = metadata_fingerprints
 
+        # Prepare suffix for output
+        suffix = 'ensemble' if ensemble else 'single'
+        suffix += f'_index_{args.index:02}'
+
         output_filename = generate_output_filename(
             args.output,
             output,
-            suffix='ensemble' if ensemble else 'single'
+            suffix=suffix
         )
 
         # Only write if we either are running in `force` mode, or the
