@@ -69,7 +69,12 @@ def get_min_samples(n_folds, y_train):
     -------
     Minimum number of samples required.
     """
-    prevalence = (y_train == 1).sum() / len(y_train)
+    # Ensures that we *always* base the minimum number of samples on the
+    # minority class. This should, in most cases, be the positive class,
+    # i.e. `1`, but there are some combinations for which that might not
+    # be the case.
+    minority_class = np.argmin(np.bincount(y_train))
+    prevalence = (y_train == minority_class).sum() / len(y_train)
     min_samples = int(np.ceil(n_folds / prevalence))
 
     return min_samples
