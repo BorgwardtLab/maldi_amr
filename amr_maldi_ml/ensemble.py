@@ -380,12 +380,17 @@ if __name__ == '__main__':
         n_folds = 5
         n_scenarios = args.n_scenarios
 
-        # Create the sample sizes for which we want to repeat this
-        # experiment. By enforcing a fixed number of values, it is
-        # possible to run this for both scenarios without having a
-        # change in code.
-        prevalence = (y_train == 1).sum() / len(y_train)
-        min_samples = np.ceil(n_folds / prevalence)
+        min_samples = get_min_samples(n_folds, y_train)
+        if min_samples >= len(y_train):
+            logging.warning(f'Require {min_samples} samples, but only '
+                            f'{len(y_train)} are present. Decreasing '
+                            f'`n_folds` to 3.')
+
+            # TODO: could make this adjustment for a *range* of possible
+            # values and see which one works best.
+            n_folds = 3
+            min_samples = get_min_samples(n_folds, y_train)
+
         max_samples = len(train_index_)
         sample_sizes = np.linspace(
                            min_samples,
