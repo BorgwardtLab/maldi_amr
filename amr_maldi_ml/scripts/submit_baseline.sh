@@ -10,7 +10,7 @@ MAIN="poetry run python ../baseline.py "
 # Try to be smart: if `bsub` does *not* exist on the system, we just
 # pretend that it is an empty command.
 if [ -x "$(command -v bsub)" ]; then
-  BSUB='bsub -W 23:59 -R "rusage[mem=64000]"'
+  BSUB='bsub -W 23:59 -o "baseline_%J.out" -R "rusage[mem=64000]"'
 fi
 
 # Evaluates its first argument either by submitting a job, or by
@@ -24,6 +24,50 @@ run() {
 }
 
 for SEED in 344 172 188 270 35 164 545 480 89 409; do
-  CMD="${MAIN} --seed $SEED"
-  run "$CMD";
+  for ANTIBIOTIC in '5-Fluorocytosine'\
+      'Amikacin'\
+      'Amoxicillin'\
+      'Amoxicillin-Clavulanic acid'\
+      'Ampicillin-Amoxicillin'\
+      'Anidulafungin'\
+      'Aztreonam'\
+      'Caspofungin'\
+      'Cefazolin'\
+      'Cefepime'\
+      'Cefpodoxime'\
+      'Ceftazidime'\
+      'Ceftriaxone'\
+      'Cefuroxime'\
+      'Ciprofloxacin'\
+      'Clindamycin'\
+      'Colistin'\
+      'Cotrimoxazol'\
+      'Daptomycin'\
+      'Ertapenem'\
+      'Erythromycin'\
+      'Fluconazole'\
+      'Fosfomycin-Trometamol'\
+      'Fusidic acid'\
+      'Gentamicin'\
+      'Imipenem'\
+      'Itraconazole'\
+      'Levofloxacin'\
+      'Meropenem'\
+      'Micafungin'\
+      'Nitrofurantoin'\
+      'Norfloxacin'\
+      'Oxacillin'\
+      'Penicillin'\
+      'Piperacillin-Tazobactam'\
+      'Rifampicin'\
+      'Teicoplanin'\
+      'Tetracycline'\
+      'Tobramycin'\
+      'Tigecycline'\
+      'Vancomycin'\
+      'Voriconazole';
+  do
+    CMD="${MAIN} --antibiotic \"$ANTIBIOTIC\" --seed $SEED --force"
+    run "$CMD";
+  done
 done

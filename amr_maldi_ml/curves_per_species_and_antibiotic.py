@@ -42,6 +42,7 @@ years = ['2015', '2016', '2017', '2018']
 
 def _run_experiment(
     root,
+    fingerprints,
     species,
     antibiotic,
     seed,
@@ -75,9 +76,6 @@ def _run_experiment(
         antibiotic=antibiotic,
         random_state=seed,
     )
-
-    logging.info(len(train_index))
-    logging.info(len(test_index))
 
     logging.info('Finished stratification')
 
@@ -121,6 +119,8 @@ def _run_experiment(
                     n_jobs=n_jobs,
     )
 
+    logging.info('Starting grid search')
+
     # Ignore these warnings only for the grid search process. The
     # reason is that some of the jobs will inevitably *fail* to
     # converge because of bad `C` values. We are not interested in
@@ -144,6 +144,15 @@ def _run_experiment(
 
     auroc = roc_auc_score(y_test, y_score[:, 1], average='weighted')
 
+    # Replace information about the standard scaler prior to writing out
+    # the `best_params_` grid. The reason for this is that we cannot and
+    # probably do not want to serialise the scaler class. We only need
+    # to know *if* a scaler has been employed.
+    if 'scaler' in grid_search.best_params_:
+        scaler = grid_search.best_params_['scaler']
+        if scaler != 'passthrough':
+            grid_search.best_params_['scaler'] = type(scaler).__name__
+
     # Prepare the output dictionary containing all information to
     # reproduce the experiment.
 
@@ -166,6 +175,10 @@ def _run_experiment(
         output_path,
         output
     )
+
+    # Add fingerprint information about the metadata files to make sure
+    # that the experiment is reproducible.
+    output['metadata_versions'] = fingerprints
 
     # Only write if we either are running in `force` mode, or the
     # file does not yet exist.
@@ -284,6 +297,7 @@ if __name__ == '__main__':
     ])
 
     explorer = DRIAMSDatasetExplorer(DRIAMS_ROOT)
+    metadata_fingerprints = explorer.metadata_fingerprints(site)
 
     # How many jobs to use to run this experiment. Should be made
     # configurable ideally.
@@ -303,6 +317,7 @@ if __name__ == '__main__':
 
             _run_experiment(
                 explorer.root,
+                metadata_fingerprints,
                 species,
                 antibiotic,
                 seed,
@@ -319,6 +334,7 @@ if __name__ == '__main__':
 
         _run_experiment(
             explorer.root,
+            metadata_fingerprints,
             args.species,
             args.antibiotic,
             args.seed,
