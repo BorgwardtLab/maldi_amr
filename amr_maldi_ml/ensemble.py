@@ -418,16 +418,6 @@ if __name__ == '__main__':
                     replace=False
                 )
 
-        results = run_experiment(
-            X_train=X_train[indices],
-            y_train=y_train[indices],
-            X_test=X_test,
-            y_test=y_test,
-            n_folds=n_folds
-        )
-
-        output.update(results)
-
         # Store number of samples; the type cast to `int` ensures
         # that the value can be serialised.
         output['n_samples'] = int(n_samples)
@@ -450,6 +440,16 @@ if __name__ == '__main__':
         # file does not yet exist.
         if not os.path.exists(output_filename) or args.force:
             logging.info(f'Saving {os.path.basename(output_filename)}')
+
+            results = run_experiment(
+                X_train=X_train[indices],
+                y_train=y_train[indices],
+                X_test=X_test,
+                y_test=y_test,
+                n_folds=n_folds
+            )
+
+            output.update(results)
 
             with open(output_filename, 'w') as f:
                 json.dump(output, f, indent=4)
