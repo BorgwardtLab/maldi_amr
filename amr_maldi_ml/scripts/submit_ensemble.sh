@@ -10,7 +10,7 @@ MAIN="poetry run python ../ensemble.py "
 # Try to be smart: if `bsub` does *not* exist on the system, we just
 # pretend that it is an empty command.
 if [ -x "$(command -v bsub)" ]; then
-  BSUB='bsub -W 23:59 -o "ensemble_%J.out" -R "rusage[mem=64000]"'
+  BSUB='bsub -W 23:59 -o "ensemble_%J.out" -R "rusage[mem=24000]"'
 fi
 
 # Evaluates its first argument either by submitting a job, or by
