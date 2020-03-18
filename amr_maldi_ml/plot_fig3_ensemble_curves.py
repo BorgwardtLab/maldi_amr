@@ -7,9 +7,13 @@ automatically and create the plots according to availability.
 
 
 import argparse
+import collections
 import glob
 import json
 import os
+
+import numpy as np
+import pandas as pd
 
 from tqdm import tqdm
 
@@ -24,8 +28,60 @@ def _add_or_compare(metadata):
     if not metadata_versions:
         metadata_versions.update(metadata)
     else:
-        for key, value in metadata.items():
-            assert metadata_versions[key] == value
+        # Smarter way to compare the entries of the dictionaries with
+        # each other.
+        assert metadata_versions == metadata
+
+
+def plot_curves(df, metric='auroc'):
+    """Plot curves that are contained in a data frame.
+
+    This function is performing the main work for a single data frame.
+    It will automatically collect the relevant curves and prepare a plot
+    according to the data.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Data frame containing individual measurements for each species,
+        site, type, and seed. The following columns need to exist:
+
+            - 'site'
+            - 'species'
+            - 'type'
+            - 'n_samples'
+            - 'seed'
+
+        All other columns are optional; they are taken to correspond to
+        performance metrics such as AUROC.
+
+    metric : str, optional
+        Specifies a column in the data frame that is used as
+        a performance metric.
+
+    Returns
+    -------
+    Nothing. As a side-effect of calling this function, plots will be
+    generated.
+    """
+    # Will store the individual curves for subsequent plotting. Every
+    # curve is indexed by a tuple containing its species and its type
+    # to indicate whether we are plotting an ensemble or not.
+    curves = {}
+
+    for (species, type_), df_ in df.groupby(['species', 'type']):
+        curve = df_.groupby(['n_samples']).agg({
+            metric: [np.mean, np.std]
+        })
+
+        # This will just reduce the curves that we can draw around the
+        # mean, but it will at least make it possible to always render
+        # a curve in the end.
+        curve = curve.fillna(0)
+
+        curves[(species, type)] = curve
+
+    # FIXME: plot the curves :)
 
 
 if __name__ == '__main__':
@@ -36,7 +92,12 @@ if __name__ == '__main__':
 
     # Stores data rows corresponding to individual scenarios. Each
     # scenario involves the same antibiotic (used as the key here).
-    scenarios = {}
+    scenarios = collections.defaultdict(list)
+
+    # Keys to skip when creating a single row in the data dictionary
+    # above. This ensures that we only add single pieces of data and
+    # have an easier time turning every scenario into a data frame.
+    skip_keys = ['years', 'metadata_versions']
 
     for filename in tqdm(sorted(glob.glob(os.path.join(args.INPUT,
                                           '*.json'))), desc='File'):
@@ -47,3 +108,21 @@ if __name__ == '__main__':
         antibiotic = data['antibiotic']
 
         _add_or_compare(data['metadata_versions'])
+
+        row = {
+            key: data[key] for key in data.keys() if key not in skip_keys
+        }
+
+        row['type'] = 'ensemble' if 'ensemble' in filename else 'single'
+
+        scenarios[antibiotic].append(row)
+
+    for antibiotic in sorted(scenarios.keys()):
+
+        rows = scenarios[antibiotic]
+        df = pd.DataFrame.from_records(rows)
+
+        plot_curves(df)
+
+        # FIXME: remove after debugging
+        break
