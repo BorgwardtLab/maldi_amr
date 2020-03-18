@@ -1,0 +1,4 @@
+# Let's ignore some LSF files because they do not have to be checked in
+# to the repository inadvertently.
+lsf.*
+*.out
