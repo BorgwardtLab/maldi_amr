@@ -114,13 +114,22 @@ def plot_curves(df, metric='auroc'):
         upper = curve[metric]['mean'] + curve[metric]['std']
         lower = curve[metric]['mean'] - curve[metric]['std']
 
-        ax.plot(x, mean, c=colour, label=species)
+        linestyle = 'solid' if type_ == 'ensemble' else 'dashdot'
+
+        ax.plot(x,
+                mean,
+                c=colour,
+                label=species,
+                linestyle=linestyle,
+        )
+
         ax.fill_between(
             x,
             lower,
             upper,
             facecolor=colour,
             alpha=0.25,
+            linestyle=linestyle,
         )
 
     ax.set_ylabel(str(metric).upper())
@@ -159,7 +168,8 @@ if __name__ == '__main__':
             key: data[key] for key in data.keys() if key not in skip_keys
         }
 
-        row['type'] = 'ensemble' if 'ensemble' in filename else 'single'
+        basename = os.path.basename(filename)
+        row['type'] = 'ensemble' if 'ensemble' in basename else 'single'
 
         scenarios[antibiotic].append(row)
 
