@@ -15,6 +15,9 @@ import os
 import numpy as np
 import pandas as pd
 
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 from tqdm import tqdm
 
 
@@ -79,9 +82,52 @@ def plot_curves(df, metric='auroc'):
         # a curve in the end.
         curve = curve.fillna(0)
 
-        curves[(species, type)] = curve
+        curves[(species, type_)] = curve
 
     # FIXME: plot the curves :)
+
+    sns.set(style='whitegrid')
+
+    fig, ax = plt.subplots()
+    fig.suptitle(df.antibiotic.unique()[0])
+
+    palette = sns.color_palette()
+
+    supported_species = [
+        'Escherichia coli',
+        'Klebsiella pneumoniae',
+        'Staphylococcus aureus',
+        'Staphylococcus epidermidis'
+    ]
+
+    species_to_colour = {
+        species: palette[i] for i, species in enumerate(supported_species)
+    }
+
+    for (species, type_), curve in curves.items():
+
+        colour = species_to_colour[species]
+
+        x = curve.index
+        mean = upper = curve[metric]['mean']
+
+        upper = curve[metric]['mean'] + curve[metric]['std']
+        lower = curve[metric]['mean'] - curve[metric]['std']
+
+        ax.plot(x, mean, c=colour, label=species)
+        ax.fill_between(
+            x,
+            lower,
+            upper,
+            facecolor=colour,
+            alpha=0.25,
+        )
+
+    ax.set_ylabel(str(metric).upper())
+    ax.set_xlabel('Number of samples')
+    ax.legend(loc='lower right')
+
+    plt.show()
 
 
 if __name__ == '__main__':
