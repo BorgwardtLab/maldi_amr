@@ -178,6 +178,3 @@ if __name__ == '__main__':
         df = pd.DataFrame.from_records(rows)
 
         plot_curves(df)
-
-        # FIXME: remove after debugging
-        break
