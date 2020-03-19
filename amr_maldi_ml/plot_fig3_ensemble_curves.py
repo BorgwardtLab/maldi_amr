@@ -84,8 +84,6 @@ def plot_curves(df, metric='auroc'):
 
         curves[(species, type_)] = curve
 
-    # FIXME: plot the curves :)
-
     sns.set(style='whitegrid')
 
     fig, ax = plt.subplots()
@@ -116,11 +114,12 @@ def plot_curves(df, metric='auroc'):
 
         linestyle = 'solid' if type_ == 'ensemble' else 'dashdot'
 
-        ax.plot(x,
-                mean,
-                c=colour,
-                label=species,
-                linestyle=linestyle,
+        ax.plot(
+            x,
+            mean,
+            c=colour,
+            label=species,
+            linestyle=linestyle
         )
 
         ax.fill_between(
