@@ -32,6 +32,7 @@ def clean_data(filename, outfile):
                             keep=False)
 
     # intialize dataframe
+    print(list_antibiotics)
     list_id_columns = ['species', 'code', 'combined_code'] + list_antibiotics
     id_clean_indices = list(df['combined_code'].unique())
     id_clean = pd.DataFrame(columns=list_id_columns, index=id_clean_indices)
@@ -46,6 +47,7 @@ def clean_data(filename, outfile):
         id_clean.at[idx, row['Antibiotic']] = row['Resultat']
 
     id_clean = id_clean.drop(columns=[np.nan])
+    id_clean = id_clean.drop(columns=['Cefuroxim oral'])
 
     # replace column names with converted names
     print('Columns not covered by antibiotic name maps:\n{}'.format(
