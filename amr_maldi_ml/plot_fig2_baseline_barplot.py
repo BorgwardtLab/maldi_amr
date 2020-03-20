@@ -77,34 +77,34 @@ def plot_figure2(args):
         col_ab = maldi_col_map[antibiotic]
 
         # 'all': extract y_test and y_score from json files
-        y_score_total = []
-        y_test_total = []
+        aurocs = []
 
         for filename in content_spectra['filename'].values:
             with open(PATH_fig2 + filename) as f:
                 data = json.load(f)
-                y_score_total.extend([sc[1] for sc in data['y_score']])
-                y_test_total.extend(data['y_test'])
+                aurocs.append(roc_auc_score(data['y_test'], [sc[1] for sc in data['y_score']]))                    
 
-        auroc_all = round(roc_auc_score(y_test_total, y_score_total), 3)
+        auroc_mean_all = round(np.mean(aurocs),3)
+        auroc_std_all = round(np.std(aurocs),3)
 
         # 'all (w/o spectra)': extract y_test and y_score from json files
-        y_score_total = []
-        y_test_total = []
+        aurocs = []
 
         for filename in content_wo_spectra['filename'].values:
             with open(PATH_fig2 + filename) as f:
                 data = json.load(f)
-                y_score_total.extend([sc[1] for sc in data['y_score']])
-                y_test_total.extend(data['y_test'])
+                aurocs.append(roc_auc_score(data['y_test'], [sc[1] for sc in data['y_score']]))                    
 
-        auroc_all_wo_spectra = round(roc_auc_score(y_test_total, y_score_total), 3)
+        auroc_mean_all_wo_spectra = round(np.mean(aurocs),3)
+        auroc_std_all_wo_spectra = round(np.std(aurocs),3)
 
         values = values.append(
             pd.DataFrame({
                 'antibiotic': [antibiotic],
-                'auroc_all': [auroc_all],
-                'auroc_all_wo_spectra': [auroc_all_wo_spectra],
+                'auroc_all': [auroc_mean_all],
+                'auroc_all_wo_spectra': [auroc_mean_all_wo_spectra],
+                'auroc_std_all': [auroc_std_all],
+                'auroc_std_all_wo_spectra': [auroc_std_all_wo_spectra],
                 }),
                 ignore_index=True
             )
@@ -123,7 +123,12 @@ def plot_figure2(args):
 
     sns.barplot(x="antibiotic", y="auroc_all", ax=ax, data=values, color=sns.color_palette()[0])
     sns.barplot(x="antibiotic", y="auroc_all_wo_spectra", ax=ax, data=values, color='firebrick')
-    
+   
+    ax.errorbar(list(range(0, n_ab)), 
+                values['auroc_all'].values, 
+                yerr=values['auroc_std_all'].values, 
+                fmt='o', 
+                color='black')  
     ax.set_xticklabels(ax.get_xticklabels(), rotation=90)
     plt.ylabel('AUROC')
     plt.xlabel('')
@@ -132,7 +137,6 @@ def plot_figure2(args):
 
     # TODO correct Cotrimoxazole spelling
     # TODO include class ratios
-    # TODO include std bars
     # TODO include p-values
 
     plt.tight_layout()
