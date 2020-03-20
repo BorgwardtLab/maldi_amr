@@ -74,7 +74,7 @@ def plot_curves(df, metric='auroc'):
 
     for (species, type_), df_ in df.groupby(['species', 'type']):
         curve = df_.groupby(['n_samples']).agg({
-            metric: [np.mean, np.std]
+            metric: [np.mean, np.std, 'count']
         })
 
         # This will just reduce the curves that we can draw around the
@@ -114,11 +114,13 @@ def plot_curves(df, metric='auroc'):
 
         linestyle = 'solid' if type_ == 'ensemble' else 'dashdot'
 
+        mean_n_samples = np.mean(curve[metric]['count'])
+
         ax.plot(
             x,
             mean,
             c=colour,
-            label=species,
+            label=species + f' ({mean_n_samples:.1f})',
             linestyle=linestyle
         )
 
