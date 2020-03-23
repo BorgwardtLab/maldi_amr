@@ -42,8 +42,10 @@ def generate_output_filename(root, data, suffix=None):
     antibiotic = _encode(data['antibiotic'])
     seed = data['seed']
     site = data['site']
+    model = data['model']
 
-    filename = f'Site_{site}_' \
+    filename = f'Site_{site}_'   \
+               f'Model_{model}_' \
                f'Species_{species}_Antibiotic_{antibiotic}_Seed_{seed}'
 
     # Ensures that the suffix is only added if it exists. Else, we will
