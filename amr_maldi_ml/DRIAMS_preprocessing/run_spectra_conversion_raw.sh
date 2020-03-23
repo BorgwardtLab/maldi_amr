@@ -6,4 +6,6 @@
 
 #Rscript DRIAMS-B_2018_raw.r
 
-Rscript DRIAMS-C_2018_raw.r
+#Rscript DRIAMS-C_2018_raw.r
+
+Rscript DRIAMS-D_2018_raw.r
