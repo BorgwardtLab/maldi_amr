@@ -145,11 +145,10 @@ def plot_figure2(args):
     # p-values
     pval_string = ['*' if pv < 0.05 else '' for pv in
                    values['pvals'].values]
-    print(list(zip(pval_string, values['pvals'].values)))
     for i, yval in enumerate(values['auroc_all'].values):
         ax.annotate(
-                    '{:.1e}'.format(values['pvals'].iloc[i]),
-                    # pval_string[i],
+                    # '{:.1e}'.format(values['pvals'].iloc[i]),
+                    pval_string[i],
                     xy=(i, yval),
                     xytext=(i-0.15,  # -0.2 for text, -0.15 for stars
                             yval+values['auroc_std_all'].iloc[i]+0.01),
