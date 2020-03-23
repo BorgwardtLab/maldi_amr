@@ -1,4 +1,4 @@
-"""Calculate performance curves for species--antitbiotic combinations."""
+"""Calculate performance curves for species--antibiotic combinations."""
 
 import argparse
 import dotenv
@@ -7,11 +7,8 @@ import json
 import logging
 import pathlib
 import os
-import warnings
 
 import numpy as np
-
-from utilities import generate_output_filename
 
 from maldi_learn.driams import DRIAMSDatasetExplorer
 from maldi_learn.driams import DRIAMSLabelEncoder
@@ -20,15 +17,11 @@ from maldi_learn.driams import load_driams_dataset
 
 from maldi_learn.utilities import stratify_by_species_and_label
 
-from sklearn.exceptions import ConvergenceWarning
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import average_precision_score
-from sklearn.metrics import roc_auc_score
+from models import run_experiment
+
+from utilities import generate_output_filename
+
 from sklearn.model_selection import ParameterGrid
-from sklearn.model_selection import GridSearchCV
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
 
 dotenv.load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
@@ -48,6 +41,7 @@ def _run_experiment(
     seed,
     output_path,
     force,
+    model,
     n_jobs=-1
 ):
     """Run a single experiment for a given species--antibiotic combination."""
@@ -85,90 +79,15 @@ def _run_experiment(
     X_train, y_train = X[train_index], y[train_index]
     X_test, y_test = X[test_index], y[test_index]
 
-    n_folds = 5
-
-    # Fit the classifier and start calculating some summary metrics.
-    # All of this is wrapped in cross-validation based on the grid
-    # defined above.
-    lr = LogisticRegression(solver='saga', max_iter=500)
-
-    pipeline = Pipeline(
-        steps=[
-            ('scaler', None),
-            ('lr', lr),
-        ]
-    )
-
-    param_grid = [
-        {
-            'scaler': ['passthrough', StandardScaler()],
-            'lr__C': 10.0 ** np.arange(-3, 4),  # 10^{-3}..10^{3}
-            'lr__penalty': ['l1', 'l2'],
-        },
-        {
-            'scaler': ['passthrough', StandardScaler()],
-            'lr__penalty': ['none'],
-        }
-    ]
-
-    grid_search = GridSearchCV(
-                    pipeline,
-                    param_grid=param_grid,
-                    cv=n_folds,
-                    scoring='roc_auc',
-                    n_jobs=n_jobs,
-    )
-
-    logging.info('Starting grid search')
-
-    # Ignore these warnings only for the grid search process. The
-    # reason is that some of the jobs will inevitably *fail* to
-    # converge because of bad `C` values. We are not interested in
-    # them anyway.
-    with warnings.catch_warnings():
-        warnings.filterwarnings('ignore', category=ConvergenceWarning)
-        warnings.filterwarnings('ignore', category=UserWarning)
-
-        with joblib.parallel_backend('threading', n_jobs):
-            grid_search.fit(X_train, y_train)
-
-    y_pred = grid_search.predict(X_test)
-    y_score = grid_search.predict_proba(X_test)
-
-    accuracy = accuracy_score(y_pred, y_test)
-
-    auprc = average_precision_score(
-                y_test, y_score[:, 1],
-                average='weighted'
-    )
-
-    auroc = roc_auc_score(y_test, y_score[:, 1], average='weighted')
-
-    # Replace information about the standard scaler prior to writing out
-    # the `best_params_` grid. The reason for this is that we cannot and
-    # probably do not want to serialise the scaler class. We only need
-    # to know *if* a scaler has been employed.
-    if 'scaler' in grid_search.best_params_:
-        scaler = grid_search.best_params_['scaler']
-        if scaler != 'passthrough':
-            grid_search.best_params_['scaler'] = type(scaler).__name__
-
     # Prepare the output dictionary containing all information to
     # reproduce the experiment.
-
     output = {
         'site': site,
         'seed': seed,
+        'model': model,
         'antibiotic': antibiotic,
         'species': species,
-        'best_params': grid_search.best_params_,
         'years': years,
-        'y_score': y_score.tolist(),
-        'y_pred': y_pred.tolist(),
-        'y_test': y_test.tolist(),
-        'accuracy': accuracy,
-        'auprc': auprc,
-        'auroc': auroc,
     }
 
     output_filename = generate_output_filename(
@@ -183,6 +102,19 @@ def _run_experiment(
     # Only write if we either are running in `force` mode, or the
     # file does not yet exist.
     if not os.path.exists(output_filename) or force:
+
+        n_folds = 5
+
+        results = run_experiment(
+            X_train, y_train,
+            X_test, y_test,
+            model,
+            n_folds,
+            verbose=True
+        )
+
+        output.update(results)
+
         logging.info(f'Saving {os.path.basename(output_filename)}')
 
         with open(output_filename, 'w') as f:
@@ -226,6 +158,12 @@ if __name__ == '__main__':
         '-S', '--seed',
         type=int,
         help='Random seed to use for the experiment'
+    )
+
+    parser.add_argument(
+        '-m', '--model',
+        default='lr',
+        help='Selects model to use for subsequent training'
     )
 
     name = 'fig4_curves_per_species_and_antibiotics'
@@ -323,12 +261,13 @@ if __name__ == '__main__':
                 seed,
                 args.output,
                 args.force,
+                args.model,
                 n_jobs
             )
     # Run a specific experiment: species, antibiotic, and seed have to
     # be specified.
     else:
-        assert args.species is not None 
+        assert args.species is not None
         assert args.antibiotic is not None
         assert args.seed is not None
 
@@ -340,5 +279,6 @@ if __name__ == '__main__':
             args.seed,
             args.output,
             args.force,
+            args.model,
             n_jobs
         )
