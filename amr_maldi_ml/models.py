@@ -14,6 +14,7 @@ from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
 
 
 def get_pipeline_and_parameters(model):
@@ -31,7 +32,7 @@ def get_pipeline_and_parameters(model):
         supported values are:
 
             - 'lr' for logistic regression
-            - 'rbf-svm' for a support vector machine with an RBF kernel
+            - 'svm-rbf' for a support vector machine with an RBF kernel
 
     Returns
     -------
@@ -59,6 +60,29 @@ def get_pipeline_and_parameters(model):
                 'lr__penalty': ['none'],
             }
         ]
+
+        return pipeline, param_grid
+
+    elif model == 'svm-rbf':
+        svm = SVC(
+            kernel='rbf',
+            max_iter=500,
+            probability=True,
+            class_weight='balanced'
+        )
+
+        pipeline = Pipeline(
+            steps=[
+                ('scaler', None),
+                ('svm', svm),
+            ]
+        )
+
+        param_grid = {
+            'scaler': ['passthrough', StandardScaler()],
+            'svm__C': 10.0 ** np.arange(-3, 4),  # 10^{-3}..10^{3}
+            'svm__gamma': ['scale', 'auto'],
+        }
 
         return pipeline, param_grid
 
