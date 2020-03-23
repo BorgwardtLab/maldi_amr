@@ -63,7 +63,13 @@ def get_pipeline_and_parameters(model):
         return pipeline, param_grid
 
 
-def run_experiment(X_train, y_train, X_test, y_test, model, n_folds):
+def run_experiment(
+    X_train, y_train,
+    X_test, y_test,
+    model,
+    n_folds,
+    verbose=False,
+):
     """Run experiment for given train--test split.
 
     This is the main function for training and testing a classifier. The
@@ -91,6 +97,11 @@ def run_experiment(X_train, y_train, X_test, y_test, model, n_folds):
 
     n_folds : int
         Number of folds for internal cross-validation
+
+    verbose : bool
+        If set, will add verbose information about the trained model in
+        the form of adding the best parameters as well as information
+        about predict labels and scores.
 
     Returns
     -------
@@ -141,11 +152,24 @@ def run_experiment(X_train, y_train, X_test, y_test, model, n_folds):
         if scaler != 'passthrough':
             grid_search.best_params_['scaler'] = type(scaler).__name__
 
-    # Prepare the results dictionary for this experiment.
-    results = {
+    # Prepare the results dictionary for this experiment. Depending on
+    # the input parameters of this function, additional information is
+    # added.
+    results = {}
+
+    if verbose:
+        results.update({
+            'best_params': grid_search.best_params_,
+            'y_score': y_score.tolist(),
+            'y_pred': y_pred.tolist(),
+            'y_test': y_test.tolist(),
+        })
+
+    # Add information that *always* needs to be available.
+    results.update({
         'accuracy': accuracy,
         'auprc': auprc,
         'auroc': auroc,
-    }
+    })
 
     return results
