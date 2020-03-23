@@ -2,7 +2,7 @@
 Plotting script to create
 
 Figure 2 - barplots: compare prediction from spectra vs. from species
-information 
+information.
 
 MALDI-TOF spectra based AMR prediction using an ensemble of all species
 """
@@ -15,9 +15,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-
-from sklearn.metrics import roc_curve, roc_auc_score, precision_recall_curve, average_precision_score
-# from maldi_learn.metrics import very_major_error_score, major_error_score, vme_curve, vme_auc_score
+from scipy.stats import ttest_ind
+from sklearn.metrics import roc_auc_score
 
 def plot_figure2(args):
 
@@ -66,7 +65,6 @@ def plot_figure2(args):
 
     # add lines for each antibiotic
     for antibiotic in set(content['antibiotic']):
-        print(antibiotic)
         content_ab = content.query('antibiotic==@antibiotic')
         assert content_ab.shape == (20, 5)
 
@@ -85,32 +83,36 @@ def plot_figure2(args):
                 assert np.all([x in [0, 1] for x in data['y_test']])
                 class_ratios.append(float(sum(data['y_test']))/len(data['y_test'
                                                                         ]))
-        class_ratio = '{:0.2f}'.format(np.mean(class_ratios))
         auroc_mean_all = round(np.mean(aurocs), 3)
         auroc_std_all = round(np.std(aurocs), 3)
+        class_ratio = '{:0.2f}'.format(np.mean(class_ratios))
 
         # 'all (w/o spectra)': extract y_test and y_score from json files
-        aurocs = []
+        aurocs_wo_spectra = []
 
         for filename in content_wo_spectra['filename'].values:
             with open(PATH_fig2 + filename) as f:
                 data = json.load(f)
-                aurocs.append(roc_auc_score(data['y_test'],
-                              [sc[1] for sc in data['y_score']]))
+                aurocs_wo_spectra.append(roc_auc_score(data['y_test'],
+                                         [sc[1] for sc in data['y_score']]))
 
-        auroc_mean_all_wo_spectra = round(np.mean(aurocs), 3)
-        auroc_std_all_wo_spectra = round(np.std(aurocs), 3)
+        auroc_mean_all_wo_spectra = round(np.mean(aurocs_wo_spectra), 3)
+        auroc_std_all_wo_spectra = round(np.std(aurocs_wo_spectra), 3)
+        _, pval = ttest_ind(aurocs, aurocs_wo_spectra, equal_var=False)
 
+        # add to values dataframe
         values = values.append(
             pd.DataFrame({
                 'antibiotic': [antibiotic],
                 'label': [f'{antibiotic} [{class_ratio}]'],
+                'pvals': [pval],
                 'auroc_all': [auroc_mean_all],
                 'auroc_all_wo_spectra': [auroc_mean_all_wo_spectra],
                 'auroc_std_all': [auroc_std_all],
                 'auroc_std_all_wo_spectra': [auroc_std_all_wo_spectra],
                 }),
             ignore_index=True,
+            sort=False,
             )
 
     # correct Cotrimoxazole spelling
@@ -127,25 +129,34 @@ def plot_figure2(args):
             font_scale=2)
     fig, ax = plt.subplots(figsize=(22, 15))
 
+    # barplots
     sns.barplot(x="label", y="auroc_all",
                 ax=ax, data=values, color=sns.color_palette()[0])
     sns.barplot(x="label", y="auroc_all_wo_spectra",
                 ax=ax, data=values, color='firebrick')
 
+    # errorbars
     ax.errorbar(list(range(0, n_ab)),
                 values['auroc_all'].values,
                 yerr=values['auroc_std_all'].values,
                 fmt='o',
                 color='black')
+
+    # p-values
+    for i, yval in enumerate(values['auroc_all'].values):
+        ax.annotate('{:.1e}'.format(values['pvals'][i]),
+                    xy=(i, yval),
+                    xytext=(i-0.2,
+                            yval+values['auroc_std_all'].iloc[i]+0.01),
+                    color='black',
+                    fontsize=16,
+                    rotation=90)
+
     ax.set_xticklabels(ax.get_xticklabels(), rotation=90)
     plt.ylabel('AUROC')
     plt.xlabel('')
-    plt.ylim(0.5, 1.05)
+    plt.ylim(0.5, 1.06)
     plt.xlim(0-0.5, n_ab-0.5)
-
-    # TODO include class ratios
-    # TODO include p-values
-
     plt.tight_layout()
     plt.savefig('./test.png')
 
