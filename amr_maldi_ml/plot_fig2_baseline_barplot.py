@@ -70,21 +70,22 @@ def plot_figure2(args):
         content_ab = content.query('antibiotic==@antibiotic')
         assert content_ab.shape == (20, 5)
 
-        assert np.all([x in [0, 1] for x in data['y_test']])
-        class_ratio = float(sum(data['y_test']))/len(data['y_test'])
-
         content_spectra = content_ab.query("species=='all'")
         content_wo_spectra = content_ab.query("species=='all (w/o spectra)'")
 
         # 'all': extract y_test and y_score from json files
         aurocs = []
+        class_ratios = []
 
         for filename in content_spectra['filename'].values:
             with open(PATH_fig2 + filename) as f:
                 data = json.load(f)
                 aurocs.append(roc_auc_score(data['y_test'],
                               [sc[1] for sc in data['y_score']]))
-
+                assert np.all([x in [0, 1] for x in data['y_test']])
+                class_ratios.append(float(sum(data['y_test']))/len(data['y_test'
+                                                                        ]))
+        class_ratio = '{:0.2f}'.format(np.mean(class_ratios))
         auroc_mean_all = round(np.mean(aurocs), 3)
         auroc_std_all = round(np.std(aurocs), 3)
 
@@ -124,7 +125,7 @@ def plot_figure2(args):
 
     sns.set(style="whitegrid",
             font_scale=2)
-    fix, ax = plt.subplots(figsize=(22, 15))
+    fig, ax = plt.subplots(figsize=(22, 15))
 
     sns.barplot(x="label", y="auroc_all",
                 ax=ax, data=values, color=sns.color_palette()[0])
