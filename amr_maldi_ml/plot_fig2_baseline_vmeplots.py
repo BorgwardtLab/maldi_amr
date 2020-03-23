@@ -14,8 +14,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from scipy.stats import ttest_ind
-from sklearn.metrics import roc_auc_score
 
 from maldi_learn.metrics import vme_curve
 from utilities import maldi_col_map
@@ -53,18 +51,6 @@ def plot_figure2(args):
                     }),
                 ignore_index=True,
                 )
-
-    # TODO give option to take antibiotic list from args.antibiotics
-    # or take everything otherwise
-
-    # ------------
-    # for each antibiotic, get avg metrics for 'all' and 'all (w/o spectra)'
-    # ------------
-
-    values = pd.DataFrame(columns=['antibiotic',
-                                   'auroc_all',
-                                   'auroc_all_wo_spectra',
-                                   ])
 
     # -------------
     # plot vme plots
