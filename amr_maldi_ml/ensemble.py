@@ -353,6 +353,7 @@ if __name__ == '__main__':
                 y_test=y_test,
                 n_folds=n_folds,
                 model=args.model,
+                random_state=args.seed,
             )
 
             output.update(results)

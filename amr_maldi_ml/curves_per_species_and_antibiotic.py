@@ -110,7 +110,8 @@ def _run_experiment(
             X_test, y_test,
             model,
             n_folds,
-            verbose=True
+            verbose=True,
+            random_state=seed,
         )
 
         output.update(results)

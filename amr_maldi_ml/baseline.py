@@ -201,7 +201,8 @@ if __name__ == '__main__':
                 X_test, y_test,
                 args.model,
                 n_folds,
-                verbose=True  # want information about best model etc.
+                random_state=args.seed,  # use seed whenever possible
+                verbose=True             # want info about best model etc.
             )
 
             output.update(results)
