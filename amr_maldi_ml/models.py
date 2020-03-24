@@ -86,6 +86,28 @@ def get_pipeline_and_parameters(model):
 
         return pipeline, param_grid
 
+    elif model == 'svm-linear':
+        svm = SVC(
+            kernel='linear',
+            max_iter=500,
+            probability=True,
+            class_weight='balanced'
+        )
+
+        pipeline = Pipeline(
+            steps=[
+                ('scaler', None),
+                ('svm', svm),
+            ]
+        )
+
+        param_grid = {
+            'scaler': ['passthrough', StandardScaler()],
+            'svm__C': 10.0 ** np.arange(-3, 4),  # 10^{-3}..10^{3}
+        }
+
+        return pipeline, param_grid
+
     # If we reached this point, we should signal that we are not aware
     # of the currently-selected model.
     raise RuntimeError(
