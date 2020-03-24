@@ -6,6 +6,8 @@ import warnings
 
 import numpy as np
 
+from lightgbm import LGBMClassifier
+
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.exceptions import ConvergenceWarning
 from sklearn.linear_model import LogisticRegression
@@ -35,6 +37,8 @@ def get_pipeline_and_parameters(model, random_state):
             - 'lr' for logistic regression
             - 'svm-rbf' for a support vector machine with an RBF kernel
             - 'svm-linear' for a support vector machine with a linear kernel
+            - 'rf' for a random forest
+            - 'lightgbm' for a LightGBM model
 
     random_state : int, `RandomState` instance, or None
         If set, propagates random state to a model. This is *not*
@@ -153,6 +157,36 @@ def get_pipeline_and_parameters(model, random_state):
         ]
 
         return pipeline, param_grid
+
+    elif model == 'lightgbm':
+
+        # Make sure that we set a random state here; else, the results
+        # are not reproducible.
+        if random_state is None:
+            warnings.warn(
+                '`random_state` is not set for LightGBM classifier.'
+            )
+
+        lightgbm = LGBMClassifier(
+            class_weight='balanced',
+            n_jobs=-1,
+            random_state=random_state,
+        )
+
+        pipeline = Pipeline(
+            steps=[
+                ('lightgbm', lightgbm),
+            ]
+        )
+
+        param_grid = {
+            'lightgbm__boosting_type': ['gbdt', 'dart', 'goss', 'rf'],
+            'lightgbm__n_estimators': [25, 50, 100, 200],
+            'lightgbm__learning_rate': 10.0 ** np.arange(-3, 4),
+        }
+
+        return pipeline, param_grid
+
 
     # If we reached this point, we should signal that we are not aware
     # of the currently-selected model.
