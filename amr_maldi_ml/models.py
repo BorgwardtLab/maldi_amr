@@ -136,13 +136,21 @@ def get_pipeline_and_parameters(model, random_state):
             ]
         )
 
-        param_grid = {
-            'rf__criterion': ['gini', 'entropy'],
-            'rf__bootstrap': [True, False],
-            'rf__oob_score': [True, False],
-            'rf__n_estimators': [25, 50, 100, 200],
-            'rf__max_features': ['auto', 'sqrt2', 'log2']
-        }
+        param_grid = [
+            {
+                'rf__criterion': ['gini', 'entropy'],
+                'rf__bootstrap': [False],
+                'rf__n_estimators': [25, 50, 100, 200],
+                'rf__max_features': ['auto', 'sqrt', 'log2']
+            },
+            {
+                'rf__criterion': ['gini', 'entropy'],
+                'rf__bootstrap': [True],
+                'rf__oob_score': [True, False],
+                'rf__n_estimators': [25, 50, 100, 200],
+                'rf__max_features': ['auto', 'sqrt', 'log2']
+            },
+        ]
 
         return pipeline, param_grid
 
