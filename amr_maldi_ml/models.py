@@ -86,6 +86,12 @@ def get_pipeline_and_parameters(model):
 
         return pipeline, param_grid
 
+    # If we reached this point, we should signal that we are not aware
+    # of the currently-selected model.
+    raise RuntimeError(
+        f'No pipeline or configuration for "{model}" available.'
+    )
+
 
 def run_experiment(
     X_train, y_train,
