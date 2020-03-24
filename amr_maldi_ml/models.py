@@ -6,6 +6,7 @@ import warnings
 
 import numpy as np
 
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.exceptions import ConvergenceWarning
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
@@ -17,7 +18,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 
 
-def get_pipeline_and_parameters(model):
+def get_pipeline_and_parameters(model, random_state):
     """Return pipeline and parameters for a given model.
 
     This function creates a full training pipeline for a given model
@@ -33,6 +34,11 @@ def get_pipeline_and_parameters(model):
 
             - 'lr' for logistic regression
             - 'svm-rbf' for a support vector machine with an RBF kernel
+            - 'svm-linear' for a support vector machine with a linear kernel
+
+    random_state : int, `RandomState` instance, or None
+        If set, propagates random state to a model. This is *not*
+        required or used for all models.
 
     Returns
     -------
@@ -108,6 +114,38 @@ def get_pipeline_and_parameters(model):
 
         return pipeline, param_grid
 
+    elif model == 'rf':
+
+        # Make sure that we set a random state here; else, the results
+        # are not reproducible.
+        if random_state is None:
+            warnings.warn(
+                '`random_state` is not set for random '
+                'forest classifier.'
+            )
+
+        rf = RandomForestClassifier(
+            class_weight='balanced',
+            n_jobs=-1,
+            random_state=random_state,
+        )
+
+        pipeline = Pipeline(
+            steps=[
+                ('rf', rf),
+            ]
+        )
+
+        param_grid = {
+            'rf__criterion': ['gini', 'entropy'],
+            'rf__bootstrap': [True, False],
+            'rf__oob_score': [True, False],
+            'rf__n_estimators': [25, 50, 100, 200],
+            'rf__max_features': ['auto', 'sqrt2', 'log2']
+        }
+
+        return pipeline, param_grid
+
     # If we reached this point, we should signal that we are not aware
     # of the currently-selected model.
     raise RuntimeError(
@@ -120,6 +158,7 @@ def run_experiment(
     X_test, y_test,
     model,
     n_folds,
+    random_state=None,
     verbose=False,
 ):
     """Run experiment for given train--test split.
@@ -150,7 +189,11 @@ def run_experiment(
     n_folds : int
         Number of folds for internal cross-validation
 
-    verbose : bool
+    random_state : int, `RandomState` instance, or None
+        If set, propagates random state to a model. This is *not*
+        required or used for all models.
+
+    verbose : bool, optional
         If set, will add verbose information about the trained model in
         the form of adding the best parameters as well as information
         about predict labels and scores.
@@ -160,7 +203,10 @@ def run_experiment(
     A dictionary containing measurement descriptions and their
     corresponding values.
     """
-    pipeline, param_grid = get_pipeline_and_parameters(model)
+    pipeline, param_grid = get_pipeline_and_parameters(
+        model,
+        random_state
+    )
 
     grid_search = GridSearchCV(
         pipeline,
