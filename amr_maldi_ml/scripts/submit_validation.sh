@@ -71,7 +71,7 @@ for SEED in 344 172 188 270 35 164 545 480 89 409; do
           'Vancomycin'\
           'Voriconazole';
       do
-        CMD="${MAIN} --train-site $TRAIN --test-site $TEST --antibiotic \"$ANTIBIOTIC\" --seed $SEED --force"
+        CMD="${MAIN} --train-site $TRAIN --test-site $TEST --antibiotic \"$ANTIBIOTIC\" --seed $SEED"
         run "$CMD";
       done
 done
