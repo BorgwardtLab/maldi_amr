@@ -121,7 +121,6 @@ if __name__ == '__main__':
         encoder=DRIAMSLabelEncoder(),
         handle_missing_resistance_measurements='remove_if_all_missing',
         spectra_type='binned_6000',
-        nrows=1000,
     )
 
     driams_dataset_test = load_driams_dataset(
@@ -133,7 +132,6 @@ if __name__ == '__main__':
         encoder=DRIAMSLabelEncoder(),
         handle_missing_resistance_measurements='remove_if_all_missing',
         spectra_type='binned_6000',
-        nrows=1000,
     )
 
     logging.info(f'Loaded data set for {args.antibiotic}')
