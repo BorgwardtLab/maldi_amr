@@ -12,7 +12,7 @@ MAIN="poetry run python ../validation.py "
 # Try to be smart: if `bsub` does *not* exist on the system, we just
 # pretend that it is an empty command.
 if [ -x "$(command -v bsub)" ]; then
-  BSUB='bsub -W 23:59 -o "validation_%J.out" -R "rusage[mem=64000]"'
+  BSUB='bsub -W 23:59 -o "validation_%J.out" -R "rusage[mem=32000]"'
 fi
 
 # Evaluates its first argument either by submitting a job, or by
@@ -31,48 +31,15 @@ for SEED in 344 172 188 270 35 164 545 480 89 409; do
     # primarily interested in obtaining information about unknown
     # sites quickly.
     for TEST in "DRIAMS-B" "DRIAMS-C" "DRIAMS-D" "DRIAMS-A"; do
-      for ANTIBIOTIC in '5-Fluorocytosine'\
-          'Amikacin'\
-          'Amoxicillin'\
+      for ANTIBIOTIC in 'Amikacin'\
           'Amoxicillin-Clavulanic acid'\
-          'Ampicillin-Amoxicillin'\
-          'Anidulafungin'\
-          'Aztreonam'\
-          'Caspofungin'\
-          'Cefazolin'\
           'Cefepime'\
-          'Cefpodoxime'\
-          'Ceftazidime'\
           'Ceftriaxone'\
-          'Cefuroxime'\
           'Ciprofloxacin'\
           'Clindamycin'\
-          'Colistin'\
-          'Cotrimoxazol'\
-          'Daptomycin'\
-          'Ertapenem'\
-          'Erythromycin'\
-          'Fluconazole'\
-          'Fosfomycin-Trometamol'\
-          'Fusidic acid'\
           'Gentamicin'\
           'Imipenem'\
-          'Itraconazole'\
-          'Levofloxacin'\
-          'Meropenem'\
-          'Micafungin'\
-          'Nitrofurantoin'\
-          'Norfloxacin'\
-          'Oxacillin'\
-          'Penicillin'\
-          'Piperacillin-Tazobactam'\
-          'Rifampicin'\
-          'Teicoplanin'\
-          'Tetracycline'\
-          'Tobramycin'\
-          'Tigecycline'\
-          'Vancomycin'\
-          'Voriconazole';
+          'Piperacillin-Tazobactam';
       do
         # Models are ordered by their 'utility' for the project. We are
         # most interested in logistic regression.
