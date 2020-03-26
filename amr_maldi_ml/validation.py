@@ -110,6 +110,7 @@ if __name__ == '__main__':
     logging.info(f'Test site: {test_site}')
     logging.info(f'Test years: {test_years}')
     logging.info(f'Seed: {args.seed}')
+    logging.info(f'Model: {args.model}')
     logging.info(f'Antibiotic: {args.antibiotic}')
 
     driams_dataset_train = load_driams_dataset(
@@ -123,6 +124,8 @@ if __name__ == '__main__':
         spectra_type='binned_6000',
     )
 
+    logging.info('Loaded training site data')
+
     driams_dataset_test = load_driams_dataset(
         DRIAMS_ROOT,
         test_site,
@@ -134,7 +137,7 @@ if __name__ == '__main__':
         spectra_type='binned_6000',
     )
 
-    logging.info(f'Loaded data set for {args.antibiotic}')
+    logging.info('Loaded test site data')
 
     train_index, _ = stratify_by_species_and_label(
         driams_dataset_train.y,
