@@ -41,10 +41,27 @@ def generate_output_filename(root, data, suffix=None):
 
     antibiotic = _encode(data['antibiotic'])
     seed = data['seed']
-    site = data['site']
+    model = data['model']
 
-    filename = f'Site_{site}_' \
-               f'Species_{species}_Antibiotic_{antibiotic}_Seed_{seed}'
+    # Single site exists in the input dictionary. Create the path
+    # accordingly.
+    if 'site' in data.keys():
+        site = data['site']
+
+        filename = f'Site_{site}_'   \
+                   f'Model_{model}_' \
+                   f'Species_{species}_Antibiotic_{antibiotic}_Seed_{seed}'
+
+    # Except `train_site` and `test_site` to highlight different
+    # scenarios.
+    else:
+        train_site = data['train_site']
+        test_site = data['test_site']
+
+        filename = f'Train_site_{train_site}_' \
+                   f'Test_site_{test_site}_'   \
+                   f'Model_{model}_'           \
+                   f'Species_{species}_Antibiotic_{antibiotic}_Seed_{seed}'
 
     # Ensures that the suffix is only added if it exists. Else, we will
     # add spurious underscores.

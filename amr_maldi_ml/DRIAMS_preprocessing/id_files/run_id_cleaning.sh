@@ -10,7 +10,7 @@ python DRIAMS-A_clean_id_file.py /links/groups/borgwardt/Projects/maldi_tof_diag
 python DRIAMS-A_clean_id_file.py /links/groups/borgwardt/Projects/maldi_tof_diagnostics/amr_maldi_ml/codeAC/USB/2015/2015-01-12_IDRES_AB_not_summarised.csv \
                         /links/groups/borgwardt/Data/DRIAMS/DRIAMS-A/id/2015/2015_clean.csv
 
-#python remove_overlap_17_18.py
+python remove_overlap_17_18.py
 
 # DRIAMS-B
 # python DRIAMS-B_clean_id_file.py /links/groups/borgwardt/Projects/maldi_tof_diagnostics/amr_maldi_ml/codeAC/KSBL/KSBL_res_report.csv \

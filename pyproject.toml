@@ -15,6 +15,7 @@ pandas = "^1.0.1"
 tabulate = "^0.8.6"
 python-dotenv = "^0.12.0"
 xlrd = "^1.2.0"
+lightgbm = "^2.3.1"
 
 [tool.poetry.dev-dependencies]
 

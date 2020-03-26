@@ -56,6 +56,9 @@ if __name__ == '__main__':
         row = {
             'species': data_raw.get('species', 'all'),
             'antibiotic': data_raw['antibiotic'],
+            # If no model was found, default to `lr`. This makes us
+            # compatible with older files.
+            'model': data_raw.get('model', 'lr'),
         }
 
         for metric in metrics:
@@ -67,7 +70,7 @@ if __name__ == '__main__':
     pd.options.display.float_format = '{:,.2f}'.format
 
     df = pd.DataFrame(rows)
-    df = df.groupby(['species', 'antibiotic']).agg(
+    df = df.groupby(['species', 'antibiotic', 'model']).agg(
         {
             metric: [np.mean, np.std] for metric in metrics
         }

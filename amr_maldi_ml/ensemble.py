@@ -28,6 +28,8 @@ from maldi_learn.driams import load_driams_dataset
 
 from maldi_learn.utilities import stratify_by_species_and_label
 
+from models import run_experiment
+
 from utilities import generate_output_filename
 
 from sklearn.exceptions import ConvergenceWarning
@@ -80,111 +82,6 @@ def get_min_samples(n_folds, y_train):
     return min_samples
 
 
-def run_experiment(X_train, y_train, X_test, y_test, n_folds):
-    """Run experiment for given train--test split.
-
-    This is the main function for training and testing a classifier. The
-    function is oblivious to the context of the training. It performs an
-    in-depth grid search and evaluates the results.
-
-    Parameters
-    ----------
-    X_train : array-like
-        Training data
-
-    y_train : list
-        Labels for the training data
-
-    X_test : array_like
-        Test data
-
-    y_test : list
-        Labels for the rest data
-
-    n_folds : int
-        Number of folds for internal cross-validation
-
-    Returns
-    -------
-    A dictionary containing measurement descriptions and their
-    corresponding values.
-    """
-    # Fit the classifier and start calculating some summary metrics.
-    # All of this is wrapped in cross-validation based on the grid
-    # defined above.
-    lr = LogisticRegression(solver='saga', max_iter=500)
-
-    pipeline = Pipeline(
-        steps=[
-            ('scaler', None),
-            ('lr', lr),
-        ]
-    )
-
-    param_grid = [
-        {
-            'scaler': ['passthrough', StandardScaler()],
-            'lr__C': 10.0 ** np.arange(-3, 4),  # 10^{-3}..10^{3}
-            'lr__penalty': ['l1', 'l2'],
-        },
-        {
-            'scaler': ['passthrough', StandardScaler()],
-            'lr__penalty': ['none'],
-        }
-    ]
-
-    grid_search = GridSearchCV(
-                    pipeline,
-                    param_grid=param_grid,
-                    cv=n_folds,
-                    scoring='roc_auc',
-                    n_jobs=-1,
-    )
-
-    logging.info(f'Starting grid search for {len(X_train)} samples')
-
-    # Ignore these warnings only for the grid search process. The
-    # reason is that some of the jobs will inevitably *fail* to
-    # converge because of bad `C` values. We are not interested in
-    # them anyway.
-    with warnings.catch_warnings():
-        warnings.filterwarnings('ignore', category=ConvergenceWarning)
-        warnings.filterwarnings('ignore', category=UserWarning)
-
-        with joblib.parallel_backend('threading', -1):
-            grid_search.fit(X_train, y_train)
-
-    y_pred = grid_search.predict(X_test)
-    y_score = grid_search.predict_proba(X_test)
-
-    accuracy = accuracy_score(y_pred, y_test)
-
-    # Automatically choose the proper evaluation method for measuring
-    # requiring the selection of a minority class.
-    minority_class = np.argmin(np.bincount(y_test))
-
-    auprc = average_precision_score(y_test, y_score[:, minority_class])
-    auroc = roc_auc_score(y_test, y_score[:, minority_class])
-
-    # Replace information about the standard scaler prior to writing out
-    # the `best_params_` grid. The reason for this is that we cannot and
-    # probably do not want to serialise the scaler class. We only need
-    # to know *if* a scaler has been employed.
-    if 'scaler' in grid_search.best_params_:
-        scaler = grid_search.best_params_['scaler']
-        if scaler != 'passthrough':
-            grid_search.best_params_['scaler'] = type(scaler).__name__
-
-    # Prepare the results dictionary for this experiment.
-    results = {
-        'accuracy': accuracy,
-        'auprc': auprc,
-        'auroc': auroc,
-    }
-
-    return results
-
-
 def subset_indices(y, indices, species):
     """Calculate subset of species-relevant indices and labels.
 
@@ -230,6 +127,12 @@ if __name__ == '__main__':
         type=str,
         help='Antibiotic for which to run the experiment',
         required=True,
+    )
+
+    parser.add_argument(
+        '-m', '--model',
+        default='lr',
+        help='Selects model to use for subsequent training'
     )
 
     parser.add_argument(
@@ -298,6 +201,7 @@ if __name__ == '__main__':
     logging.info(f'Site: {site}')
     logging.info(f'Years: {years}')
     logging.info(f'Seed: {args.seed}')
+    logging.info(f'Model: {args.model}')
     logging.info(f'Antibiotic: {args.antibiotic}')
     logging.info(f'Species: {args.species}')
 
@@ -380,6 +284,7 @@ if __name__ == '__main__':
         # dictionary.
         output = {
             'site': site,
+            'model': args.model,
             'species': args.species,
             'seed': args.seed,
             'antibiotic': args.antibiotic,
@@ -446,7 +351,9 @@ if __name__ == '__main__':
                 y_train=y_train[indices],
                 X_test=X_test,
                 y_test=y_test,
-                n_folds=n_folds
+                n_folds=n_folds,
+                model=args.model,
+                random_state=args.seed,
             )
 
             output.update(results)
