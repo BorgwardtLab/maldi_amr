@@ -187,7 +187,6 @@ def get_pipeline_and_parameters(model, random_state):
 
         return pipeline, param_grid
 
-
     # If we reached this point, we should signal that we are not aware
     # of the currently-selected model.
     raise RuntimeError(
