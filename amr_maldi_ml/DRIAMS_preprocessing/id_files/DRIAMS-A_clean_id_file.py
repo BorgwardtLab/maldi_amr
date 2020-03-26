@@ -45,8 +45,6 @@ def clean_data(filename, outfile):
     df = df.drop(columns=columns_to_delete)     # remove obsolete columns
     df = df.dropna(subset=['code'])             # remove missing codes
     df = df.drop_duplicates()                   # drop full duplicates
-    print('delete lines containing semicolons, \
-          as these indicate wrong seperators.')
     df = df.dropna(subset=['Organism(best match)'])
     print(f'ID file shape after basic clean-up: {df.shape}')
 
