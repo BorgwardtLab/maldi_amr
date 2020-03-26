@@ -40,15 +40,19 @@ def clean_data(filename, outfile):
         'EINGANGSDATUM',
         'LOKALISATION'
     ]
-    print(f'Remove columns: {columns_to_delete}')    
-    
+    print(f'Remove columns: {columns_to_delete}')
+
     df = df.drop(columns=columns_to_delete)     # remove obsolete columns
     df = df.dropna(subset=['code'])             # remove missing codes
     df = df.drop_duplicates()                   # drop full duplicates
+    print('delete lines containing semicolons, \
+          as these indicate wrong seperators.')
+    df = df.dropna(subset=['Organism(best match)'])
     print(f'ID file shape after basic clean-up: {df.shape}')
 
     duplicate_codes = df[df.duplicated('code')]['code'].values
-    df = df.drop_duplicates(subset=['code'], keep=False) # remove entries with duplicated ids   
+    # remove entries with duplicated ids
+    df = df.drop_duplicates(subset=['code'], keep=False) 
     print(f'Number of non-unique codes: {len(duplicate_codes)}')
     print(f'ID file final shape: {df.shape}')
 
@@ -65,9 +69,11 @@ def clean_data(filename, outfile):
     df = df.rename(columns=ab_name_map)
 
     # remove Dummy antibiotic
-    if 'Dummy' in list(df.columns): df = df.drop(columns='Dummy')
+    if 'Dummy' in list(df.columns):
+        df = df.drop(columns='Dummy')
 
     df.to_csv(outfile, index=False)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
