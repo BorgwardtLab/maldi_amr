@@ -151,7 +151,7 @@ if __name__ == '__main__':
     y_train = driams_dataset_train.to_numpy(args.antibiotic)
 
     _, test_index = stratify_by_species_and_label(
-        driams_dataset_train.y,
+        driams_dataset_test.y,
         antibiotic=args.antibiotic,
         random_state=args.seed,
     )
