@@ -71,7 +71,13 @@ for SEED in 344 172 188 270 35 164 545 480 89 409; do
           'Vancomycin'\
           'Voriconazole';
       do
-        CMD="${MAIN} --train-site $TRAIN --test-site $TEST --antibiotic \"$ANTIBIOTIC\" --seed $SEED"
-        run "$CMD";
-      done
-done
+        # Models are ordered by their 'utility' for the project. We are
+        # most interested in logistic regression.
+        for MODEL in "lr" "svm-rbf" "rf" "lightgbm" "svm-linear"; do
+          CMD="${MAIN} --train-site $TRAIN --test-site $TEST --antibiotic \"$ANTIBIOTIC\" --model $MODEL --seed $SEED"
+          run "$CMD";
+        done # models
+      done # antibiotics
+    done # test
+  done # train
+done # seed
