@@ -4,7 +4,9 @@
 # species and the antibiotic and summarise the performance measures.
 
 import argparse
+import glob
 import json
+import os
 
 import numpy as np
 import pandas as pd
@@ -22,9 +24,18 @@ if __name__ == '__main__':
     metrics = ['auroc', 'auprc', 'accuracy']
 
     rows = []
+    filenames = args.INPUT
 
-    for filename in tqdm(args.INPUT, desc='Loading'):
+    # Check if we are getting a directory here, in which case we have to
+    # create the list of filenames manually.
+    if len(filenames) == 1:
+        if os.path.isdir(filenames[0]):
+            filenames = glob.glob(os.path.join(filenames[0], '*.json'))
+            filenames = sorted(filenames)
+
+    for filename in tqdm(filenames, desc='Loading'):
         with open(filename) as f:
+
             # Ensures that we can parse normal JSON files
             pos = 0
 
