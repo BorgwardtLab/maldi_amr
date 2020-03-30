@@ -72,6 +72,14 @@ if __name__ == '__main__':
             'model': data_raw.get('model', 'lr'),
         }
 
+        # Check whether information about the train and test site is
+        # available. If so, we can automatically stratify accordingly.
+        if 'train_site' in data_raw and 'test_site' in data_raw:
+            row.update({
+                'train_site': data_raw['train_site'],
+                'test_site': data_raw['test_site']
+            })
+
         for metric in metrics:
             row[metric] = data_raw[metric] * 100.0
 
@@ -81,7 +89,12 @@ if __name__ == '__main__':
     pd.options.display.float_format = '{:,.2f}'.format
 
     df = pd.DataFrame(rows)
-    df = df.groupby(['species', 'antibiotic', 'model']).agg(
+
+    group_columns = ['species', 'antibiotic', 'model']
+    if 'train_site' in df.columns and 'test_site' in df.columns:
+        group_columns += ['train_site', 'test_site']
+
+    df = df.groupby(group_columns).agg(
         {
             metric: [np.mean, np.std] for metric in metrics
         }
