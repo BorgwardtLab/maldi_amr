@@ -67,7 +67,6 @@ def plot_figure4(args):
 
     # add lines for each antibiotic
     for antibiotic in antibiotic_list:
-        print(antibiotic)
         content_ab = content.query('antibiotic==@antibiotic')
         col_ab = maldi_col_map[antibiotic]
 
@@ -149,7 +148,7 @@ def plot_figure4(args):
     ax[2].set_ylabel('Major error', fontsize=xy_label_fs)
     ax[0].legend(bbox_to_anchor=(0.99, 0.01), loc='lower right',
                  prop={'family': 'DejaVu Sans Mono', 'size': 15})
-    ax[1].legend(bbox_to_anchor=(0.99, 0.99), loc='upper right',
+    ax[1].legend(bbox_to_anchor=(0.01, 0.01), loc='lower left',
                  prop={'family': 'DejaVu Sans Mono', 'size': 15})
     ax[2].legend(bbox_to_anchor=(0.99, 0.99), loc='upper right', 
                  prop={'family': 'DejaVu Sans Mono', 'size': 15})
