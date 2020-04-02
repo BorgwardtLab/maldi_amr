@@ -67,9 +67,7 @@ def plot_figure2(args):
 
     # add lines for each antibiotic
     for antibiotic in antibiotic_list:
-        print(antibiotic)
         content_ab = content.query('antibiotic==@antibiotic')
-        print(content_ab)
         assert content_ab.shape == (20, 5)
 
         content_spectra = content_ab.query("species=='all'")
@@ -89,14 +87,20 @@ def plot_figure2(args):
         # plot VME curve
         vme, me_inv, thresholds = vme_curve(y_test_total, y_score_total)
         me = 1-me_inv
+        if args.antibiotic == 'None':
+            alpha = 0.6
+            linewidth = 3.0
+        else:
+            alpha = 0.8
+            linewidth = 5.0
         ax.step(vme, me, color=col_ab,
                 label=antibiotic,
-                alpha=1.0,
+                alpha=alpha,
                 where='post',
-                linewidth=3.0)
+                linewidth=linewidth)
 
     if args.antibiotic == 'None':
-        plt.legend(loc='upper right', fontsize='x-small')
+        plt.legend(loc='upper right', fontsize=20)
     else:
         plt.legend(loc='upper right', fontsize='medium')
     plt.ylabel('very major error')

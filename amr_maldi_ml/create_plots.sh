@@ -11,10 +11,10 @@ python plot_fig2_baseline_barplot.py --antibiotic "$antibiotic_list_small" \
 python plot_fig2_baseline_vmeplots.py --antibiotic "$antibiotic_list_small" \
       --outfile plots/fig2/fig2_vmeplots_few
 
-#python plot_fig2_baseline_barplot.py --antibiotic None \
-#      --outfile plots/fig2/fig2_barplot_all
-#python plot_fig2_baseline_vmeplots.py --antibiotic None \
-#      --outfile plots/fig2/fig2_vmeplots_all
+python plot_fig2_baseline_barplot.py --antibiotic None \
+     --outfile plots/fig2/fig2_barplot_all
+python plot_fig2_baseline_vmeplots.py --antibiotic None \
+     --outfile plots/fig2/fig2_vmeplots_all
 
 # ------------
 # Figure 4: AUC curves per species and antibiotic

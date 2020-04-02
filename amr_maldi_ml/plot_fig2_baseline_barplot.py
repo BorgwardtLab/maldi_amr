@@ -68,7 +68,6 @@ def plot_figure2(args):
     # add lines for each antibiotic
     for antibiotic in antibiotic_list:
         content_ab = content.query('antibiotic==@antibiotic')
-        print(content_ab)
         assert content_ab.shape == (20, 5)
 
         content_spectra = content_ab.query("species=='all'")
@@ -146,17 +145,24 @@ def plot_figure2(args):
                 color='black')
 
     # p-values
+    if args.antibiotic != 'None':
+        fontsize=40
+    else:
+        fontsize=16
+    
+
     pval_string = ['*' if pv < 0.05 else '' for pv in
                    values['pvals'].values]
+
     for i, yval in enumerate(values['auroc_all'].values):
         ax.annotate(
                     # '{:.1e}'.format(values['pvals'].iloc[i]),
                     pval_string[i],
                     xy=(i, yval),
-                    xytext=(i-0.15,  # -0.2 for text, -0.15 for stars
+                    xytext=(i-0.06,  # -0.2 for text, -0.06 for stars
                             yval+values['auroc_std_all'].iloc[i]+0.01),
                     color='black',
-                    fontsize=16,
+                    fontsize=fontsize,
                     rotation=90)
 
     ax.set_xticklabels(ax.get_xticklabels(), rotation=90)
