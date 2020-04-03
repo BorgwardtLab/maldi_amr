@@ -17,8 +17,11 @@ import seaborn as sns
 from sklearn.metrics import roc_curve, roc_auc_score, precision_recall_curve, average_precision_score
 from maldi_learn.metrics import very_major_error_score, major_error_score, vme_curve, vme_auc_score
 from utilities import maldi_col_map
+from warnings import simplefilter
 
 def plot_figure4(args):
+    # ignore all future warnings
+    simplefilter(action='ignore', category=FutureWarning)
 
     PATH_fig4 = os.path.join('../results/fig4_curves_per_species_and_antibiotics',
                              f'{args.model}/')

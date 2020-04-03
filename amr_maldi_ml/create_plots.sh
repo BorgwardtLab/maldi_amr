@@ -16,6 +16,14 @@
 #python plot_fig2_baseline_vmeplots.py --antibiotic None \
 #     --outfile plots/fig2/fig2_vmeplots_all
 
+
+# -------------
+# Figure 3: Ensemble training vs. species training curves
+# -------------
+python plot_fig3_ensemble_curves.py ../results/fig3_ensemble \
+        --outdir ./plots/fig3
+
+
 # ------------
 # Figure 4: AUC curves per species and antibiotic
 # ------------
@@ -44,3 +52,4 @@ for model in "lr" "svm-rbf" "svm-linear" "lightgbm" "rf"; do
     --model $model \
     --outfile "plots/fig4/fig4_Kpneu_$model"
 done
+

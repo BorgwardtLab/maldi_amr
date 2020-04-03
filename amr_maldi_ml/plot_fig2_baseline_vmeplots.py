@@ -17,9 +17,12 @@ import seaborn as sns
 
 from maldi_learn.metrics import vme_curve
 from utilities import maldi_col_map
+from warnings import simplefilter
 
 
 def plot_figure2(args):
+    # ignore all future warnings
+    simplefilter(action='ignore', category=FutureWarning)
 
     PATH_fig2 = '../results/fig2_baseline/'
 
