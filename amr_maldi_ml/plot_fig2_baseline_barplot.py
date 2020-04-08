@@ -51,8 +51,10 @@ def plot_figure2(args):
                 ignore_index=True,
                 )
 
-    # TODO give option to take antibiotic list from args.antibiotics
-    # or take everything otherwise
+    if args.antibiotic != 'None':
+        antibiotic_list = args.antibiotic.split(',')
+    else:
+        antibiotic_list = set(content['antibiotic'])
 
     # ------------
     # for each antibiotic, get avg metrics for 'all' and 'all (w/o spectra)'
@@ -64,7 +66,7 @@ def plot_figure2(args):
                                    ])
 
     # add lines for each antibiotic
-    for antibiotic in set(content['antibiotic']):
+    for antibiotic in antibiotic_list:
         content_ab = content.query('antibiotic==@antibiotic')
         assert content_ab.shape == (20, 5)
 
@@ -143,17 +145,24 @@ def plot_figure2(args):
                 color='black')
 
     # p-values
+    if args.antibiotic != 'None':
+        fontsize=40
+    else:
+        fontsize=16
+    
+
     pval_string = ['*' if pv < 0.05 else '' for pv in
                    values['pvals'].values]
+
     for i, yval in enumerate(values['auroc_all'].values):
         ax.annotate(
                     # '{:.1e}'.format(values['pvals'].iloc[i]),
                     pval_string[i],
                     xy=(i, yval),
-                    xytext=(i-0.15,  # -0.2 for text, -0.15 for stars
+                    xytext=(i-0.06,  # -0.2 for text, -0.06 for stars
                             yval+values['auroc_std_all'].iloc[i]+0.01),
                     color='black',
-                    fontsize=16,
+                    fontsize=fontsize,
                     rotation=90)
 
     ax.set_xticklabels(ax.get_xticklabels(), rotation=90)
@@ -162,7 +171,7 @@ def plot_figure2(args):
     plt.ylim(0.5, 1.06)
     plt.xlim(0-0.5, n_ab-0.5)
     plt.tight_layout()
-    plt.savefig('./test.png')
+    plt.savefig(f'./{args.outfile}.png')
 
 
 if __name__ == '__main__':
@@ -170,7 +179,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--antibiotic',
                         type=str,
-                        default='Ciprofloxacin')
+                        default='None')
+    parser.add_argument('--outfile',
+                        type=str,
+                        default='fig2_barplot')
     args = parser.parse_args()
 
     plot_figure2(args)

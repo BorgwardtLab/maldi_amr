@@ -11,17 +11,20 @@ import json
 import argparse
 
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 from sklearn.metrics import roc_curve, roc_auc_score, precision_recall_curve, average_precision_score
 from maldi_learn.metrics import very_major_error_score, major_error_score, vme_curve, vme_auc_score
 from utilities import maldi_col_map
+from warnings import simplefilter
 
 def plot_figure4(args):
+    # ignore all future warnings
+    simplefilter(action='ignore', category=FutureWarning)
 
-    PATH_fig4 = '/links/groups/borgwardt/Projects/maldi_tof_diagnostics/amr_maldi_ml/results/fig4_curves_per_species_and_antibiotics/'
+    PATH_fig4 = os.path.join('../results/fig4_curves_per_species_and_antibiotics',
+                             f'{args.model}/')
 
     # create dataframe giving an overview of all files in path
     file_list = []
@@ -30,7 +33,7 @@ def plot_figure4(args):
         break
 
     content = pd.DataFrame(columns=['filename',
-                                    'species',  
+                                    'species',
                                     'antibiotic',
                                     'site',
                                     'seed',
@@ -48,24 +51,25 @@ def plot_figure4(args):
                     'site': [data['site']],
                     'seed': [data['seed']],
                     }),
-                    ignore_index=True
+                ignore_index=True,
                 )
 
     # subset dataframe only relevant entries
-    content = content.query('species==@args.species') 
+    content = content.query('species==@args.species')
 
-    # TODO give option to take antibiotic list from args.antibiotics 
-    # or take verything otherwise
+    if args.antibiotic != 'None':
+        antibiotic_list = args.antibiotic.split(',')
+    else:
+        antibiotic_list = set(content['antibiotic'])
 
     # ------------
     # plot
     # ------------
     sns.set(style="whitegrid")
-    fig, ax = plt.subplots(1, 3, figsize=(30,10))
+    fig, ax = plt.subplots(1, 3, figsize=(30, 10))
 
     # add lines for each antibiotic
-    for antibiotic in set(content['antibiotic']):
-        print(antibiotic)
+    for antibiotic in antibiotic_list:
         content_ab = content.query('antibiotic==@antibiotic')
         col_ab = maldi_col_map[antibiotic]
 
@@ -85,12 +89,13 @@ def plot_figure4(args):
         fpr, tpr, thresholds = roc_curve(y_test_total, y_score_total)
         rocauc = round(roc_auc_score(y_test_total, y_score_total), 3)
 
-        # add zero to string of AUROC if the value does not have 3 digits after comma
-        pretty_rocauc = [str(roc)+'0' if len(str(roc)) in [3,4] else str(roc) for roc in [rocauc]]
+        # add zero to string of AUROC if the value does not have 3
+        # digits after comma
+        pretty_rocauc = [str(roc)+'0' if len(str(roc)) in [3, 4] else str(roc) for roc in [rocauc]]
         lab = '{}\t'.format(antibiotic).expandtabs()
         while len(lab) < 32:
             lab = '{}\t'.format(lab).expandtabs()
-        lab = lab+'AUROC: '+ pretty_rocauc[0]
+        lab = lab+'AUROC: '+pretty_rocauc[0]
 
         ax[0].plot(fpr, tpr, color=col_ab, label=lab, linewidth=3.0)
         ax[0].plot([0, 1], [0, 1], color='black', linestyle='--')
@@ -98,36 +103,41 @@ def plot_figure4(args):
         # ------------
         # panel2: PRAUC curve
         # ------------
-        precision, recall, thresholds = precision_recall_curve(y_test_total, y_score_total)
-        #TODO did we use weighted average in the main scripts?
-        prauc = round(average_precision_score(y_test_total, y_score_total, average='weighted'), 3)
+        precision, recall, thresholds = precision_recall_curve(y_test_total,
+                                                               y_score_total)
+        # TODO did we use weighted average in the main scripts?
+        prauc = round(average_precision_score(y_test_total, y_score_total,
+                                              average='weighted'), 3)
 
-        # add zero to string of AUPRC if the value does not have 3 digits after comma
-        pretty_prauc = [str(pr)+'0' if len(str(pr)) in [3,4] else str(pr) for pr in [prauc]]
+        # add zero to string of AUPRC if the value does not have 3
+        # digits after comma
+        pretty_prauc = [str(pr)+'0' if len(str(pr)) in [3, 4] else str(pr) for pr in [prauc]]
         lab = '{}\t'.format(antibiotic).expandtabs()
         while len(lab) < 32:
             lab = '{}\t'.format(lab).expandtabs()
-        lab = lab+'AUPRC: '+ pretty_prauc[0]
-        
-        ax[1].step(recall, precision, color=col_ab, label=lab, alpha=1.0, where='post', linewidth=3.0)
+        lab = lab+'AUPRC: '+pretty_prauc[0]
+
+        ax[1].step(recall, precision, color=col_ab, label=lab,
+                   alpha=1.0, where='post', linewidth=3.0)
 
         # ------------
         # panel3: VME curve
         # ------------
-        # TODO check all functions for mistakes regarding the class label change
+        # TODO check all functions for mistakes regarding the class
+        # label change
         vme, me_inv, thresholds = vme_curve(y_test_total, y_score_total)
         me = 1-me_inv
-        vme_score = round(vme_auc_score(y_test_total, y_score_total),3)
+        vme_score = round(vme_auc_score(y_test_total, y_score_total), 3)
 
         # add zero to string of AUVME values and align AUVME values
-        pretty_vme = [str(pr)+'0' if len(str(pr))==3 else str(pr) for pr in [vme_score]]
+        pretty_vme = [str(pr)+'0' if len(str(pr)) == 3 else str(pr) for pr in [vme_score]]
         lab = '{}\t'.format(antibiotic).expandtabs()
         while len(lab) < 32:
             lab = '{}\t'.format(lab).expandtabs()
-        lab = lab+'AUVME: '+ pretty_vme[0]
+        lab = lab+'AUVME: '+pretty_vme[0]
 
-        ax[2].step(vme, me, color=col_ab, label=lab, alpha=1.0, where='post', linewidth=3.0)
-
+        ax[2].step(vme, me, color=col_ab, label=lab,
+                   alpha=1.0, where='post', linewidth=3.0)
 
     # ------------
     # axes limits and labels
@@ -139,31 +149,39 @@ def plot_figure4(args):
     ax[1].set_ylabel('Precision', fontsize=xy_label_fs)
     ax[2].set_xlabel('Very major error', fontsize=xy_label_fs)
     ax[2].set_ylabel('Major error', fontsize=xy_label_fs)
-    ax[0].legend(bbox_to_anchor=(0.99, 0.01), loc='lower right', prop={'family': 'DejaVu Sans Mono', 'size': 15})
-    ax[1].legend(bbox_to_anchor=(0.99, 0.99), loc='upper right', prop={'family': 'DejaVu Sans Mono', 'size': 15})
-    ax[2].legend(bbox_to_anchor=(0.99, 0.99), loc='upper right', prop={'family': 'DejaVu Sans Mono', 'size': 15})
+    ax[0].legend(bbox_to_anchor=(0.99, 0.01), loc='lower right',
+                 prop={'family': 'DejaVu Sans Mono', 'size': 15})
+    ax[1].legend(bbox_to_anchor=(0.01, 0.01), loc='lower left',
+                 prop={'family': 'DejaVu Sans Mono', 'size': 15})
+    ax[2].legend(bbox_to_anchor=(0.99, 0.99), loc='upper right', 
+                 prop={'family': 'DejaVu Sans Mono', 'size': 15})
 
-    ax[0].set_xlim([-0.01,1.0])
-    ax[0].set_ylim([0.0,1.01])
-    ax[1].set_xlim([-0.01,1.0])
-    ax[1].set_ylim([0.0,1.01])
-    ax[2].set_xlim([-0.01,1.0])
-    ax[2].set_ylim([0.0,1.01])
+    ax[0].set_xlim([-0.01, 1.0])
+    ax[0].set_ylim([0.0, 1.01])
+    ax[1].set_xlim([-0.01, 1.0])
+    ax[1].set_ylim([0.0, 1.01])
+    ax[2].set_xlim([-0.01, 1.0])
+    ax[2].set_ylim([0.0, 1.01])
 
     plt.tight_layout()
-    plt.savefig('./test.png')
-
+    plt.savefig(f'./{args.outfile}.png')
 
 
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--species', 
-                         type=str,
-                         default='Escherichia coli')
-    parser.add_argument('--antibiotic', 
-                         type=str,
-                         default='Ciprofloxacin')
+    parser.add_argument('--species',
+                        type=str,
+                        default='Escherichia coli')
+    parser.add_argument('--antibiotic',
+                        type=str,
+                        default='None')
+    parser.add_argument('--outfile',
+                        type=str,
+                        default='fig4')
+    parser.add_argument('--model',
+                        type=str,
+                        default='lr')
     args = parser.parse_args()
 
     plot_figure4(args)

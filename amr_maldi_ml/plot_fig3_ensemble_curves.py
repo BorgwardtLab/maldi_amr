@@ -36,7 +36,7 @@ def _add_or_compare(metadata):
         assert metadata_versions == metadata
 
 
-def plot_curves(df, metric='auroc'):
+def plot_curves(df, outdir, metric='auroc'):
     """Plot curves that are contained in a data frame.
 
     This function is performing the main work for a single data frame.
@@ -137,12 +137,14 @@ def plot_curves(df, metric='auroc'):
     ax.set_xlabel('Number of samples')
     ax.legend(loc='lower right')
 
-    plt.show()
+    plt.savefig(os.path.join(outdir, f'fig3_{df.antibiotic.unique()[0]}.png'))
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('INPUT', type=str, help='Input directory')
+    parser.add_argument('--outdir', type=str, 
+                        default='.', help='Output directory')
 
     args = parser.parse_args()
 
@@ -179,4 +181,4 @@ if __name__ == '__main__':
         rows = scenarios[antibiotic]
         df = pd.DataFrame.from_records(rows)
 
-        plot_curves(df)
+        plot_curves(df, args.outdir)
