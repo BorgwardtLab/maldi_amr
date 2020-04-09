@@ -20,36 +20,45 @@
 # -------------
 # Figure 3: Ensemble training vs. species training curves
 # -------------
-python plot_fig3_ensemble_curves.py ../results/fig3_ensemble \
-        --outdir ./plots/fig3
+#python plot_fig3_ensemble_curves.py ../results/fig3_ensemble \
+#        --outdir ./plots/fig3
 
 
 # ------------
 # Figure 4: AUC curves per species and antibiotic
 # ------------
-for model in "lr" "svm-rbf" "svm-linear" "lightgbm" "rf"; do
-  python plot_fig4_curves_per_species_and_antibiotic.py \
-    --species "Escherichia coli" \
-    --antibiotic \
-      "Ciprofloxacin,Ceftriaxone,Cefepime,Piperacillin-Tazobactam,Tobramycin" \
-    --model $model \
-    --outfile "plots/fig4/fig4_Ecoli_$model"
-done
+#for model in "lr" "svm-rbf" "svm-linear" "lightgbm" "rf"; do
+#  python plot_fig4_curves_per_species_and_antibiotic.py \
+#    --species "Escherichia coli" \
+#    --antibiotic \
+#      "Ciprofloxacin,Ceftriaxone,Cefepime,Piperacillin-Tazobactam,Tobramycin" \
+#    --model $model \
+#    --outfile "plots/fig4/fig4_Ecoli_$model"
+#done
+#
+#for model in "lr" "svm-rbf" "svm-linear" "lightgbm" "rf"; do
+#  python plot_fig4_curves_per_species_and_antibiotic.py \
+#    --species "Staphylococcus aureus" \
+#    --antibiotic "Ciprofloxacin,Fusidic acid,Oxacillin,Penicillin" \
+#    --model $model \
+#    --outfile "plots/fig4/fig4_Saureus_$model"
+#done
+#
+#for model in "lr" "svm-rbf" "svm-linear" "lightgbm" "rf"; do
+#  python plot_fig4_curves_per_species_and_antibiotic.py \
+#    --species "Klebsiella pneumoniae" \
+#    --antibiotic \
+#      "Ciprofloxacin,Ceftriaxone,Cefepime,Amoxicillin-Clavulanic acid,Meropenem,Tobramycin,Piperacillin-Tazobactam" \
+#    --model $model \
+#    --outfile "plots/fig4/fig4_Kpneu_$model"
+#done
+
+# ------------
+# Figure 5: Validation comparison plots
+# ------------
 
 for model in "lr" "svm-rbf" "svm-linear" "lightgbm" "rf"; do
-  python plot_fig4_curves_per_species_and_antibiotic.py \
-    --species "Staphylococcus aureus" \
-    --antibiotic "Ciprofloxacin,Fusidic acid,Oxacillin,Penicillin" \
+  python plot_fig5_validation.py \
     --model $model \
-    --outfile "plots/fig4/fig4_Saureus_$model"
+    --outfile "plots/fig5/fig5_$model"
 done
-
-for model in "lr" "svm-rbf" "svm-linear" "lightgbm" "rf"; do
-  python plot_fig4_curves_per_species_and_antibiotic.py \
-    --species "Klebsiella pneumoniae" \
-    --antibiotic \
-      "Ciprofloxacin,Ceftriaxone,Cefepime,Amoxicillin-Clavulanic acid,Meropenem,Tobramycin,Piperacillin-Tazobactam" \
-    --model $model \
-    --outfile "plots/fig4/fig4_Kpneu_$model"
-done
-
