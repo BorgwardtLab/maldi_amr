@@ -6,6 +6,7 @@
 import dotenv
 import os
 
+import numpy as np
 import pandas as pd
 
 from maldi_learn.driams import DRIAMSDatasetExplorer
@@ -44,14 +45,38 @@ if __name__ == '__main__':
     for site in sites:
         metadata_fingerprints = explorer.metadata_fingerprints(site)
         available_years = explorer.available_years(site)
+        available_antibiotics_per_year = explorer.available_antibiotics(site)
+        available_antibiotics = set(available_antibiotics_per_year[available_years[0]])
+        [available_antibiotics.intersection(set(available_antibiotics_per_year[year])) for year in available_years[1:]]
+        available_antibiotics = list(available_antibiotics)
+        print(available_years, available_antibiotics)
 
         driams_dataset = load_driams_dataset(
                 DRIAMS_ROOT,
                 site,
                 available_years,
-                antibiotics=antibiotics,
+                '*',
+                antibiotics=available_antibiotics,
                 encoder=DRIAMSLabelEncoder(),
+                handle_missing_resistance_measurements='remove_if_all_missing',
                 nrows=2000,  # FIXME: remove after debugging
         )
 
-        print(driams_dataset.y)
+        for antibiotic in available_antibiotics:  
+            print(site, antibiotic)
+            y = driams_dataset.y[antibiotic].dropna().values
+            
+            # Calculate summary characteristics
+            pos_class_ratio = float(sum(y)/len(y))
+            num_samples = len(y)
+
+            # Create dictionary to be saved in json output file
+            d_summary = {
+                         'antibiotic': antibiotic,
+                         'site': site,
+                         'year': available_years,
+                         'positive class ratio': pos_class_ratio,
+                         'number spectra with AMR profile': num_samples,
+                         }
+
+            print(d_summary)
