@@ -15,6 +15,7 @@ from maldi_learn.driams import load_driams_dataset
 
 dotenv.load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
+outdir = '../results/DRIAMS_summary'
 
 antibiotics = [
     'Amikacin',
@@ -45,6 +46,7 @@ if __name__ == '__main__':
     for site in sites:
         metadata_fingerprints = explorer.metadata_fingerprints(site)
         available_years = explorer.available_years(site)
+        # extract available antibiotics
         available_antibiotics_per_year = explorer.available_antibiotics(site)
         available_antibiotics = set(available_antibiotics_per_year[available_years[0]])
         [available_antibiotics.intersection(set(available_antibiotics_per_year[year])) for year in available_years[1:]]
@@ -80,3 +82,7 @@ if __name__ == '__main__':
                          }
 
             print(d_summary)
+            outfile = os.path.join(outdir, '{site}_{antibiotic}.json')
+           
+            # save to file 
+            json.dump(outfile, d_summary)
