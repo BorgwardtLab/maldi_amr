@@ -10,7 +10,7 @@ MAIN="poetry run python ../baseline.py "
 # Try to be smart: if `bsub` does *not* exist on the system, we just
 # pretend that it is an empty command.
 if [ -x "$(command -v bsub)" ]; then
-  BSUB='bsub -W 23:59 -o "baseline_%J.out" -R "rusage[mem=64000]"'
+  BSUB='bsub -W 23:59 -o "baseline_%J.out" -R "rusage[mem=32000]"'
 fi
 
 # Evaluates its first argument either by submitting a job, or by
@@ -67,7 +67,11 @@ for SEED in 344 172 188 270 35 164 545 480 89 409; do
       'Vancomycin'\
       'Voriconazole';
   do
-    CMD="${MAIN} --antibiotic \"$ANTIBIOTIC\" --seed $SEED --force"
-    run "$CMD";
+    # Models are ordered by their 'utility' for the project. We are
+    # most interested in logistic regression.
+    for MODEL in "lr" "svm-rbf" "rf" "lightgbm" "svm-linear"; do
+      CMD="${MAIN} --antibiotic \"$ANTIBIOTIC\" --seed $SEED --model $MODEL"
+      run "$CMD";
+    done
   done
 done
