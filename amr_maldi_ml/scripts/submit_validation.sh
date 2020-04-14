@@ -26,11 +26,11 @@ run() {
 }
 
 for SEED in 344 172 188 270 35 164 545 480 89 409; do
-  for TRAIN in "DRIAMS-A" "DRIAMS-B" "DRIAMS-C"; do
+  for TRAIN in "DRIAMS-A" "DRIAMS-B" "DRIAMS-C" "DRIAMS-D"; do
     # Switching the order for the submission around because we are
     # primarily interested in obtaining information about unknown
     # sites quickly.
-    for TEST in "DRIAMS-B" "DRIAMS-C" "DRIAMS-A"; do
+    for TEST in "DRIAMS-B" "DRIAMS-C" "DRIAMS-D" "DRIAMS-A"; do
       for ANTIBIOTIC in 'Amikacin'\
           'Amoxicillin-Clavulanic acid'\
           'Cefepime'\

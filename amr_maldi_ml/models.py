@@ -194,6 +194,59 @@ def get_pipeline_and_parameters(model, random_state):
     )
 
 
+def calculate_metrics(y_true, y_pred, y_score, prefix=None):
+    """Calculate performance metrics from scores and predictions.
+
+    This is a convenience function for computing performance metrics
+    from scores and predictions of the data. Currently the following
+    metrics will be calculated:
+
+    - accuracy
+    - AUROC
+    - AUPRC
+
+    Parameters
+    ----------
+    y_true : `numpy.array`
+        True labels
+
+    y_pred : `numpy.array`
+        Predicted labels
+
+    y_score : `numpy.array`
+        Prediction scores
+
+    prefix : str, optional
+        If set, adds a prefix to the calculated metrics of the form
+        'prefix_NAME', where 'NAME' is the name of the metric.
+
+    Returns
+    -------
+    Dictionary whose keys are the names of the calculated metrics, with
+    an optional prefix, and whose values are the respective performance
+    measures.
+    """
+    accuracy = accuracy_score(y_pred, y_true)
+
+    # Automatically choose the proper evaluation method for measuring
+    # requiring the selection of a minority class.
+    minority_class = np.argmin(np.bincount(y_true))
+
+    auprc = average_precision_score(y_true, y_score[:, minority_class])
+    auroc = roc_auc_score(y_true, y_score[:, minority_class])
+
+    kv = [
+        ('accuracy', accuracy),
+        ('auprc', auprc),
+        ('auroc', auroc)
+    ]
+
+    if prefix is not None:
+        kv = [(f'{prefix}_{key}', value) for key, value in kv]
+
+    return dict(kv)
+
+
 def run_experiment(
     X_train, y_train,
     X_test, y_test,
@@ -270,17 +323,19 @@ def run_experiment(
         with joblib.parallel_backend('threading', -1):
             grid_search.fit(X_train, y_train)
 
+    # Calculate metrics for the training data fully in-line because we
+    # only ever want to save the results.
+    train_metrics = calculate_metrics(
+        y_train,
+        grid_search.predict(X_train),
+        grid_search.predict_proba(X_train),
+        prefix='train'
+    )
+
     y_pred = grid_search.predict(X_test)
     y_score = grid_search.predict_proba(X_test)
 
-    accuracy = accuracy_score(y_pred, y_test)
-
-    # Automatically choose the proper evaluation method for measuring
-    # requiring the selection of a minority class.
-    minority_class = np.argmin(np.bincount(y_test))
-
-    auprc = average_precision_score(y_test, y_score[:, minority_class])
-    auroc = roc_auc_score(y_test, y_score[:, minority_class])
+    test_metrics = calculate_metrics(y_test, y_pred, y_score)
 
     # Replace information about the standard scaler prior to writing out
     # the `best_params_` grid. The reason for this is that we cannot and
@@ -305,10 +360,7 @@ def run_experiment(
         })
 
     # Add information that *always* needs to be available.
-    results.update({
-        'accuracy': accuracy,
-        'auprc': auprc,
-        'auroc': auroc,
-    })
+    results.update(train_metrics)
+    results.update(test_metrics)
 
     return results
