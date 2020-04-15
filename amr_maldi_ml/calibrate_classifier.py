@@ -50,7 +50,7 @@ if __name__ == '__main__':
         help='Input file',
     )
 
-    name = 'feature_importance_values'
+    name = 'calibrated_classifiers'
 
     parser.add_argument(
         '-o', '--output',
