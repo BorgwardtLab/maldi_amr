@@ -54,12 +54,15 @@ if __name__ == '__main__':
             available_antibiotics = available_antibiotics.intersection(set(available_antibiotics_per_year[year]))
         available_antibiotics = list(available_antibiotics)
 
+        # TODO add per species data
+        species = '*'
+
         # load driams data
         driams_dataset = load_driams_dataset(
                 DRIAMS_ROOT,
                 site,
                 available_years,
-                '*',
+                species,
                 antibiotics=available_antibiotics,
                 encoder=DRIAMSLabelEncoder(),
                 handle_missing_resistance_measurements='remove_if_all_missing',
@@ -85,6 +88,7 @@ if __name__ == '__main__':
                          'year': available_years,
                          'positive class ratio': pos_class_ratio,
                          'number spectra with AMR profile': num_samples,
+                         'species': species,
                          }
 
             print(d_summary)

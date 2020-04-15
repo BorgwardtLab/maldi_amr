@@ -5,5 +5,6 @@
         "2018"
     ],
     "positive class ratio": 0.016795865633074936,
-    "number spectra with AMR profile": 774
+    "number spectra with AMR profile": 774,
+    "species": "*"
 }
