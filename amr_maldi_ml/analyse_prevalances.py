@@ -5,6 +5,7 @@
 
 import dotenv
 import os
+import json
 
 import numpy as np
 import pandas as pd
@@ -49,10 +50,11 @@ if __name__ == '__main__':
         # extract available antibiotics
         available_antibiotics_per_year = explorer.available_antibiotics(site)
         available_antibiotics = set(available_antibiotics_per_year[available_years[0]])
-        [available_antibiotics.intersection(set(available_antibiotics_per_year[year])) for year in available_years[1:]]
+        for year in available_years[1:]:
+            available_antibiotics = available_antibiotics.intersection(set(available_antibiotics_per_year[year]))
         available_antibiotics = list(available_antibiotics)
-        print(available_years, available_antibiotics)
 
+        # load driams data
         driams_dataset = load_driams_dataset(
                 DRIAMS_ROOT,
                 site,
@@ -69,8 +71,12 @@ if __name__ == '__main__':
             y = driams_dataset.y[antibiotic].dropna().values
             
             # Calculate summary characteristics
-            pos_class_ratio = float(sum(y)/len(y))
-            num_samples = len(y)
+            if len(y) != 0:
+                pos_class_ratio = float(sum(y)/len(y))
+                num_samples = len(y)
+            else:
+                pos_class_ratio = 0
+                num_samples = 0
 
             # Create dictionary to be saved in json output file
             d_summary = {
@@ -82,7 +88,8 @@ if __name__ == '__main__':
                          }
 
             print(d_summary)
-            outfile = os.path.join(outdir, '{site}_{antibiotic}.json')
+            outfile = os.path.join(outdir, f'{site}_{antibiotic}.json')
            
             # save to file 
-            json.dump(outfile, d_summary)
+            with open(outfile, 'w') as f:
+                json.dump(d_summary, f, indent=4)
