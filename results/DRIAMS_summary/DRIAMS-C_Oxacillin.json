@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Oxacillin",
+    "site": "DRIAMS-C",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.4576271186440678,
+    "number spectra with AMR profile": 649
+}

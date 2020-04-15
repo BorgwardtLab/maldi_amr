@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Ceftriaxone",
+    "site": "DRIAMS-B",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.10407725321888411,
+    "number spectra with AMR profile": 932
+}

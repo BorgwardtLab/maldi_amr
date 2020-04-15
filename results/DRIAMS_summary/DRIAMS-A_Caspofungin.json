@@ -1,0 +1,12 @@
+{
+    "antibiotic": "Caspofungin",
+    "site": "DRIAMS-A",
+    "year": [
+        "2015",
+        "2016",
+        "2017",
+        "2018"
+    ],
+    "positive class ratio": 0.017543859649122806,
+    "number spectra with AMR profile": 57
+}

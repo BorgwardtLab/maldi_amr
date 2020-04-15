@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Metronidazole",
+    "site": "DRIAMS-B",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.06666666666666667,
+    "number spectra with AMR profile": 30
+}

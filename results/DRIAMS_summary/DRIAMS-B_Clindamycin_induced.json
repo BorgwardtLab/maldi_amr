@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Clindamycin_induced",
+    "site": "DRIAMS-B",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.11869031377899045,
+    "number spectra with AMR profile": 733
+}

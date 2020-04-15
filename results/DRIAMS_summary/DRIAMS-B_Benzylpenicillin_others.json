@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Benzylpenicillin_others",
+    "site": "DRIAMS-B",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.10526315789473684,
+    "number spectra with AMR profile": 19
+}

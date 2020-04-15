@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Ciprofloxacin",
+    "site": "DRIAMS-C",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.12052730696798493,
+    "number spectra with AMR profile": 1593
+}

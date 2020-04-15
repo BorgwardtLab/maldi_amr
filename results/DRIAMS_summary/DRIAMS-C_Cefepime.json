@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Cefepime",
+    "site": "DRIAMS-C",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.15494791666666666,
+    "number spectra with AMR profile": 768
+}

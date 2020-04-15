@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Ampicillin-Sulbactam",
+    "site": "DRIAMS-D",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.41025641025641024,
+    "number spectra with AMR profile": 39
+}

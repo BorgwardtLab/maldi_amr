@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Vancomycin",
+    "site": "DRIAMS-B",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.014367816091954023,
+    "number spectra with AMR profile": 1044
+}

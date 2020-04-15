@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Teicoplanin",
+    "site": "DRIAMS-D",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.02564102564102564,
+    "number spectra with AMR profile": 39
+}

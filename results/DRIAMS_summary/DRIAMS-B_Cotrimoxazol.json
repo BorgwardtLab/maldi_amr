@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Cotrimoxazol",
+    "site": "DRIAMS-B",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.11608961303462322,
+    "number spectra with AMR profile": 1473
+}

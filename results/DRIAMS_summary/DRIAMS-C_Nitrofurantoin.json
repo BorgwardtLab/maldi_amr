@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Nitrofurantoin",
+    "site": "DRIAMS-C",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.19696969696969696,
+    "number spectra with AMR profile": 726
+}

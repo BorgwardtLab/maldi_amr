@@ -1,0 +1,12 @@
+{
+    "antibiotic": "Cefixime",
+    "site": "DRIAMS-A",
+    "year": [
+        "2015",
+        "2016",
+        "2017",
+        "2018"
+    ],
+    "positive class ratio": 0.0,
+    "number spectra with AMR profile": 4
+}

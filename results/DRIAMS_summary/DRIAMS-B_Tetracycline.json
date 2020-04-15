@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Tetracycline",
+    "site": "DRIAMS-B",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.1408839779005525,
+    "number spectra with AMR profile": 724
+}

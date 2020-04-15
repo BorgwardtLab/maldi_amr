@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Levofloxacin",
+    "site": "DRIAMS-D",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.1388888888888889,
+    "number spectra with AMR profile": 36
+}

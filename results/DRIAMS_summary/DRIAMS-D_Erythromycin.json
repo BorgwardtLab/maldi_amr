@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Erythromycin",
+    "site": "DRIAMS-D",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.27111111111111114,
+    "number spectra with AMR profile": 450
+}

@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Ampicillin",
+    "site": "DRIAMS-C",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.6563626996393611,
+    "number spectra with AMR profile": 1941
+}

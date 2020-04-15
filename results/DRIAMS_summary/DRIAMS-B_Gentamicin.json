@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Gentamicin",
+    "site": "DRIAMS-B",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.08722264728385616,
+    "number spectra with AMR profile": 1307
+}

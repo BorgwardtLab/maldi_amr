@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Rifampicin",
+    "site": "DRIAMS-B",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.015128593040847202,
+    "number spectra with AMR profile": 661
+}

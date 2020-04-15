@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Daptomycin",
+    "site": "DRIAMS-D",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.038461538461538464,
+    "number spectra with AMR profile": 52
+}

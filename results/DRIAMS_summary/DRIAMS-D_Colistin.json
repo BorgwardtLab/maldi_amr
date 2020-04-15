@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Colistin",
+    "site": "DRIAMS-D",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.11290322580645161,
+    "number spectra with AMR profile": 62
+}

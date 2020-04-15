@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Penicillin",
+    "site": "DRIAMS-C",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.6307692307692307,
+    "number spectra with AMR profile": 455
+}

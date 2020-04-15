@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Meropenem",
+    "site": "DRIAMS-C",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.0625,
+    "number spectra with AMR profile": 16
+}

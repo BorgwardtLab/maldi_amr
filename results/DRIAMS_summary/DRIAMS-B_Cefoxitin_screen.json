@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Cefoxitin_screen",
+    "site": "DRIAMS-B",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.24673202614379086,
+    "number spectra with AMR profile": 612
+}

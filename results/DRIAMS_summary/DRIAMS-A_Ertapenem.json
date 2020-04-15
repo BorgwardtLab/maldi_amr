@@ -1,0 +1,12 @@
+{
+    "antibiotic": "Ertapenem",
+    "site": "DRIAMS-A",
+    "year": [
+        "2015",
+        "2016",
+        "2017",
+        "2018"
+    ],
+    "positive class ratio": 0.01579466929911155,
+    "number spectra with AMR profile": 1013
+}

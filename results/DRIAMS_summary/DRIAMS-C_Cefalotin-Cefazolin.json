@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Cefalotin-Cefazolin",
+    "site": "DRIAMS-C",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.9444444444444444,
+    "number spectra with AMR profile": 18
+}

@@ -1,0 +1,9 @@
+{
+    "antibiotic": "Imipenem",
+    "site": "DRIAMS-B",
+    "year": [
+        "2018"
+    ],
+    "positive class ratio": 0.07596153846153846,
+    "number spectra with AMR profile": 1040
+}
