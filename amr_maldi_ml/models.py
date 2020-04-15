@@ -2,6 +2,7 @@
 
 import logging
 import joblib
+import json
 import warnings
 
 import numpy as np
@@ -192,6 +193,50 @@ def get_pipeline_and_parameters(model, random_state):
     raise RuntimeError(
         f'No pipeline or configuration for "{model}" available.'
     )
+
+
+def load_pipeline(filename):
+    """Load ready-to-use pipeline from configuration file.
+
+    This utility function is capable of taking a configuration file in
+    JSON format and using it to obtain a ready-to-use pipeline. Notice
+    that *no* cross-validation will be used.
+
+    Parameters
+    ----------
+    filename : str
+        Input filename
+
+    Returns
+    -------
+    Tuple of pipeline and configuration file in JSON format. The latter
+    is useful to extract additional parameters, depending on which kind
+    of experiment is to be run. The configuration file is guaranteed to
+    contain a `model` parameter. If none is set, defaults to `lr`.
+    """
+    with open(filename) as f:
+        data = json.load(f)
+
+    seed = data['seed']
+    best_params = data['best_params']
+
+    # This accommodates older versions of the code that do not save
+    # their models to the file.
+    model = data.get('model', 'lr')
+
+    # Ensures that the key exists afterwards, regardless of whether we
+    # are loading an old file or not.
+    data['model'] = model
+
+    pipeline, _ = get_pipeline_and_parameters(model, random_state=seed)
+    pipeline.set_params(**best_params)
+
+    # Scaling needs some manual adjustments because we just store
+    # whether a scaler was used or not.
+    if pipeline['scaler'] == 'StandardScaler':
+        pipeline.set_params(scaler=StandardScaler())
+
+    return pipeline, data
 
 
 def calculate_metrics(y_true, y_pred, y_score, prefix=None):
