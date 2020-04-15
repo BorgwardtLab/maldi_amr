@@ -185,7 +185,7 @@ if __name__ == '__main__':
     logging.info(f'Years: {years}')
     logging.info(f'Seed: {seed}')
 
-    pipeline, _ = get_pipeline_and_parameters(model, random_state=seed) 
+    pipeline, _ = get_pipeline_and_parameters(model, random_state=seed)
     pipeline.set_params(**best_params)
 
     # Scaling needs some manual adjustments because we just store
@@ -193,88 +193,69 @@ if __name__ == '__main__':
     if pipeline['scaler'] == 'StandardScaler':
         pipeline.set_params(scaler=StandardScaler())
 
-    raise 'heck'
-
-    # Create input grid for the subsequent experiments. Not all
-    # combinations are useful, hence we specify them in a list.
-    # This will only be used if '-A' or '--all' was specified.
-    input_grid = ParameterGrid([
-        {
-            'species': ['Escherichia coli'],
-            'antibiotic': ['Ciprofloxacin',
-                           'Amoxicillin-Clavulanic acid',
-                           'Ceftriaxone',
-                           'Tobramycin',
-                           'Piperacillin-Tazobactam',
-                           'Cefepime'],
-            'seed': seeds,
-        },
-        {
-            'species': ['Klebsiella pneumoniae'],
-            'antibiotic': ['Ciprofloxacin',
-                           'Amoxicillin-Clavulanic acid',
-                           'Ceftriaxone',
-                           'Tobramycin',
-                           'Piperacillin-Tazobactam',
-                           'Meropenem',
-                           'Cefepime'],
-            'seed': seeds,
-        },
-        {
-            'species': ['Staphylococcus aureus'],
-            'antibiotic': ['Ciprofloxacin',
-                           'Penicillin',
-                           'Oxacillin',
-                           'Fusidic acid'],
-            'seed': seeds,
-        }
-    ])
-
     explorer = DRIAMSDatasetExplorer(DRIAMS_ROOT)
     metadata_fingerprints = explorer.metadata_fingerprints(site)
 
-    # How many jobs to use to run this experiment. Should be made
-    # configurable ideally.
-    n_jobs = 24
+    driams_dataset = load_driams_dataset(
+            DRIAMS_ROOT,
+            site,
+            years,
+            species=species,
+            antibiotics=antibiotic,  # Only a single one for this run
+            encoder=DRIAMSLabelEncoder(),
+            handle_missing_resistance_measurements='remove_if_all_missing',
+            spectra_type='binned_6000',
+            nrows=1000,
+    )
 
-    # Run all combinations and ignore everything else. Other arguments
-    # may be supplied, but we will not use them.
-    if args.all:
+    logging.info(f'Loaded data set for {species} and {antibiotic}')
 
-        logging.info('Running all experiments for pre-defined grid.')
-        logging.info('Ignoring *all* other parameters.')
+    # Create feature matrix from the binned spectra. We only need to
+    # consider the second column of each spectrum for this.
+    X = np.asarray([spectrum.intensities for spectrum in driams_dataset.X])
 
-        for combination in input_grid:
-            species = combination['species']
-            antibiotic = combination['antibiotic']
-            seed = combination['seed']
+    logging.info('Finished vectorisation')
 
-            _run_experiment(
-                explorer.root,
-                metadata_fingerprints,
-                species,
-                antibiotic,
-                seed,
-                args.output,
-                args.force,
-                args.model,
-                n_jobs
-            )
-    # Run a specific experiment: species, antibiotic, and seed have to
-    # be specified.
+    # Stratified train--test split
+    train_index, test_index = stratify_by_species_and_label(
+        driams_dataset.y,
+        antibiotic=antibiotic,
+        random_state=seed,
+    )
+
+    logging.info('Finished stratification')
+
+    # Create labels
+    y = driams_dataset.to_numpy(antibiotic)
+
+    X_train, y_train = X[train_index], y[train_index]
+
+    pipeline.fit(X_train, y_train)
+    clf = pipeline[model]
+
+    output = {
+        'site': site,
+        'years': years,
+        'seed': seed,
+        'antibiotic': antibiotic,
+        'species': species,
+        'model': model,
+        'best_params': best_params,
+        'metadata_versions': metadata_fingerprints,
+        'feature_importance': clf.coef_.tolist(),
+    }
+
+    output_filename = generate_output_filename(
+        args.output,
+        output
+    )
+
+    if not os.path.exists(output_filename) or args.force:
+        logging.info(f'Saving {os.path.basename(output_filename)}')
+
+        with open(output_filename, 'w') as f:
+            json.dump(output, f, indent=4)
     else:
-        assert args.species is not None
-        assert args.antibiotic is not None
-        assert args.seed is not None
-
-        _run_experiment(
-            explorer.root,
-            metadata_fingerprints,
-            args.species,
-            args.antibiotic,
-            args.seed,
-            args.output,
-            args.force,
-            args.model,
-            n_jobs
+        logging.warning(
+            f'Skipping {output_filename} because it already exists.'
         )
