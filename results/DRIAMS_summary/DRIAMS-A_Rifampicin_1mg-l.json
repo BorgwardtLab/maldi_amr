@@ -7,7 +7,32 @@
         "2017",
         "2018"
     ],
-    "positive class ratio": 0.5,
-    "number spectra with AMR profile": 2,
-    "species": "*"
+    "positive class ratio": 0.2,
+    "number spectra with AMR profile": 10,
+    "species": [
+        "Corynebacterium jeikeium",
+        "Peptoniphilus harei",
+        "Corynebacterium jeikeium",
+        "Peptoniphilus harei",
+        "Peptoniphilus harei",
+        "Staphylococcus aureus",
+        "Staphylococcus aureus",
+        "Corynebacterium simulans",
+        "Streptococcus oralis",
+        "Streptococcus oralis"
+    ],
+    "most frequent species": [
+        "Peptoniphilus harei",
+        "Corynebacterium jeikeium",
+        "Staphylococcus aureus",
+        "Streptococcus oralis",
+        "Corynebacterium simulans"
+    ],
+    "most frequent species counts": [
+        3,
+        2,
+        2,
+        2,
+        1
+    ]
 }

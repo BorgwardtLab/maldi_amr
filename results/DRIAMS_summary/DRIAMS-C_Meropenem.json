@@ -4,7 +4,48 @@
     "year": [
         "2018"
     ],
-    "positive class ratio": 0.0625,
-    "number spectra with AMR profile": 16,
-    "species": "*"
+    "positive class ratio": 0.3076923076923077,
+    "number spectra with AMR profile": 26,
+    "species": [
+        "Escherichia coli",
+        "Enterococcus avium",
+        "Enterococcus avium",
+        "Klebsiella pneumoniae",
+        "Klebsiella pneumoniae",
+        "Pseudomonas aeruginosa",
+        "Kingella kingae",
+        "Kingella kingae",
+        "Klebsiella pneumoniae",
+        "Aerococcus urinae",
+        "Aerococcus urinae",
+        "Capnocytophaga sputigena",
+        "Capnocytophaga sputigena",
+        "Capnocytophaga sputigena",
+        "Escherichia coli",
+        "Escherichia coli",
+        "Pseudomonas aeruginosa",
+        "Aerococcus urinae",
+        "Aerococcus urinae",
+        "Proteus mirabilis",
+        "Proteus mirabilis",
+        "Proteus mirabilis",
+        "Proteus mirabilis",
+        "Proteus mirabilis",
+        "Proteus mirabilis",
+        "Klebsiella pneumoniae"
+    ],
+    "most frequent species": [
+        "Proteus mirabilis",
+        "Klebsiella pneumoniae",
+        "Aerococcus urinae",
+        "Escherichia coli",
+        "Capnocytophaga sputigena"
+    ],
+    "most frequent species counts": [
+        6,
+        4,
+        4,
+        3,
+        3
+    ]
 }

@@ -5,6 +5,32 @@
         "2018"
     ],
     "positive class ratio": 0.0,
-    "number spectra with AMR profile": 5,
-    "species": "*"
+    "number spectra with AMR profile": 13,
+    "species": [
+        "Candida glabrata",
+        "Candida albicans",
+        "Candida glabrata",
+        "Candida tropicalis",
+        "Candida tropicalis",
+        "Candida albicans",
+        "Candida albicans",
+        "Candida albicans",
+        "Candida albicans",
+        "Candida albicans",
+        "Candida parapsilosis",
+        "Candida parapsilosis",
+        "Candida parapsilosis"
+    ],
+    "most frequent species": [
+        "Candida albicans",
+        "Candida parapsilosis",
+        "Candida glabrata",
+        "Candida tropicalis"
+    ],
+    "most frequent species counts": [
+        6,
+        3,
+        2,
+        2
+    ]
 }

@@ -4,7 +4,47 @@
     "year": [
         "2018"
     ],
-    "positive class ratio": 0.05263157894736842,
-    "number spectra with AMR profile": 19,
-    "species": "*"
+    "positive class ratio": 0.037037037037037035,
+    "number spectra with AMR profile": 27,
+    "species": [
+        "Streptococcus vestibularis",
+        "Streptococcus pneumoniae",
+        "Streptococcus pneumoniae",
+        "Streptococcus pneumoniae",
+        "Streptococcus pneumoniae",
+        "Streptococcus pneumoniae",
+        "Streptococcus pneumoniae",
+        "Streptococcus pneumoniae",
+        "Streptococcus pneumoniae",
+        "Streptococcus pneumoniae",
+        "Streptococcus pneumoniae",
+        "Streptococcus pneumoniae",
+        "Streptococcus pneumoniae",
+        "Streptococcus pneumoniae",
+        "Streptococcus pneumoniae",
+        "Streptococcus pneumoniae",
+        "Streptococcus pseudopneumoniae",
+        "Streptococcus pseudopneumoniae",
+        "Streptococcus pneumoniae",
+        "Streptococcus pneumoniae",
+        "Streptococcus pneumoniae",
+        "Streptococcus pneumoniae",
+        "Streptococcus pneumoniae",
+        "Streptococcus pneumoniae",
+        "Streptococcus mitis",
+        "Streptococcus pneumoniae",
+        "Streptococcus pneumoniae"
+    ],
+    "most frequent species": [
+        "Streptococcus pneumoniae",
+        "Streptococcus pseudopneumoniae",
+        "Streptococcus vestibularis",
+        "Streptococcus mitis"
+    ],
+    "most frequent species counts": [
+        23,
+        2,
+        1,
+        1
+    ]
 }

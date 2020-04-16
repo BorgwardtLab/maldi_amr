@@ -9,5 +9,7 @@
     ],
     "positive class ratio": 0,
     "number spectra with AMR profile": 0,
-    "species": "*"
+    "species": [],
+    "most frequent species": [],
+    "most frequent species counts": []
 }

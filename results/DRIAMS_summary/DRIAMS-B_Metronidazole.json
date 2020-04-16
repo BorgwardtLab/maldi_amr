@@ -4,7 +4,54 @@
     "year": [
         "2018"
     ],
-    "positive class ratio": 0.06666666666666667,
-    "number spectra with AMR profile": 30,
-    "species": "*"
+    "positive class ratio": 0.09375,
+    "number spectra with AMR profile": 32,
+    "species": [
+        "Clostridium perfringens",
+        "Clostridium perfringens",
+        "Bacteroides stercoris",
+        "Bacteroides fragilis",
+        "Bacteroides fragilis",
+        "Finegoldia magna",
+        "Anaerococcus vaginalis",
+        "Anaerococcus vaginalis",
+        "Anaerococcus vaginalis",
+        "Finegoldia magna",
+        "Finegoldia magna",
+        "Finegoldia magna",
+        "Actinomyces odontolyticus",
+        "Staphylococcus saccharolyticus",
+        "Peptoniphilus olsenii",
+        "Bacteroides fragilis",
+        "Prevotella disiens",
+        "Prevotella disiens",
+        "Prevotella disiens",
+        "Prevotella disiens",
+        "Prevotella disiens",
+        "Prevotella disiens",
+        "Peptoniphilus harei",
+        "Bacteroides fragilis",
+        "Prevotella bivia",
+        "Prevotella bivia",
+        "Finegoldia magna",
+        "Finegoldia magna",
+        "Finegoldia magna",
+        "Finegoldia magna",
+        "Finegoldia magna",
+        "Staphylococcus saccharolyticus"
+    ],
+    "most frequent species": [
+        "Finegoldia magna",
+        "Prevotella disiens",
+        "Bacteroides fragilis",
+        "Anaerococcus vaginalis",
+        "Clostridium perfringens"
+    ],
+    "most frequent species counts": [
+        9,
+        6,
+        4,
+        3,
+        2
+    ]
 }

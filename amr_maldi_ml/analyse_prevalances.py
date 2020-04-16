@@ -13,6 +13,7 @@ import pandas as pd
 from maldi_learn.driams import DRIAMSDatasetExplorer
 from maldi_learn.driams import DRIAMSLabelEncoder
 from maldi_learn.driams import load_driams_dataset
+from collections import Counter
 
 dotenv.load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
@@ -40,6 +41,7 @@ sites = [
     'DRIAMS-D',
 ]
 
+
 if __name__ == '__main__':
 
     explorer = DRIAMSDatasetExplorer(DRIAMS_ROOT)
@@ -66,12 +68,19 @@ if __name__ == '__main__':
                 antibiotics=available_antibiotics,
                 encoder=DRIAMSLabelEncoder(),
                 handle_missing_resistance_measurements='remove_if_all_missing',
-                nrows=2000,  # FIXME: remove after debugging
         )
+        
+        driams_dataset.y = driams_dataset.y.reset_index(drop=True)
 
         for antibiotic in available_antibiotics:  
             print(site, antibiotic)
-            y = driams_dataset.y[antibiotic].dropna().values
+            y_ab = driams_dataset.y[antibiotic].dropna()
+            y = y_ab.values
+
+            species = driams_dataset.y['species'].iloc[y_ab.index].values
+            species_most_common = Counter(species).most_common(5)
+            
+            assert len(species)==len(y)
             
             # Calculate summary characteristics
             if len(y) != 0:
@@ -88,7 +97,9 @@ if __name__ == '__main__':
                          'year': available_years,
                          'positive class ratio': pos_class_ratio,
                          'number spectra with AMR profile': num_samples,
-                         'species': species,
+                         'species': list(species),
+                         'most frequent species': [tup[0] for tup in species_most_common],
+                         'most frequent species counts': [tup[1] for tup in species_most_common],
                          }
 
             print(d_summary)

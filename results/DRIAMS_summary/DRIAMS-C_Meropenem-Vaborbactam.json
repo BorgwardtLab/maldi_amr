@@ -4,7 +4,20 @@
     "year": [
         "2018"
     ],
-    "positive class ratio": 0,
-    "number spectra with AMR profile": 0,
-    "species": "*"
+    "positive class ratio": 0.0,
+    "number spectra with AMR profile": 6,
+    "species": [
+        "Proteus mirabilis",
+        "Proteus mirabilis",
+        "Proteus mirabilis",
+        "Proteus mirabilis",
+        "Proteus mirabilis",
+        "Proteus mirabilis"
+    ],
+    "most frequent species": [
+        "Proteus mirabilis"
+    ],
+    "most frequent species counts": [
+        6
+    ]
 }

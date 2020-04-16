@@ -6,5 +6,13 @@
     ],
     "positive class ratio": 0.0,
     "number spectra with AMR profile": 1,
-    "species": "*"
+    "species": [
+        "Pseudomonas aeruginosa"
+    ],
+    "most frequent species": [
+        "Pseudomonas aeruginosa"
+    ],
+    "most frequent species counts": [
+        1
+    ]
 }

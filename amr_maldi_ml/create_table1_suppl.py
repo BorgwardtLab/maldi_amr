@@ -8,7 +8,7 @@ import json
 import pandas as pd
 
 
-def create_table(site, mode='print'):
+def create_table(site, save=False, remove_empty_antibiotics=True):
     
     PATH_TABLE = '../results/DRIAMS_summary'
     
@@ -22,37 +22,45 @@ def create_table(site, mode='print'):
                                   'site',
                                   'number of samples',
                                   'percentage positive',
-                                  'species',
+                                  'most frequent species',
                                   ])    
 
     # read data and append to dataframe
     for filename in file_list:
+        print(filename)
         with open(os.path.join(PATH_TABLE, filename)) as f:
             data = json.load(f)
+            print(data['most frequent species'])
+            print(data['most frequent species counts'])
+            print(list(zip(data['most frequent species'], 
+                           data['most frequent species counts'])))
+
             table = table.append(
                 pd.DataFrame({
                     'antibiotic' : [data['antibiotic']],
                     'site': [data['site']],
                     'number of samples': [data['number spectra with AMR profile']],
                     'percentage positive': [round(data['positive class ratio'], 3)],
-                    'species': [data['species']],
+                    'most frequent species': [list(zip(data['most frequent species'], 
+                                                       data['most frequent species counts']))],
                 }),
                 ignore_index=True
                 )    
     table = table.sort_values(by=['number of samples'], ascending=False)
-    print('table', table)
     
     # subset to site 
     table = table.loc[table['site']==site]    
+    
+    if remove_empty_antibiotics==True:
+        table = table.loc[table['number of samples']!=0]
 
-
-    if mode=='save':
+    if save == True:
         table.to_csv(os.path.join(PATH_TABLE,f'{site}.csv'), index=False)
-    else:
-        print(table)
-    pass
+    
+    print(table)
+
 
 if __name__=='__main__':
     
     site = 'DRIAMS-A'
-    create_table(site, mode='save')
+    create_table(site, save=True)

@@ -5,6 +5,23 @@
         "2018"
     ],
     "positive class ratio": 0.0,
-    "number spectra with AMR profile": 2,
-    "species": "*"
+    "number spectra with AMR profile": 8,
+    "species": [
+        "Staphylococcus aureus",
+        "Staphylococcus aureus",
+        "Staphylococcus aureus",
+        "Staphylococcus aureus",
+        "Staphylococcus aureus",
+        "Staphylococcus aureus",
+        "Staphylococcus aureus",
+        "Staphylococcus epidermidis"
+    ],
+    "most frequent species": [
+        "Staphylococcus aureus",
+        "Staphylococcus epidermidis"
+    ],
+    "most frequent species counts": [
+        7,
+        1
+    ]
 }

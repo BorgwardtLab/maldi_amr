@@ -5,6 +5,23 @@
         "2018"
     ],
     "positive class ratio": 0.0,
-    "number spectra with AMR profile": 2,
-    "species": "*"
+    "number spectra with AMR profile": 10,
+    "species": [
+        "Pasteurella multocida",
+        "Pasteurella multocida",
+        "Pasteurella multocida",
+        "Pasteurella multocida",
+        "Pasteurella multocida",
+        "Pasteurella multocida",
+        "Pasteurella multocida",
+        "Pasteurella multocida",
+        "Pasteurella multocida",
+        "Pasteurella multocida"
+    ],
+    "most frequent species": [
+        "Pasteurella multocida"
+    ],
+    "most frequent species counts": [
+        10
+    ]
 }

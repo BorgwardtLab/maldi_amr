@@ -6,5 +6,20 @@
     ],
     "positive class ratio": 0.0,
     "number spectra with AMR profile": 6,
-    "species": "*"
+    "species": [
+        "Enterococcus faecalis",
+        "Enterococcus faecalis",
+        "Enterococcus faecalis",
+        "Enterococcus faecium",
+        "Enterococcus faecium",
+        "Enterococcus faecium"
+    ],
+    "most frequent species": [
+        "Enterococcus faecalis",
+        "Enterococcus faecium"
+    ],
+    "most frequent species counts": [
+        3,
+        3
+    ]
 }

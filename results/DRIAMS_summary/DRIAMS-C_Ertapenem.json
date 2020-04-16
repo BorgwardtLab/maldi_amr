@@ -5,6 +5,33 @@
         "2018"
     ],
     "positive class ratio": 0.0,
-    "number spectra with AMR profile": 1,
-    "species": "*"
+    "number spectra with AMR profile": 12,
+    "species": [
+        "Klebsiella pneumoniae",
+        "Acinetobacter baumannii",
+        "Escherichia coli",
+        "Citrobacter freundii",
+        "Citrobacter freundii",
+        "Escherichia coli",
+        "Citrobacter freundii",
+        "Acinetobacter baumannii",
+        "Escherichia coli",
+        "Escherichia coli",
+        "Proteus mirabilis",
+        "Klebsiella pneumoniae"
+    ],
+    "most frequent species": [
+        "Escherichia coli",
+        "Citrobacter freundii",
+        "Klebsiella pneumoniae",
+        "Acinetobacter baumannii",
+        "Proteus mirabilis"
+    ],
+    "most frequent species counts": [
+        4,
+        3,
+        2,
+        2,
+        1
+    ]
 }

@@ -4,7 +4,28 @@
     "year": [
         "2018"
     ],
-    "positive class ratio": 0.0,
-    "number spectra with AMR profile": 3,
-    "species": "*"
+    "positive class ratio": 0.4166666666666667,
+    "number spectra with AMR profile": 12,
+    "species": [
+        "Pseudomonas aeruginosa",
+        "Klebsiella pneumoniae",
+        "Pseudomonas aeruginosa",
+        "Pseudomonas aeruginosa",
+        "Pseudomonas aeruginosa",
+        "Pseudomonas aeruginosa",
+        "Pseudomonas aeruginosa",
+        "Klebsiella pneumoniae",
+        "Klebsiella pneumoniae",
+        "Klebsiella pneumoniae",
+        "Klebsiella pneumoniae",
+        "Klebsiella pneumoniae"
+    ],
+    "most frequent species": [
+        "Pseudomonas aeruginosa",
+        "Klebsiella pneumoniae"
+    ],
+    "most frequent species counts": [
+        6,
+        6
+    ]
 }
