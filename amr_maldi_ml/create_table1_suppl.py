@@ -30,10 +30,12 @@ def create_table(site, save=False, remove_empty_antibiotics=True):
         print(filename)
         with open(os.path.join(PATH_TABLE, filename)) as f:
             data = json.load(f)
-            print(data['most frequent species'])
-            print(data['most frequent species counts'])
-            print(list(zip(data['most frequent species'], 
-                           data['most frequent species counts'])))
+
+            # construct string of common species
+            common_species_tuples = zip(data['most frequent species'], data['most frequent species counts'])
+            common_species_list = [f'{tup[0]} ({tup[1]})' for tup in common_species_tuples]
+            common_species_string = ', '.join(common_species_list)
+            print(common_species_list, common_species_string)
 
             table = table.append(
                 pd.DataFrame({
@@ -41,8 +43,7 @@ def create_table(site, save=False, remove_empty_antibiotics=True):
                     'site': [data['site']],
                     'number of samples': [data['number spectra with AMR profile']],
                     'percentage positive': [round(data['positive class ratio'], 3)],
-                    'most frequent species': [list(zip(data['most frequent species'], 
-                                                       data['most frequent species counts']))],
+                    'most frequent species': [common_species_string],
                 }),
                 ignore_index=True
                 )    
