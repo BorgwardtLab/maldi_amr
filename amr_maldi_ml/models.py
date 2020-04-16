@@ -231,10 +231,11 @@ def load_pipeline(filename):
     pipeline, _ = get_pipeline_and_parameters(model, random_state=seed)
     pipeline.set_params(**best_params)
 
-    # Scaling needs some manual adjustments because we just store
-    # whether a scaler was used or not.
-    if pipeline['scaler'] == 'StandardScaler':
-        pipeline.set_params(scaler=StandardScaler())
+    if 'scaler' in pipeline.named_steps:
+        # Scaling needs some manual adjustments because we just store
+        # whether a scaler was used or not.
+        if pipeline['scaler'] == 'StandardScaler':
+            pipeline.set_params(scaler=StandardScaler())
 
     return pipeline, data
 
