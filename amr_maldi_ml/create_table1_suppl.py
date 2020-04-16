@@ -56,7 +56,7 @@ def create_table(site, save=False, remove_empty_antibiotics=True):
         table = table.loc[table['number of samples']!=0]
 
     if save == True:
-        table.to_csv(os.path.join(PATH_TABLE,f'{site}.csv'), index=False)
+        table.to_csv(os.path.join(PATH_TABLE,f'{site}_Table1suppl.csv'), index=False)
     
     print(table)
 
