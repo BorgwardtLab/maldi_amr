@@ -1,11 +1,12 @@
-category,antimicrobials,number of samples in class,avg. positive sample ratio
-Aminoglycosides,"Tobramycin, Gentamicin, Amikacin, Gentamicin_high_level, Aminoglycosides",46799,0.109
-Antimycobacterial drugs,"Rifampicin, Rifampicin_1mg-l",10976,0.049
-Antimycotics,"Micafungin, 5-Fluorocytosine, Caspofungin, Voriconazole, Anidulafungin, Fluconazole, Itraconazole, Posaconazole",4978,0.191
-Beta-lactam antibiotics,"Penicillin_with_meningitis, Penicillin_with_endokarditis, Penicillin, Meropenem_without_meningitis, Ertapenem, Ampicillin-Amoxicillin, Meropenem_with_pneumonia, Amoxicillin-Clavulanic acid_uncomplicated_HWI, Penicillin_with_other_infections, Penicillin_without_endokarditis, Amoxicillin, Meropenem, Oxacillin, Penicillin_with_pneumonia, Amoxicillin-Clavulanic acid, Piperacillin-Tazobactam, Imipenem, Meropenem_with_meningitis",181225,0.364
-Cefalosporines,"Cefuroxime, Cefepime, Ceftriaxone, Cefazolin, Cefpodoxime, Ceftazidime, Cefixime, Cefoxitin_screen",99873,0.274
-Glycopeptides,"Vancomycin_GRD, Vancomycin, Teicoplanin, Teicoplanin_GRD",22791,0.018
-Macrolides,"Clarithromycin, Azithromycin, Erythromycin, Clindamycin",23099,0.357
-Quinolones,"Moxifloxacin, Levofloxacin, Ciprofloxacin, Norfloxacin, Quinolones",58054,0.214
-Tetracyclines,"Minocycline, Tetracycline, Doxycycline, Tigecycline",22377,0.142
-other,"Chloramphenicol, Amphotericin B, Fusidic acid, Nitrofurantoin, Colistin, Metronidazole, Fosfomycin-Trometamol, Daptomycin, Linezolid, Mupirocin, Cotrimoxazole, Fosfomycin, Aztreonam",93337,0.147
+antimicrobial class,number of samples in class,avg. positive sample ratio,antimicrobials
+total,563509,0.244,
+Beta-lactam antibiotics,181225,0.364,"Oxacillin, Meropenem, Ertapenem, Ampicillin-Amoxicillin, Penicillin_with_meningitis, Amoxicillin-Clavulanic acid_uncomplicated_HWI, Piperacillin-Tazobactam, Penicillin, Penicillin_without_endokarditis, Penicillin_with_pneumonia, Meropenem_with_pneumonia, Meropenem_with_meningitis, Penicillin_with_other_infections, Penicillin_with_endokarditis, Meropenem_without_meningitis, Imipenem, Amoxicillin, Amoxicillin-Clavulanic acid"
+Cefalosporines,99873,0.274,"Cefuroxime, Ceftazidime, Cefazolin, Cefpodoxime, Cefoxitin_screen, Cefepime, Ceftriaxone, Cefixime"
+other,93337,0.147,"Linezolid, Chloramphenicol, Colistin, Daptomycin, Aztreonam, Cotrimoxazole, Mupirocin, Fosfomycin-Trometamol, Metronidazole, Fosfomycin, Amphotericin B, Fusidic acid, Nitrofurantoin"
+Quinolones,58054,0.214,"Quinolones, Ciprofloxacin, Norfloxacin, Moxifloxacin, Levofloxacin"
+Aminoglycosides,46799,0.109,"Gentamicin, Gentamicin_high_level, Aminoglycosides, Amikacin, Tobramycin"
+Macrolides,23099,0.357,"Azithromycin, Erythromycin, Clarithromycin, Clindamycin"
+Glycopeptides,22791,0.018,"Vancomycin, Vancomycin_GRD, Teicoplanin, Teicoplanin_GRD"
+Tetracyclines,22377,0.142,"Tetracycline, Minocycline, Tigecycline, Doxycycline"
+Antimycobacterial drugs,10976,0.049,"Rifampicin_1mg-l, Rifampicin"
+Antimycotics,4978,0.191,"5-Fluorocytosine, Caspofungin, Itraconazole, Posaconazole, Voriconazole, Anidulafungin, Fluconazole, Micafungin"

@@ -37,10 +37,10 @@ Nitrofurantoin,DRIAMS-A,2108,0.195,"Escherichia coli (1498), Enterococcus faeciu
 Aztreonam,DRIAMS-A,856,0.706,"Pseudomonas aeruginosa (763), Pseudomonas stutzeri (22), Escherichia coli (13), Pseudomonas monteilii (9), Klebsiella pneumoniae (8)"
 Gentamicin_high_level,DRIAMS-A,686,0.155,"Enterococcus faecium (273), Enterococcus faecalis (152), Streptococcus oralis (43), Streptococcus mitis (34), Streptococcus parasanguinis (33)"
 Caspofungin,DRIAMS-A,686,0.054,"Candida albicans (292), Candida glabrata (171), Candida parapsilosis (65), Candida tropicalis (50), Candida dubliniensis (29)"
-Micafungin,DRIAMS-A,680,0.151,"Candida albicans (290), Candida glabrata (174), Candida parapsilosis (65), Candida tropicalis (50), Candida dubliniensis (29)"
 5-Fluorocytosine,DRIAMS-A,680,0.037,"Candida albicans (292), Candida glabrata (174), Candida parapsilosis (65), Candida tropicalis (50), Candida dubliniensis (29)"
-Fluconazole,DRIAMS-A,675,0.393,"Candida albicans (283), Candida glabrata (174), Candida parapsilosis (65), Candida tropicalis (49), Candida dubliniensis (29)"
+Micafungin,DRIAMS-A,680,0.151,"Candida albicans (290), Candida glabrata (174), Candida parapsilosis (65), Candida tropicalis (50), Candida dubliniensis (29)"
 Anidulafungin,DRIAMS-A,675,0.283,"Candida albicans (287), Candida glabrata (173), Candida parapsilosis (65), Candida tropicalis (50), Candida dubliniensis (29)"
+Fluconazole,DRIAMS-A,675,0.393,"Candida albicans (283), Candida glabrata (174), Candida parapsilosis (65), Candida tropicalis (49), Candida dubliniensis (29)"
 Itraconazole,DRIAMS-A,668,0.377,"Candida albicans (283), Candida glabrata (172), Candida parapsilosis (65), Candida tropicalis (43), Candida dubliniensis (29)"
 Amoxicillin,DRIAMS-A,629,0.216,"Enterococcus faecium (91), Haemophilus influenzae (56), Enterococcus faecalis (52), Actinotignum schaalii (40), Haemophilus parainfluenzae (36)"
 Amphotericin B,DRIAMS-A,616,0.0,"Candida albicans (290), Candida glabrata (176), Candida parapsilosis (65), Candida tropicalis (50), Candida krusei (11)"
@@ -63,10 +63,10 @@ Doxycycline,DRIAMS-A,105,0.114,"Staphylococcus epidermidis (37), Finegoldia magn
 Azithromycin,DRIAMS-A,95,0.126,"Neisseria gonorrhoeae (67), MIX!Neisseria gonorrhoeae (6), Campylobacter fetus (5), Campylobacter coli (5), Salmonella spp (3)"
 Fosfomycin,DRIAMS-A,81,0.58,"Pseudomonas aeruginosa (37), Staphylococcus epidermidis (14), Klebsiella pneumoniae (7), Escherichia coli (4), Acinetobacter baumannii (3)"
 Amoxicillin-Clavulanic acid_uncomplicated_HWI,DRIAMS-A,80,0.3,"Escherichia coli (47), Citrobacter freundii (14), Proteus mirabilis (9), Klebsiella pneumoniae (6), Enterobacter cloacae (2)"
-Minocycline,DRIAMS-A,74,0.297,"Staphylococcus epidermidis (25), Burkholderia multivorans (10), Stenotrophomonas maltophilia (7), Acinetobacter baumannii (6), Burkholderia vietnamiensis (6)"
 Cefixime,DRIAMS-A,74,0.081,"Neisseria gonorrhoeae (63), MIX!Neisseria gonorrhoeae (6), Neisseria meningitidis (3), Yersinia enterocolitica (2)"
+Minocycline,DRIAMS-A,74,0.297,"Staphylococcus epidermidis (25), Burkholderia multivorans (10), Stenotrophomonas maltophilia (7), Acinetobacter baumannii (6), Burkholderia vietnamiensis (6)"
 Meropenem_with_pneumonia,DRIAMS-A,70,0.0,"Streptococcus pneumoniae (56), Streptococcus pseudopneumoniae (3), Streptococcus anginosus (3), Streptococcus mitis (3), Streptococcus constellatus (3)"
 Cefoxitin_screen,DRIAMS-A,52,0.096,"Staphylococcus aureus (23), Staphylococcus epidermidis (13), Staphylococcus pseudintermedius (8), Staphylococcus hominis (3), Staphylococcus lugdunensis (3)"
-Vancomycin_GRD,DRIAMS-A,12,0.0,Staphylococcus aureus (12)
 Teicoplanin_GRD,DRIAMS-A,12,0.167,Staphylococcus aureus (12)
+Vancomycin_GRD,DRIAMS-A,12,0.0,Staphylococcus aureus (12)
 Rifampicin_1mg-l,DRIAMS-A,10,0.2,"Peptoniphilus harei (3), Corynebacterium jeikeium (2), Staphylococcus aureus (2), Streptococcus oralis (2), Corynebacterium simulans (1)"
