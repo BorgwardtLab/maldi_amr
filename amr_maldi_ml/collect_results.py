@@ -5,6 +5,7 @@
 
 import argparse
 import glob
+import itertools
 import json
 import os
 
@@ -79,6 +80,16 @@ if __name__ == '__main__':
                 'train_site': data_raw['train_site'],
                 'test_site': data_raw['test_site']
             })
+
+        # CHeck which metrics are *actually* available in the data. This
+        # accounts for experiments with specific train/test valiues, for
+        # example.
+        metrics_ = list(itertools.chain.from_iterable(
+                [[key for key in data_raw if metric in key] for metric
+                in metrics]
+        ))
+
+        metrics = sorted(metrics_)
 
         for metric in metrics:
             row[metric] = data_raw[metric] * 100.0
