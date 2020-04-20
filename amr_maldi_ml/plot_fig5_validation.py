@@ -20,6 +20,7 @@ from sklearn.metrics import roc_auc_score
 def plot_figure5(args):
 
     PATH_fig5 = '../results/fig5_validation/'
+    # TODO adjust for choosing metric to plot
 
     # --------------
     # create dataframe giving an overview of all files in path
@@ -62,8 +63,8 @@ def plot_figure5(args):
                 pd.DataFrame({
                     'antibiotic': [antibiotic],
                     'train_test': ['EMPTY'],
-                    'auroc': [0.00],
-                    'auroc_std_all': [0.00],
+                    'result': [0.00],
+                    'result_std_all': [0.00],
                     }),
                 ignore_index=True,
                 sort=False,
@@ -74,25 +75,27 @@ def plot_figure5(args):
         content_ab = content.query('antibiotic==@antibiotic')
         content_model = content_ab.query("model==@args.model")
 
-        for tr_site in ['DRIAMS-C','DRIAMS-B','DRIAMS-A']:
-            for te_site in ['DRIAMS-C','DRIAMS-B','DRIAMS-A']:
-                aurocs = []
+        for tr_site in ['DRIAMS-D','DRIAMS-C','DRIAMS-B','DRIAMS-A']:
+            for te_site in ['DRIAMS-D','DRIAMS-C','DRIAMS-B','DRIAMS-A']:
+                results = []
                 class_ratios = []
                 
                 content_tr = content_model.query("train_site==@tr_site")
                 content_scenario = content_tr.query("test_site==@te_site")
+                print(tr_site, te_site)
+                print(content_scenario)
                 assert content_scenario.shape[0]==10
 
                 for filename in content_scenario['filename'].values:
                     with open(PATH_fig5 + filename) as f:
                         data = json.load(f)
-                        aurocs.append(roc_auc_score(data['y_test'],
+                        results.append(roc_auc_score(data['y_test'],
                                       [sc[1] for sc in data['y_score']]))
                         assert np.all([x in [0, 1] for x in data['y_test']])
                         class_ratios.append(float(sum(data['y_test']))/len(data['y_test'
                                                                                 ]))
-                auroc_mean_all = round(np.mean(aurocs), 3)
-                auroc_std_all = round(np.std(aurocs), 3)
+                result_mean_all = round(np.mean(results), 3)
+                result_std_all = round(np.std(results), 3)
                 class_ratio = '{:0.2f}'.format(np.mean(class_ratios))
 
                 # add to values dataframe
@@ -100,8 +103,8 @@ def plot_figure5(args):
                     pd.DataFrame({
                         'antibiotic': [antibiotic],
                         'train_test': [tr_site+'_'+te_site],
-                        'auroc': [auroc_mean_all],
-                        'auroc_std_all': [auroc_std_all],
+                        'result': [result_mean_all],
+                        'result_std_all': [result_std_all],
                         }),
                     ignore_index=True,
                     sort=False,
@@ -127,23 +130,25 @@ def plot_figure5(args):
     ax = fig.add_subplot(111)
 
     # barplots BACK
-    sns.barplot(x="antibiotic", y="auroc", 
+    sns.barplot(x="antibiotic", y=f"{args.metric}", 
                 hue="train_test", 
                 hue_order=['DRIAMS-A_DRIAMS-A',
                            'DRIAMS-B_DRIAMS-B',
                            'DRIAMS-C_DRIAMS-C',
+                           'DRIAMS-D_DRIAMS-D',
                            ],
                 data=values,  
                 ax=ax,
                 )
 
     # barplots FRONT
-    sns.barplot(x="antibiotic", y="auroc", 
+    sns.barplot(x="antibiotic", y=f"{args.metric}", 
                 hue="train_test", 
                 hue_order=[
                            'EMPTY',
                            'DRIAMS-A_DRIAMS-B',
                            'DRIAMS-A_DRIAMS-C',
+                           'DRIAMS-A_DRIAMS-D',
                            ],
                 data=values,  
                 ax=ax, hatch='//'
@@ -151,20 +156,26 @@ def plot_figure5(args):
 
     # adjust legend
     legend = ax.get_legend()
-    legend.legendHandles = [legend.legendHandles[i] for i in [0,1,2,4,5]]
+    legend.legendHandles = [legend.legendHandles[i] for i in [0,1,2,3,5,6,7]]
     ax.legend(handles=legend.legendHandles,
               labels=['train: A - test: A',
                       'train: B - test: B',
                       'train: C - test: C',
+                      'train: D - test: D',
                       'train: A - test: B',
                       'train: A - test: C',
+                      'train: A - test: D',
                       ],
                loc='center left', 
                bbox_to_anchor=(1.03,0.5))
 
+    ylabel_map = {
+            'auroc': 'AUROC',
+            }
+
     sns.despine(left=True)
     plt.xticks(rotation=90)
-    plt.ylabel('AUROC')
+    plt.ylabel(ylabel_map[args.metric])
     plt.xlabel('')
     plt.ylim(0.5, 1.06)
     plt.xlim(0-0.5, n_ab-0.5)
@@ -178,12 +189,15 @@ if __name__ == '__main__':
     parser.add_argument('--antibiotic',
                         type=str,
                         default='None')
-    parser.add_argument('--outfile',
+    parser.add_argument('--metric',
                         type=str,
-                        default='fig5_plot')
+                        default='auroc')
     parser.add_argument('--model',
                         type=str,
                         default='lr')
+    parser.add_argument('--outfile',
+                        type=str,
+                        default='fig5_plot')
     args = parser.parse_args()
 
     plot_figure5(args)
