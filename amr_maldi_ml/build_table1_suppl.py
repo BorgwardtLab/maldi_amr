@@ -50,6 +50,7 @@ def create_table(args):
     
     # subset to site 
     table = table.loc[table['site'] == args.site]    
+    table = table.drop(columns=['site'])
     
     if args.remove_empty_antibiotics==True:
         table = table.loc[table['number of samples'] != 0]
