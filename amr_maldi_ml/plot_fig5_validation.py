@@ -171,6 +171,8 @@ def plot_figure5(args):
 
     ylabel_map = {
             'auroc': 'AUROC',
+            'auprc': 'AUPRC',
+            'accuracy': 'accuracy',
             }
 
     sns.despine(left=True)
