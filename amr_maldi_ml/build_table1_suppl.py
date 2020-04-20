@@ -4,11 +4,12 @@ Collect summary results and print Table 1.
 
 import os
 import json
+import argparse
 
 import pandas as pd
 
 
-def create_table(site, save=False, remove_empty_antibiotics=True):
+def create_table(args):
     
     PATH_TABLE = '../results/DRIAMS_summary'
     
@@ -27,7 +28,6 @@ def create_table(site, save=False, remove_empty_antibiotics=True):
 
     # read data and append to dataframe
     for filename in file_list:
-        print(filename)
         with open(os.path.join(PATH_TABLE, filename)) as f:
             data = json.load(f)
 
@@ -35,7 +35,6 @@ def create_table(site, save=False, remove_empty_antibiotics=True):
             common_species_tuples = zip(data['most frequent species'], data['most frequent species counts'])
             common_species_list = [f'{tup[0]} ({tup[1]})' for tup in common_species_tuples]
             common_species_string = ', '.join(common_species_list)
-            print(common_species_list, common_species_string)
 
             table = table.append(
                 pd.DataFrame({
@@ -50,18 +49,32 @@ def create_table(site, save=False, remove_empty_antibiotics=True):
     table = table.sort_values(by=['number of samples'], ascending=False)
     
     # subset to site 
-    table = table.loc[table['site']==site]    
+    table = table.loc[table['site'] == args.site]    
     
-    if remove_empty_antibiotics==True:
-        table = table.loc[table['number of samples']!=0]
+    if args.remove_empty_antibiotics==True:
+        table = table.loc[table['number of samples'] != 0]
 
-    if save == True:
-        table.to_csv(os.path.join(PATH_TABLE,f'{site}_Table1suppl.csv'), index=False)
+    if args.save == True:
+        table.to_csv(f'{args.outfile}', index=False)
     
     print(table)
 
 
 if __name__=='__main__':
-    
-    site = 'DRIAMS-A'
-    create_table(site, save=True)
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--site',
+                        type=str,
+                        default='DRIAMS-A')
+    parser.add_argument('--save',
+                        type=bool,
+                        default=False)
+    parser.add_argument('--remove_empty_antibiotics',
+                        type=bool,
+                        default=False)
+    parser.add_argument('--outfile',
+                        type=str,
+                        default='table1_suppl.csv')
+    args = parser.parse_args()
+
+    create_table(args)

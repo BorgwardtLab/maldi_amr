@@ -4,12 +4,13 @@ Collect summary results and print Table 1.
 
 import os
 import json
+import argparse
 
 import pandas as pd
 from utilities import ab_cat_map
 
 
-def create_table(site, save=False, remove_empty_antibiotics=True):
+def create_table(args):
     
     PATH_TABLE = '../results/DRIAMS_summary'
     
@@ -41,7 +42,7 @@ def create_table(site, save=False, remove_empty_antibiotics=True):
                 )    
     
     # subset to site 
-    table = table.loc[table['site']==site]    
+    table = table.loc[table['site']==args.site]    
     
     # remove empty antibiotics
     table = table.loc[table['number of samples']!=0] 
@@ -87,13 +88,24 @@ def create_table(site, save=False, remove_empty_antibiotics=True):
 
 
 
-    if save == True:
-        table_categorized.to_csv(os.path.join(PATH_TABLE,f'{site}_Table1.csv'), index=True)
+    if args.save == True:
+        table_categorized.to_csv(f'{args.outfile}', index=True)
     
     print(table_categorized)
 
 
 if __name__=='__main__':
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--site',
+                        type=str,
+                        default='DRIAMS-A')
+    parser.add_argument('--save',
+                        type=bool,
+                        default=False)
+    parser.add_argument('--outfile',
+                        type=str,
+                        default='table1.csv')
+    args = parser.parse_args()
     
-    site = 'DRIAMS-A'
-    create_table(site, save=True)
+    create_table(args)
