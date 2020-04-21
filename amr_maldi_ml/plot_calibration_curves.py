@@ -54,7 +54,35 @@ def _add_or_compare(metadata):
         assert metadata_versions == metadata
 
 
-def plot_calibration_curves(df, output):
+def make_calibration_curve(y_true, y_score):
+    """Create calibration curve from scores.
+
+    Parameters
+    ----------
+    y_true : `numpy.array` or `list`
+        True labels
+
+    y_score : `numpy.array` or `list`
+        Classifier prediction scores
+
+    Returns
+    -------
+    Tuple of (x, y) values, corresponding to the *predicted*
+    probabilities and the *true* probabilities, respectively,
+    of the calibration curve.
+    """
+    minority_class = np.argmin(np.bincount(y_true))
+
+    prob_true, prob_pred = calibration_curve(y_true,
+                                             y_score[:, minority_class],
+                                             n_bins=5)
+
+    # Note the change in inputs here; it is customary to show the
+    # predicted probabilities on the x axis.
+    return prob_pred, prob_true
+
+
+def plot_calibration_curves(df, outdir):
     """Plot calibration curves based on data frame.
 
     This function is performing the main work for a single data frame.
@@ -77,48 +105,53 @@ def plot_calibration_curves(df, output):
     curves = {}
 
     # The way the data are handed over to this function, there is only
-    # a single antibiotic and a single species.
-    antibiotic = df.antibiotic.unique()[0]
-    species = df.species.unique()[0]
+    # a single model.
+    model = df.model.unique()[0]
 
-    for model, df_ in df.groupby(['model']):
-
+    for (species, antibiotic), df_ in df.groupby(['species', 'antibiotic']):
         y_test = np.vstack(df_['y_test']).ravel()
-        y_score = np.vstack(df_['y_score_calibrated'])
+        y_score = np.vstack(df_['y_score'])
+        y_score_calibrated = np.vstack(df_['y_score_calibrated'])
 
-        minority_class = np.argmin(np.bincount(y_test))
+        curves[(species, antibiotic, 'raw')] = make_calibration_curve(
+            y_test, y_score
+        )
 
-        prob_true, prob_pred = calibration_curve(y_test,
-                                                 y_score[:, minority_class],
-                                                 n_bins=10)
-
-        # Note the change in inputs here; it is customary to show the
-        # predicted probabilities on the x axis.
-        curves[model] = prob_pred, prob_true
+        curves[(species, antibiotic, 'calibrated')] = make_calibration_curve(
+            y_test, y_score_calibrated
+        )
 
     sns.set(style='whitegrid')
 
-    fig, ax = plt.subplots()
-    fig.suptitle(f'{species} ({antibiotic})')
+    fig, ax = plt.subplots(dpi=300)
+    fig.suptitle(f'{model_to_name[model]}')
 
     palette = sns.color_palette()
 
-    model_to_colour = {
-        model: palette[i] for i, model in enumerate(model_to_name)
+    supported_species = [
+        'Escherichia coli',
+        'Klebsiella pneumoniae',
+        'Staphylococcus aureus',
+        'Staphylococcus epidermidis'
+    ]
+
+    species_to_colour = {
+        species: palette[i] for i, species in enumerate(supported_species)
     }
 
-    for model, curve in curves.items():
+    ax.plot([0, 1], [0, 1], 'k', label='Perfectly calibrated')
 
-        colour = model_to_colour[model]
+    for (species, antibiotic, curve_type), curve in curves.items():
+
+        colour = species_to_colour[species]
 
         ax.plot(
             curve[0],
             curve[1],
             c=colour,
-            label=model,
+            linestyle='solid' if curve_type == 'raw' else 'dotted',
+            label=f'{species} ({antibiotic})',
         )
-
-    ax.plot([0, 1], [0, 1], 'k:', label='Perfectly calibrated')
 
     ax.set_xlabel('Mean predicted probability')
     ax.set_ylabel('True probability')
@@ -127,12 +160,15 @@ def plot_calibration_curves(df, output):
     ax.set_aspect('equal')
     ax.legend(loc='lower right')
 
+    filename = f'Calibration_curve_'     \
+               f'{_encode(species)}_'    \
+               f'{_encode(antibiotic)}_' \
+               f'{model}.png'
+
     plt.savefig(
-        os.path.join(output,
-                     f'calibration_{species}_{antibiotic}.png'),
+        os.path.join(outdir, filename),
         bbox_inches='tight'
     )
-    plt.show()
 
 
 def make_rejection_curve(y_true, y_score, metric):
@@ -251,11 +287,11 @@ def plot_rejection_curves(df, metric, outdir):
         y_score_calibrated = np.vstack(df_['y_score_calibrated'])
 
         curves[(species, antibiotic, 'raw')] = make_rejection_curve(
-            y_test, y_score
+            y_test, y_score, metric
         )
 
         curves[(species, antibiotic, 'calibrated')] = make_rejection_curve(
-            y_test, y_score_calibrated
+            y_test, y_score_calibrated, metric
         )
 
     sns.set(style='whitegrid')
@@ -386,5 +422,5 @@ if __name__ == '__main__':
         rows = scenarios[model]
         df = pd.DataFrame.from_records(rows)
 
-        #plot_calibration_curves(df, args.output)
+        plot_calibration_curves(df, args.outdir)
         plot_rejection_curves(df, args.metric, args.outdir)
