@@ -98,6 +98,7 @@ if __name__ == '__main__':
                          'positive class ratio': pos_class_ratio,
                          'number spectra with AMR profile': num_samples,
                          'species': list(species),
+                         'label': list(y),
                          'most frequent species': [tup[0] for tup in species_most_common],
                          'most frequent species counts': [tup[1] for tup in species_most_common],
                          }
