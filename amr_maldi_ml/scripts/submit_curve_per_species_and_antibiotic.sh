@@ -31,14 +31,14 @@ for SEED in 344 172 188 270 35 164 545 480 89 409; do
     run "$CMD";
   done
 
- # K. pneumoniae jobs
+  # K. pneumoniae jobs
   for ANTIBIOTIC in 'Amoxicillin-Clavulanic acid' 'Cefepime' 'Ceftriaxone' 'Ciprofloxacin' 'Meropenem' 'Piperacillin-Tazobactam' 'Tobramycin'; do
     CMD="${MAIN} --antibiotic \"$ANTIBIOTIC\" --species \"Klebsiella pneumoniae\" --seed $SEED"
     run "$CMD";
   done
 
- # S. aureus jobs
- for ANTIBIOTIC in 'Ciprofloxacin' 'Fusidic acid' 'Oxacillin' 'Penicillin'; do
+  # S. aureus jobs
+  for ANTIBIOTIC in 'Ciprofloxacin' 'Fusidic acid' 'Oxacillin' 'Penicillin'; do
     CMD="${MAIN} --antibiotic \"$ANTIBIOTIC\" --species \"Staphylococcus aureus\" --seed $SEED"
     run "$CMD";
   done
