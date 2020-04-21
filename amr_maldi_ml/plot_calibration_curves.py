@@ -164,7 +164,7 @@ def plot_rejection_curves(df):
     for model, df_ in df.groupby(['model']):
 
         y_test = np.vstack(df_['y_test']).ravel()
-        y_score = np.vstack(df_['y_score_calibrated'])
+        y_score = np.vstack(df_['y_score'])
         y_score_max = np.amax(y_score, axis=1)
 
         minority_class = np.argmin(np.bincount(y_test))
@@ -238,8 +238,8 @@ def plot_rejection_curves(df):
             label=model,
         )
 
-    ax.set_xlabel('Mean predicted probability')
-    ax.set_ylabel('True probability')
+    ax.set_xlabel('Threshold')
+    ax.set_ylabel('Metric [TBD]')
     ax.set_xlim((0.5, 1))
     ax.legend(loc='lower right')
 
