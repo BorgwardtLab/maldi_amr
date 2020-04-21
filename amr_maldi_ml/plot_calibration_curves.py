@@ -122,7 +122,11 @@ def plot_curves(df, output):
     ax.set_aspect('equal')
     ax.legend(loc='lower right')
 
-    #plt.savefig(os.path.join(outdir, f'fig3_{df.antibiotic.unique()[0]}.png'))
+    plt.savefig(
+        os.path.join(output,
+                     f'calibration_{species}_{antibiotic}.png'),
+        bbox_inches='tight'
+    )
     plt.show()
 
 
