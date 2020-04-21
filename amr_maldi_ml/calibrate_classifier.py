@@ -149,13 +149,11 @@ if __name__ == '__main__':
 
     cccv = CalibratedClassifierCV(
         pipeline,
-        cv='prefit',
+        cv=5,              # This is the default anyway
         method='isotonic'  # We assume that sufficient data are available
     )
 
-    # This looks wrong but it is correct: the calibration happens on the
-    # *test* data (and the calibrated values are also reported on it).
-    cccv.fit(X_test, y_test)
+    cccv.fit(X_train, y_train)
     y_pred_calibrated = cccv.predict(X_test).tolist()
     y_score_calibrated = cccv.predict_proba(X_test)
 
