@@ -26,22 +26,22 @@ run() {
 for SEED in 344 172 188 270 35 164 545 480 89 409; do
 
   # E. coli jobs
-  for ANTIBIOTIC in "Amoxicillin-Clavulanic acid" "Cefepime" "Ceftriaxone" "Ciprofloxacin" "Piperacillin-Tazobactam" "Tobramycin"; do
-    CMD="${MAIN} --antibiotic \"$ANTIBIOTIC\" --species \"Escherichia coli\" --seed $SEED"
-    run "$CMD";
-  done
+  #for ANTIBIOTIC in "Amoxicillin-Clavulanic acid" "Cefepime" "Ceftriaxone" "Ciprofloxacin" "Piperacillin-Tazobactam" "Tobramycin"; do
+  #  CMD="${MAIN} --antibiotic \"$ANTIBIOTIC\" --species \"Escherichia coli\" --seed $SEED"
+  #  run "$CMD";
+  #done
 
-  # K. pneumoniae jobs
-  for ANTIBIOTIC in 'Amoxicillin-Clavulanic acid' 'Cefepime' 'Ceftriaxone' 'Ciprofloxacin' 'Meropenem' 'Piperacillin-Tazobactam' 'Tobramycin'; do
-    CMD="${MAIN} --antibiotic \"$ANTIBIOTIC\" --species \"Klebsiella pneumoniae\" --seed $SEED"
-    run "$CMD";
-  done
+  ## K. pneumoniae jobs
+  #for ANTIBIOTIC in 'Amoxicillin-Clavulanic acid' 'Cefepime' 'Ceftriaxone' 'Ciprofloxacin' 'Meropenem' 'Piperacillin-Tazobactam' 'Tobramycin'; do
+  #  CMD="${MAIN} --antibiotic \"$ANTIBIOTIC\" --species \"Klebsiella pneumoniae\" --seed $SEED"
+  #  run "$CMD";
+  #done
 
-  # S. aureus jobs
-  for ANTIBIOTIC in 'Ciprofloxacin' 'Fusidic acid' 'Oxacillin' 'Penicillin'; do
-    CMD="${MAIN} --antibiotic \"$ANTIBIOTIC\" --species \"Staphylococcus aureus\" --seed $SEED"
-    run "$CMD";
-  done
+  ## S. aureus jobs
+  #for ANTIBIOTIC in 'Ciprofloxacin' 'Fusidic acid' 'Oxacillin' 'Penicillin'; do
+  #  CMD="${MAIN} --antibiotic \"$ANTIBIOTIC\" --species \"Staphylococcus aureus\" --seed $SEED"
+  #  run "$CMD";
+  #done
 
   # S. capitis
   for ANTIBIOTIC in 'Amoxicillin-Clavulanic acid' 'Ceftriaxone' 'Fusidic acid' 'Imipenem' 'Meropenem' 'Oxacillin' 'Piperacillin-Tazobactam' 'Tetracycline'; do
