@@ -43,4 +43,28 @@ for SEED in 344 172 188 270 35 164 545 480 89 409; do
     run "$CMD";
   done
 
+  # S. capitis
+  for ANTIBIOTIC in 'Amoxicillin-Clavulanic acid' 'Ceftriaxone' 'Fusidic acid' 'Imipenem' 'Meropenem' 'Oxacillin' 'Piperacillin-Tazobactam' 'Tetracycline'; do
+    CMD="${MAIN} --antibiotic \"$ANTIBIOTIC\" --species \"Staphylococcus capitis\" --seed $SEED"
+    run "$CMD";
+  done
+
+  # S. epidermidis jobs
+  for ANTIBIOTIC in 'Amoxicillin-Clavulanic acid' 'Ciprofloxacin' 'Clindamycin' 'Oxacillin' 'Tetracycline'; do
+    CMD="${MAIN} --antibiotic \"$ANTIBIOTIC\" --species \"Staphylococcus epidermidis\" --seed $SEED"
+    run "$CMD";
+  done
+
+  # M. morganii jobs
+  for ANTIBIOTIC in 'Ceftriaxone' 'Ciprofloxacin' 'Imipenem'; do
+    CMD="${MAIN} --antibiotic \"$ANTIBIOTIC\" --species \"Morganella morganii\" --seed $SEED"
+    run "$CMD";
+  done
+
+  # P. aeruginosa
+  for ANTIBIOTIC in 'Ciprofloxacin' 'Meropenem' 'Piperacillin-Tazobactam' 'Tobramycin'; do
+    CMD="${MAIN} --antibiotic \"$ANTIBIOTIC\" --species \"Pseudomonas aeruginosa\" --seed $SEED"
+    run "$CMD";
+  done
+
 done
