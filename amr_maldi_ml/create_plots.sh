@@ -53,6 +53,43 @@
 #    --outfile "plots/fig4/fig4_Kpneu_$model"
 #done
 
+# FIXME results not available yet
+#for model in "lr" "svm-rbf" "svm-linear" "lightgbm" "rf"; do
+#  python plot_fig4_curves_per_species_and_antibiotic.py \
+#    --species "Staphylococcus capitis" \
+#    --antibiotic \
+#      "Oxacillin,Tetracycline,Fusidic acid,Piperacillin-Tazobactam" \
+#    --model $model \
+#    --outfile "plots/fig4/fig4_Scap_$model"
+#done
+#
+#for model in "lr" "svm-rbf" "svm-linear" "lightgbm" "rf"; do
+#  python plot_fig4_curves_per_species_and_antibiotic.py \
+#    --species "Staphylococcus epidermidis" \
+#    --antibiotic \
+#      "Ciprofloxacin,Oxacillin,Amoxicillin-Clavulanic acid,Tetracyclin,Clindamycin" \
+#    --model $model \
+#    --outfile "plots/fig4/fig4_Sepi_$model"
+#done
+#
+#for model in "lr" "svm-rbf" "svm-linear" "lightgbm" "rf"; do
+#  python plot_fig4_curves_per_species_and_antibiotic.py \
+#    --species "Morganella morganii" \
+#    --antibiotic \
+#      "Ciprofloxacin,Ceftriaxone,Cefepime,Amoxicillin-Clavulanic acid,Meropenem,Tobramycin,Piperacillin-Tazobactam" \
+#    --model $model \
+#    --outfile "plots/fig4/fig4_Mmorganii_$model"
+#done
+#
+#for model in "lr" "svm-rbf" "svm-linear" "lightgbm" "rf"; do
+#  python plot_fig4_curves_per_species_and_antibiotic.py \
+#    --species "Pseudomonas aeruginosa" \
+#    --antibiotic \
+#      "Meropenem,Ciprofloxacin,Tobramycin,Piperacillin-Tazobactam" \
+#    --model $model \
+#    --outfile "plots/fig4/fig4_Paeru_$model"
+#done
+
 # ------------
 # Figure 5: Validation comparison plots
 # ------------
