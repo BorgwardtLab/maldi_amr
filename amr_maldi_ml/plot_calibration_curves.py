@@ -113,6 +113,8 @@ def plot_curves(df, output):
             label=model,
         )
 
+    ax.plot([0, 1], [0, 1], 'k:', label='Perfectly calibrated')
+
     ax.set_xlabel('Mean predicted probability')
     ax.set_ylabel('True probability')
     ax.set_xlim((0, 1))
