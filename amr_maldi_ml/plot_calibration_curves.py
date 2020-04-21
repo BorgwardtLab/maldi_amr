@@ -135,7 +135,30 @@ def plot_calibration_curves(df, output):
     plt.show()
 
 
-def make_rejection_curve(y_true, y_score, metric='auroc'):
+def make_rejection_curve(y_true, y_score, metric):
+    """Calculate rejection curve based on scores and evaluation metric.
+
+    This function simulates a rejection scenario based on prediction
+    scores for a given classifier. To this end, potential probability
+    thresholds are generated and the classifier is simulated with the
+    corresponding rejection rate.
+
+    Parameters
+    ----------
+    y_true : `numpy.array` or `list`
+        True labels
+
+    y_score : `numpy.array` or `list`
+        Classifier prediction scores
+
+    metric : str
+        Metric to use for evaluating the classifier in a specific
+        rejection scenario.
+
+    Returns
+    -------
+    Tuple of (x, y) values, corresponding to the simulated scenario.
+    """
     thresholds = np.linspace(0.5, 1.0, 20)
     y_score_max = np.amax(y_score, axis=1)
 
