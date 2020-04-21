@@ -274,7 +274,7 @@ def calculate_metrics(y_true, y_pred, y_score, prefix=None):
     """
     accuracy = accuracy_score(y_pred, y_true)
 
-    # Automatically choose the proper evaluation method for measuring
+    # Automatically choose the proper evaluation method for measures
     # requiring the selection of a minority class.
     minority_class = np.argmin(np.bincount(y_true))
 
