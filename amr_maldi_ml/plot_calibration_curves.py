@@ -123,7 +123,7 @@ def plot_calibration_curves(df, outdir):
 
     sns.set(style='whitegrid')
 
-    fig, ax = plt.subplots(dpi=300)
+    fig, ax = plt.subplots(figsize=(7, 7), dpi=300)
     fig.suptitle(f'{model_to_name[model]}')
 
     palette = sns.color_palette()
@@ -149,7 +149,7 @@ def plot_calibration_curves(df, outdir):
             curve[0],
             curve[1],
             c=colour,
-            linestyle='solid' if curve_type == 'raw' else 'dotted',
+            linestyle='dotted' if curve_type == 'raw' else 'solid',
             label=f'{species} ({antibiotic})',
         )
 
@@ -296,7 +296,7 @@ def plot_rejection_curves(df, metric, outdir):
 
     sns.set(style='whitegrid')
 
-    fig, ax = plt.subplots(dpi=300)
+    fig, ax = plt.subplots(figsize=(7, 7), dpi=300)
     fig.suptitle(f'{model_to_name[model]}')
 
     palette = sns.color_palette()
@@ -316,16 +316,11 @@ def plot_rejection_curves(df, metric, outdir):
 
         colour = species_to_colour[species]
 
-        if curve_type == 'raw':
-            linestyle = 'solid'
-        else:
-            linestyle = 'dotted'
-
         ax.plot(
             curve[0],
             curve[1],
             c=colour,
-            linestyle=linestyle,
+            linestyle='dotted' if curve_type == 'raw' else 'solid',
             label=f'{species} ({antibiotic})',
         )
 
