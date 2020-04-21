@@ -95,7 +95,6 @@ def plot_curves(df, outdir, metric='auroc'):
         'Escherichia coli',
         'Klebsiella pneumoniae',
         'Staphylococcus aureus',
-        'Staphylococcus epidermidis'
     ]
 
     species_to_colour = {
@@ -103,6 +102,12 @@ def plot_curves(df, outdir, metric='auroc'):
     }
 
     for (species, type_), curve in curves.items():
+
+        # Ignore all species that are not in the list of support species
+        # above (the reason for being excluded might be, for example, an
+        # insufficient number of samples).
+        if species not in supported_species:
+            continue
 
         colour = species_to_colour[species]
 
