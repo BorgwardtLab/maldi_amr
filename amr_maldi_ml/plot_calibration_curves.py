@@ -26,6 +26,7 @@ import seaborn as sns
 
 from tqdm import tqdm
 
+from utilities import _encode
 
 # Global metadata information; this will be updated by the script to
 # ensure that we are working with data files from the *same* sources
@@ -134,7 +135,7 @@ def plot_calibration_curves(df, output):
     plt.show()
 
 
-def make_rejection_curve(y_true, y_score):
+def make_rejection_curve(y_true, y_score, metric='auroc'):
     thresholds = np.linspace(0.5, 1.0, 20)
     y_score_max = np.amax(y_score, axis=1)
 
@@ -173,12 +174,18 @@ def make_rejection_curve(y_true, y_score):
         roc_auc = roc_auc_score(y_true_, y_pred_proba_)
 
         x.append(threshold)
-        y.append(roc_auc)
+
+        if metric == 'auroc':
+            y.append(roc_auc)
+        elif metric == 'auprc':
+            y.append(average_precision)
+        elif metric == 'accuracy':
+            y.append(accuracy)
 
     return x, y
 
 
-def plot_rejection_curves(df):
+def plot_rejection_curves(df, metric, outdir):
     """Plot rejection curves based on data frame.
 
     This function simulates different rejection scenarios based on the
@@ -189,6 +196,16 @@ def plot_rejection_curves(df):
     ----------
     df : `pandas.DataFrame`
         TBD
+
+    metric : str
+        Metric for assessing the rejection curves. Can be either one of
+
+            - accuracy
+            - auprc (average precision score)
+            - auroc (area under the ROC curve)
+
+    outdir : str
+        Output directory; this is where the plots will be stored.
 
     Returns
     -------
@@ -208,15 +225,20 @@ def plot_rejection_curves(df):
 
         y_test = np.vstack(df_['y_test']).ravel()
         y_score = np.vstack(df_['y_score'])
+        y_score_calibrated = np.vstack(df_['y_score_calibrated'])
 
-        curves[(species, antibiotic)] = make_rejection_curve(
+        curves[(species, antibiotic, 'raw')] = make_rejection_curve(
             y_test, y_score
+        )
+
+        curves[(species, antibiotic, 'calibrated')] = make_rejection_curve(
+            y_test, y_score_calibrated
         )
 
     sns.set(style='whitegrid')
 
-    fig, ax = plt.subplots()
-    fig.suptitle(f'{model}')
+    fig, ax = plt.subplots(dpi=300)
+    fig.suptitle(f'{model_to_name[model]}')
 
     palette = sns.color_palette()
 
@@ -231,39 +253,60 @@ def plot_rejection_curves(df):
         species: palette[i] for i, species in enumerate(supported_species)
     }
 
-    for (species, antibiotic), curve in curves.items():
+    for (species, antibiotic, curve_type), curve in curves.items():
 
         colour = species_to_colour[species]
+
+        if curve_type == 'raw':
+            linestyle = 'solid'
+        else:
+            linestyle = 'dotted'
 
         ax.plot(
             curve[0],
             curve[1],
             c=colour,
+            linestyle=linestyle,
             label=f'{species} ({antibiotic})',
         )
 
+    metric_to_label = {
+        'accuracy': 'Accuracy',
+        'auprc': 'AUPRC',
+        'auroc': 'AUROC'
+    }
+
     ax.set_xlabel('Threshold')
-    ax.set_ylabel('Metric [TBD]')
+    ax.set_ylabel(metric_to_label[metric])
+    ax.set_ylim((0.3, 1))
     ax.set_xlim((0.5, 1))
-    ax.legend(loc='lower right')
+    ax.legend(loc='lower left')
 
-    #plt.savefig(
-    #    os.path.join(output,
-    #                 f'calibration_{species}_{antibiotic}.png'),
-    #    bbox_inches='tight'
-    #)
-    plt.show()
+    filename = f'Rejection_curve_'       \
+               f'{_encode(species)}_'    \
+               f'{_encode(antibiotic)}_' \
+               f'{metric}_'              \
+               f'{model}.png'
 
+    plt.savefig(
+        os.path.join(outdir, filename),
+        bbox_inches='tight'
+    )
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('INPUT', type=str, help='Input directory')
     parser.add_argument(
-        '--output',
+        '--outdir',
         type=str,
         default='.',
         help='Output directory'
+    )
+    parser.add_argument(
+        '-m', '--metric',
+        type=str,
+        default='auroc'
     )
 
     args = parser.parse_args()
@@ -321,4 +364,4 @@ if __name__ == '__main__':
         df = pd.DataFrame.from_records(rows)
 
         #plot_calibration_curves(df, args.output)
-        plot_rejection_curves(df)
+        plot_rejection_curves(df, args.metric, args.outdir)
