@@ -40,7 +40,7 @@ def _add_or_compare(metadata):
         assert metadata_versions == metadata
 
 
-def plot_curves(df, output, metric='auroc'):
+def plot_curves(df, output):
     """Plot curves that are contained in a data frame.
 
     This function is performing the main work for a single data frame.
@@ -49,22 +49,8 @@ def plot_curves(df, output, metric='auroc'):
 
     Parameters
     ----------
-    df : pandas.DataFrame
-        Data frame containing individual measurements for each species,
-        site, type, and seed. The following columns need to exist:
-
-            - 'site'
-            - 'species'
-            - 'type'
-            - 'n_samples'
-            - 'seed'
-
-        All other columns are optional; they are taken to correspond to
-        performance metrics such as AUROC.
-
-    metric : str, optional
-        Specifies a column in the data frame that is used as
-        a performance metric.
+    df : `pandas.DataFrame`
+        TBD
 
     Returns
     -------
@@ -72,52 +58,66 @@ def plot_curves(df, output, metric='auroc'):
     generated.
     """
     # Will store the individual curves for subsequent plotting. Every
-    # curve is indexed by a tuple of its species, an antibiotic, plus
-    # a classifier.
+    # curve is indexed by a classifier.
     curves = {}
 
-    for (antibiotic, species, model), df_ in df.groupby(['antibiotic',
-                                                         'species',
-                                                         'model']):
+    # The way the data are handed over to this function, there is only
+    # a single antibiotic and a single species.
+    antibiotic = df.antibiotic.unique()[0]
+    species = df.species.unique()[0]
+
+    for model, df_ in df.groupby(['model']):
 
         y_test = np.vstack(df_['y_test']).ravel()
         y_score = np.vstack(df_['y_score'])
 
         minority_class = np.argmin(np.bincount(y_test))
 
-        curve = calibration_curve(y_test, y_score[:, minority_class])
-        curves[(antibiotic, species, model)] = curve
+        prob_true, prob_pred = calibration_curve(y_test,
+                                                 y_score[:, minority_class])
+
+        # Note the change in inputs here; it is customary to show the
+        # predicted probabilities on the x axis.
+        curves[model] = prob_pred, prob_true
 
     sns.set(style='whitegrid')
 
     fig, ax = plt.subplots()
-    fig.suptitle(df.antibiotic.unique()[0])
+    fig.suptitle(f'{species} ({antibiotic})')
 
     palette = sns.color_palette()
 
-    supported_species = [
-        'Escherichia coli',
-        'Klebsiella pneumoniae',
-        'Staphylococcus aureus',
-    ]
-
-    species_to_colour = {
-        species: palette[i] for i, species in enumerate(supported_species)
+    # To improve the captions of the curves. The advantage of this
+    # dictionary is that the script automatically raises an error
+    # upon encountering an unknown model.
+    model_to_name = {
+        'lr': 'Logistic regression',
+        'rf': 'Random forest',
+        'svm-rbf': 'SVM (RBF kernel)',
+        'svm-linear': 'SVM (linear kernel)',
+        'lightgbm': 'LightGBM'
     }
 
-    for (antibiotic, species, model), curve in curves.items():
+    model_to_colour = {
+        model: palette[i] for i, model in enumerate(model_to_name)
+    }
 
-        colour = species_to_colour[species]
+    for model, curve in curves.items():
+
+        colour = model_to_colour[model]
 
         ax.plot(
             curve[0],
             curve[1],
             c=colour,
-            label=species + ' ' + model,
+            label=model,
         )
 
-    ax.set_ylabel(str(metric).upper())
-    ax.set_xlabel('Number of samples')
+    ax.set_xlabel('Mean predicted probability')
+    ax.set_ylabel('True probability')
+    ax.set_xlim((0, 1))
+    ax.set_ylim((0, 1))
+    ax.set_aspect('equal')
     ax.legend(loc='lower right')
 
     #plt.savefig(os.path.join(outdir, f'fig3_{df.antibiotic.unique()[0]}.png'))
@@ -170,9 +170,9 @@ if __name__ == '__main__':
 
         scenarios[(antibiotic, species)].append(row)
 
-    for antibiotic in sorted(scenarios.keys()):
+    for antibiotic, species in sorted(scenarios.keys()):
 
-        rows = scenarios[antibiotic]
+        rows = scenarios[(antibiotic, species)]
         df = pd.DataFrame.from_records(rows)
 
         plot_curves(df, args.output)
