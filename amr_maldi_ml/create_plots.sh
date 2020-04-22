@@ -94,8 +94,19 @@
 # Figure 5: Validation comparison plots
 # ------------
 
-for model in "lr" "svm-rbf" "svm-linear" "lightgbm" "rf"; do
-  python plot_fig5_validation.py \
-    --model $model \
-    --outfile "plots/fig5/fig5_$model"
+#for model in "lr" "svm-rbf" "svm-linear" "lightgbm" "rf"; do
+#  python plot_fig5_validation.py \
+#    --model $model \
+#    --outfile "plots/fig5/fig5_$model"
+#done
+
+# ------------
+# Figure 5: Validation prevalence heatmaps
+# ------------
+
+for antibiotic in "Ciprofloxacin" "Ceftriaxone" "Cefepime" "Gentamicin" "Amikacin" "Piperacillin-Tazobactam"; do
+  python plot_fig5_site_prevalences.py \
+    --antibiotic $antibiotic \
+    --outfile "plots/fig5/fig5_prevalence_$antibiotic"
 done
+
