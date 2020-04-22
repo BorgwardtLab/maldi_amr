@@ -33,6 +33,33 @@
         "Streptococcus pneumoniae",
         "Streptococcus pneumoniae"
     ],
+    "label": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+    ],
     "most frequent species": [
         "Streptococcus pneumoniae"
     ],

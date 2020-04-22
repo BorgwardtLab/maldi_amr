@@ -10,6 +10,10 @@
         "Pseudomonas aeruginosa",
         "Klebsiella pneumoniae"
     ],
+    "label": [
+        0.0,
+        1.0
+    ],
     "most frequent species": [
         "Pseudomonas aeruginosa",
         "Klebsiella pneumoniae"

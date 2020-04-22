@@ -10,6 +10,10 @@
         "Staphylococcus aureus",
         "Streptococcus dysgalactiae"
     ],
+    "label": [
+        0.0,
+        0.0
+    ],
     "most frequent species": [
         "Staphylococcus aureus",
         "Streptococcus dysgalactiae"

@@ -20,6 +20,20 @@
         "Proteus mirabilis",
         "Klebsiella pneumoniae"
     ],
+    "label": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+    ],
     "most frequent species": [
         "Escherichia coli",
         "Citrobacter freundii",

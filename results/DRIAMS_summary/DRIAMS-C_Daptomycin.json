@@ -16,6 +16,16 @@
         "Staphylococcus aureus",
         "Staphylococcus epidermidis"
     ],
+    "label": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+    ],
     "most frequent species": [
         "Staphylococcus aureus",
         "Staphylococcus epidermidis"
