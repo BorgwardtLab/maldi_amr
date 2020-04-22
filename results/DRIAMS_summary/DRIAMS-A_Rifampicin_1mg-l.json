@@ -21,6 +21,18 @@
         "Streptococcus oralis",
         "Streptococcus oralis"
     ],
+    "label": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+    ],
     "most frequent species": [
         "Peptoniphilus harei",
         "Corynebacterium jeikeium",

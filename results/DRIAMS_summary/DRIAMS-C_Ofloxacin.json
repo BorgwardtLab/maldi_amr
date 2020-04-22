@@ -11,6 +11,11 @@
         "Enterococcus faecium",
         "Enterococcus faecium"
     ],
+    "label": [
+        1.0,
+        1.0,
+        1.0
+    ],
     "most frequent species": [
         "Enterococcus faecium"
     ],
