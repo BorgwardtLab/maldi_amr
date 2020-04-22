@@ -1139,6 +1139,9 @@
         0,
         0
     ],
+    "train_accuracy": 1.0,
+    "train_auprc": 1.0,
+    "train_auroc": 1.0,
     "accuracy": 0.972972972972973,
     "auprc": 0.3046535257061573,
     "auroc": 0.7711111111111111
