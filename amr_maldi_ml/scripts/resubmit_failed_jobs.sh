@@ -3,10 +3,13 @@
 # Utility script for checking all `lsf.*` and `*.out` files for failure
 # flags and resubmitting the jobs that failed.
 
+RUNTIME=${RUNTIME:-23:59}
+MEMORY=${MEMORY:-24000}
+
 # Try to be smart: if `bsub` does *not* exist on the system, we just
 # pretend that it is an empty command.
 if [ -x "$(command -v bsub)" ]; then
-  BSUB='bsub -W 23:59 -o "ensemble_%J.out" -R "rusage[mem=24000]"'
+  BSUB="bsub -W $RUNTIME -o \"resubmit_%J.out\" -R \"rusage[mem=$MEMORY]\""
 fi
 
 # Evaluates its first argument either by submitting a job, or by
