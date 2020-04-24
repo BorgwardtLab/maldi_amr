@@ -104,9 +104,17 @@
 # Figure 5: Validation prevalence heatmaps
 # ------------
 
-for antibiotic in "Ciprofloxacin" "Ceftriaxone" "Cefepime" "Gentamicin" "Amikacin" "Piperacillin-Tazobactam"; do
-  python plot_fig5_site_prevalences.py \
-    --antibiotic $antibiotic \
-    --outfile "plots/fig5/fig5_prevalence_$antibiotic"
-done
+#for antibiotic in "Ciprofloxacin" "Ceftriaxone" "Cefepime" "Gentamicin" "Amikacin" "Piperacillin-Tazobactam"; do
+#  python plot_fig5_site_prevalences.py \
+#    --antibiotic $antibiotic \
+#    --outfile "plots/fig5/fig5_prevalence_$antibiotic"
+#done
 
+# ------------
+# Calibration plots 
+# ------------
+
+for metric in "accuracy" "specificity" "sensitivity"; do
+  python plot_calibration_curves.py -m "$metric" ../results/calibrated_classifiers \
+    --outdir plots/calibration
+done

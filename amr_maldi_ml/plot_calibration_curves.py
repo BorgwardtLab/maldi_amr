@@ -26,6 +26,8 @@ import seaborn as sns
 
 from tqdm import tqdm
 
+from maldi_learn.metrics import specificity_score
+from maldi_learn.metrics import sensitivity_score
 from utilities import _encode
 
 # Global metadata information; this will be updated by the script to
@@ -231,6 +233,8 @@ def make_rejection_curve(y_true, y_score, metric):
         average_precision = average_precision_score(y_true_, y_pred_proba_)
         accuracy = accuracy_score(y_true_, y_pred)
         roc_auc = roc_auc_score(y_true_, y_pred_proba_)
+        specificity = specificity_score(y_true_, y_pred)
+        sensitivity = sensitivity_score(y_true_, y_pred)
 
         x.append(threshold)
 
@@ -240,6 +244,10 @@ def make_rejection_curve(y_true, y_score, metric):
             y.append(average_precision)
         elif metric == 'accuracy':
             y.append(accuracy)
+        elif metric == 'specificity':
+            y.append(specificity)
+        elif metric == 'sensitivity':
+            y.append(sensitivity)
 
     return x, y
 
@@ -262,6 +270,8 @@ def plot_rejection_curves(df, metric, outdir):
             - accuracy
             - auprc (average precision score)
             - auroc (area under the ROC curve)
+            - specificity (also called recall)
+            - sensitivity
 
     outdir : str
         Output directory; this is where the plots will be stored.
@@ -325,14 +335,23 @@ def plot_rejection_curves(df, metric, outdir):
         )
 
     metric_to_label = {
-        'accuracy': 'Accuracy',
+        'accuracy': 'accuracy',
         'auprc': 'AUPRC',
-        'auroc': 'AUROC'
+        'auroc': 'AUROC',
+        'specificity': 'specificity',
+        'sensitivity': 'sensitivity',
     }
 
     ax.set_xlabel('Threshold')
     ax.set_ylabel(metric_to_label[metric])
-    ax.set_ylim((0.3, 1))
+    if metric == 'accuracy':
+        ax.set_ylim((0.75, 1))
+    elif metric =='specificity':
+        ax.set_ylim((0.9, 1))
+    elif metric == 'sensitivity':
+        ax.set_ylim((0.0, 1))
+    else:
+        ax.set_ylim((0.3, 1))
     ax.set_xlim((0.5, 1))
     ax.legend(loc='lower left')
 
