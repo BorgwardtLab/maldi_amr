@@ -199,6 +199,7 @@ def make_rejection_curve(y_true, y_score, metric):
     """
     thresholds = np.linspace(0.5, 1.0, 20)
     y_score_max = np.amax(y_score, axis=1)
+    n_samples = len(y_score_max)
 
     # TODO: is this required?
     minority_class = np.argmin(np.bincount(y_true))
@@ -206,6 +207,7 @@ def make_rejection_curve(y_true, y_score, metric):
     # Will be filled with the `x` and `y` values of the current curve
     x = []
     y = []
+    ratio_keep = []
 
     for threshold in thresholds:
 
@@ -230,6 +232,10 @@ def make_rejection_curve(y_true, y_score, metric):
         if len(set(y_true_)) != 2:
             break
 
+        # Calculate threshold for which a certain percentage of samples
+        # is rejected
+        ratio_keep.append(sum(indices)/float(n_samples))
+
         average_precision = average_precision_score(y_true_, y_pred_proba_)
         accuracy = accuracy_score(y_true_, y_pred)
         roc_auc = roc_auc_score(y_true_, y_pred_proba_)
@@ -248,8 +254,8 @@ def make_rejection_curve(y_true, y_score, metric):
             y.append(specificity)
         elif metric == 'sensitivity':
             y.append(sensitivity)
-
-    return x, y
+    
+    return x, y, ratio_keep
 
 
 def plot_rejection_curves(df, metric, outdir):
@@ -322,6 +328,12 @@ def plot_rejection_curves(df, metric, outdir):
         species: palette[i] for i, species in enumerate(supported_species)
     }
 
+    kr_to_fmt = {
+        0.95: 'vr',
+        0.9: 'or',
+        0.75: '^r',
+    }
+
     for (species, antibiotic, curve_type), curve in curves.items():
 
         colour = species_to_colour[species]
@@ -333,7 +345,16 @@ def plot_rejection_curves(df, metric, outdir):
             linestyle='dotted' if curve_type == 'raw' else 'solid',
             label=f'{species} ({antibiotic})',
         )
+        
+        for kr in [0.95, 0.9, 0.75]:
+            if sum([val<kr for val in curve[2]])==0:
+                continue
+            kr_index = next(idx for idx, val in enumerate(curve[2]) 
+                                if val<kr)
+            ax.plot(curve[0][kr_index], curve[1][kr_index],
+                    kr_to_fmt[kr])
 
+        
     metric_to_label = {
         'accuracy': 'accuracy',
         'auprc': 'AUPRC',
