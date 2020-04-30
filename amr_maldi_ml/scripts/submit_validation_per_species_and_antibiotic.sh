@@ -34,14 +34,19 @@ for SEED in 344 172 188 270 35 164 545 480 89 409; do
     # sites quickly.
     for TEST in "DRIAMS-B" "DRIAMS-C" "DRIAMS-D" "DRIAMS-A"; do
 
-      # E. coli and K. pneu
-      for ANTIBIOTIC in "Ceftriaxone" "Ciprofloxacin"; do
-        for SPECIES in "Escherichia coli" "Klebsiella pneumoniae"; do
-            CMD="${MAIN} --train-site $TRAIN --test-site $TEST --species \"$SPECIES\" --antibiotic \"$ANTIBIOTIC\" --model $MODEL --seed $SEED"
-            run "$CMD";
-        done # species
-      done # E. coli and K. pneu
+      # Models are ordered by their 'utility' for the project. We are
+      # most interested in logistic regression.
+      for MODEL in "lr" "svm-rbf" "rf" "lightgbm" "svm-linear"; do
 
+        # E. coli and K. pneu
+        for ANTIBIOTIC in "Ceftriaxone" "Ciprofloxacin"; do
+          for SPECIES in "Escherichia coli" "Klebsiella pneumoniae"; do
+              CMD="${MAIN} --train-site $TRAIN --test-site $TEST --species \"$SPECIES\" --antibiotic \"$ANTIBIOTIC\" --model $MODEL --seed $SEED"
+              run "$CMD";
+          done # species
+        done # E. coli and K. pneu
+
+      done # models
     done # test
   done # train
 done # seed
