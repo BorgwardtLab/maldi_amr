@@ -197,7 +197,7 @@ def make_rejection_curve(y_true, y_score, metric):
     -------
     Tuple of (x, y) values, corresponding to the simulated scenario.
     """
-    thresholds = np.linspace(0.5, 1.0, 20)
+    thresholds = np.linspace(0.5, 1.0, 40)
     y_score_max = np.amax(y_score, axis=1)
     n_samples = len(y_score_max)
 
@@ -330,7 +330,7 @@ def plot_rejection_curves(df, metric, outdir):
 
     kr_to_fmt = {
         0.95: 'vr',
-        0.9: 'or',
+        0.90: 'or',
         0.75: '^r',
     }
 
@@ -343,7 +343,8 @@ def plot_rejection_curves(df, metric, outdir):
             curve[1],
             c=colour,
             linestyle='dotted' if curve_type == 'raw' else 'solid',
-            label=f'{species} ({antibiotic})',
+            label=f'{species} ({antibiotic})' if curve_type == 'raw' \
+                  else f'{species} ({antibiotic}) {curve_type}',
         )
         
         for kr in [0.95, 0.9, 0.75]:
