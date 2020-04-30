@@ -9,12 +9,12 @@
 
 # Main command to execute for all combinations created in the script
 # below. The space at the end of the string is important.
-MAIN="poetry run python ../validation_per_species_and_antibiotic.py.py "
+MAIN="poetry run python ../validation_per_species_and_antibiotic.py "
 
 # Try to be smart: if `bsub` does *not* exist on the system, we just
 # pretend that it is an empty command.
 if [ -x "$(command -v bsub)" ]; then
-  BSUB='bsub -W 23:59 -o "validation_%J.out" -R "rusage[mem=32000]"'
+  BSUB='bsub -W 23:59 -o "validation_per_species_and_antibiotic_%J.out" -R "rusage[mem=32000]"'
 fi
 
 # Evaluates its first argument either by submitting a job, or by
