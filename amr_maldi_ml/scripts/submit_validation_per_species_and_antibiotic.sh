@@ -37,10 +37,11 @@ for SEED in 344 172 188 270 35 164 545 480 89 409; do
       # E. coli and K. pneu
       for ANTIBIOTIC in "Ceftriaxone" "Ciprofloxacin"; do
         for SPECIES in "Escherichia coli" "Klebsiella pneumoniae"; do
-            CMD="${MAIN} --train-site $TRAIN --test-site $TEST --antibiotic \"$ANTIBIOTIC\" --model $MODEL --seed $SEED"
+            CMD="${MAIN} --train-site $TRAIN --test-site $TEST --species \"$SPECIES\" --antibiotic \"$ANTIBIOTIC\" --model $MODEL --seed $SEED"
             run "$CMD";
-        done
-      done
+        done # species
+      done # E. coli and K. pneu
+
     done # test
   done # train
 done # seed
