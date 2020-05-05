@@ -15,6 +15,32 @@ import pandas as pd
 from tqdm import tqdm
 
 
+def get_files(directory):
+    """Walk a directory structure and return JSON filenames.
+
+    This function is a helper function for finding JSON filenames in
+    a recursive fashion, i.e. by fully walking a directory and *all*
+    its subdirectories.
+
+    Parameters
+    ----------
+    directory : str
+        Root folder for the directory enumeration
+
+    Returns
+    -------
+    List of JSON files (ready for reading; the whole path of each file
+    will be returned).
+    """
+    result = []
+    for root, dirs, filenames in os.walk(directory):
+        for filename in filenames:
+            if os.path.splitext(filename)[1] == '.json':
+                result.append(os.path.join(root, filename))
+
+    return result
+
+
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
@@ -36,6 +62,7 @@ if __name__ == '__main__':
 
     for filename in tqdm(filenames, desc='Loading'):
         with open(filename) as f:
+            print(filename)
 
             # Ensures that we can parse normal JSON files
             pos = 0
