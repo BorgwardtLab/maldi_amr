@@ -14,8 +14,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from sklearn.metrics import roc_curve, roc_auc_score, precision_recall_curve, average_precision_score
-from maldi_learn.metrics import very_major_error_score, major_error_score, vme_curve, vme_auc_score
+from sklearn.metrics import roc_curve
+from sklearn.metrics import roc_auc_score
+from sklearn.metrics import precision_recall_curve
+from sklearn.metrics import average_precision_score
+from maldi_learn.metrics import specificity_sensitivity_curve
 from utilities import maldi_col_map
 from warnings import simplefilter
 
@@ -121,22 +124,18 @@ def plot_figure4(args):
                    alpha=1.0, where='post', linewidth=3.0)
 
         # ------------
-        # panel3: VME curve
+        # panel3: specificity-sensitivity curve
         # ------------
-        # TODO check all functions for mistakes regarding the class
-        # label change
-        vme, me_inv, thresholds = vme_curve(y_test_total, y_score_total)
-        me = 1-me_inv
-        vme_score = round(vme_auc_score(y_test_total, y_score_total), 3)
+        specificity, sensitivity, thresholds = specificity_sensitivity_curve(
+                y_test_total, y_score_total)
 
         # add zero to string of AUVME values and align AUVME values
-        pretty_vme = [str(pr)+'0' if len(str(pr)) == 3 else str(pr) for pr in [vme_score]]
+        #pretty_vme = [str(pr)+'0' if len(str(pr)) == 3 else str(pr) for pr in [vme_score]]
         lab = '{}\t'.format(antibiotic).expandtabs()
         while len(lab) < 32:
             lab = '{}\t'.format(lab).expandtabs()
-        lab = lab+'AUVME: '+pretty_vme[0]
 
-        ax[2].step(vme, me, color=col_ab, label=lab,
+        ax[2].step(sensitivity, specificity, color=col_ab, label=lab,
                    alpha=1.0, where='post', linewidth=3.0)
 
     # ------------
@@ -147,13 +146,13 @@ def plot_figure4(args):
     ax[0].set_ylabel('True Positive Rate', fontsize=xy_label_fs)
     ax[1].set_xlabel('Recall', fontsize=xy_label_fs)
     ax[1].set_ylabel('Precision', fontsize=xy_label_fs)
-    ax[2].set_xlabel('Very major error', fontsize=xy_label_fs)
-    ax[2].set_ylabel('Major error', fontsize=xy_label_fs)
+    ax[2].set_xlabel('Sensitivity', fontsize=xy_label_fs)
+    ax[2].set_ylabel('Specificity', fontsize=xy_label_fs)
     ax[0].legend(bbox_to_anchor=(0.99, 0.01), loc='lower right',
                  prop={'family': 'DejaVu Sans Mono', 'size': 15})
     ax[1].legend(bbox_to_anchor=(0.01, 0.01), loc='lower left',
                  prop={'family': 'DejaVu Sans Mono', 'size': 15})
-    ax[2].legend(bbox_to_anchor=(0.99, 0.99), loc='upper right', 
+    ax[2].legend(bbox_to_anchor=(0.01, 0.01), loc='lower left', 
                  prop={'family': 'DejaVu Sans Mono', 'size': 15})
 
     ax[0].set_xlim([-0.01, 1.0])
