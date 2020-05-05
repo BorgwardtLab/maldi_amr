@@ -45,6 +45,14 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('INPUT', nargs='+', type=str)
 
+    parser.add_argument(
+        '-r', '--rank-by',
+        type=str,
+        help='If set, provides metric by which to rank models. This will '
+             'result in calculating a table of ranks instead of a report '
+             'on the detailed behaviour of models.',
+    )
+
     args = parser.parse_args()
 
     metrics = ['auroc', 'auprc', 'accuracy']
@@ -61,7 +69,6 @@ if __name__ == '__main__':
 
     for filename in tqdm(filenames, desc='Loading'):
         with open(filename) as f:
-            print(filename)
 
             # Ensures that we can parse normal JSON files
             pos = 0
@@ -112,7 +119,7 @@ if __name__ == '__main__':
         # example.
         metrics_ = list(itertools.chain.from_iterable(
                 [[key for key in data_raw if metric in key] for metric
-                in metrics]
+                 in metrics]
         ))
 
         metrics = sorted(metrics_)
@@ -131,10 +138,36 @@ if __name__ == '__main__':
     if 'train_site' in df.columns and 'test_site' in df.columns:
         group_columns += ['train_site', 'test_site']
 
+
+    # Create a data frame that contains metrics over all the different
+    # seeds. Each species--antibiotic combination is represented here.
     df = df.groupby(group_columns).agg(
-        {
-            metric: [np.mean, np.std] for metric in metrics
-        }
-    )
+            {
+                metric: [np.mean, np.std] for metric in metrics
+            }
+        )
+
+    if args.rank_by is not None:
+        df = df[args.rank_by]['mean']
+
+        # TODO: rename column in an appropriate fashion
+
+        # Calculate the ranks on each species--antibiotic combination.
+        # If we only have single model here, the result will be '1.0'.
+        ranks = df.groupby(['species', 'antibiotic']).rank(
+            ascending=False,
+        )
+        ranks.name = 'rank'
+
+        # Create a special 'rank' column and perform the final
+        # aggregation based on each model.
+        df = pd.concat([df, ranks], axis=1)
+
+        # TODO: remove groups that have an insufficient number of
+        # elements
+        df = df.groupby('model').mean()
+        print(df)
+
+        raise 'heck'
 
     print(df)
