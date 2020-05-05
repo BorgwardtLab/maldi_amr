@@ -55,7 +55,8 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    metrics = ['auroc', 'auprc', 'accuracy']
+    metrics = ['auroc', 'auprc', 'accuracy',
+               'train_auroc', 'train_auprc', 'train_accuracy']
 
     rows = []
     filenames = args.INPUT
@@ -114,8 +115,8 @@ if __name__ == '__main__':
                 'test_site': data_raw['test_site']
             })
 
-        # CHeck which metrics are *actually* available in the data. This
-        # accounts for experiments with specific train/test valiues, for
+        # Check which metrics are *actually* available in the data. This
+        # accounts for experiments with specific train/test values, for
         # example.
         metrics_ = list(itertools.chain.from_iterable(
                 [[key for key in data_raw if metric in key] for metric
@@ -137,7 +138,6 @@ if __name__ == '__main__':
     group_columns = ['species', 'antibiotic', 'model']
     if 'train_site' in df.columns and 'test_site' in df.columns:
         group_columns += ['train_site', 'test_site']
-
 
     # Create a data frame that contains metrics over all the different
     # seeds. Each species--antibiotic combination is represented here.
