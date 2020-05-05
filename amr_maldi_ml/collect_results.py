@@ -4,7 +4,6 @@
 # species and the antibiotic and summarise the performance measures.
 
 import argparse
-import glob
 import itertools
 import json
 import os
@@ -57,7 +56,7 @@ if __name__ == '__main__':
     # create the list of filenames manually.
     if len(filenames) == 1:
         if os.path.isdir(filenames[0]):
-            filenames = glob.glob(os.path.join(filenames[0], '*.json'))
+            filenames = get_files(filenames[0])
             filenames = sorted(filenames)
 
     for filename in tqdm(filenames, desc='Loading'):
