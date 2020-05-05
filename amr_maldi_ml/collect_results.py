@@ -163,11 +163,27 @@ if __name__ == '__main__':
         # aggregation based on each model.
         df = pd.concat([df, ranks], axis=1)
 
-        # TODO: remove groups that have an insufficient number of
-        # elements
-        df = df.groupby('model').mean()
-        print(df)
+        # Figure out how many classifiers we have available for each of
+        # the combinations.
+        valid_combinations = df.groupby(['species', 'antibiotic']) \
+            .size()                                                \
+            .reset_index(name='n_classifiers')
 
-        raise 'heck'
+        # Keep only valid combinations
+        valid_combinations = \
+            valid_combinations[valid_combinations['n_classifiers'] > 1]
+
+        # Check which species--antibiotic combinations are left here. We
+        # will use this to access our original data frame.
+        valid_combinations.set_index(['species', 'antibiotic'], inplace=True)
+
+        # Filter out all invalid columns. We are now left with the ranks
+        # of the classifiers along the valid scenarios.
+        df = df.reset_index().set_index(['species', 'antibiotic'])
+        df = df[df.index.isin(valid_combinations.index)]
+
+        # Finally, calculate the mean value over the measure and over
+        # the rank.
+        df = df.groupby('model').mean()
 
     print(df)
