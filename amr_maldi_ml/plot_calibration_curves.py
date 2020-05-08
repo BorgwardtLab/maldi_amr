@@ -125,7 +125,7 @@ def plot_calibration_curves(df, outdir):
 
     sns.set(style='whitegrid')
 
-    fig, ax = plt.subplots(figsize=(7, 7), dpi=300)
+    fig, ax = plt.subplots(figsize=(9,7), dpi=300)
     fig.suptitle(f'{model_to_name[model]}')
 
     palette = sns.color_palette()
@@ -162,10 +162,12 @@ def plot_calibration_curves(df, outdir):
     ax.set_aspect('equal')
     ax.legend(loc='lower right')
 
-    filename = f'Calibration_curve_'     \
-               f'{_encode(species)}_'    \
-               f'{_encode(antibiotic)}_' \
-               f'{model}.png'
+   # filename = f'Calibration_curve_'     \
+   #            f'{_encode(species)}_'    \
+   #            f'{_encode(antibiotic)}_' \
+   #            f'{model}.png'
+
+    filename = f'Calibration_curve_{model}.png'
 
     plt.savefig(
         os.path.join(outdir, filename),
@@ -197,7 +199,7 @@ def make_rejection_curve(y_true, y_score, metric):
     -------
     Tuple of (x, y) values, corresponding to the simulated scenario.
     """
-    thresholds = np.linspace(0.5, 1.0, 40)
+    thresholds = np.linspace(0.5, 1.0, 100)
     y_score_max = np.amax(y_score, axis=1)
     n_samples = len(y_score_max)
 
@@ -312,7 +314,7 @@ def plot_rejection_curves(df, metric, outdir):
 
     sns.set(style='whitegrid')
 
-    fig, ax = plt.subplots(figsize=(7, 7), dpi=300)
+    fig, ax = plt.subplots(figsize=(9,7), dpi=300)
     fig.suptitle(f'{model_to_name[model]}')
 
     palette = sns.color_palette()
@@ -347,7 +349,7 @@ def plot_rejection_curves(df, metric, outdir):
                   else f'{species} ({antibiotic}) {curve_type}',
         )
         
-        for kr in [0.95, 0.9, 0.75]:
+        for kr in [0.9]:
             if sum([val<kr for val in curve[2]])==0:
                 continue
             kr_index = next(idx for idx, val in enumerate(curve[2]) 
@@ -367,9 +369,9 @@ def plot_rejection_curves(df, metric, outdir):
     ax.set_xlabel('Threshold')
     ax.set_ylabel(metric_to_label[metric])
     if metric == 'accuracy':
-        ax.set_ylim((0.75, 1))
+        ax.set_ylim((0.80, 1))
     elif metric =='specificity':
-        ax.set_ylim((0.9, 1))
+        ax.set_ylim((0.94, 1))
     elif metric == 'sensitivity':
         ax.set_ylim((0.0, 1))
     else:
@@ -377,11 +379,13 @@ def plot_rejection_curves(df, metric, outdir):
     ax.set_xlim((0.5, 1))
     ax.legend(loc='lower left')
 
-    filename = f'Rejection_curve_'       \
-               f'{_encode(species)}_'    \
-               f'{_encode(antibiotic)}_' \
-               f'{metric}_'              \
-               f'{model}.png'
+    #filename = f'Rejection_curve_'       \
+    #           #f'{_encode(species)}_'    \
+    #           #f'{_encode(antibiotic)}_' \
+    #           f'{metric}_'              \
+    #           f'{model}.png'
+
+    filename = f'Rejection_curve_{metric}_{model}.png'
 
     plt.savefig(
         os.path.join(outdir, filename),
