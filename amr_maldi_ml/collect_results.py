@@ -53,6 +53,12 @@ if __name__ == '__main__':
              'on the detailed behaviour of models.',
     )
 
+    parser.add_argument(
+        '-i', '--ignore',
+        type=str,
+        help='If set, ignores files that contain the specified string.'
+    )
+
     args = parser.parse_args()
 
     metrics = ['auroc', 'auprc', 'accuracy',
@@ -67,6 +73,9 @@ if __name__ == '__main__':
         if os.path.isdir(filenames[0]):
             filenames = get_files(filenames[0])
             filenames = sorted(filenames)
+
+    if args.ignore is not None:
+        filenames = [fn for fn in filenames if args.ignore not in fn]
 
     for filename in tqdm(filenames, desc='Loading'):
         with open(filename) as f:
@@ -148,13 +157,11 @@ if __name__ == '__main__':
         )
 
     if args.rank_by is not None:
-        df = df[args.rank_by]['mean']
-
-        # TODO: rename column in an appropriate fashion
+        df = df[args.rank_by][['mean', 'std']]
 
         # Calculate the ranks on each species--antibiotic combination.
         # If we only have single model here, the result will be '1.0'.
-        ranks = df.groupby(['species', 'antibiotic']).rank(
+        ranks = df.groupby(['species', 'antibiotic'])['mean'].rank(
             ascending=False,
         )
         ranks.name = 'rank'
