@@ -186,6 +186,7 @@ def build_rejection_table(df, outdir, curve_type='calibrated'):
         )
         table_df.to_csv(
             os.path.join(outdir, filename),
+            index=False
         )
 
 
