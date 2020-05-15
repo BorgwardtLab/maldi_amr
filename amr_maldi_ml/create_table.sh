@@ -22,6 +22,9 @@
 # ------------
 # Table 2: Rejection ratio tables
 # ------------
-python build_table2_rejection.py ../results/calibrated_classifiers \
+#python build_table2_rejection.py ../results/calibrated_classifiers \
+#--outdir plots/tables/rejection 
+
+python build_table2_assymetric_rejection.py ../results/calibrated_classifiers \
 --outdir plots/tables/rejection 
 
