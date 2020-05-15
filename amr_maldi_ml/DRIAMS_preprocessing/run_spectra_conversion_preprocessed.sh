@@ -8,4 +8,8 @@
 
 #Rscript DRIAMS-C_2018_preprocessed.r
 
-Rscript DRIAMS-D_2018_preprocessed.r
+#Rscript DRIAMS-D_2018_preprocessed.r
+
+Rscript DRIAMS-E_2019_preprocessed.r
+
+Rscript DRIAMS-F_2019_preprocessed.r
