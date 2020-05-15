@@ -56,6 +56,89 @@ def _add_or_compare(metadata):
         assert metadata_versions == metadata
 
 
+def plot_calibration_histogram(df, outdir):
+    """Plot calibration histogram based on data frame.
+
+    This function is performing the main work for a single data frame.
+    It will automatically collect the relevant curves and prepare a plot
+    according to the data.
+
+    Parameters
+    ----------
+    df : `pandas.DataFrame`
+        TBD
+
+    Returns
+    -------
+    Nothing. As a side-effect of calling this function, plots will be
+    generated.
+    """
+    # Will store the individual curves for subsequent plotting. Every
+    # curve is indexed by a classifier and by its type (if a model is
+    # calibrated or not).
+    hists = {}
+
+    # The way the data are handed over to this function, there is only
+    # a single model.
+    model = df.model.unique()[0]
+
+    for (species, antibiotic), df_ in df.groupby(['species', 'antibiotic']):
+        y_test = np.vstack(df_['y_test']).ravel()
+        y_score = np.vstack(df_['y_score'])
+        y_score_calibrated = np.vstack(df_['y_score_calibrated'])
+        
+        y_score_max = np.amax(y_score, axis=1)
+        y_score_calibrated_max = np.amax(y_score_calibrated, axis=1)
+        
+        hists[(species, antibiotic, 'raw')] = y_score_max
+        hists[(species, antibiotic, 'calibrated')] = y_score_calibrated_max
+
+    sns.set(style='whitegrid')
+
+    fig, ax = plt.subplots(figsize=(9,7), dpi=300)
+    fig.suptitle(f'{model_to_name[model]}')
+
+    palette = sns.color_palette()
+
+    supported_species = [
+        'Escherichia coli',
+        'Klebsiella pneumoniae',
+        'Staphylococcus aureus',
+        'Staphylococcus epidermidis'
+    ]
+
+    species_to_colour = {
+        species: palette[i] for i, species in enumerate(supported_species)
+    }
+
+    for (species, antibiotic, hist_type), hist in hists.items():
+
+        colour = species_to_colour[species]
+
+        ax.hist(
+            hist,
+            color=colour,
+            range=(0.5, 1), 
+            bins=40, 
+            histtype="step",
+            linestyle='dotted' if hist_type == 'raw' else 'solid',
+            label=f'{species} ({antibiotic})' if hist_type == 'raw' \
+                  else f'{species} ({antibiotic}) {hist_type}',
+        )
+
+    ax.set_xlabel('Mean predicted probability')
+    ax.set_ylabel('Count')
+    ax.set_xlim((0.5, 1))
+    ax.legend(loc='upper left')
+
+    filename = f'Calibration_histogram_{model}.png'
+
+    plt.savefig(
+        os.path.join(outdir, filename),
+        bbox_inches='tight'
+    )
+
+
 def make_calibration_curve(y_true, y_score):
     """Create calibration curve from scores.
 
@@ -77,7 +160,7 @@ def make_calibration_curve(y_true, y_score):
 
     prob_true, prob_pred = calibration_curve(y_true,
                                              y_score[:, minority_class],
-                                             n_bins=5)
+                                             n_bins=10)
 
     # Note the change in inputs here; it is customary to show the
     # predicted probabilities on the x axis.
@@ -463,4 +546,5 @@ if __name__ == '__main__':
         df = pd.DataFrame.from_records(rows)
 
         plot_calibration_curves(df, args.outdir)
+        plot_calibration_histogram(df, args.outdir)
         plot_rejection_curves(df, args.metric, args.outdir)
