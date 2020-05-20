@@ -26,12 +26,12 @@ run() {
 for SEED in 344 172 188 270 35 164 545 480 89 409; do
   for MODEL in "lr" "svm-rbf" "rf" "lightgbm" "svm-linear"; do
     for ANTIBIOTIC in "Ceftriaxone" "Ciprofloxacin" "Cefepime"; do
-      CMD="${MAIN} -train-site \"DRIAMS-E\" --test-site \"DRIAMS-F\" --species \"Escherichia coli\" --antibiotic \"$ANTIBIOTIC\" --model $MODEL --seed $SEED"
+      CMD="${MAIN} --train-site \"DRIAMS-E\" --test-site \"DRIAMS-F\" --species \"Escherichia coli\" --antibiotic \"$ANTIBIOTIC\" --model $MODEL --seed $SEED"
       run "$CMD";
     done # antibiotic
 
     for ANTIBIOTIC in "Ciprofloxacin" "Oxacillin" "Fusidic acid"; do
-      CMD="${MAIN} -train-site \"DRIAMS-E\" --test-site \"DRIAMS-F\" --species \"Staphyloccocus aureus\" --antibiotic \"$ANTIBIOTIC\" --model $MODEL --seed $SEED"
+      CMD="${MAIN} --train-site \"DRIAMS-E\" --test-site \"DRIAMS-F\" --species \"Staphyloccocus aureus\" --antibiotic \"$ANTIBIOTIC\" --model $MODEL --seed $SEED"
       run "$CMD";
     done # antibiotic
   done # model
