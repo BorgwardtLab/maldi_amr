@@ -31,7 +31,7 @@ for SEED in 344 172 188 270 35 164 545 480 89 409; do
     done # antibiotic
 
     for ANTIBIOTIC in "Ciprofloxacin" "Oxacillin" "Fusidic acid"; do
-      CMD="${MAIN} --train-site \"DRIAMS-E\" --test-site \"DRIAMS-F\" --species \"Staphyloccocus aureus\" --antibiotic \"$ANTIBIOTIC\" --model $MODEL --seed $SEED"
+      CMD="${MAIN} --train-site \"DRIAMS-E\" --test-site \"DRIAMS-F\" --species \"Staphylococcus aureus\" --antibiotic \"$ANTIBIOTIC\" --model $MODEL --seed $SEED"
       run "$CMD";
     done # antibiotic
   done # model
