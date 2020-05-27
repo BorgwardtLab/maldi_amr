@@ -20,7 +20,12 @@ load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
 explorer = DRIAMSDatasetExplorer(DRIAMS_ROOT)
 
-list_sites = ['DRIAMS-A', 'DRIAMS-B', 'DRIAMS-C', 'DRIAMS-D']
+list_sites = ['DRIAMS-A', 
+              'DRIAMS-B', 
+              'DRIAMS-C', 
+              'DRIAMS-D', 
+              'DRIAMS-E', 
+              'DRIAMS-F']
 
 map_raw_datapaths = {
         'DRIAMS-A': [
@@ -38,25 +43,13 @@ map_raw_datapaths = {
         'DRIAMS-D': [
  '/links/groups/borgwardt/Data/ms_diagnostics/validation/Viollier/Viollier'
             ],
+        'DRIAMS-E': [
+ '/links/groups/borgwardt/Data/maldi_repetitions/sa_ec/usb_ec_sa_spectra'
+            ],
+        'DRIAMS-F': [
+ '/links/groups/borgwardt/Data/maldi_repetitions/sa_ec/ksbl_ec_sa_spectra'
+            ],
     }
-
-#map_id_files = {
-#        'DRIAMS-A': [
-#    os.path.join(DRIAMS_ROOT, 'DRIAMS-A/id/2015/2015_clean.csv'
-#    os.path.join(DRIAMS_ROOT, 'DRIAMS-A/id/2016/2016_clean.csv'
-#    os.path.join(DRIAMS_ROOT, 'DRIAMS-A/id/2017/2017_clean.csv'
-#    os.path.join(DRIAMS_ROOT, 'DRIAMS-A/id/2018/2018_clean.csv'
-#            ],
-#        'DRIAMS-B': [
-#    os.path.join(DRIAMS_ROOT, 'DRIAMS-B/id/2018/2018_clean.csv'
-#            ],
-#        'DRIAMS-C': [
-#    os.path.join(DRIAMS_ROOT, 'DRIAMS-C/id/2018/2018_clean.csv'
-#            ],
-#        'DRIAMS-D': [
-#    os.path.join(DRIAMS_ROOT, 'DRIAMS-D/id/2018/2018_clean.csv'
-#            ],
-#    }
 
 
 def count_number_of_spectra(datapaths):
