@@ -506,7 +506,7 @@ if __name__ == '__main__':
     # Contains the combinations of species--antibiotic that we want to
     # plot in the end. Anything else is ignored.
     selected_combinations = [
-        ('Escherichia coli', 'Cefepime'),
+        ('Escherichia coli', 'Ceftriaxone'),
         ('Klebsiella pneumoniae', 'Ceftriaxone'),
         ('Staphylococcus aureus', 'Oxacillin')
     ]
