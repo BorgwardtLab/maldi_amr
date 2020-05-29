@@ -196,6 +196,16 @@ def build_rejection_table(df, outdir, curve_type='calibrated'):
                 
                 if row is not None:
                     table_df = table_df.append(row)
+
+        # Convert fo format for table display
+        table_df['specificity'] = table_df['specificity'].round(2)
+        table_df[
+                'percentage rejected samples'
+                 ]  = table_df['percentage rejected samples'].round(2) * 100
+        table_df[
+                'percentage rejected samples'
+                 ]  = table_df['percentage rejected samples'].astype(int)
+        table_df['sensitivity'] = table_df['sensitivity'].round(2)
     
         print(table_df)
         filename = (
@@ -236,6 +246,7 @@ if __name__ == '__main__':
     # plot in the end. Anything else is ignored.
     selected_combinations = [
         ('Escherichia coli', 'Cefepime'),
+        ('Escherichia coli', 'Ceftriaxone'),
         ('Klebsiella pneumoniae', 'Ceftriaxone'),
         ('Staphylococcus aureus', 'Oxacillin')
     ]
