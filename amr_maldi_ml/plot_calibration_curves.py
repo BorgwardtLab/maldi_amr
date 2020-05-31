@@ -122,8 +122,8 @@ def plot_calibration_histogram(df, outdir):
             bins=40, 
             histtype="step",
             linestyle='dotted' if hist_type == 'raw' else 'solid',
-            label=f'{species} ({antibiotic})' if hist_type == 'raw' \
-                  else f'{species} ({antibiotic}) {hist_type}',
+            label=f'{species} ({antibiotic.lower()})' if hist_type == 'raw' \
+                  else f'{species} ({antibiotic.lower()}) {hist_type}',
         )
 
     ax.set_xlabel('Mean predicted probability')
@@ -235,7 +235,7 @@ def plot_calibration_curves(df, outdir):
             curve[1],
             c=colour,
             linestyle='dotted' if curve_type == 'raw' else 'solid',
-            label=f'{species} ({antibiotic})',
+            label=f'{species} ({antibiotic.lower()})',
         )
 
     ax.set_xlabel('Mean predicted probability')
@@ -428,8 +428,8 @@ def plot_rejection_curves(df, metric, outdir):
             curve[1],
             c=colour,
             linestyle='dotted' if curve_type == 'raw' else 'solid',
-            label=f'{species} ({antibiotic})' if curve_type == 'raw' \
-                  else f'{species} ({antibiotic}) {curve_type}',
+            label=f'{species} ({antibiotic.lower()})' if curve_type == 'raw' \
+                  else f'{species} ({antibiotic.lower()}) {curve_type}',
         )
         
         for kr in [0.9]:
