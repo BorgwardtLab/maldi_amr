@@ -106,7 +106,9 @@ def create_table(args):
     table_categorized = table_categorized.rename(columns={'antibiotic': 'antimicrobials', 
                                                           'number of samples': 'number of samples in class',
                                                           'percentage positive': 'avg. positive sample ratio'})
-
+    
+    # lowercase antibiotic names
+    table_categorized['antimicrobials'] = table_categorized['antimicrobials'].str.lower()
 
     if args.save == True:
         table_categorized.to_csv(f'{args.outfile}', index=True)

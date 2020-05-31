@@ -156,6 +156,9 @@ if __name__ == '__main__':
     # subset dataframe by define models.
     df = df.loc[df['model'].isin(models)]
 
+    # lowercase antibiotic names
+    df['antibiotic'] = df['antibiotic'].str.lower()
+
     group_columns = ['species', 'antibiotic', 'model']
     if 'train_site' in df.columns and 'test_site' in df.columns:
         group_columns += ['train_site', 'test_site']
