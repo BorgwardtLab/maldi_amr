@@ -122,7 +122,11 @@ def plot_figure5(args):
     # -------------
     print(f'plotting.. {args.outfile}')
     n_ab = len(antibiotic_list)
-    rc = {'legend.fontsize': 10}
+    rc = {
+            'legend.fontsize': 8,
+            'axes.labelsize': 8,
+            'xtick.labelsize': 8,
+          }
 
     sns.set(style="whitegrid",
             rc=rc,
@@ -168,7 +172,9 @@ def plot_figure5(args):
                       'train: A - test: D',
                       ],
                loc='center left', 
-               bbox_to_anchor=(1.03,0.5))
+               #fontsize='small',
+               bbox_to_anchor=(1.03,0.5),
+               )
 
     ylabel_map = {
             'auroc': 'AUROC',
@@ -180,7 +186,10 @@ def plot_figure5(args):
     plt.xticks(rotation=90)
     plt.ylabel(ylabel_map[args.metric])
     plt.xlabel('')
-    plt.ylim(0.5, 1.06)
+    if args.metric=='auroc':
+        plt.ylim(0.5, 1.03)
+    else:
+        plt.ylim(0.0, 1.06)
     plt.xlim(0-0.5, n_ab-0.5)
     plt.tight_layout()
     plt.savefig(f'./{args.outfile}.png')
