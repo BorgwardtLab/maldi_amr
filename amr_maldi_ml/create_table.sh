@@ -25,6 +25,10 @@
 #python build_table2_rejection.py ../results/calibrated_classifiers \
 #--outdir plots/tables/rejection 
 
-python build_table2_assymetric_rejection.py ../results/calibrated_classifiers \
---outdir plots/tables/rejection 
+#python build_table2_assymetric_rejection.py ../results/calibrated_classifiers \
+#--outdir plots/tables/rejection 
 
+# ------------
+# Table 3: Replication table
+# ------------
+python build_table3_replication.py ../results/replication

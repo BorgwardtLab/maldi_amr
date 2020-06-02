@@ -19,7 +19,7 @@ from sklearn.metrics import roc_auc_score
 from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import average_precision_score
 from maldi_learn.metrics import specificity_sensitivity_curve
-from utilities import maldi_col_map
+from utilities import maldi_col_map_seaborn
 from warnings import simplefilter
 
 def plot_figure4(args):
@@ -74,7 +74,7 @@ def plot_figure4(args):
     # add lines for each antibiotic
     for antibiotic in antibiotic_list:
         content_ab = content.query('antibiotic==@antibiotic')
-        col_ab = maldi_col_map[antibiotic]
+        col_ab = maldi_col_map_seaborn[antibiotic]
 
         # extract y_test and y_score from json files
         y_score_total = []
@@ -95,7 +95,7 @@ def plot_figure4(args):
         # add zero to string of AUROC if the value does not have 3
         # digits after comma
         pretty_rocauc = [str(roc)+'0' if len(str(roc)) in [3] else str(roc) for roc in [rocauc]]
-        lab = '{}\t'.format(antibiotic).expandtabs()
+        lab = '{}\t'.format(antibiotic.lower()).expandtabs()
         while len(lab) < 32:
             lab = '{}\t'.format(lab).expandtabs()
         lab = lab+'AUROC: '+pretty_rocauc[0]
@@ -115,7 +115,7 @@ def plot_figure4(args):
         # add zero to string of AUPRC if the value does not have 3
         # digits after comma
         pretty_prauc = [str(pr)+'0' if len(str(pr)) in [3] else str(pr) for pr in [prauc]]
-        lab = '{}\t'.format(antibiotic).expandtabs()
+        lab = '{}\t'.format(antibiotic.lower()).expandtabs()
         while len(lab) < 32:
             lab = '{}\t'.format(lab).expandtabs()
         #lab = lab+'AUPRC: '+pretty_prauc[0]

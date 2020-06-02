@@ -47,6 +47,9 @@ def create_table(args):
                 ignore_index=True
                 )    
     table = table.sort_values(by=['number of samples'], ascending=False)
+
+    # lowercase antibiotic names
+    table['antibiotic'] = table['antibiotic'].str.lower()
     
     # subset to site 
     table = table.loc[table['site'] == args.site]    

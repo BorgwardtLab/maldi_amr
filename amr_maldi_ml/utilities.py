@@ -1,7 +1,7 @@
 """Utility functions."""
 
-
 import os
+import seaborn as sns
 
 
 def _encode(s):
@@ -123,6 +123,19 @@ maldi_col_map = {
     'Teicoplanin': col_list[39],
     'Voriconazole': col_list[40],
     '5-Fluorocytosine': col_list[41]
+    }
+
+maldi_col_map_seaborn = {
+    'Oxacillin': sns.color_palette()[0],
+    'Ceftriaxone': sns.color_palette()[1],
+    'Amoxicillin-Clavulanic acid': sns.color_palette()[2],
+    'Meropenem': sns.color_palette()[3],
+    'Piperacillin-Tazobactam': sns.color_palette()[4],
+    'Ciprofloxacin': sns.color_palette()[5],
+    'Fusidic acid': sns.color_palette()[6],
+    'Cefepime': sns.color_palette()[7],
+    'Penicillin': sns.color_palette()[8],
+    'Tobramycin': sns.color_palette()[9],
     }
 
 

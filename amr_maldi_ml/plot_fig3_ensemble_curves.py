@@ -86,8 +86,8 @@ def plot_curves(df, outdir, metric='auroc'):
 
     sns.set(style='whitegrid')
 
-    fig, ax = plt.subplots()
-    fig.suptitle(df.antibiotic.unique()[0])
+    fig, ax = plt.subplots(figsize=(9,6))
+    fig.suptitle(df.antibiotic.unique()[0].lower())
 
     palette = sns.color_palette()
 
@@ -125,7 +125,7 @@ def plot_curves(df, outdir, metric='auroc'):
             x,
             mean,
             c=colour,
-            label=species + f' ({mean_n_samples:.1f})',
+            label=species + f' ({type_})',
             linestyle=linestyle
         )
 

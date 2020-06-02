@@ -1,14 +1,14 @@
 antimicrobial class,number of samples in class,avg. positive sample ratio,antimicrobials
 total,563509,0.244,
-OTHER BETA-LACTAM ANTIBACTERIALS,174826,0.23,"Cefuroxime, Cefepime, Ceftriaxone, Cefazolin, Meropenem_without_meningitis, Cefpodoxime, Ertapenem, Meropenem_with_pneumonia, Meropenem, Ceftazidime, Cefixime, Imipenem, Meropenem_with_meningitis, Cefoxitin_screen, Aztreonam"
-"BETA-LACTAM ANTIBACTERIALS, PENICILLINS",107128,0.5,"Penicillin_with_meningitis, Penicillin_with_endokarditis, Penicillin, Ampicillin-Amoxicillin, Amoxicillin-Clavulanic acid_uncomplicated_HWI, Penicillin_with_other_infections, Penicillin_without_endokarditis, Amoxicillin, Oxacillin, Penicillin_with_pneumonia, Amoxicillin-Clavulanic acid, Piperacillin-Tazobactam"
-OTHER ANTIBACTERIALS,83998,0.102,"Fusidic acid, Nitrofurantoin, Colistin, Metronidazole, Fosfomycin-Trometamol, Vancomycin_GRD, Daptomycin, Linezolid, Vancomycin, Teicoplanin, Teicoplanin_GRD, Fosfomycin"
-QUINOLONE ANTIBACTERIALS,58054,0.214,"Moxifloxacin, Levofloxacin, Ciprofloxacin, Norfloxacin, Quinolones"
-AMINOGLYCOSIDE ANTIBACTERIALS,46799,0.109,"Tobramycin, Gentamicin, Amikacin, Gentamicin_high_level, Aminoglycosides"
-SULFONAMIDES AND TRIMETHOPRIM,26640,0.183,Cotrimoxazole
-"MACROLIDES, LINCOSAMIDES AND STREPTOGRAMINS",23099,0.357,"Clarithromycin, Azithromycin, Erythromycin, Clindamycin"
-TETRACYCLINES,22377,0.142,"Minocycline, Tetracycline, Doxycycline, Tigecycline"
-DRUGS FOR TREATMENT OF TUBERCULOSIS,10976,0.049,"Rifampicin, Rifampicin_1mg-l"
-ANTIMYCOTICS FOR SYSTEMIC USE,5594,0.17,"Amphotericin B, Micafungin, 5-Fluorocytosine, Caspofungin, Voriconazole, Anidulafungin, Fluconazole, Itraconazole, Posaconazole"
-ANTIBIOTICS FOR TOPICAL USE,3815,0.007,Mupirocin
-AMPHENICOLS,203,0.138,Chloramphenicol
+OTHER BETA-LACTAM ANTIBACTERIALS,174826,0.23,"cefuroxime, meropenem, ertapenem, aztreonam, ceftazidime, cefazolin, cefpodoxime, cefoxitin_screen, cefepime, meropenem_with_pneumonia, meropenem_with_meningitis, meropenem_without_meningitis, ceftriaxone, imipenem, cefixime"
+"BETA-LACTAM ANTIBACTERIALS, PENICILLINS",107128,0.5,"oxacillin, ampicillin-amoxicillin, penicillin_with_meningitis, amoxicillin-clavulanic acid_uncomplicated_hwi, piperacillin-tazobactam, penicillin, penicillin_without_endokarditis, penicillin_with_pneumonia, penicillin_with_other_infections, penicillin_with_endokarditis, amoxicillin, amoxicillin-clavulanic acid"
+OTHER ANTIBACTERIALS,83998,0.102,"linezolid, colistin, daptomycin, vancomycin, fosfomycin-trometamol, metronidazole, fosfomycin, vancomycin_grd, teicoplanin, fusidic acid, teicoplanin_grd, nitrofurantoin"
+QUINOLONE ANTIBACTERIALS,58054,0.214,"quinolones, ciprofloxacin, norfloxacin, moxifloxacin, levofloxacin"
+AMINOGLYCOSIDE ANTIBACTERIALS,46799,0.109,"gentamicin, gentamicin_high_level, aminoglycosides, amikacin, tobramycin"
+SULFONAMIDES AND TRIMETHOPRIM,26640,0.183,cotrimoxazole
+"MACROLIDES, LINCOSAMIDES AND STREPTOGRAMINS",23099,0.357,"azithromycin, erythromycin, clarithromycin, clindamycin"
+TETRACYCLINES,22377,0.142,"tetracycline, minocycline, tigecycline, doxycycline"
+DRUGS FOR TREATMENT OF TUBERCULOSIS,10976,0.049,"rifampicin_1mg-l, rifampicin"
+ANTIMYCOTICS FOR SYSTEMIC USE,5594,0.17,"5-fluorocytosine, caspofungin, itraconazole, amphotericin b, posaconazole, voriconazole, anidulafungin, fluconazole, micafungin"
+ANTIBIOTICS FOR TOPICAL USE,3815,0.007,mupirocin
+AMPHENICOLS,203,0.138,chloramphenicol

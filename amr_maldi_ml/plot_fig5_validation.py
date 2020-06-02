@@ -19,8 +19,8 @@ from sklearn.metrics import roc_auc_score
 
 def plot_figure5(args):
 
-    PATH_fig5 = '../results/fig5_validation/'
-    # TODO adjust for choosing metric to plot
+    PATH_fig5 = os.path.join('../results/fig5_validation/',
+                             f'{args.model}')
 
     # --------------
     # create dataframe giving an overview of all files in path
@@ -33,7 +33,7 @@ def plot_figure5(args):
     content = pd.DataFrame(columns=[])
 
     for filename in file_list:
-        with open(PATH_fig5 + filename) as f:
+        with open(os.path.join(PATH_fig5, filename)) as f:
             data = json.load(f)
             content = content.append(
                 pd.DataFrame({
@@ -87,10 +87,11 @@ def plot_figure5(args):
                 assert content_scenario.shape[0]==10
 
                 for filename in content_scenario['filename'].values:
-                    with open(PATH_fig5 + filename) as f:
+                    with open(os.path.join(PATH_fig5, filename)) as f:
                         data = json.load(f)
-                        results.append(roc_auc_score(data['y_test'],
-                                      [sc[1] for sc in data['y_score']]))
+                        #results.append(roc_auc_score(data['y_test'],
+                        #              [sc[1] for sc in data['y_score']]))
+                        results.append(data[f'{args.metric}'])
                         assert np.all([x in [0, 1] for x in data['y_test']])
                         class_ratios.append(float(sum(data['y_test']))/len(data['y_test'
                                                                                 ]))
@@ -119,9 +120,13 @@ def plot_figure5(args):
     # -------------
     # plot barplot
     # -------------
-    print('plotting..')
+    print(f'plotting.. {args.outfile}')
     n_ab = len(antibiotic_list)
-    rc = {'legend.fontsize': 10}
+    rc = {
+            'legend.fontsize': 8,
+            'axes.labelsize': 8,
+            'xtick.labelsize': 8,
+          }
 
     sns.set(style="whitegrid",
             rc=rc,
@@ -130,7 +135,7 @@ def plot_figure5(args):
     ax = fig.add_subplot(111)
 
     # barplots BACK
-    sns.barplot(x="antibiotic", y=f"{args.metric}", 
+    sns.barplot(x="antibiotic", y=f"result", 
                 hue="train_test", 
                 hue_order=['DRIAMS-A_DRIAMS-A',
                            'DRIAMS-B_DRIAMS-B',
@@ -142,7 +147,7 @@ def plot_figure5(args):
                 )
 
     # barplots FRONT
-    sns.barplot(x="antibiotic", y=f"{args.metric}", 
+    sns.barplot(x="antibiotic", y=f"result", 
                 hue="train_test", 
                 hue_order=[
                            'EMPTY',
@@ -167,7 +172,9 @@ def plot_figure5(args):
                       'train: A - test: D',
                       ],
                loc='center left', 
-               bbox_to_anchor=(1.03,0.5))
+               #fontsize='small',
+               bbox_to_anchor=(1.03,0.5),
+               )
 
     ylabel_map = {
             'auroc': 'AUROC',
@@ -179,7 +186,10 @@ def plot_figure5(args):
     plt.xticks(rotation=90)
     plt.ylabel(ylabel_map[args.metric])
     plt.xlabel('')
-    plt.ylim(0.5, 1.06)
+    if args.metric=='auroc':
+        plt.ylim(0.5, 1.03)
+    else:
+        plt.ylim(0.0, 1.06)
     plt.xlim(0-0.5, n_ab-0.5)
     plt.tight_layout()
     plt.savefig(f'./{args.outfile}.png')
