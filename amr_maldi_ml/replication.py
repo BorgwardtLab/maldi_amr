@@ -9,10 +9,12 @@ the differences in hospital procedure.
 
 import argparse
 import dotenv
+import joblib
 import json
 import logging
 import os
 import pathlib
+import warnings
 
 import numpy as np
 
@@ -21,14 +23,137 @@ from maldi_learn.driams import DRIAMSLabelEncoder
 
 from maldi_learn.driams import load_driams_dataset
 
-from maldi_learn.utilities import stratify_by_species_and_label
-
-from models import run_experiment
+from models import calculate_metrics
+from models import get_pipeline_and_parameters
 
 from utilities import generate_output_filename
 
+from sklearn.exceptions import ConvergenceWarning
+from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import StratifiedKFold
+
 dotenv.load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
+
+
+def run_experiment(
+    X_train, y_train,
+    X_test, y_test,
+    model,
+    n_folds,
+    random_state=None,
+    verbose=False,
+):
+    """Run experiment for given train--test split.
+
+    We need to provide our own code here because for the replication
+    scenario, we are interested in the performance evaluated using a
+    10-fold cross-validation procedure.
+
+    Parameters
+    ----------
+    X_train : array-like
+        Training data
+
+    y_train : list
+        Labels for the training data
+
+    X_test : array_like
+        Test data
+
+    y_test : list
+        Labels for the rest data
+
+    model : str
+        Specifies a model whose pipeline will be queried and set up by
+        this function. Must be a valid model according to the function
+        `get_pipeline_and_parameters()`.
+
+    n_folds : int
+        Number of folds for internal cross-validation
+
+    random_state : int, `RandomState` instance, or None
+        If set, propagates random state to a model. This is *not*
+        required or used for all models.
+
+    verbose : bool, optional
+        If set, will add verbose information about the trained model in
+        the form of adding the best parameters as well as information
+        about predict labels and scores.
+
+    Returns
+    -------
+    A dictionary containing measurement descriptions and their
+    corresponding values.
+    """
+    pipeline, param_grid = get_pipeline_and_parameters(
+        model,
+        random_state
+    )
+
+    grid_search = GridSearchCV(
+        pipeline,
+        param_grid=param_grid,
+        cv=n_folds,
+        scoring='roc_auc',
+        n_jobs=-1,
+    )
+
+    logging.info(f'Starting grid search for {len(X_train)} samples')
+
+    # Ignore these warnings only for the grid search process. The
+    # reason is that some of the jobs will inevitably *fail* to
+    # converge because of bad `C` values. We are not interested in
+    # them anyway.
+    with warnings.catch_warnings():
+        warnings.filterwarnings('ignore', category=ConvergenceWarning)
+        warnings.filterwarnings('ignore', category=UserWarning)
+
+        with joblib.parallel_backend('threading', -1):
+            grid_search.fit(X_train, y_train)
+
+    # Calculate metrics for the training data fully in-line because we
+    # only ever want to save the results.
+    train_metrics = calculate_metrics(
+        y_train,
+        grid_search.predict(X_train),
+        grid_search.predict_proba(X_train),
+        prefix='train'
+    )
+
+    y_pred = grid_search.predict(X_test)
+    y_score = grid_search.predict_proba(X_test)
+
+    test_metrics = calculate_metrics(y_test, y_pred, y_score)
+
+    # Replace information about the standard scaler prior to writing out
+    # the `best_params_` grid. The reason for this is that we cannot and
+    # probably do not want to serialise the scaler class. We only need
+    # to know *if* a scaler has been employed.
+    if 'scaler' in grid_search.best_params_:
+        scaler = grid_search.best_params_['scaler']
+        if scaler != 'passthrough':
+            grid_search.best_params_['scaler'] = type(scaler).__name__
+
+    # Prepare the results dictionary for this experiment. Depending on
+    # the input parameters of this function, additional information is
+    # added.
+    results = {}
+
+    if verbose:
+        results.update({
+            'best_params': grid_search.best_params_,
+            'y_score': y_score.tolist(),
+            'y_pred': y_pred.tolist(),
+            'y_test': y_test.tolist(),
+        })
+
+    # Add information that *always* needs to be available.
+    results.update(train_metrics)
+    results.update(test_metrics)
+
+    return results
+
 
 if __name__ == '__main__':
 
@@ -160,6 +285,14 @@ if __name__ == '__main__':
         [spectrum.intensities for spectrum in driams_dataset_test.X]
     )
     y_test = driams_dataset_test.to_numpy(args.antibiotic)
+
+    # Ensures that the samples are loaded in the proper order. Else, our
+    # stratification will *not* work.
+ 
+    id_train = driams_dataset_train.y.id.values
+    id_test = driams_dataset_test.y.id.values
+
+    assert np.equal(id_train, id_test).all()
 
     # Prepare the output dictionary containing all information to
     # reproduce the experiment.
