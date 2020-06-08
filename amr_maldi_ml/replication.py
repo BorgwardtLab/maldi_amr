@@ -139,7 +139,17 @@ def run_experiment(
         # Ensures that we are performing the same predictions at all
         # times, since the two sites are supposed to measure the same
         # samples.
-        assert np.equal(y_source[test_index], y_target[test_index]).all()
+        #
+        # If this is not the case, we log it.
+        if not np.equal(y_source[test_index], y_target[test_index]).all():
+            logging.warning(
+                f'Found label discrepancy:\n'
+                f'  - source: {y_source[test_index]}\n'
+                f'  - target: {y_target[test_index]}'
+            )
+
+        # Use the labels of the source site for the training. This is
+        # consistent with how the cross-validation is structured.
         y_test = y_source[test_index]
 
         y_pred_source = grid_search.predict(X_source[test_index])
