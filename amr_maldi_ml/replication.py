@@ -37,8 +37,8 @@ DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
 
 
 def run_experiment(
-    X_train, y_train,
-    X_test, y_test,
+    X_source, y_source,
+    X_target, y_target,
     model,
     n_folds,
     random_state=None,
@@ -52,17 +52,17 @@ def run_experiment(
 
     Parameters
     ----------
-    X_train : array-like
-        Training data
+    X_source : array-like
+        Training data coming from the 'source' site, such as DRIAMS-E.
 
-    y_train : list
+    y_source : list
         Labels for the training data
 
-    X_test : array_like
-        Test data
+    X_target : array_like
+        Test data coming from the 'target' site, such as DRIAMS-F.
 
-    y_test : list
-        Labels for the rest data
+    y_target : list
+        Labels for the test data
 
     model : str
         Specifies a model whose pipeline will be queried and set up by
@@ -76,81 +76,96 @@ def run_experiment(
         If set, propagates random state to a model. This is *not*
         required or used for all models.
 
-    verbose : bool, optional
-        If set, will add verbose information about the trained model in
-        the form of adding the best parameters as well as information
-        about predict labels and scores.
-
     Returns
     -------
     A dictionary containing measurement descriptions and their
-    corresponding values.
+    corresponding values for each fold.
     """
     pipeline, param_grid = get_pipeline_and_parameters(
         model,
         random_state
     )
 
-    grid_search = GridSearchCV(
-        pipeline,
-        param_grid=param_grid,
-        cv=n_folds,
-        scoring='roc_auc',
-        n_jobs=-1,
+    cv = StratifiedKFold(
+            n_splits=10,
+            shuffle=True,
+            random_state=random_state
     )
-
-    logging.info(f'Starting grid search for {len(X_train)} samples')
-
-    # Ignore these warnings only for the grid search process. The
-    # reason is that some of the jobs will inevitably *fail* to
-    # converge because of bad `C` values. We are not interested in
-    # them anyway.
-    with warnings.catch_warnings():
-        warnings.filterwarnings('ignore', category=ConvergenceWarning)
-        warnings.filterwarnings('ignore', category=UserWarning)
-
-        with joblib.parallel_backend('threading', -1):
-            grid_search.fit(X_train, y_train)
-
-    # Calculate metrics for the training data fully in-line because we
-    # only ever want to save the results.
-    train_metrics = calculate_metrics(
-        y_train,
-        grid_search.predict(X_train),
-        grid_search.predict_proba(X_train),
-        prefix='train'
-    )
-
-    y_pred = grid_search.predict(X_test)
-    y_score = grid_search.predict_proba(X_test)
-
-    test_metrics = calculate_metrics(y_test, y_pred, y_score)
-
-    # Replace information about the standard scaler prior to writing out
-    # the `best_params_` grid. The reason for this is that we cannot and
-    # probably do not want to serialise the scaler class. We only need
-    # to know *if* a scaler has been employed.
-    if 'scaler' in grid_search.best_params_:
-        scaler = grid_search.best_params_['scaler']
-        if scaler != 'passthrough':
-            grid_search.best_params_['scaler'] = type(scaler).__name__
 
     # Prepare the results dictionary for this experiment. Depending on
     # the input parameters of this function, additional information is
     # added.
+    #
+    # The primary index of this `dict` will be the fold index.
     results = {}
 
-    if verbose:
-        results.update({
-            'best_params': grid_search.best_params_,
-            'y_score': y_score.tolist(),
-            'y_pred': y_pred.tolist(),
-            'y_test': y_test.tolist(),
-        })
+    fold_index = 0
 
-    # Add information that *always* needs to be available.
-    results.update(train_metrics)
-    results.update(test_metrics)
+    for train_index, test_index in cv.split(X_source, y_source):
+        grid_search = GridSearchCV(
+            pipeline,
+            param_grid=param_grid,
+            cv=n_folds,
+            scoring='roc_auc',
+            n_jobs=-1,
+        )
+
+        X_train = X_source[train_index]
+        y_train = y_source[train_index]
+
+        logging.info(f'Starting grid search for {len(X_train)} samples')
+
+        # Ignore these warnings only for the grid search process. The
+        # reason is that some of the jobs will inevitably *fail* to
+        # converge because of bad `C` values. We are not interested in
+        # them anyway.
+        with warnings.catch_warnings():
+            warnings.filterwarnings('ignore', category=ConvergenceWarning)
+            warnings.filterwarnings('ignore', category=UserWarning)
+
+            with joblib.parallel_backend('threading', -1):
+                grid_search.fit(X_train, y_train)
+
+        # Calculate metrics for the training data fully in-line because we
+        # only ever want to save the results.
+        train_metrics = calculate_metrics(
+            y_train,
+            grid_search.predict(X_train),
+            grid_search.predict_proba(X_train),
+            prefix='train'
+        )
+
+        # Ensures that we are performing the same predictions at all
+        # times, since the two sites are supposed to measure the same
+        # samples.
+        assert np.equal(y_source[test_index], y_target[test_index]).all()
+        y_test = y_source[test_index]
+
+        y_pred_source = grid_search.predict(X_source[test_index])
+        y_score_source = grid_search.predict_proba(X_source[test_index])
+
+        test_metrics_source = calculate_metrics(
+            y_test,
+            y_pred_source,
+            y_score_source,
+            prefix='test_source',
+        )
+
+        y_pred_target = grid_search.predict(X_target[test_index])
+        y_score_target = grid_search.predict_proba(X_target[test_index])
+
+        test_metrics_target = calculate_metrics(
+            y_test,
+            y_pred_target,
+            y_score_target,
+            prefix='test_target',
+        )
+
+        # Add information that *always* needs to be available.
+        results[fold_index] = dict()
+        results[fold_index].update(train_metrics)
+        results[fold_index].update(test_metrics_source)
+        results[fold_index].update(test_metrics_target)
 
     return results
 
