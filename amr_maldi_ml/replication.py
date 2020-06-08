@@ -8,6 +8,7 @@ the differences in hospital procedure.
 """
 
 import argparse
+import collections
 import dotenv
 import joblib
 import json
@@ -97,11 +98,11 @@ def run_experiment(
     # added.
     #
     # The primary index of this `dict` will be the fold index.
-    results = {}
+    results = collections.defaultdict(dict)
 
-    fold_index = 0
-
-    for train_index, test_index in cv.split(X_source, y_source):
+    for i, (train_index, test_index) in enumerate(cv.split(
+        X_source, y_source)
+    ):
         grid_search = GridSearchCV(
             pipeline,
             param_grid=param_grid,
@@ -161,11 +162,9 @@ def run_experiment(
             prefix='test_target',
         )
 
-        # Add information that *always* needs to be available.
-        results[fold_index] = dict()
-        results[fold_index].update(train_metrics)
-        results[fold_index].update(test_metrics_source)
-        results[fold_index].update(test_metrics_target)
+        results[i].update(train_metrics)
+        results[i].update(test_metrics_source)
+        results[i].update(test_metrics_target)
 
     return results
 
@@ -303,7 +302,7 @@ if __name__ == '__main__':
 
     # Ensures that the samples are loaded in the proper order. Else, our
     # stratification will *not* work.
- 
+
     id_train = driams_dataset_train.y.id.values
     id_test = driams_dataset_test.y.id.values
 
