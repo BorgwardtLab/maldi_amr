@@ -88,7 +88,7 @@ def run_experiment(
     )
 
     cv = StratifiedKFold(
-            n_splits=10,
+            n_splits=3,
             shuffle=True,
             random_state=random_state
     )
@@ -345,7 +345,7 @@ if __name__ == '__main__':
     # file does not yet exist.
     if not os.path.exists(output_filename) or args.force:
 
-        n_folds = 5
+        n_folds = 3
 
         results = run_experiment(
             X_train, y_train,
