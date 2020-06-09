@@ -1,0 +1,53 @@
+{
+    "train_site": "DRIAMS-F",
+    "train_years": [
+        "2019"
+    ],
+    "test_site": "DRIAMS-E",
+    "test_years": [
+        "2019"
+    ],
+    "seed": 35,
+    "model": "lr",
+    "antibiotic": "Ciprofloxacin",
+    "species": "Staphylococcus aureus",
+    "metadata_versions_train": {
+        "2019_clean.csv": "c9c4830e6f30ecb54e329451c7ffce195bb0bfc5"
+    },
+    "metadata_versions_test": {
+        "2019_clean.csv": "954305e482e840a815b44f310adbfdc1871bba52"
+    },
+    "0": {
+        "train_accuracy": 0.9047619047619048,
+        "train_auprc": 0.8773809523809524,
+        "train_auroc": 0.9853801169590644,
+        "test_source_accuracy": 0.90625,
+        "test_source_auprc": 0.3873015873015873,
+        "test_source_auroc": 0.8965517241379309,
+        "test_target_accuracy": 0.90625,
+        "test_target_auprc": 0.10056022408963586,
+        "test_target_auroc": 0.40229885057471265
+    },
+    "1": {
+        "train_accuracy": 0.9047619047619048,
+        "train_auprc": 0.47783068783068783,
+        "train_auroc": 0.9064327485380117,
+        "test_source_accuracy": 0.90625,
+        "test_source_auprc": 0.55,
+        "test_source_auroc": 0.8620689655172414,
+        "test_target_accuracy": 0.90625,
+        "test_target_auprc": 0.7435897435897436,
+        "test_target_auroc": 0.8850574712643677
+    },
+    "2": {
+        "train_accuracy": 0.90625,
+        "train_auprc": 0.6246693121693121,
+        "train_auroc": 0.9339080459770115,
+        "test_source_accuracy": 0.9032258064516129,
+        "test_source_auprc": 0.08781362007168458,
+        "test_source_auroc": 0.2857142857142857,
+        "test_target_accuracy": 0.9032258064516129,
+        "test_target_auprc": 0.11240483654276759,
+        "test_target_auroc": 0.38095238095238093
+    }
+}

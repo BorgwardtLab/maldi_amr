@@ -1,0 +1,53 @@
+{
+    "train_site": "DRIAMS-F",
+    "train_years": [
+        "2019"
+    ],
+    "test_site": "DRIAMS-E",
+    "test_years": [
+        "2019"
+    ],
+    "seed": 164,
+    "model": "rf",
+    "antibiotic": "Cefepime",
+    "species": "Escherichia coli",
+    "metadata_versions_train": {
+        "2019_clean.csv": "c9c4830e6f30ecb54e329451c7ffce195bb0bfc5"
+    },
+    "metadata_versions_test": {
+        "2019_clean.csv": "954305e482e840a815b44f310adbfdc1871bba52"
+    },
+    "0": {
+        "train_accuracy": 1.0,
+        "train_auprc": 1.0,
+        "train_auroc": 1.0,
+        "test_source_accuracy": 0.9230769230769231,
+        "test_source_auprc": 0.13596491228070173,
+        "test_source_auroc": 0.6145833333333334,
+        "test_target_accuracy": 0.9230769230769231,
+        "test_target_auprc": 0.09090909090909091,
+        "test_target_auroc": 0.4583333333333333
+    },
+    "1": {
+        "train_accuracy": 1.0,
+        "train_auprc": 1.0,
+        "train_auroc": 1.0,
+        "test_source_accuracy": 0.92,
+        "test_source_auprc": 0.16847826086956522,
+        "test_source_auroc": 0.5434782608695652,
+        "test_target_accuracy": 0.92,
+        "test_target_auprc": 0.09453781512605042,
+        "test_target_auroc": 0.4673913043478261
+    },
+    "2": {
+        "train_accuracy": 1.0,
+        "train_auprc": 1.0,
+        "train_auroc": 1.0,
+        "test_source_accuracy": 0.92,
+        "test_source_auprc": 0.16666666666666666,
+        "test_source_auroc": 0.6304347826086957,
+        "test_target_accuracy": 0.92,
+        "test_target_auprc": 0.225,
+        "test_target_auroc": 0.8152173913043478
+    }
+}

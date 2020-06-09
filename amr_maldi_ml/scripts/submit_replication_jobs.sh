@@ -23,16 +23,21 @@ run() {
   fi
 }
 
-for SEED in 344 172 188 270 35 164 545 480 89 409; do
-  for MODEL in "lr" "svm-rbf" "rf" "lightgbm" "svm-linear"; do
-    for ANTIBIOTIC in "Ceftriaxone" "Ciprofloxacin" "Cefepime"; do
-      CMD="${MAIN} --train-site \"DRIAMS-E\" --test-site \"DRIAMS-F\" --species \"Escherichia coli\" --antibiotic \"$ANTIBIOTIC\" --model $MODEL --seed $SEED"
-      run "$CMD";
-    done # antibiotic
+submit_all_jobs() {
+  for SEED in 344 172 188 270 35 164 545 480 89 409; do
+    for MODEL in "lr" "svm-rbf" "rf" "lightgbm" "svm-linear"; do
+      for ANTIBIOTIC in "Ceftriaxone" "Ciprofloxacin" "Cefepime"; do
+        CMD="${MAIN} --train-site \"$1\" --test-site \"$2\" --species \"Escherichia coli\" --antibiotic \"$ANTIBIOTIC\" --model $MODEL --seed $SEED"
+        run "$CMD";
+      done # antibiotic
 
-    for ANTIBIOTIC in "Ciprofloxacin" "Oxacillin" "Fusidic acid"; do
-      CMD="${MAIN} --train-site \"DRIAMS-E\" --test-site \"DRIAMS-F\" --species \"Staphylococcus aureus\" --antibiotic \"$ANTIBIOTIC\" --model $MODEL --seed $SEED"
-      run "$CMD";
-    done # antibiotic
-  done # model
-done # seed
+      for ANTIBIOTIC in "Ciprofloxacin" "Oxacillin" "Fusidic acid"; do
+        CMD="${MAIN} --train-site \"$1\" --test-site \"$2\" --species \"Staphylococcus aureus\" --antibiotic \"$ANTIBIOTIC\" --model $MODEL --seed $SEED"
+        run "$CMD";
+      done # antibiotic
+    done # model
+  done # seed
+}
+
+submit_all_jobs "DRIAMS-E" "DRIAMS-F"
+submit_all_jobs "DRIAMS-F" "DRIAMS-E"
