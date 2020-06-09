@@ -1,0 +1,53 @@
+{
+    "train_site": "DRIAMS-F",
+    "train_years": [
+        "2019"
+    ],
+    "test_site": "DRIAMS-E",
+    "test_years": [
+        "2019"
+    ],
+    "seed": 164,
+    "model": "svm-rbf",
+    "antibiotic": "Ceftriaxone",
+    "species": "Escherichia coli",
+    "metadata_versions_train": {
+        "2019_clean.csv": "c9c4830e6f30ecb54e329451c7ffce195bb0bfc5"
+    },
+    "metadata_versions_test": {
+        "2019_clean.csv": "954305e482e840a815b44f310adbfdc1871bba52"
+    },
+    "0": {
+        "train_accuracy": 1.0,
+        "train_auprc": 0.08,
+        "train_auroc": 0.0,
+        "test_source_accuracy": 0.9230769230769231,
+        "test_source_auprc": 0.07472826086956522,
+        "test_source_auroc": 0.25,
+        "test_target_accuracy": 0.9230769230769231,
+        "test_target_auprc": 0.13392857142857142,
+        "test_target_auroc": 0.5833333333333333
+    },
+    "1": {
+        "train_accuracy": 1.0,
+        "train_auprc": 0.050020258103241295,
+        "train_auroc": 0.0,
+        "test_source_accuracy": 0.92,
+        "test_source_auprc": 0.06847826086956521,
+        "test_source_auroc": 0.13043478260869568,
+        "test_target_accuracy": 0.84,
+        "test_target_auprc": 0.16666666666666666,
+        "test_target_auroc": 0.45652173913043476
+    },
+    "2": {
+        "train_accuracy": 1.0,
+        "train_auprc": 0.050020258103241295,
+        "train_auroc": 0.0,
+        "test_source_accuracy": 0.96,
+        "test_source_auprc": 0.06272727272727273,
+        "test_source_auroc": 0.043478260869565244,
+        "test_target_accuracy": 0.64,
+        "test_target_auprc": 0.11688311688311688,
+        "test_target_auroc": 0.4347826086956522
+    }
+}
