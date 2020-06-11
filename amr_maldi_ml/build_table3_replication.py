@@ -46,14 +46,6 @@ if __name__ == '__main__':
     parser.add_argument('INPUT', nargs='+', type=str)
 
     parser.add_argument(
-        '-r', '--rank-by',
-        type=str,
-        help='If set, provides metric by which to rank models. This will '
-             'result in calculating a table of ranks instead of a report '
-             'on the detailed behaviour of models.',
-    )
-
-    parser.add_argument(
         '-i', '--ignore',
         type=str,
         help='If set, ignores files that contain the specified string.'
@@ -68,8 +60,14 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     
-    metrics = ['auroc', 'auprc', 'accuracy',
-               'train_auroc', 'train_auprc', 'train_accuracy']
+    metrics = [
+            'test_source_auroc', 
+            'test_target_auroc',
+            'test_source_auprc',
+            'test_source_auprc',
+               ]
+
+    folds = ['0', '1', '2']
 
     models = ['lr', 'lightgbm']
 
@@ -133,20 +131,10 @@ if __name__ == '__main__':
                 'test_site': data_raw['test_site']
             })
 
-        # Check which metrics are *actually* available in the data. This
-        # accounts for experiments with specific train/test values, for
-        # example.
-        metrics_ = list(itertools.chain.from_iterable(
-                [[key for key in data_raw if metric in key] for metric
-                 in metrics]
-        ))
-
-        metrics = sorted(metrics_)
-
-        for metric in metrics:
-            row[metric] = data_raw[metric] * 100.0
-
-        rows.append(row)
+        for fold in folds:
+            for metric in metrics:
+                row[metric] = data_raw[fold][metric] * 100.0
+            rows.append(row.copy())
 
     pd.options.display.max_rows = 999
     pd.options.display.float_format = '{:,.2f}'.format
@@ -167,46 +155,9 @@ if __name__ == '__main__':
     # seeds. Each species--antibiotic combination is represented here.
     df = df.groupby(group_columns).agg(
             {
-                metric: [np.mean] for metric in metrics
+                metric: [np.mean, np.std] for metric in metrics
             }
         )
-
-    if args.rank_by is not None:
-        df = df[args.rank_by][['mean']]
-
-        # Calculate the ranks on each species--antibiotic combination.
-        # If we only have single model here, the result will be '1.0'.
-        ranks = df.groupby(['species', 'antibiotic'])['mean'].rank(
-            ascending=False,
-        )
-        ranks.name = 'rank'
-
-        # Create a special 'rank' column and perform the final
-        # aggregation based on each model.
-        df = pd.concat([df, ranks], axis=1)
-
-        # Figure out how many classifiers we have available for each of
-        # the combinations.
-        valid_combinations = df.groupby(['species', 'antibiotic']) \
-            .size()                                                \
-            .reset_index(name='n_classifiers')
-
-        # Keep only valid combinations
-        valid_combinations = \
-            valid_combinations[valid_combinations['n_classifiers'] > 1]
-
-        # Check which species--antibiotic combinations are left here. We
-        # will use this to access our original data frame.
-        valid_combinations.set_index(['species', 'antibiotic'], inplace=True)
-
-        # Filter out all invalid columns. We are now left with the ranks
-        # of the classifiers along the valid scenarios.
-        df = df.reset_index().set_index(['species', 'antibiotic'])
-        df = df[df.index.isin(valid_combinations.index)]
-
-        # Finally, calculate the mean value over the measure and over
-        # the rank.
-        df = df.groupby('model').mean()
 
     # TODO Order columns that metrics which should be compared are next 
     # to each other

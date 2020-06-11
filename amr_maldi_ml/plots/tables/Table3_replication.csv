@@ -1,13 +1,23 @@
-,,,,,accuracy,auprc,auroc,train_accuracy,train_auprc,train_auroc
-,,,,,mean,mean,mean,mean,mean,mean
+,,,,,test_source_auroc,test_source_auroc,test_target_auroc,test_target_auroc,test_source_auprc,test_source_auprc
+,,,,,mean,std,mean,std,mean,std
 species,antibiotic,model,train_site,test_site,,,,,,
-Escherichia coli,cefepime,lightgbm,DRIAMS-E,DRIAMS-F,41.58,11.81,49.94,64.08,59.36,77.73
-Escherichia coli,cefepime,lr,DRIAMS-E,DRIAMS-F,92.11,16.46,62.38,93.42,58.8,74.65
-Escherichia coli,ceftriaxone,lightgbm,DRIAMS-E,DRIAMS-F,58.82,7.46,40.45,88.55,75.24,96.57
-Escherichia coli,ceftriaxone,lr,DRIAMS-E,DRIAMS-F,92.11,27.04,64.07,92.11,63.5,81.43
-Escherichia coli,ciprofloxacin,lightgbm,DRIAMS-E,DRIAMS-F,77.89,16.98,49.58,79.34,16.43,48.83
-Escherichia coli,ciprofloxacin,lr,DRIAMS-E,DRIAMS-F,81.58,16.93,48.66,84.21,58.47,80.99
-Staphylococcus aureus,ciprofloxacin,lightgbm,DRIAMS-E,DRIAMS-F,87.79,9.38,46.98,100.0,100.0,100.0
-Staphylococcus aureus,ciprofloxacin,lr,DRIAMS-E,DRIAMS-F,90.53,18.3,64.99,90.53,55.03,81.91
-Staphylococcus aureus,oxacillin,lightgbm,DRIAMS-E,DRIAMS-F,81.38,9.32,53.94,88.83,74.19,89.01
-Staphylococcus aureus,oxacillin,lr,DRIAMS-E,DRIAMS-F,92.55,11.0,62.56,92.55,51.75,77.67
+Escherichia coli,cefepime,lightgbm,DRIAMS-E,DRIAMS-F,53.18,24.22,45.26,24.92,23.0,20.78
+Escherichia coli,cefepime,lightgbm,DRIAMS-F,DRIAMS-E,55.34,22.81,51.14,25.59,19.19,13.57
+Escherichia coli,cefepime,lr,DRIAMS-E,DRIAMS-F,48.22,26.41,51.8,27.2,22.41,22.8
+Escherichia coli,cefepime,lr,DRIAMS-F,DRIAMS-E,63.88,16.96,53.04,23.0,19.31,8.11
+Escherichia coli,ceftriaxone,lightgbm,DRIAMS-E,DRIAMS-F,66.72,18.27,52.17,18.23,31.83,18.46
+Escherichia coli,ceftriaxone,lightgbm,DRIAMS-F,DRIAMS-E,55.34,22.81,51.14,25.59,19.19,13.57
+Escherichia coli,ceftriaxone,lr,DRIAMS-E,DRIAMS-F,63.66,19.65,61.13,18.5,32.9,17.92
+Escherichia coli,ceftriaxone,lr,DRIAMS-F,DRIAMS-E,63.95,16.8,53.11,22.95,19.29,8.11
+Escherichia coli,ciprofloxacin,lightgbm,DRIAMS-E,DRIAMS-F,49.19,13.3,58.86,13.2,18.9,4.86
+Escherichia coli,ciprofloxacin,lightgbm,DRIAMS-F,DRIAMS-E,47.85,15.73,46.3,14.32,21.32,8.82
+Escherichia coli,ciprofloxacin,lr,DRIAMS-E,DRIAMS-F,44.76,9.25,51.76,15.11,18.7,5.67
+Escherichia coli,ciprofloxacin,lr,DRIAMS-F,DRIAMS-E,43.09,12.64,49.99,11.24,21.02,7.25
+Staphylococcus aureus,ciprofloxacin,lightgbm,DRIAMS-E,DRIAMS-F,56.22,15.64,51.2,19.96,19.88,13.16
+Staphylococcus aureus,ciprofloxacin,lightgbm,DRIAMS-F,DRIAMS-E,51.45,16.42,45.69,16.24,15.62,10.33
+Staphylococcus aureus,ciprofloxacin,lr,DRIAMS-E,DRIAMS-F,68.81,17.99,64.37,18.58,43.33,20.73
+Staphylococcus aureus,ciprofloxacin,lr,DRIAMS-F,DRIAMS-E,61.93,19.79,56.42,14.92,27.97,18.43
+Staphylococcus aureus,oxacillin,lightgbm,DRIAMS-E,DRIAMS-F,45.1,15.41,48.16,17.07,10.93,8.83
+Staphylococcus aureus,oxacillin,lightgbm,DRIAMS-F,DRIAMS-E,58.35,17.88,46.65,17.53,24.9,18.65
+Staphylococcus aureus,oxacillin,lr,DRIAMS-E,DRIAMS-F,47.91,10.37,55.73,13.49,14.4,12.21
+Staphylococcus aureus,oxacillin,lr,DRIAMS-F,DRIAMS-E,78.16,19.52,43.24,18.15,60.41,24.86
