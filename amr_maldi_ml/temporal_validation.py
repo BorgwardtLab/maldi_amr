@@ -23,6 +23,8 @@ from maldi_learn.utilities import stratify_by_species_and_label
 
 from models import run_experiment
 
+from sklearn.utils import shuffle
+
 from utilities import generate_output_filename
 
 dotenv.load_dotenv()
@@ -149,40 +151,27 @@ if __name__ == '__main__':
 
     logging.info('Loaded test data')
 
-    train_index, _ = stratify_by_species_and_label(
-        driams_dataset_train.y,
-        antibiotic=args.antibiotic,
-        random_state=args.seed,
-    )
-
     X_train = np.asarray(
         [spectrum.intensities for spectrum in driams_dataset_train.X]
     )
     y_train = driams_dataset_train.to_numpy(args.antibiotic)
-
-    _, test_index = stratify_by_species_and_label(
-        driams_dataset_test.y,
-        antibiotic=args.antibiotic,
-        random_state=args.seed,
-    )
 
     X_test = np.asarray(
         [spectrum.intensities for spectrum in driams_dataset_test.X]
     )
     y_test = driams_dataset_test.to_numpy(args.antibiotic)
 
-    # Subset *twice* because `X_train` initially refers to the *whole*
-    # training data set, but we only get a smaller subset based on the
-    # split we defined earlier.
-    X_train, y_train = X_train[train_index], y_train[train_index]
-    X_test, y_test = X_test[test_index], y_test[test_index]
+    # The shuffling is technically only required for the `train` data
+    # set because we expect this to contain multiple years. We make a
+    # better effort, however, in order to be prepared for anything.
+    X_train, y_train = shuffle(X_train, y_train, random_state=args.seed)
+    X_test, y_test = shuffle(X_test, y_test, random_state=args.seed)
 
     # Prepare the output dictionary containing all information to
     # reproduce the experiment.
     output = {
-        'train_site': train_site,
+        'site': args.site,
         'train_years': train_years,
-        'test_site': test_site,
         'test_years': test_years,
         'seed': args.seed,
         'model': args.model,
@@ -191,15 +180,14 @@ if __name__ == '__main__':
 
     # Add fingerprint information about the metadata files to make sure
     # that the experiment is reproducible.
-    output['metadata_versions_train'] = metadata_fingerprints_train
-    output['metadata_versions_test'] = metadata_fingerprints_test
+    output['metadata_versions'] = metadata_fingerprints
 
     output_filename = generate_output_filename(
         args.output,
         output,
     )
 
-    output['species'] = 'all'
+    output['species'] = args.species
 
     # Only write if we either are running in `force` mode, or the
     # file does not yet exist.
