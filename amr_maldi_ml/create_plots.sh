@@ -27,31 +27,31 @@
 # ------------
 # Figure 4: AUC curves per species and antibiotic
 # ------------
-#for model in "lr" "svm-rbf" "svm-linear" "lightgbm" "rf"; do
-#  python plot_fig4_curves_per_species_and_antibiotic.py \
-#    --species "Escherichia coli" \
-#    --antibiotic \
-#      "Ciprofloxacin,Ceftriaxone,Cefepime,Piperacillin-Tazobactam,Tobramycin" \
-#    --model $model \
-#    --outfile "plots/fig4/fig4_Ecoli_$model"
-#done
-#
-#for model in "lr" "svm-rbf" "svm-linear" "lightgbm" "rf"; do
-#  python plot_fig4_curves_per_species_and_antibiotic.py \
-#    --species "Staphylococcus aureus" \
-#    --antibiotic "Ciprofloxacin,Fusidic acid,Oxacillin,Penicillin" \
-#    --model $model \
-#    --outfile "plots/fig4/fig4_Saureus_$model"
-#done
-#
-#for model in "lr" "svm-rbf" "svm-linear" "lightgbm" "rf"; do
-#  python plot_fig4_curves_per_species_and_antibiotic.py \
-#    --species "Klebsiella pneumoniae" \
-#    --antibiotic \
-#      "Ciprofloxacin,Ceftriaxone,Cefepime,Amoxicillin-Clavulanic acid,Meropenem,Tobramycin,Piperacillin-Tazobactam" \
-#    --model $model \
-#    --outfile "plots/fig4/fig4_Kpneu_$model"
-#done
+for model in "lr" "svm-rbf" "svm-linear" "lightgbm" "rf"; do
+  python plot_fig4_curves_per_species_and_antibiotic_2panels.py \
+    --species "Escherichia coli" \
+    --antibiotic \
+      "Ciprofloxacin,Ceftriaxone,Cefepime,Piperacillin-Tazobactam,Tobramycin" \
+    --model $model \
+    --outfile "plots/fig4/fig4_Ecoli_$model"
+done
+
+for model in "lr" "svm-rbf" "svm-linear" "lightgbm" "rf"; do
+  python plot_fig4_curves_per_species_and_antibiotic_2panels.py \
+    --species "Staphylococcus aureus" \
+    --antibiotic "Ciprofloxacin,Fusidic acid,Oxacillin,Penicillin" \
+    --model $model \
+    --outfile "plots/fig4/fig4_Saureus_$model"
+done
+
+for model in "lr" "svm-rbf" "svm-linear" "lightgbm" "rf"; do
+  python plot_fig4_curves_per_species_and_antibiotic_2panels.py \
+    --species "Klebsiella pneumoniae" \
+    --antibiotic \
+      "Ciprofloxacin,Ceftriaxone,Cefepime,Meropenem,Tobramycin" \
+    --model $model \
+    --outfile "plots/fig4/fig4_Kpneu_$model"
+done
 
 # FIXME results not available yet
 #for model in "lr" "svm-rbf" "svm-linear" "lightgbm" "rf"; do
@@ -95,18 +95,21 @@
 # ------------
 
 #for model in "lr" "svm-rbf" "svm-linear" "lightgbm" "rf"; do
-#  python plot_fig5_validation.py \
-#    --model $model \
-#    --outfile "plots/fig5/fig5_$model"
+#  for metric in "auroc" "auprc"; do
+#    python plot_fig5_validation.py \
+#      --model $model \
+#      --metric $metric \
+#      --outfile "plots/fig5/fig5_${model}_${metric}"
+#  done
 #done
 
 # ------------
 # Figure 5: Validation prevalence heatmaps
 # ------------
 
-#for antibiotic in "Ciprofloxacin" "Ceftriaxone" "Cefepime" "Gentamicin" "Amikacin" "Piperacillin-Tazobactam"; do
+#for antibiotic in "Ciprofloxacin" "Ceftriaxone" "Cefepime" "Amoxicillin-Clavulanic acid" "Piperacillin-Tazobactam" "Oxacillin" "Penicillin"; do
 #  python plot_fig5_site_prevalences.py \
-#    --antibiotic $antibiotic \
+#    --antibiotic "$antibiotic" \
 #    --outfile "plots/fig5/fig5_prevalence_$antibiotic"
 #done
 
@@ -114,7 +117,7 @@
 # Calibration plots 
 # ------------
 
-for metric in "accuracy" "specificity" "sensitivity"; do
-  python plot_calibration_curves.py -m "$metric" ../results/calibrated_classifiers \
-    --outdir plots/calibration
-done
+#for metric in "auroc" "auprc" "accuracy" "specificity" "sensitivity"; do
+#  python plot_calibration_curves.py -m "$metric" ../results/calibrated_classifiers \
+#    --outdir plots/calibration
+#done

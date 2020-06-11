@@ -86,6 +86,11 @@ def plot_figure4(args):
                 y_score_total.extend([sc[1] for sc in data['y_score']])
                 y_test_total.extend(data['y_test'])
 
+        class_ratio = round(
+            float(sum(y_test_total)) / len(y_test_total) * 100,
+            1,
+                            )
+
         # ------------
         # panel1: ROC curve
         # ------------
@@ -119,7 +124,7 @@ def plot_figure4(args):
         while len(lab) < 32:
             lab = '{}\t'.format(lab).expandtabs()
         #lab = lab+'AUPRC: '+pretty_prauc[0]
-        lab = 'AUPRC: '+pretty_prauc[0]
+        lab = f'AUPRC: {pretty_prauc[0]} ({class_ratio}%)' 
 
         ax[1].step(recall, precision, color=col_ab, label=lab,
                    alpha=1.0, where='post', linewidth=3.0)
