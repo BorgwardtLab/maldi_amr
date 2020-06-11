@@ -173,6 +173,7 @@ if __name__ == '__main__':
         'site': args.site,
         'train_years': train_years,
         'test_years': test_years,
+        'species': args.species,
         'seed': args.seed,
         'model': args.model,
         'antibiotic': args.antibiotic,
@@ -187,7 +188,6 @@ if __name__ == '__main__':
         output,
     )
 
-    output['species'] = args.species
 
     # Only write if we either are running in `force` mode, or the
     # file does not yet exist.
