@@ -124,6 +124,13 @@ if __name__ == '__main__':
                 'test_site': data_raw['test_site']
             })
 
+        # Ditto for train years.
+        elif 'train_years' in data_raw and 'test_years' in data_raw:
+            row.update({
+                'train_years': ' '.join(data_raw['train_years']),
+                'test_years': ' '.join(data_raw['test_years'])
+            })
+
         # Check which metrics are *actually* available in the data. This
         # accounts for experiments with specific train/test values, for
         # example.
@@ -147,6 +154,8 @@ if __name__ == '__main__':
     group_columns = ['species', 'antibiotic', 'model']
     if 'train_site' in df.columns and 'test_site' in df.columns:
         group_columns += ['train_site', 'test_site']
+    elif 'train_years' in df.columns and 'test_years' in df.columns:
+        group_columns += ['train_years', 'test_years']
 
     # Create a data frame that contains metrics over all the different
     # seeds. Each species--antibiotic combination is represented here.
