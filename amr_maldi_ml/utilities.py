@@ -48,9 +48,23 @@ def generate_output_filename(root, data, suffix=None):
     if 'site' in data.keys():
         site = data['site']
 
-        filename = f'Site_{site}_'   \
-                   f'Model_{model}_' \
-                   f'Species_{species}_Antibiotic_{antibiotic}_Seed_{seed}'
+        # We are training for different time periods. Adjust everything
+        # accordingly.
+        if 'train_years' in data.keys():
+            train = '_'.join(data['train_years'])
+            test = '_'.join(data['test_years'])
+
+            filename = f'Site_{site}_'         \
+                       f'Train_years_{train}_' \
+                       f'Test_years_{test}_'   \
+                       f'Model_{model}_'       \
+                       f'Species_{species}_Antibiotic_{antibiotic}_Seed_{seed}'
+
+        # Regular training
+        else:
+            filename = f'Site_{site}_'   \
+                       f'Model_{model}_' \
+                       f'Species_{species}_Antibiotic_{antibiotic}_Seed_{seed}'
 
     # Except `train_site` and `test_site` to highlight different
     # scenarios.
