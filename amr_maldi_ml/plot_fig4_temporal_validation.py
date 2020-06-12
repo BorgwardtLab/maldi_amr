@@ -16,6 +16,17 @@ import seaborn as sns
 from tqdm import tqdm
 
 
+scenarios = [
+        ('Staphylococcus aureus', 'oxacillin'),
+        ('Escherichia coli', 'ceftriaxone'),
+        ('Klebsiella pneumoniae', 'ceftriaxone'),
+        ]
+
+model_map = {
+        'lr': sns.color_palette()[0],
+        'lightgbm': sns.color_palette()[1],
+             }
+
 def get_files(directory):
     """Walk a directory structure and return JSON filenames.
 
@@ -41,25 +52,12 @@ def get_files(directory):
 
     return result
 
-def plot_temporal_validation(df):
-
-    scenarios = [
-            ('Staphylococcus aureus', 'oxacillin'),
-            ('Escherichia coli', 'ceftriaxone'),
-            ('Klebsiella pneumoniae', 'ceftriaxone'),
-            ]
-
-    metric = 'auprc'
+def plot_temporal_validation(df, metric='auprc'):
 
     models = ['lr', 'lightgbm']
 
     single_years = ['2015', '2016', '2017']
     cumulative_years = ['2015 2016 2017', '2016 2017', '2017'] 
-
-    model_map = {
-            'lr': sns.color_palette()[0],
-            'lightgbm': sns.color_palette()[1],
-                 }
 
     metric_map = {
             'auprc': 'AUPRC',
@@ -71,6 +69,8 @@ def plot_temporal_validation(df):
             'Klebsiella pneumoniae': 'K. pneumoniae',
                     }
     # plot
+    plt.close('all')
+    plt.clf()
     sns.set(style="whitegrid")
     fig, ax = plt.subplots(1, 3, figsize=(15, 5))
 
@@ -85,8 +85,6 @@ def plot_temporal_validation(df):
                 f'{metric}', 'mean'
                           ),
                          ].reset_index()
-            print(df_)
-
 
             # plot single years curve
             df__ = df_.loc[
@@ -99,6 +97,7 @@ def plot_temporal_validation(df):
                     df__['train_years']==year
                                        ][(f'{metric}','mean')].values[0])
             ax[i].plot(
+                #[0,1,2],
                 y_vals, 
                 color=model_map[model],
                 linestyle='--',
@@ -117,6 +116,7 @@ def plot_temporal_validation(df):
                     df__['train_years']==year
                                        ][(f'{metric}','mean')].values[0])
             ax[i].plot(
+                #[0,1,2],
                 y_vals, 
                 color=model_map[model],
                 marker='o',
@@ -124,15 +124,22 @@ def plot_temporal_validation(df):
                            )
 
             ax[i].set_title(f'{species_map[species]} ({antibiotic})')
-            ax[i].set_ylim((0.10,0.80))
+            if metric=='auprc': ax[i].set_ylim((0.1, 0.9))
+            if metric=='auroc': ax[i].set_ylim((0.1, 0.9))
+            ax[i].set_xlim((-0.2, 2.2))
             ax[i].set_ylabel(metric_map[metric])
             if i==0:
                 ax[i].legend(loc='lower right')
-
-            ax[i].set_xticklabels(['', 'test_year+3', '', 'test_year+2', '', 'test_year+1'])
+            
+            ax[i].set_xticklabels([
+                '', '2015 /\n2015 + 2016 + 2017', 
+                '', '2016 /\n2016 + 2017', 
+                '', '2017 /\n2017  '])
 
     plt.tight_layout()
-    plt.savefig(f'plots/temporal_validation/temporal_validation.png')
+    plt.savefig(f'plots/temporal_validation/temporal_validation_{metric}.png')
+    fig.clf()
+    fig.clear()
 
 
 
@@ -261,4 +268,5 @@ if __name__ == '__main__':
     print(df)
 
     # Plot results for temporal validation
-    plot_temporal_validation(df)
+    plot_temporal_validation(df, 'auprc')
+    plot_temporal_validation(df, 'auroc')
