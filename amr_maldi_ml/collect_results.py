@@ -147,18 +147,20 @@ if __name__ == '__main__':
             # FIXME: this could be extracted automatically, but it is
             # easier for now. Will patch this later.
             metrics_ = [
-                'test_source_accuracy',
+                # FIXME: disabled for the time being 'test_source_accuracy',
                 'test_source_auprc',
                 'test_source_auroc',
-                'test_target_accuracy',
+                # FIXME: disabled for the time being 'test_target_accuracy',
                 'test_target_auprc',
                 'test_target_auroc'
             ]
 
             for fold in folds:
                 for metric in metrics_:
+                    name = fold.replace('test_', '')
+                    name = fold.replace('source', 'src')
                     row.update({
-                        'fold': fold,
+                        'fold': fold.replace('test_', ''),
                         metric: data_raw[fold][metric]
                     })
 
