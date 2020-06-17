@@ -136,7 +136,7 @@ if __name__ == '__main__':
         spectra_type='binned_6000',
     )
 
-    logging.info('Loaded training data')
+    logging.info(f'Loaded training data ({len(driams_dataset_train)} samples)')
 
     driams_dataset_test = load_driams_dataset(
         DRIAMS_ROOT,
@@ -149,7 +149,7 @@ if __name__ == '__main__':
         spectra_type='binned_6000',
     )
 
-    logging.info('Loaded test data')
+    logging.info(f'Loaded test data ({len(driams_dataset_test)} samples)')
 
     X_train = np.asarray(
         [spectrum.intensities for spectrum in driams_dataset_train.X]
