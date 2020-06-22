@@ -49,8 +49,9 @@ if __name__=='__main__':
     
     ax.plot(raw_spectrum[:,0], raw_spectrum[:,1])
     ax.set_xlim(2000,15000)
+    ax.set_ylim(0,10000)
     ax.set_ylabel('intensity')
-    ax.set_xlabel('m/z')    
+    ax.set_xlabel('mass / charge')    
     
     plt.tight_layout()
     plt.savefig('./plots/example_spectra.png')
