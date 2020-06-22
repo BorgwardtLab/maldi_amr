@@ -125,7 +125,7 @@ if __name__ == '__main__':
             })
 
         # Ditto for train years.
-        elif 'train_years' in data_raw and 'test_years' in data_raw:
+        if 'train_years' in data_raw and 'test_years' in data_raw:
             row.update({
                 'train_years': ' '.join(data_raw['train_years']),
                 'test_years': ' '.join(data_raw['test_years'])
@@ -139,10 +139,37 @@ if __name__ == '__main__':
                  in metrics]
         ))
 
-        metrics = sorted(metrics_)
+        # No metrics founds; check whether we have folds to traverse and
+        # collect the data.
+        if len(metrics_) == 0:
+            folds = [key for key in data_raw if key.isnumeric()]
 
-        for metric in metrics:
-            row[metric] = data_raw[metric] * 100.0
+            # FIXME: this could be extracted automatically, but it is
+            # easier for now. Will patch this later.
+            metrics_ = [
+                # FIXME: disabled for the time being 'test_source_accuracy',
+                'test_source_auprc',
+                'test_source_auroc',
+                # FIXME: disabled for the time being 'test_target_accuracy',
+                'test_target_auprc',
+                'test_target_auroc'
+            ]
+
+            for fold in folds:
+                for metric in metrics_:
+                    name = fold.replace('test_', '')
+                    name = fold.replace('source', 'src')
+                    row.update({
+                        'fold': fold.replace('test_', ''),
+                        metric: data_raw[fold][metric]
+                    })
+
+            metrics = metrics_
+        else:
+            metrics = sorted(metrics_)
+
+            for metric in metrics:
+                row[metric] = data_raw[metric] * 100.0
 
         rows.append(row)
 
@@ -154,7 +181,7 @@ if __name__ == '__main__':
     group_columns = ['species', 'antibiotic', 'model']
     if 'train_site' in df.columns and 'test_site' in df.columns:
         group_columns += ['train_site', 'test_site']
-    elif 'train_years' in df.columns and 'test_years' in df.columns:
+    if 'train_years' in df.columns and 'test_years' in df.columns:
         group_columns += ['train_years', 'test_years']
 
     # Create a data frame that contains metrics over all the different
