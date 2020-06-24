@@ -195,6 +195,15 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
+        '--train-years',
+        type=str,
+        nargs='+',
+        default='*',
+        help='Specifies years of spectra to use for training; use "*" to '
+             'select all available years.'
+    )
+
+    parser.add_argument(
         '--test-site',
         type=str,
         help='Site to use for testing (e.g. DRIAMS-F)',
@@ -219,12 +228,14 @@ if __name__ == '__main__':
     metadata_fingerprints_train = explorer.metadata_fingerprints(train_site)
     metadata_fingerprints_test = explorer.metadata_fingerprints(test_site)
 
-    train_years = explorer.available_years(train_site)
-    test_years = explorer.available_years(test_site)
+    if args.train_years == '*':
+        train_years = explorer.available_years(train_site)
+    else:
+        train_years = args.train_years
 
-    # If this is not the same, the replication itself does not make any
-    # sense.
-    assert train_years == test_years
+    # Always use *all* available data for the test site. We do not have
+    # enough samples as it is.
+    test_years = explorer.available_years(test_site)
 
     logging.info(f'Train site: {train_site}')
     logging.info(f'Train years: {train_years}')
