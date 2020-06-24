@@ -19,8 +19,6 @@ from maldi_learn.driams import DRIAMSLabelEncoder
 
 from maldi_learn.driams import load_driams_dataset
 
-from maldi_learn.utilities import stratify_by_species_and_label
-
 from models import run_experiment
 
 from sklearn.utils import shuffle
