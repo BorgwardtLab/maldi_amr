@@ -72,10 +72,20 @@ def generate_output_filename(root, data, suffix=None):
         train_site = data['train_site']
         test_site = data['test_site']
 
-        filename = f'Train_site_{train_site}_' \
-                   f'Test_site_{test_site}_'   \
-                   f'Model_{model}_'           \
-                   f'Species_{species}_Antibiotic_{antibiotic}_Seed_{seed}'
+        filename = f'Train_site_{train_site}' \
+                   f'Train_years_{train}_'
+
+        # We are training for different time periods. Adjust everything
+        # accordingly.
+        if 'train_years' in data.keys():
+            train = '_'.join(data['train_years'])
+            test = '_'.join(data['test_years'])
+
+            filename += f'Train_years_{train}_' \
+                        f'Test_years_{test}_'   \
+
+        filename += f'Model_{model}_' \
+                    f'Species_{species}_Antibiotic_{antibiotic}_Seed_{seed}'
 
     # Ensures that the suffix is only added if it exists. Else, we will
     # add spurious underscores.
