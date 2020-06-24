@@ -72,8 +72,8 @@ def generate_output_filename(root, data, suffix=None):
         train_site = data['train_site']
         test_site = data['test_site']
 
-        filename = f'Train_site_{train_site}' \
-                   f'Train_years_{train}_'
+        filename = f'Train_site_{train_site}_' \
+                   f'Test_site_{test_site}_'
 
         # We are training for different time periods. Adjust everything
         # accordingly.
