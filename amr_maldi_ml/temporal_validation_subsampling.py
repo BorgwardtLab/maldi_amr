@@ -160,16 +160,19 @@ if __name__ == '__main__':
     )
     y_test = driams_dataset_test.to_numpy(args.antibiotic)
 
-    class_ratios = np.bincount(y_test) / len(y_test)
-
-    # Check that we are in the right scenario; class 1 must be the
-    # minority class.
-    assert class_ratios[0] > class_ratios[1]
-
     # Again, subset the data correctly so that we are never using any
     # test data.
     X_test = X_test[test_index]
     y_test = y_test[test_index]
+
+    # Determine the class ration on the test data set
+    class_ratios = np.bincount(y_test) / len(y_test)
+
+    logging.info(f'Desired minority class ratio: {class_ratios[1]:.2f}')
+
+    # Check that we are in the right scenario; class 1 must be the
+    # minority class.
+    assert class_ratios[0] > class_ratios[1]
 
     for train_year in train_years:
         driams_dataset = load_driams_dataset(
@@ -181,7 +184,7 @@ if __name__ == '__main__':
             encoder=DRIAMSLabelEncoder(),
             handle_missing_resistance_measurements='remove_if_all_missing',
             spectra_type='binned_6000',
-            nrows=1000,  # FIXME
+            nrows=5000,  # FIXME
         )
 
         logging.info(f'Loaded training data for {train_year}')
@@ -191,17 +194,30 @@ if __name__ == '__main__':
         )
         y = driams_dataset.to_numpy(args.antibiotic)
 
-        ros = RandomOverSampler(random_state=args.seed)
- 
         # Remove the samples that we already used for testing; this
         # ensures that there is no leakage.
         if train_year == test_year:
             X = X[train_index]
             y = y[train_index]
 
+        n0, n1 = np.bincount(y)
+        assert n0 > n1
+
+        desired_ratio = class_ratios[1] / class_ratios[0]
+
+        ros = RandomOverSampler(
+            sampling_strategy=desired_ratio,
+            random_state=args.seed,
+        )
+
+        X, y = ros.fit_resample(X, y)
+        class_ratio = np.bincount(y)[1] / len(y) 
+
+        logging.info(f'Achieved minority class ratio of {class_ratio:.2f} '
+                     f'for {train_year}')
+
     raise 'heck'
 
-   
     # Subset the data correctly; we now have no access to the test set
     # in this year any more.
     X_train = X_train[train_index]
