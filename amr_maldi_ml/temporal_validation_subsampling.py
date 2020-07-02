@@ -26,6 +26,7 @@ from maldi_learn.utilities import stratify_by_species_and_label
 
 from models import run_experiment
 
+from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 
 from utilities import generate_output_filename
@@ -89,10 +90,9 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        '--test-years',
+        '--test-year',
         type=str,
-        nargs='+',
-        help='Years to use for testing on a site',
+        help='Year to use for testing on a site',
         required=True,
     )
 
@@ -119,42 +119,56 @@ if __name__ == '__main__':
     metadata_fingerprints = explorer.metadata_fingerprints(args.site)
 
     train_years = args.train_years
-    test_years = args.test_years
+    test_year = args.test_year
 
     logging.info(f'Site: {args.site}')
     logging.info(f'Train years: {train_years}')
-    logging.info(f'Test years: {test_years}')
+    logging.info(f'Test year: {test_year}')
     logging.info(f'Seed: {args.seed}')
     logging.info(f'Model: {args.model}')
     logging.info(f'Antibiotic: {args.antibiotic}')
 
-    driams_dataset_train = load_driams_dataset(
-        DRIAMS_ROOT,
-        args.site,
-        train_years,
-        args.species,
-        antibiotics=args.antibiotic,
-        encoder=DRIAMSLabelEncoder(),
-        handle_missing_resistance_measurements='remove_if_all_missing',
-        spectra_type='binned_6000',
-        nrows=1000,  # FIXME
-    )
-
-    logging.info(f'Loaded training data ({len(driams_dataset_train)} samples)')
-
+    # Load the test data set first because it is easier to handle for
+    # us; we will only ever use the `test` portion of this year since
+    # it is possible that the *same* year occurs also for training.
     driams_dataset_test = load_driams_dataset(
         DRIAMS_ROOT,
         args.site,
-        test_years,
+        test_year,
         args.species,
         antibiotics=args.antibiotic,
         encoder=DRIAMSLabelEncoder(),
         handle_missing_resistance_measurements='remove_if_all_missing',
         spectra_type='binned_6000',
-        nrows=1000,  # FIXME
+        nrows=5000,  # FIXME
     )
 
-    logging.info(f'Loaded test data ({len(driams_dataset_test)} samples)')
+    logging.info(f'Loaded test data')
+
+    # Let's never look at the training data...
+    _, test_index = stratify_by_species_and_label(
+        driams_dataset_test.y,
+        antibiotic=args.antibiotic,
+        random_state=args.seed,
+    )
+
+    X_test = np.asarray(
+        [spectrum.intensities for spectrum in driams_dataset_test.X]
+    )
+    y_test = driams_dataset_test.to_numpy(args.antibiotic)
+
+    class_ratios = np.bincount(y_test) / len(y_test)
+
+    # Check that we are in the right scenario; class 1 must be the
+    # minority class.
+    assert class_ratios[0] > class_ratios[1]
+
+    # Again, subset the data correctly so that we are never using any
+    # test data.
+    X_test = X_test[test_index]
+    y_test = y_test[test_index]
+
+    raise 'heck'
 
     # Ignore the 'test index' for our training years and throw away this
     # information.
@@ -174,28 +188,29 @@ if __name__ == '__main__':
     X_train = X_train[train_index]
     y_train = y_train[train_index]
 
-    # FIXME: this is wrong!
-    #
-    # Analogous situation for the test data set: here, we must not look
-    # at the training data.
-    _, test_index = stratify_by_species_and_label(
-        driams_dataset_test.y,
-        antibiotic=args.antibiotic,
-        random_state=args.seed,
-    )
-
-    X_test = np.asarray(
-        [spectrum.intensities for spectrum in driams_dataset_test.X]
-    )
-    y_test = driams_dataset_test.to_numpy(args.antibiotic)
-
-    # The shuffling is technically only required for the `train` data
+      # The shuffling is technically only required for the `train` data
     # set because we expect this to contain multiple years. We make a
     # better effort, however, in order to be prepared for anything.
     X_train, y_train = shuffle(X_train, y_train, random_state=args.seed)
     X_test, y_test = shuffle(X_test, y_test, random_state=args.seed)
 
     print(np.bincount(y_train))
+    print(np.bincount(y_test))
+
+    driams_dataset_train = load_driams_dataset(
+        DRIAMS_ROOT,
+        args.site,
+        train_years,
+        args.species,
+        antibiotics=args.antibiotic,
+        encoder=DRIAMSLabelEncoder(),
+        handle_missing_resistance_measurements='remove_if_all_missing',
+        spectra_type='binned_6000',
+        nrows=1000,  # FIXME
+    )
+
+    logging.info(f'Loaded training data')
+
 
     # FIXME
     raise 'heck'
