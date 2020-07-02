@@ -17,6 +17,8 @@ import pathlib
 
 import numpy as np
 
+from imblearn.over_sampling import RandomOverSampler
+
 from maldi_learn.driams import DRIAMSDatasetExplorer
 from maldi_learn.driams import DRIAMSLabelEncoder
 
@@ -145,8 +147,9 @@ if __name__ == '__main__':
 
     logging.info(f'Loaded test data')
 
-    # Let's never look at the training data...
-    _, test_index = stratify_by_species_and_label(
+    # Let's never look at the training data; we need the index, though,
+    # in order to remove duplicate samples later on.
+    train_index, test_index = stratify_by_species_and_label(
         driams_dataset_test.y,
         antibiotic=args.antibiotic,
         random_state=args.seed,
@@ -168,21 +171,37 @@ if __name__ == '__main__':
     X_test = X_test[test_index]
     y_test = y_test[test_index]
 
+    for train_year in train_years:
+        driams_dataset = load_driams_dataset(
+            DRIAMS_ROOT,
+            args.site,
+            train_year,
+            args.species,
+            antibiotics=args.antibiotic,
+            encoder=DRIAMSLabelEncoder(),
+            handle_missing_resistance_measurements='remove_if_all_missing',
+            spectra_type='binned_6000',
+            nrows=1000,  # FIXME
+        )
+
+        logging.info(f'Loaded training data for {train_year}')
+
+        X = np.asarray(
+            [spectrum.intensities for spectrum in driams_dataset.X]
+        )
+        y = driams_dataset.to_numpy(args.antibiotic)
+
+        ros = RandomOverSampler(random_state=args.seed)
+ 
+        # Remove the samples that we already used for testing; this
+        # ensures that there is no leakage.
+        if train_year == test_year:
+            X = X[train_index]
+            y = y[train_index]
+
     raise 'heck'
 
-    # Ignore the 'test index' for our training years and throw away this
-    # information.
-    train_index, _ = stratify_by_species_and_label(
-        driams_dataset_train.y,
-        antibiotic=args.antibiotic,
-        random_state=args.seed,
-    )
-
-    X_train = np.asarray(
-        [spectrum.intensities for spectrum in driams_dataset_train.X]
-    )
-    y_train = driams_dataset_train.to_numpy(args.antibiotic)
-
+   
     # Subset the data correctly; we now have no access to the test set
     # in this year any more.
     X_train = X_train[train_index]
@@ -197,21 +216,7 @@ if __name__ == '__main__':
     print(np.bincount(y_train))
     print(np.bincount(y_test))
 
-    driams_dataset_train = load_driams_dataset(
-        DRIAMS_ROOT,
-        args.site,
-        train_years,
-        args.species,
-        antibiotics=args.antibiotic,
-        encoder=DRIAMSLabelEncoder(),
-        handle_missing_resistance_measurements='remove_if_all_missing',
-        spectra_type='binned_6000',
-        nrows=1000,  # FIXME
-    )
-
-    logging.info(f'Loaded training data')
-
-
+ 
     # FIXME
     raise 'heck'
 
