@@ -28,7 +28,7 @@ from maldi_learn.utilities import stratify_by_species_and_label
 
 from models import run_experiment
 
-from sklearn.model_selection import train_test_split
+from sklearn.utils import resample
 from sklearn.utils import shuffle
 
 from utilities import generate_output_filename
@@ -174,6 +174,9 @@ if __name__ == '__main__':
     # minority class.
     assert class_ratios[0] > class_ratios[1]
 
+    X_train = []
+    y_train = []
+
     for train_year in train_years:
         driams_dataset = load_driams_dataset(
             DRIAMS_ROOT,
@@ -216,23 +219,27 @@ if __name__ == '__main__':
         logging.info(f'Achieved minority class ratio of {class_ratio:.2f} '
                      f'for {train_year}')
 
-    raise 'heck'
+        X_train.extend(X)
+        y_train.extend(y)
 
-    # Subset the data correctly; we now have no access to the test set
-    # in this year any more.
-    X_train = X_train[train_index]
-    y_train = y_train[train_index]
+    X_train = np.asarray(X_train)
+    y_train = np.asarray(y_train)
 
-      # The shuffling is technically only required for the `train` data
+    # FIXME: make this configurable
+    X_train, y_train = resample(
+        X_train, y_train,
+        n_samples=len(train_index),
+        replace=False,
+        stratify=y_train,
+        random_state=args.seed,
+    )
+
+    # The shuffling is technically only required for the `train` data
     # set because we expect this to contain multiple years. We make a
     # better effort, however, in order to be prepared for anything.
     X_train, y_train = shuffle(X_train, y_train, random_state=args.seed)
     X_test, y_test = shuffle(X_test, y_test, random_state=args.seed)
 
-    print(np.bincount(y_train))
-    print(np.bincount(y_test))
-
- 
     # FIXME
     raise 'heck'
 
