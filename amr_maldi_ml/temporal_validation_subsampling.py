@@ -219,12 +219,38 @@ if __name__ == '__main__':
 
         desired_ratio = class_ratios[1] / class_ratios[0]
 
-        ros = RandomOverSampler(
-            sampling_strategy=desired_ratio,
-            random_state=args.seed,
-        )
+        print(desired_ratio, n1 / n0)
 
-        X, y = ros.fit_resample(X, y)
+        # Need random oversampling because the actual ratio is smaller
+        # than the desired ratio.
+        if n1 / n0 < desired_ratio:
+            ros = RandomOverSampler(
+                sampling_strategy=desired_ratio,
+                random_state=args.seed,
+            )
+
+            X, y = rs.fit_resample(X, y)
+
+        # Just pick the desired number of points at random and subset
+        # `X` and `y` accordingly.
+        else:
+            n_points_to_sample = int(desired_ratio * n0 + 0.5)
+
+            indices = np.nonzero(y == 1)[0]
+
+            indices = resample(
+                indices,
+                n_samples=n_points_to_sample,
+                replace=False,
+                random_state=args.seed
+            )
+
+            indices = np.concatenate(
+                    (indices, np.nonzero(y == 0)[0])
+            )
+
+            X, y = X[indices], y[indices]
+
         class_ratio = np.bincount(y)[1] / len(y)
 
         logging.info(f'Achieved minority class ratio of {class_ratio:.2f} '
