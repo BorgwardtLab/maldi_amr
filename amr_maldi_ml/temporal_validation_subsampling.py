@@ -149,7 +149,6 @@ if __name__ == '__main__':
         encoder=DRIAMSLabelEncoder(),
         handle_missing_resistance_measurements='remove_if_all_missing',
         spectra_type='binned_6000',
-        nrows=5000,  # FIXME
     )
 
     logging.info(f'Loaded test data')
@@ -193,7 +192,6 @@ if __name__ == '__main__':
             encoder=DRIAMSLabelEncoder(),
             handle_missing_resistance_measurements='remove_if_all_missing',
             spectra_type='binned_6000',
-            nrows=5000,  # FIXME
         )
 
         logging.info(f'Loaded training data for {train_year}')
@@ -218,8 +216,6 @@ if __name__ == '__main__':
         assert n0 > n1
 
         desired_ratio = class_ratios[1] / class_ratios[0]
-
-        print(desired_ratio, n1 / n0)
 
         # Need random oversampling because the actual ratio is smaller
         # than the desired ratio.
