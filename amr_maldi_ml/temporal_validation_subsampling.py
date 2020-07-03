@@ -84,6 +84,13 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
+        '-r', '--resample',
+        action='store_true',
+        help='If set, resamples the data set to the size of the one used '
+             'for training.'
+    )
+
+    parser.add_argument(
         '--train-years',
         type=str,
         nargs='+',
@@ -214,7 +221,7 @@ if __name__ == '__main__':
         )
 
         X, y = ros.fit_resample(X, y)
-        class_ratio = np.bincount(y)[1] / len(y) 
+        class_ratio = np.bincount(y)[1] / len(y)
 
         logging.info(f'Achieved minority class ratio of {class_ratio:.2f} '
                      f'for {train_year}')
@@ -225,14 +232,20 @@ if __name__ == '__main__':
     X_train = np.asarray(X_train)
     y_train = np.asarray(y_train)
 
-    # FIXME: make this configurable
-    X_train, y_train = resample(
-        X_train, y_train,
-        n_samples=len(train_index),
-        replace=False,
-        stratify=y_train,
-        random_state=args.seed,
-    )
+    if args.resample:
+        n_samples = len(train_index)
+
+        logging.info(
+            f'Resampling `X_train` and `y_train` to {n_samples}'
+        )
+
+        X_train, y_train = resample(
+            X_train, y_train,
+            n_samples=n_samples,
+            replace=False,
+            stratify=y_train,
+            random_state=args.seed,
+        )
 
     # The shuffling is technically only required for the `train` data
     # set because we expect this to contain multiple years. We make a
@@ -240,30 +253,32 @@ if __name__ == '__main__':
     X_train, y_train = shuffle(X_train, y_train, random_state=args.seed)
     X_test, y_test = shuffle(X_test, y_test, random_state=args.seed)
 
-    # FIXME
-    raise 'heck'
-
     # Prepare the output dictionary containing all information to
     # reproduce the experiment.
     output = {
         'site': args.site,
         'train_years': train_years,
-        'test_years': test_years,
+        'test_years': [test_year],        # required for compatibility
         'species': args.species,
         'seed': args.seed,
         'model': args.model,
         'antibiotic': args.antibiotic,
+        'resample': args.resample,        # to be able to know what is going on
+        'n_samples_train': len(X_train),  # potentially useful
+        'n_samples_test': len(X_test),    # ditto
     }
 
     # Add fingerprint information about the metadata files to make sure
     # that the experiment is reproducible.
     output['metadata_versions'] = metadata_fingerprints
 
+    suffix = None if not args.resample else 'resample'
+
     output_filename = generate_output_filename(
         args.output,
         output,
+        suffix=suffix
     )
-
 
     # Only write if we either are running in `force` mode, or the
     # file does not yet exist.
