@@ -174,7 +174,6 @@ if __name__ == '__main__':
 
     # Determine the class ration on the test data set
     class_ratios = np.bincount(y_test) / len(y_test)
-
     logging.info(f'Desired minority class ratio: {class_ratios[1]:.2f}')
 
     # Check that we are in the right scenario; class 1 must be the
@@ -206,10 +205,15 @@ if __name__ == '__main__':
 
         # Remove the samples that we already used for testing; this
         # ensures that there is no leakage.
+        #
+        # This procedure is not required for any other year because
+        # each year is treated individually.
         if train_year == test_year:
             X = X[train_index]
             y = y[train_index]
 
+        # Again, check the correctness of this scenario; class 1 needs
+        # to be the minority class.
         n0, n1 = np.bincount(y)
         assert n0 > n1
 
@@ -246,6 +250,9 @@ if __name__ == '__main__':
             stratify=y_train,
             random_state=args.seed,
         )
+
+    class_ratio = np.bincount(y_train)[1] / len(y_train)
+    logging.info(f'Achieved overall minority class ratio of {class_ratio:.2f}')
 
     # The shuffling is technically only required for the `train` data
     # set because we expect this to contain multiple years. We make a
