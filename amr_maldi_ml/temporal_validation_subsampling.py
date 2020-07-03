@@ -229,13 +229,18 @@ if __name__ == '__main__':
                 random_state=args.seed,
             )
 
-            X, y = rs.fit_resample(X, y)
+            X, y = ros.fit_resample(X, y)
 
         # Just pick the desired number of points at random and subset
         # `X` and `y` accordingly.
         else:
+            # Be generous with the number of points that we have to
+            # resample. This makes a difference of a single sample,
+            # so we should be good.
             n_points_to_sample = int(desired_ratio * n0 + 0.5)
 
+            # The resampling only pertains to the positive, i.e. the
+            # minority, class.
             indices = np.nonzero(y == 1)[0]
 
             indices = resample(
@@ -245,6 +250,8 @@ if __name__ == '__main__':
                 random_state=args.seed
             )
 
+            # Add the remaining indices as well (of the majority class);
+            # we do not need to perform any resampling here.
             indices = np.concatenate(
                     (indices, np.nonzero(y == 0)[0])
             )
