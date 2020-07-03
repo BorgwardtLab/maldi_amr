@@ -1,0 +1,32 @@
+{
+    "train_site": "DRIAMS-A",
+    "train_years": [
+        "2015",
+        "2016",
+        "2017",
+        "2018"
+    ],
+    "test_site": "DRIAMS-F",
+    "test_years": [
+        "2019"
+    ],
+    "seed": 89,
+    "model": "lr",
+    "antibiotic": "Fusidic acid",
+    "species": "Staphylococcus aureus",
+    "metadata_versions_train": {
+        "2015_clean.csv": "d022b7aaae8f97f37ec499a0baa1d6428d83cf53",
+        "2016_clean.csv": "b64ae1e31e21b47b929bac6d65809c2e4ef4ad41",
+        "2017_clean.csv": "7d468e674a2201d6f03a6d9506069b605b5b50ac",
+        "2018_clean.csv": "c5b509ae855e73d5c744f9c89b8747e284e62dd7"
+    },
+    "metadata_versions_test": {
+        "2019_clean.csv": "c9c4830e6f30ecb54e329451c7ffce195bb0bfc5"
+    },
+    "train_accuracy": 0.9636218799787573,
+    "train_auprc": 0.9466519354559594,
+    "train_auroc": 0.9934393877511984,
+    "test_accuracy": 0.9473684210526315,
+    "test_auprc": 0.08171136215109889,
+    "test_auroc": 0.5521978021978022
+}
