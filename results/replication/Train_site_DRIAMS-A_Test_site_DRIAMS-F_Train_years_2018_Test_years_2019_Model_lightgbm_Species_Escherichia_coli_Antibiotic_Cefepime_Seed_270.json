@@ -1,0 +1,29 @@
+{
+    "train_site": "DRIAMS-A",
+    "train_years": [
+        "2018"
+    ],
+    "test_site": "DRIAMS-F",
+    "test_years": [
+        "2019"
+    ],
+    "seed": 270,
+    "model": "lightgbm",
+    "antibiotic": "Cefepime",
+    "species": "Escherichia coli",
+    "metadata_versions_train": {
+        "2015_clean.csv": "d022b7aaae8f97f37ec499a0baa1d6428d83cf53",
+        "2016_clean.csv": "b64ae1e31e21b47b929bac6d65809c2e4ef4ad41",
+        "2017_clean.csv": "7d468e674a2201d6f03a6d9506069b605b5b50ac",
+        "2018_clean.csv": "c5b509ae855e73d5c744f9c89b8747e284e62dd7"
+    },
+    "metadata_versions_test": {
+        "2019_clean.csv": "c9c4830e6f30ecb54e329451c7ffce195bb0bfc5"
+    },
+    "train_accuracy": 1.0,
+    "train_auprc": 1.0,
+    "train_auroc": 1.0,
+    "test_accuracy": 0.9342105263157895,
+    "test_auprc": 0.46677722498618024,
+    "test_auroc": 0.7952380952380953
+}
