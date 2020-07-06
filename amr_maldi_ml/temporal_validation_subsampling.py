@@ -269,16 +269,21 @@ if __name__ == '__main__':
         n_samples = len(train_index)
 
         logging.info(
-            f'Resampling `X_train` and `y_train` to {n_samples}'
+            f'Attempting to resample `X_train` and `y_train` to {n_samples}'
         )
 
-        X_train, y_train = resample(
-            X_train, y_train,
-            n_samples=n_samples,
-            replace=False,
-            stratify=y_train,
-            random_state=args.seed,
-        )
+        if n_samples > len(X_train):
+            logging.warning(f'Cannot perform subsampling because only '
+                            f'{len(X_train)} samples are available.'
+            )
+        else:
+            X_train, y_train = resample(
+                X_train, y_train,
+                n_samples=n_samples,
+                replace=False,
+                stratify=y_train,
+                random_state=args.seed,
+            )
 
     class_ratio = np.bincount(y_train)[1] / len(y_train)
     logging.info(f'Achieved overall minority class ratio of {class_ratio:.2f}')
