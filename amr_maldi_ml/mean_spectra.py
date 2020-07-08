@@ -143,14 +143,14 @@ if __name__ == '__main__':
         # two, but this script actually does not care.
         for l in np.unique(y_train):
             spectra = X_train[y_train == l]
-            mean_intensities[l] = np.mean(spectra, axis=0)
+            mean_intensities[str(l)] = np.mean(spectra, axis=0)
 
             # We do *not* yet convert the resulting array because it is
             # to keep `np.array` around for sums etc.
             if l in all_mean_intensities:
-                all_mean_intensities[l] += mean_intensities[l]
+                all_mean_intensities[str(l)] += mean_intensities[str(l)]
             else:
-                all_mean_intensities[l] = mean_intensities[l]
+                all_mean_intensities[str(l)] = mean_intensities[str(l)]
 
         if years not in all_years:
             all_years.append(years)
