@@ -1,7 +1,6 @@
 """Calculate mean spectra of a given scenario for both classes."""
 
 import argparse
-import collections
 import dotenv
 import json
 import logging
@@ -83,8 +82,8 @@ if __name__ == '__main__':
     all_metadata_versions = []
 
     # Will contain the mean of all intensities over all scenarios of
-    # this run.
-    all_mean_intensities = collections.defaultdict(list)
+    # this run.i
+    all_mean_intensities = {}
 
     for f in args.INPUT:
         pipeline, data = load_pipeline(f)
@@ -94,6 +93,7 @@ if __name__ == '__main__':
         antibiotic = data['antibiotic']
         site = data['site']
         years = data['years']
+        model = data['model']
         seed = data['seed']
         species = data['species']
 
@@ -146,7 +146,10 @@ if __name__ == '__main__':
 
             # We do *not* yet convert the resulting array because it is
             # to keep `np.array` around for sums etc.
-            all_mean_intensities[l] += mean_intensities[l]
+            if l in all_mean_intensities:
+                all_mean_intensities[l] += mean_intensities[l]
+            else:
+                all_mean_intensities[l] = mean_intensities[l]
 
         if years not in all_years:
             all_years.append(years)
@@ -159,13 +162,15 @@ if __name__ == '__main__':
 
         # Reduce the output and only report the relevant parts. We do
         # not need information about the model, for example, because
-        # no model was involved in the training.
+        # no model was involved in the training. It is purely needed
+        # for the output name generation, though.
         output = {
             'site': site,
             'years': years,
             'seed': seed,
             'antibiotic': antibiotic,
             'species': species,
+            'model': model,
             'metadata_versions': metadata_fingerprints,
             'mean_intensities': mean_intensities,
         }
@@ -185,7 +190,7 @@ if __name__ == '__main__':
         #        f'Skipping {output_filename} because it already exists.'
         #    )
 
-    if len(args.files) > 1:
+    if len(args.INPUT) > 1:
         mean_feature_importances = np.mean(
                      np.array(all_feature_importances),
                      axis=0).tolist()
