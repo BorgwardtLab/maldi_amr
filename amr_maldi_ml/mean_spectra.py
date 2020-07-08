@@ -1,6 +1,7 @@
 """Calculate mean spectra of a given scenario for both classes."""
 
 import argparse
+import collections
 import dotenv
 import json
 import logging
@@ -71,6 +72,20 @@ if __name__ == '__main__':
     # individual combinations.
     os.makedirs(args.output, exist_ok=True)
 
+    # Keeps track of the parameters used for all scenarios. This ensures
+    # that the user does not call this script for incomparable scenarios
+    # that would lead to inconsistent results.
+    all_antibiotics = []
+    all_sites = []
+    all_years = []
+    all_seeds = []
+    all_species = []
+    all_metadata_versions = []
+
+    # Will contain the mean of all intensities over all scenarios of
+    # this run.
+    all_mean_intensities = collections.defaultdict(list)
+
     for f in args.INPUT:
         pipeline, data = load_pipeline(f)
 
@@ -127,7 +142,20 @@ if __name__ == '__main__':
         # two, but this script actually does not care.
         for l in np.unique(y_train):
             spectra = X_train[y_train == l]
-            mean_intensities[l] = np.mean(spectra, axis=0).ravel()
+            mean_intensities[l] = np.mean(spectra, axis=0)
+
+            # We do *not* yet convert the resulting array because it is
+            # to keep `np.array` around for sums etc.
+            all_mean_intensities[l] += mean_intensities[l]
+
+        if years not in all_years:
+            all_years.append(years)
+
+        all_antibiotics.append(antibiotic)
+        all_sites.append(site)
+        all_seeds.append(seed)
+        all_species.append(species)
+        all_metadata_versions.append(metadata_fingerprints)
 
         # Reduce the output and only report the relevant parts. We do
         # not need information about the model, for example, because
@@ -147,15 +175,15 @@ if __name__ == '__main__':
             output
         )
 
-        if not os.path.exists(output_filename) or args.force:
-            logging.info(f'Saving {os.path.basename(output_filename)}')
+        #if not os.path.exists(output_filename) or args.force:
+        #    logging.info(f'Saving {os.path.basename(output_filename)}')
 
-            with open(output_filename, 'w') as f:
-                json.dump(output, f, indent=4)
-        else:
-            logging.warning(
-                f'Skipping {output_filename} because it already exists.'
-            )
+        #    with open(output_filename, 'w') as f:
+        #        json.dump(output, f, indent=4)
+        #else:
+        #    logging.warning(
+        #        f'Skipping {output_filename} because it already exists.'
+        #    )
 
     if len(args.files) > 1:
         mean_feature_importances = np.mean(
