@@ -114,7 +114,6 @@ if __name__ == '__main__':
                 encoder=DRIAMSLabelEncoder(),
                 handle_missing_resistance_measurements='remove_if_all_missing',
                 spectra_type='binned_6000',
-                nrows=1000,
         )
 
         logging.info(f'Loaded data set for {species} and {antibiotic}')
@@ -151,6 +150,10 @@ if __name__ == '__main__':
                 all_mean_intensities[str(l)] += mean_intensities[str(l)]
             else:
                 all_mean_intensities[str(l)] = mean_intensities[str(l)]
+
+            # Convert to list in order to ensure proper serialisation
+            # later on. This is not the most elegant thing.
+            mean_intensities[str(l)] = mean_intensities[str(l)].tolist() 
 
         if years not in all_years:
             all_years.append(years)
