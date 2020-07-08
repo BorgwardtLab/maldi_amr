@@ -71,17 +71,7 @@ if __name__ == '__main__':
     # individual combinations.
     os.makedirs(args.output, exist_ok=True)
 
-    # Create empty lists for average feature importances
-    all_antibiotics =[]
-    all_sites = []
-    all_years = []
-    all_seeds = []
-    all_species = []
-    all_models = [] 
-    all_feature_importances = []
-    all_metadata_versions = []
-
-    for f in files:
+    for f in args.files:
         pipeline, data = load_pipeline(f)
 
         antibiotic = data['antibiotic']
@@ -127,25 +117,15 @@ if __name__ == '__main__':
 
         logging.info('Finished stratification')
 
-        # Create labels
         y = driams_dataset.to_numpy(antibiotic)
-
         X_train, y_train = X[train_index], y[train_index]
 
-        pipeline.fit(X_train, y_train)
-        clf = pipeline[model]
+        # Pretend that we do not know the labels 
+        for l in np.unique(y_train):
+            spectra = X_train[y_train == l]
+            print(np.mean(spectra, axis=1))
 
-        # Append to lists for average feature importance output
-        all_antibiotics.append(antibiotic)
-        all_sites.append(site)
-        if years not in all_years:
-            all_years.append(years)
-        all_seeds.append(seed)
-        all_species.append(species)
-        all_models.append(model) 
-        all_feature_importances.append(clf.coef_.tolist())
-        all_metadata_versions.append(metadata_fingerprints)
-        print(f'\nLength feat importances {len(clf.coef_.tolist())}')
+        raise 'heck'
 
         output = {
             'site': site,
@@ -174,14 +154,14 @@ if __name__ == '__main__':
                 f'Skipping {output_filename} because it already exists.'
             )
 
-    if len(files) > 1:
+    if len(args.files) > 1:
         mean_feature_importances = np.mean(
                      np.array(all_feature_importances),
                      axis=0).tolist()
         std_feature_importances = np.std(
                      np.array(all_feature_importances),
                      axis=0).tolist()
-        #metadata_fingerprints = list(set(all_metadata_versions))
+
         sites = list(set(all_sites))
         antibiotics = list(set(all_antibiotics))
         species = list(set(all_species))
