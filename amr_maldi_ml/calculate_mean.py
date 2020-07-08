@@ -50,6 +50,6 @@ if __name__ == '__main__':
         name = os.path.basename(filename)
         name = os.path.splitext(name)[0]
 
-        output[name] = spectrum[:, 1].tolist()
+        output[name] = spectrum.tolist()
 
     print(json.dumps(output, indent=4))
