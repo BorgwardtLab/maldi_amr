@@ -6,6 +6,7 @@ import json
 import logging
 import pathlib
 import os
+import sys
 
 import numpy as np
 
@@ -29,14 +30,46 @@ DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
 site = 'DRIAMS-A'
 years = ['2015', '2016', '2017', '2018']
 
-def feature_importances(args):
+
+if __name__ == '__main__':
+
+    # Basic log configuration to ensure that we see where the process
+    # spends most of its time.
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s %(message)s'
+    )
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        'INPUT',
+        type=str,
+        help='Input file',
+        nargs='+',
+    )
+
+    name = 'mean_intensities'
+
+    parser.add_argument(
+        '-o', '--output',
+        default=pathlib.Path(__file__).resolve().parent.parent / 'results'
+                                                               / name,
+        type=str,
+        help='Output path for storing the results.'
+    )
+
+    parser.add_argument(
+        '-f', '--force',
+        action='store_true',
+        help='If set, overwrites all files. Else, skips existing files.'
+    )
+
+    args = parser.parse_args()
+
     # Create the output directory for storing all results of the
     # individual combinations.
     os.makedirs(args.output, exist_ok=True)
-
-    # Check if INPUT is a list of files or a single file
-    print(list(args.INPUT))
-    files = list(args.INPUT)
 
     # Create empty lists for average feature importances
     all_antibiotics =[]
@@ -163,9 +196,11 @@ def feature_importances(args):
                                      antibiotics,
                                      species,
                                      models]]):
-            print('Cannot include more than one scenario in average \
-                   feature importance vectors.')
-            return
+            logging.warning(
+                'Cannot include more than one scenario in average '
+                'intensity calculation.')
+
+            sys.exit(0)
 
         output = {
             'site': sites[0],
@@ -174,22 +209,16 @@ def feature_importances(args):
             'antibiotic': antibiotics[0],
             'species': species[0],
             'model': models[0],
-            #'best_params': best_params,
-            #'metadata_versions': metadata_fingerprints,
-            'mean_feature_importance': mean_feature_importances,
-            'std_feature_importance': std_feature_importances,
+            'mean_intensities': mean_intensities,
         }
-        for k in output.keys():
-            if k != 'feature_importance':
-                print(type(output[k]), output[k])
 
         output_print = output.copy()
-        output_print['seed'] = '-'.join([str(seed) for seed in all_seeds])     
- 
+        output_print['seed'] = '-'.join([str(seed) for seed in all_seeds])
+
         output_filename = generate_output_filename(
             args.output,
             output_print,
-            suffix='average',
+            suffix='mean_intensities',
         )
 
         if not os.path.exists(output_filename) or args.force:
@@ -201,43 +230,3 @@ def feature_importances(args):
             logging.warning(
                 f'Skipping {output_filename} because it already exists.'
             )
-
-
-if __name__ == '__main__':
-
-    # Basic log configuration to ensure that we see where the process
-    # spends most of its time.
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s %(message)s'
-    )
-
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument(
-        'INPUT',
-        type=str,
-        help='Input file',
-        nargs='+',
-    )
-
-    name = 'feature_importance_values'
-
-    parser.add_argument(
-        '-o', '--output',
-        default=pathlib.Path(__file__).resolve().parent.parent / 'results'
-                                                               / name,
-        type=str,
-        help='Output path for storing the results.'
-    )
-
-    parser.add_argument(
-        '-f', '--force',
-        action='store_true',
-        help='If set, overwrites all files. Else, skips existing files.'
-    )
-
-    args = parser.parse_args()
-
-    feature_importances(args)
-
