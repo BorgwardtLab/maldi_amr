@@ -20,21 +20,19 @@ run() {
   if [ -z "$BSUB" ]; then
     eval "$1";
   else
+    echo "foo $1";
     eval "${BSUB} $1";
   fi
 }
 
 # S. aureus jobs
-for FILE in $(find ../../results/fig4_curves_per_species_and_antibiotics/lr/ -name "*aureus*Oxacillin*"); do
-  run "${MAIN} ${FILE}"
-done
+FILES=$(find ../../results/fig4_curves_per_species_and_antibiotics/lr/ -name "*aureus*Oxacillin*") | tr "\n" " "
+run "${MAIN} ${FILES}"
 
 # K. pneumoniae jobs
-for FILE in $(find ../../results/fig4_curves_per_species_and_antibiotics/lr/ -name "*pneu*Meropenem*"); do
-  run "${MAIN} ${FILE}"
-done
+FILES=$(find ../../results/fig4_curves_per_species_and_antibiotics/lr/ -name "*pneu*Meropenem*") | tr "\n" " " 
+run "${MAIN} ${FILES}"
 
 # E. coli jobs
-for FILE in $(find ../../results/fig4_curves_per_species_and_antibiotics/lr/ -name "*coli*Ceftriaxone*"); do
-  run "${MAIN} ${FILE}"
-done
+FILES=$(find ../../results/fig4_curves_per_species_and_antibiotics/lr/ -name "*coli*Ceftriaxone*") | tr "\n" " "
+run "${MAIN} ${FILES}"
