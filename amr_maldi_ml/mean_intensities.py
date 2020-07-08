@@ -1,4 +1,4 @@
-"""Calculate mean spectra of a given scenario for both classes."""
+"""Calculate mean intensity values of a given scenario for both classes."""
 
 import argparse
 import dotenv
