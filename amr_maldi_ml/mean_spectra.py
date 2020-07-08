@@ -78,11 +78,12 @@ if __name__ == '__main__':
     all_sites = []
     all_years = []
     all_seeds = []
+    all_models = []
     all_species = []
     all_metadata_versions = []
 
     # Will contain the mean of all intensities over all scenarios of
-    # this run.i
+    # this run.
     all_mean_intensities = {}
 
     for f in args.INPUT:
@@ -158,6 +159,7 @@ if __name__ == '__main__':
         all_sites.append(site)
         all_seeds.append(seed)
         all_species.append(species)
+        all_models.append(model)
         all_metadata_versions.append(metadata_fingerprints)
 
         # Reduce the output and only report the relevant parts. We do
@@ -180,33 +182,31 @@ if __name__ == '__main__':
             output
         )
 
-        #if not os.path.exists(output_filename) or args.force:
-        #    logging.info(f'Saving {os.path.basename(output_filename)}')
+        if not os.path.exists(output_filename) or args.force:
+            logging.info(f'Saving {os.path.basename(output_filename)}')
 
-        #    with open(output_filename, 'w') as f:
-        #        json.dump(output, f, indent=4)
-        #else:
-        #    logging.warning(
-        #        f'Skipping {output_filename} because it already exists.'
-        #    )
+            with open(output_filename, 'w') as f:
+                json.dump(output, f, indent=4)
+        else:
+            logging.warning(
+                f'Skipping {output_filename} because it already exists.'
+            )
 
     if len(args.INPUT) > 1:
-        mean_feature_importances = np.mean(
-                     np.array(all_feature_importances),
-                     axis=0).tolist()
-        std_feature_importances = np.std(
-                     np.array(all_feature_importances),
-                     axis=0).tolist()
+
+        mean_intensities = {}
+
+        for l in all_mean_intensities:
+            mean_intensities[l] = all_mean_intensities[l] / len(args.INPUT)
+            mean_intensities[l] = mean_intensities[l].ravel().tolist()
 
         sites = list(set(all_sites))
         antibiotics = list(set(all_antibiotics))
         species = list(set(all_species))
         models = list(set(all_models))
 
-        print(f'\nLength mean feat importances {len(mean_feature_importances)}')
-
-        # Stop if files from more than one antibiotics-species-model scenario 
-        # were given as input
+        # Stop if files from more than one antibiotics-species-model scenario
+        # were given as input.
         if any([len(l) > 1 for l in [all_years,
                                      sites,
                                      antibiotics,
