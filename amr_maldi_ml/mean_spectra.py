@@ -71,16 +71,16 @@ if __name__ == '__main__':
     # individual combinations.
     os.makedirs(args.output, exist_ok=True)
 
-    for f in args.files:
+    for f in args.INPUT:
         pipeline, data = load_pipeline(f)
 
+        # Extract the required parameters to build the exact scenario
+        # used in the input file.
         antibiotic = data['antibiotic']
         site = data['site']
         years = data['years']
         seed = data['seed']
         species = data['species']
-        best_params = data['best_params']
-        model = data['model']
 
         logging.info(f'Site: {site}')
         logging.info(f'Years: {years}')
@@ -98,6 +98,7 @@ if __name__ == '__main__':
                 encoder=DRIAMSLabelEncoder(),
                 handle_missing_resistance_measurements='remove_if_all_missing',
                 spectra_type='binned_6000',
+                nrows=1000,
         )
 
         logging.info(f'Loaded data set for {species} and {antibiotic}')
@@ -120,23 +121,25 @@ if __name__ == '__main__':
         y = driams_dataset.to_numpy(antibiotic)
         X_train, y_train = X[train_index], y[train_index]
 
-        # Pretend that we do not know the labels 
+        mean_intensities = {}
+
+        # Pretend that we do not know the labels; there should be only
+        # two, but this script actually does not care.
         for l in np.unique(y_train):
             spectra = X_train[y_train == l]
-            print(np.mean(spectra, axis=1))
+            mean_intensities[l] = np.mean(spectra, axis=0).ravel()
 
-        raise 'heck'
-
+        # Reduce the output and only report the relevant parts. We do
+        # not need information about the model, for example, because
+        # no model was involved in the training.
         output = {
             'site': site,
             'years': years,
             'seed': seed,
             'antibiotic': antibiotic,
             'species': species,
-            'model': model,
-            'best_params': best_params,
             'metadata_versions': metadata_fingerprints,
-            'feature_importance': clf.coef_.tolist(),
+            'mean_intensities': mean_intensities,
         }
 
         output_filename = generate_output_filename(
