@@ -31,7 +31,7 @@ SITE="DRIAMS-A"
 
 submit_all_jobs() {
   for SEED in 344 172 188 270 35 164 545 480 89 409; do
-    for TRAIN in "2016" "2017" "2018" "2016 2017" "2016 2017 2018"; do
+    for TRAIN in "2016" "2017" "2018" "2016 2017" "2017 2018" "2016 2017 2018"; do
       # Models are ordered by their 'utility' for the project. We are
       # most interested in logistic regression.
       for MODEL in "lr" "lightgbm"; do
