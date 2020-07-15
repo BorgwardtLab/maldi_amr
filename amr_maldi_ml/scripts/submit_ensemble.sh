@@ -26,7 +26,7 @@ run() {
 for SEED in 344 172 188 270 35 164 545 480 89 409; do
   for INDEX in $(seq 0 19); do
     for ANTIBIOTIC in 'Amoxicillin-Clavulanic acid' 'Ciprofloxacin'; do
-      for SPECIES in 'Escherichia coli' 'Staphylococcus aureus'; do
+      for SPECIES in 'Escherichia coli' 'Klebsiella pneumoniae' 'Pseudomonas aeruginosa' 'Staphylococcus aureus'; do
         CMD="${MAIN} --index $INDEX --species \"$SPECIES\" --antibiotic \"$ANTIBIOTIC\" --seed $SEED"
         run "$CMD";
       done
@@ -37,8 +37,18 @@ for SEED in 344 172 188 270 35 164 545 480 89 409; do
       run "$CMD";
     done
 
+    for SPECIES in 'Escherichia coli' 'Klebsiella pneumoniae' 'Pseudomonas aeruginosa'; do
+      CMD="${MAIN} --index $INDEX --species \"$SPECIES\" --antibiotic \"Tobramycin\" --seed $SEED"
+      run "$CMD";
+    done
+
+    for SPECIES in 'Escherichia coli' 'Klebsiella pneumoniae' 'Pseudomonas aeruginosa' 'Staphylococcus aureus'; do
+      CMD="${MAIN} --index $INDEX --species \"$SPECIES\" --antibiotic \"Meropenem\" --seed $SEED"
+      run "$CMD";
+    done
+
     for ANTIBIOTIC in 'Ceftriaxone' 'Cefepime' 'Imipenem' 'Piperacillin-Tazobactam'; do
-      for SPECIES in 'Escherichia coli' 'Staphylococcus aureus' 'Staphylococcus epidermidis' 'Klebsiella pneumoniae'; do
+      for SPECIES in 'Escherichia coli' 'Staphylococcus aureus' 'Pseudomonas aeruginosa' 'Staphylococcus epidermidis' 'Klebsiella pneumoniae'; do
         CMD="${MAIN} --index $INDEX --species \"$SPECIES\" --antibiotic \"$ANTIBIOTIC\" --seed $SEED"
         run "$CMD";
       done
