@@ -1,0 +1,26 @@
+{
+    "site": "DRIAMS-A",
+    "model": "lr",
+    "species": "Staphylococcus epidermidis",
+    "seed": 188,
+    "antibiotic": "Cefepime",
+    "years": [
+        "2015",
+        "2016",
+        "2017",
+        "2018"
+    ],
+    "n_samples": 909,
+    "metadata_versions": {
+        "2015_clean.csv": "d022b7aaae8f97f37ec499a0baa1d6428d83cf53",
+        "2016_clean.csv": "b64ae1e31e21b47b929bac6d65809c2e4ef4ad41",
+        "2017_clean.csv": "7d468e674a2201d6f03a6d9506069b605b5b50ac",
+        "2018_clean.csv": "c5b509ae855e73d5c744f9c89b8747e284e62dd7"
+    },
+    "train_accuracy": 0.9636963696369637,
+    "train_auprc": 0.4900030211842834,
+    "train_auroc": 0.0021014273406757154,
+    "accuracy": 0.7734741784037559,
+    "auprc": 0.5420590429710761,
+    "auroc": 0.19519923633254005
+}

@@ -1,0 +1,26 @@
+{
+    "site": "DRIAMS-A",
+    "model": "lr",
+    "species": "Klebsiella pneumoniae",
+    "seed": 344,
+    "antibiotic": "Tobramycin",
+    "years": [
+        "2015",
+        "2016",
+        "2017",
+        "2018"
+    ],
+    "n_samples": 6905,
+    "metadata_versions": {
+        "2015_clean.csv": "d022b7aaae8f97f37ec499a0baa1d6428d83cf53",
+        "2016_clean.csv": "b64ae1e31e21b47b929bac6d65809c2e4ef4ad41",
+        "2017_clean.csv": "7d468e674a2201d6f03a6d9506069b605b5b50ac",
+        "2018_clean.csv": "c5b509ae855e73d5c744f9c89b8747e284e62dd7"
+    },
+    "train_accuracy": 0.932367849384504,
+    "train_auprc": 0.810211706024018,
+    "train_auroc": 0.9585537471467447,
+    "accuracy": 0.8842105263157894,
+    "auprc": 0.24332929385418683,
+    "auroc": 0.6582880434782609
+}

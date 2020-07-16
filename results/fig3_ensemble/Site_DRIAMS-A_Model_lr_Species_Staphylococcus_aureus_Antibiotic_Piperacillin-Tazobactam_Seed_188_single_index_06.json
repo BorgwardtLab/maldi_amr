@@ -1,0 +1,26 @@
+{
+    "site": "DRIAMS-A",
+    "model": "lr",
+    "species": "Staphylococcus aureus",
+    "seed": 188,
+    "antibiotic": "Piperacillin-Tazobactam",
+    "years": [
+        "2015",
+        "2016",
+        "2017",
+        "2018"
+    ],
+    "n_samples": 937,
+    "metadata_versions": {
+        "2015_clean.csv": "d022b7aaae8f97f37ec499a0baa1d6428d83cf53",
+        "2016_clean.csv": "b64ae1e31e21b47b929bac6d65809c2e4ef4ad41",
+        "2017_clean.csv": "7d468e674a2201d6f03a6d9506069b605b5b50ac",
+        "2018_clean.csv": "c5b509ae855e73d5c744f9c89b8747e284e62dd7"
+    },
+    "train_accuracy": 0.9637139807897546,
+    "train_auprc": 0.981687708482008,
+    "train_auroc": 0.9946007450247133,
+    "accuracy": 0.8765432098765432,
+    "auprc": 0.7419814318753741,
+    "auroc": 0.8853433256163632
+}
