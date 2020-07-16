@@ -56,8 +56,8 @@ def plot_temporal_validation(df, metric='auprc'):
 
     models = ['lr', 'lightgbm']
 
-    single_years = ['2015', '2016', '2017']
-    cumulative_years = ['2015 2016 2017', '2016 2017', '2017'] 
+    single_years = ['2016', '2017', '2018']
+    cumulative_years = ['2016 2017 2018', '2017 2018', '2018'] 
 
     metric_map = {
             'auprc': 'AUPRC',
@@ -82,7 +82,7 @@ def plot_temporal_validation(df, metric='auprc'):
                 f'{species}', f'{antibiotic}', model, slice(None),'2018'
                           ), 
                          (
-                f'{metric}', 'mean'
+                f'{metric}', slice(None)
                           ),
                          ].reset_index()
 
@@ -92,18 +92,35 @@ def plot_temporal_validation(df, metric='auprc'):
                            ]
             
             y_vals = []
+            y_stds = []
             for year in single_years:
                 y_vals.append(df__.loc[
                     df__['train_years']==year
                                        ][(f'{metric}','mean')].values[0])
+                y_stds.append(df__.loc[
+                    df__['train_years']==year
+                                       ][(f'{metric}','std')].values[0])
+
+            lower = [y_vals[i] - y_stds[i] for i,_ in enumerate(y_vals)]
+            upper = [y_vals[i] + y_stds[i] for i,_ in enumerate(y_vals)]
+            x = range(len(y_vals))
+
             ax[i].plot(
-                #[0,1,2],
+                x,
                 y_vals, 
                 color=model_map[model],
                 linestyle='--',
                 marker='v',
                 label=f'{model} (single years)'
                            )
+            #ax[i].fill_between(
+            #    x,
+            #    lower,
+            #    upper,
+            #    color=model_map[model],
+            #    alpha=0.25,
+            #    linestyle='--',
+            #                    )   
             
             # plot cumulative years curve
             df__ = df_.loc[
@@ -111,30 +128,47 @@ def plot_temporal_validation(df, metric='auprc'):
                            ]
 
             y_vals = []
+            y_stds = []
             for year in cumulative_years:
                 y_vals.append(df__.loc[
                     df__['train_years']==year
                                        ][(f'{metric}','mean')].values[0])
+                y_stds.append(df__.loc[
+                    df__['train_years']==year
+                                       ][(f'{metric}','std')].values[0])
+
+            lower = [y_vals[i] - y_stds[i] for i,_ in enumerate(y_vals)]
+            upper = [y_vals[i] + y_stds[i] for i,_ in enumerate(y_vals)]
+            x = range(len(y_vals))
+
             ax[i].plot(
-                #[0,1,2],
+                x,
                 y_vals, 
                 color=model_map[model],
                 marker='o',
                 label=f'{model} (cumulative years)',
                            )
+            #ax[i].fill_between(
+            #    x,
+            #    lower,
+            #    upper,
+            #    color=model_map[model],
+            #    alpha=0.25,
+            #    linestyle='--',
+            #                    )   
 
             ax[i].set_title(f'{species_map[species]} ({antibiotic})')
-            if metric=='auprc': ax[i].set_ylim((0.1, 0.9))
-            if metric=='auroc': ax[i].set_ylim((0.1, 0.9))
+            if metric=='auprc': ax[i].set_ylim((0.35, 0.8))
+            if metric=='auroc': ax[i].set_ylim((0.65, 0.90))
             ax[i].set_xlim((-0.2, 2.2))
             ax[i].set_ylabel(metric_map[metric])
             if i==0:
                 ax[i].legend(loc='lower right')
             
             ax[i].set_xticklabels([
-                '', '2015 /\n2015 + 2016 + 2017', 
-                '', '2016 /\n2016 + 2017', 
-                '', '2017 /\n2017  '])
+                '', '2016 /\n2016 + 2017 + 2018', 
+                '', '2017 /\n2017 + 2018', 
+                '', '2018 /\n2018  '])
 
     plt.tight_layout()
     plt.savefig(f'plots/temporal_validation/temporal_validation_{metric}.png')
@@ -154,17 +188,9 @@ if __name__ == '__main__':
         help='If set, ignores files that contain the specified string.'
     )
 
-    parser.add_argument(
-        '-o', '--output',
-        type=str,
-        default='plots/tables/Table3_replication.csv',
-        help='If set, output table to filename.'
-    )
-
     args = parser.parse_args()
     
-    metrics = [ 'auroc', 'auprc', 'accuracy']
-
+    metrics = ['auroc', 'auprc', 'accuracy']
 
     models = ['lr', 'lightgbm']
 
