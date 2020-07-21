@@ -1,0 +1,27 @@
+,,,,,accuracy,AUROC,AUPRC
+,,,,,,,
+species,antibiotic,model,train_site,test_site,,,
+E.coli,cefepime,lightgbm,DRIAMS-A,DRIAMS-E,0.91 ± 0.03,0.52 ± 0.07,0.13 ± 0.06
+E.coli,cefepime,lightgbm,DRIAMS-A,DRIAMS-F,0.92 ± 0.02,0.86 ± 0.07,0.52 ± 0.1
+E.coli,cefepime,lr,DRIAMS-A,DRIAMS-E,0.93 ± 0.0,0.38 ± 0.05,0.09 ± 0.01
+E.coli,cefepime,lr,DRIAMS-A,DRIAMS-F,0.93 ± 0.01,0.86 ± 0.05,0.54 ± 0.02
+E.coli,ceftriaxone,lightgbm,DRIAMS-A,DRIAMS-E,0.91 ± 0.02,0.5 ± 0.05,0.2 ± 0.07
+E.coli,ceftriaxone,lightgbm,DRIAMS-A,DRIAMS-F,0.93 ± 0.03,0.85 ± 0.07,0.59 ± 0.18
+E.coli,ceftriaxone,lr,DRIAMS-A,DRIAMS-E,0.9 ± 0.02,0.47 ± 0.04,0.14 ± 0.02
+E.coli,ceftriaxone,lr,DRIAMS-A,DRIAMS-F,0.86 ± 0.08,0.84 ± 0.02,0.69 ± 0.01
+E.coli,ciprofloxacin,lightgbm,DRIAMS-A,DRIAMS-E,0.82 ± 0.03,0.73 ± 0.09,0.38 ± 0.13
+E.coli,ciprofloxacin,lightgbm,DRIAMS-A,DRIAMS-F,0.83 ± 0.02,0.77 ± 0.07,0.53 ± 0.03
+E.coli,ciprofloxacin,lr,DRIAMS-A,DRIAMS-E,0.75 ± 0.08,0.69 ± 0.07,0.31 ± 0.09
+E.coli,ciprofloxacin,lr,DRIAMS-A,DRIAMS-F,0.83 ± 0.01,0.71 ± 0.03,0.42 ± 0.03
+S. aureus,ciprofloxacin,lightgbm,DRIAMS-A,DRIAMS-E,0.89 ± 0.03,0.55 ± 0.08,0.16 ± 0.05
+S. aureus,ciprofloxacin,lightgbm,DRIAMS-A,DRIAMS-F,0.92 ± 0.01,0.64 ± 0.02,0.38 ± 0.09
+S. aureus,ciprofloxacin,lr,DRIAMS-A,DRIAMS-E,0.89 ± 0.01,0.47 ± 0.02,0.16 ± 0.05
+S. aureus,ciprofloxacin,lr,DRIAMS-A,DRIAMS-F,0.91 ± 0.01,0.69 ± 0.04,0.4 ± 0.07
+S. aureus,fusidic acid,lightgbm,DRIAMS-A,DRIAMS-E,0.96 ± 0.0,0.46 ± 0.1,0.06 ± 0.02
+S. aureus,fusidic acid,lightgbm,DRIAMS-A,DRIAMS-F,0.96 ± 0.0,0.56 ± 0.1,0.1 ± 0.05
+S. aureus,fusidic acid,lr,DRIAMS-A,DRIAMS-E,0.96 ± 0.0,0.42 ± 0.11,0.06 ± 0.03
+S. aureus,fusidic acid,lr,DRIAMS-A,DRIAMS-F,0.95 ± 0.01,0.58 ± 0.03,0.13 ± 0.05
+S. aureus,oxacillin,lightgbm,DRIAMS-A,DRIAMS-E,0.93 ± 0.01,0.67 ± 0.06,0.25 ± 0.07
+S. aureus,oxacillin,lightgbm,DRIAMS-A,DRIAMS-F,0.93 ± 0.01,0.91 ± 0.03,0.64 ± 0.05
+S. aureus,oxacillin,lr,DRIAMS-A,DRIAMS-E,0.84 ± 0.05,0.68 ± 0.02,0.17 ± 0.01
+S. aureus,oxacillin,lr,DRIAMS-A,DRIAMS-F,0.76 ± 0.03,0.8 ± 0.02,0.54 ± 0.01
