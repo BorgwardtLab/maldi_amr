@@ -95,6 +95,7 @@ def plot_curves(df, outdir, metric='auroc'):
         'Escherichia coli',
         'Klebsiella pneumoniae',
         'Staphylococcus aureus',
+        'Pseudomonas aeruginosa',
     ]
 
     species_to_colour = {
@@ -170,7 +171,7 @@ if __name__ == '__main__':
 
         antibiotic = data['antibiotic']
 
-        _add_or_compare(data['metadata_versions'])
+        #_add_or_compare(data['metadata_versions'])
 
         row = {
             key: data[key] for key in data.keys() if key not in skip_keys
