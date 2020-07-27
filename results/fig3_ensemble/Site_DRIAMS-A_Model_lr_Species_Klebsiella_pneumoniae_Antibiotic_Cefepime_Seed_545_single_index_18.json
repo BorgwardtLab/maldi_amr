@@ -1,0 +1,26 @@
+{
+    "site": "DRIAMS-A",
+    "model": "lr",
+    "species": "Klebsiella pneumoniae",
+    "seed": 545,
+    "antibiotic": "Cefepime",
+    "years": [
+        "2015",
+        "2016",
+        "2017",
+        "2018"
+    ],
+    "n_samples": 2153,
+    "metadata_versions": {
+        "2015_clean.csv": "d022b7aaae8f97f37ec499a0baa1d6428d83cf53",
+        "2016_clean.csv": "b64ae1e31e21b47b929bac6d65809c2e4ef4ad41",
+        "2017_clean.csv": "7d468e674a2201d6f03a6d9506069b605b5b50ac",
+        "2018_clean.csv": "c5b509ae855e73d5c744f9c89b8747e284e62dd7"
+    },
+    "train_accuracy": 0.9684161634928008,
+    "train_auprc": 0.9698442582931334,
+    "train_auroc": 0.9939858650401782,
+    "accuracy": 0.9242957746478874,
+    "auprc": 0.7005503113194641,
+    "auroc": 0.8573868727598566
+}
