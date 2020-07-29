@@ -110,4 +110,4 @@ Egli](https://biomedizin.unibas.ch/en/persons/adrian-egli):
 
 - [Caroline Weis](https://weis.ml) ([GitHub](https://github.com/cvweis))
 - [Bastian Rieck](https://bastian.rieck.me) ([GitHub](https://github.com/Pseudomanifold))
-- [Aline Cuénod](https://biomedizin.unibas.ch/en/persons/aline-cuenod)
+- [Aline Cuénod](https://biomedizin.unibas.ch/en/persons/aline-cuenod) ([GitHub](https://github.com/acuenod111))
