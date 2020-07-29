@@ -1,8 +1,9 @@
-# MaldiML
+# Direct Antimicrobial Resistance Prediction from MALDI-TOF mass spectra profile in clinical isolates through Machine Learning
 
 [![N|Solid](https://ethz.ch/services/en/service/communication/corporate-design/logo/_jcr_content/par/twocolumn_1/par_left/fullwidthimage/image.imageformat.lightbox.1923118499.jpg)](https://bsse.ethz.ch/mlcb)
 
-This code accompanies the paper "Antimicrobial resistance prediction in clinical isolates through Machine Learning on MALDI-TOF mass spectra" - C.Weis et al
+This code accompanies the paper &ldquo;Direct Antimicrobial Resistance Prediction from MALDI-TOF mass spectra profile in clinical isolates through Machine Learning&rdquo;
+by Caroline Weis et al.
 
 
 #### Preprocessing 
