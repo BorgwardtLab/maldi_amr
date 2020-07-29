@@ -1,0 +1,26 @@
+{
+    "site": "DRIAMS-A",
+    "model": "lr",
+    "species": "Staphylococcus epidermidis",
+    "seed": 545,
+    "antibiotic": "Imipenem",
+    "years": [
+        "2015",
+        "2016",
+        "2017",
+        "2018"
+    ],
+    "n_samples": 13588,
+    "metadata_versions": {
+        "2015_clean.csv": "d022b7aaae8f97f37ec499a0baa1d6428d83cf53",
+        "2016_clean.csv": "b64ae1e31e21b47b929bac6d65809c2e4ef4ad41",
+        "2017_clean.csv": "7d468e674a2201d6f03a6d9506069b605b5b50ac",
+        "2018_clean.csv": "c5b509ae855e73d5c744f9c89b8747e284e62dd7"
+    },
+    "train_accuracy": 0.9088901972328525,
+    "train_auprc": 0.8879076573143339,
+    "train_auroc": 0.9591524314912709,
+    "accuracy": 0.7476525821596244,
+    "auprc": 0.5501287206946466,
+    "auroc": 0.2202106714572658
+}

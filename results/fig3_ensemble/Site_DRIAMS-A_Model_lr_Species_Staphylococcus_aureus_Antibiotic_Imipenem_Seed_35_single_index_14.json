@@ -1,0 +1,26 @@
+{
+    "site": "DRIAMS-A",
+    "model": "lr",
+    "species": "Staphylococcus aureus",
+    "seed": 35,
+    "antibiotic": "Imipenem",
+    "years": [
+        "2015",
+        "2016",
+        "2017",
+        "2018"
+    ],
+    "n_samples": 2152,
+    "metadata_versions": {
+        "2015_clean.csv": "d022b7aaae8f97f37ec499a0baa1d6428d83cf53",
+        "2016_clean.csv": "b64ae1e31e21b47b929bac6d65809c2e4ef4ad41",
+        "2017_clean.csv": "7d468e674a2201d6f03a6d9506069b605b5b50ac",
+        "2018_clean.csv": "c5b509ae855e73d5c744f9c89b8747e284e62dd7"
+    },
+    "train_accuracy": 0.970724907063197,
+    "train_auprc": 0.9856517825544425,
+    "train_auroc": 0.9943217916682103,
+    "accuracy": 0.8736263736263736,
+    "auprc": 0.7294400172166965,
+    "auroc": 0.8583377397490747
+}

@@ -1,0 +1,26 @@
+{
+    "site": "DRIAMS-A",
+    "model": "lr",
+    "species": "Pseudomonas aeruginosa",
+    "seed": 89,
+    "antibiotic": "Imipenem",
+    "years": [
+        "2015",
+        "2016",
+        "2017",
+        "2018"
+    ],
+    "n_samples": 19755,
+    "metadata_versions": {
+        "2015_clean.csv": "d022b7aaae8f97f37ec499a0baa1d6428d83cf53",
+        "2016_clean.csv": "b64ae1e31e21b47b929bac6d65809c2e4ef4ad41",
+        "2017_clean.csv": "7d468e674a2201d6f03a6d9506069b605b5b50ac",
+        "2018_clean.csv": "c5b509ae855e73d5c744f9c89b8747e284e62dd7"
+    },
+    "train_accuracy": 0.9097949886104784,
+    "train_auprc": 0.8891100930337366,
+    "train_auroc": 0.9596339974610391,
+    "accuracy": 0.8550420168067226,
+    "auprc": 0.24057407599817288,
+    "auroc": 0.6557814302191465
+}
