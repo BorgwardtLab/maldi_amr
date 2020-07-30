@@ -17,14 +17,13 @@ tabulate = "^0.8.6"
 python-dotenv = "^0.12.0"
 xlrd = "^1.2.0"
 lightgbm = "^2.3.1"
-#heatmapz = {git = "ssh://git@github.com/cvweis/heatmap.git"}
-imbalanced-learn = "^0.6.1"
 uniplot = "^0.3.5"
 plotly = "^4.14.3"
 dash = "^1.19.0"
 libTLDA = {git = "https://github.com/BorgwardtLab/libTLDA.git", rev="master"}
 jupyter = "^1.0.0"
 shap = "^0.39.0"
+imbalanced-learn = "^0.7.0"
 
 [tool.poetry.dev-dependencies]
 
