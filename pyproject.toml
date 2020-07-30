@@ -2,6 +2,7 @@
 name = "amr_maldi_ml"
 version = "0.1.0"
 description = ""
+license = "BSD-3-Clause"
 authors = ["Caroline Weis <caroline.weis@bsse.ethz.ch>", "Bastian Rieck <bastian.rieck@bsse.ethz.ch>"]
 
 [tool.poetry.dependencies]
@@ -16,7 +17,6 @@ tabulate = "^0.8.6"
 python-dotenv = "^0.12.0"
 xlrd = "^1.2.0"
 lightgbm = "^2.3.1"
-heatmapz = {git = "ssh://git@github.com/cvweis/heatmap.git"}
 imbalanced-learn = "^0.7.0"
 
 [tool.poetry.dev-dependencies]
