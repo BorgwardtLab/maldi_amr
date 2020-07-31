@@ -67,4 +67,8 @@ for SEED in 344 172 188 270 35 164 545 480 89 409; do
     run "$CMD";
   done
 
+  # E. faecium
+  CMD="${MAIN} --antibiotic \"Vancomycin\" --species \"Enterococcus faecium\" --seed $SEED"
+  run "$CMD";
+
 done
