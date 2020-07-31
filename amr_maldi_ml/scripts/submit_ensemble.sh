@@ -32,6 +32,9 @@ for SEED in 344 172 188 270 35 164 545 480 89 409; do
       done
     done
 
+    CMD="${MAIN} --index $INDEX --species \"Staphylococcus aureus\" --antibiotic \"Oxacillin\" --seed $SEED"
+    run "$CMD";
+
     for SPECIES in 'Escherichia coli' 'Klebsiella pneumoniae'; do
       CMD="${MAIN} --index $INDEX --species \"$SPECIES\" --antibiotic \"Amikacin\" --seed $SEED"
       run "$CMD";
