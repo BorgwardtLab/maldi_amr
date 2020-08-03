@@ -166,9 +166,9 @@ def plot_temporal_validation(df, metric='auprc'):
                 ax[i].legend(loc='lower right')
             
             ax[i].set_xticklabels([
-                '', '2016 /\n2016 + 2017 + 2018', 
-                '', '2017 /\n2017 + 2018', 
-                '', '2018 /\n2018  '])
+                '', '2016 vs.\n2016 + 2017 + 2018', 
+                '', '2017 vs.\n2017 + 2018', 
+                '', '2018 vs.\n2018  '])
 
     plt.tight_layout()
     plt.savefig(f'plots/temporal_validation/temporal_validation_{metric}.png')
