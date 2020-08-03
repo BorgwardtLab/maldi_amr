@@ -20,7 +20,7 @@ from sklearn.metrics import roc_auc_score
 
 def plot_figure2(args):
 
-    PATH_fig2 = '../results/fig2_baseline/'
+    PATH_fig2 = '../results/fig2_baseline/lr/'
 
     # --------------
     # create dataframe giving an overview of all files in path
@@ -126,6 +126,9 @@ def plot_figure2(args):
 
     values = values.sort_values(by=['auroc_all'], ascending=False)
     n_ab = len(values)
+    
+    values['antibiotic'] = values['antibiotic'].str.lower()
+    values['label'] = values['label'].str.lower()
 
     sns.set(style="whitegrid",
             font_scale=2)
@@ -156,7 +159,7 @@ def plot_figure2(args):
 
     for i, yval in enumerate(values['auroc_all'].values):
         ax.annotate(
-                    # '{:.1e}'.format(values['pvals'].iloc[i]),
+                    #'{:.1e}'.format(values['pvals'].iloc[i]),
                     pval_string[i],
                     xy=(i, yval),
                     xytext=(i-0.06,  # -0.2 for text, -0.06 for stars
