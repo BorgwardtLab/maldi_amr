@@ -13,6 +13,8 @@ import collections
 import json
 import os
 
+from matplotlib.ticker import FormatStrFormatter
+
 from sklearn.calibration import calibration_curve
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import average_precision_score
@@ -422,6 +424,8 @@ def plot_rejection_curves(df, metric, outdir):
     for (species, antibiotic, curve_type), curve in curves.items():
 
         colour = species_to_colour[species]
+
+        ax.yaxis.set_major_formatter(FormatStrFormatter('%.02f'))
 
         ax.plot(
             curve[0],
