@@ -8,6 +8,8 @@ import itertools
 import json
 import os
 
+from matplotlib.ticker import FormatStrFormatter
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -104,6 +106,8 @@ def plot_temporal_validation(df, metric='auprc'):
             lower = [y_vals[i] - y_stds[i] for i,_ in enumerate(y_vals)]
             upper = [y_vals[i] + y_stds[i] for i,_ in enumerate(y_vals)]
             x = range(len(y_vals))
+
+            ax[i].yaxis.set_major_formatter(FormatStrFormatter('%.02f'))
 
             ax[i].plot(
                 x,
