@@ -10,7 +10,7 @@ MAIN="poetry run python ../curves_per_species_and_antibiotic.py --force "
 # Try to be smart: if `bsub` does *not* exist on the system, we just
 # pretend that it is an empty command.
 if [ -x "$(command -v bsub)" ]; then
-  BSUB='bsub -W 23:59 -R "rusage[mem=64000]"'
+  BSUB='bsub -W 23:59 -o "curve_per_species_and_antibiotic_%J.out" -R "rusage[mem=64000]"'
 fi
 
 # Evaluates its first argument either by submitting a job, or by
@@ -24,6 +24,21 @@ run() {
 }
 
 for SEED in 344 172 188 270 35 164 545 480 89 409; do
+  # S. pneumoniae
+  CMD="${MAIN} --antibiotic \"Penicillin\" --species \"Streptococcus pneumoniae\" --seed $SEED"
+  run "$CMD";
+
+  # H. influenzae
+  for ANTIBIOTIC in 'Penicillin' 'Cefuroxime'; do
+    CMD="${MAIN} --antibiotic \"$ANTIBIOTIC\" --species \"Haemophilus influenzae\" --seed $SEED"
+    run "$CMD";
+  done
+
+  # S. aureus jobs
+  for ANTIBIOTIC in 'Clindamycin' 'Ciprofloxacin' 'Fusidic acid' 'Oxacillin' 'Penicillin'; do
+    CMD="${MAIN} --antibiotic \"$ANTIBIOTIC\" --species \"Staphylococcus aureus\" --seed $SEED"
+    run "$CMD";
+  done
 
   # E. coli jobs
   for ANTIBIOTIC in "Amoxicillin-Clavulanic acid" "Cefepime" "Ceftriaxone" "Ciprofloxacin" "Piperacillin-Tazobactam" "Tobramycin"; do
@@ -34,12 +49,6 @@ for SEED in 344 172 188 270 35 164 545 480 89 409; do
   # K. pneumoniae jobs
   for ANTIBIOTIC in 'Amoxicillin-Clavulanic acid' 'Cefepime' 'Ceftriaxone' 'Ciprofloxacin' 'Meropenem' 'Piperacillin-Tazobactam' 'Tobramycin'; do
     CMD="${MAIN} --antibiotic \"$ANTIBIOTIC\" --species \"Klebsiella pneumoniae\" --seed $SEED"
-    run "$CMD";
-  done
-
-  # S. aureus jobs
-  for ANTIBIOTIC in 'Ciprofloxacin' 'Fusidic acid' 'Oxacillin' 'Penicillin'; do
-    CMD="${MAIN} --antibiotic \"$ANTIBIOTIC\" --species \"Staphylococcus aureus\" --seed $SEED"
     run "$CMD";
   done
 
@@ -70,5 +79,4 @@ for SEED in 344 172 188 270 35 164 545 480 89 409; do
   # E. faecium
   CMD="${MAIN} --antibiotic \"Vancomycin\" --species \"Enterococcus faecium\" --seed $SEED"
   run "$CMD";
-
 done
