@@ -51,7 +51,11 @@ def get_pipeline_and_parameters(model, random_state):
     pipeline for training a model and its parameters, respectively.
     """
     if model == 'lr':
-        lr = LogisticRegression(solver='saga', max_iter=500)
+        lr = LogisticRegression(
+                solver='saga',
+                max_iter=500,
+                random_state=random_state
+            )
 
         pipeline = Pipeline(
             steps=[
@@ -79,7 +83,8 @@ def get_pipeline_and_parameters(model, random_state):
             kernel='rbf',
             max_iter=500,
             probability=True,
-            class_weight='balanced'
+            class_weight='balanced',
+            random_state=random_state,
         )
 
         pipeline = Pipeline(
@@ -102,7 +107,8 @@ def get_pipeline_and_parameters(model, random_state):
             kernel='linear',
             max_iter=500,
             probability=True,
-            class_weight='balanced'
+            class_weight='balanced',
+            random_state=random_state,
         )
 
         pipeline = Pipeline(
