@@ -11,9 +11,7 @@ import numpy as np
 
 from maldi_learn.driams import DRIAMSDatasetExplorer
 from maldi_learn.driams import DRIAMSLabelEncoder
-
 from maldi_learn.driams import load_driams_dataset
-
 from maldi_learn.utilities import stratify_by_species_and_label
 
 from models import load_pipeline
@@ -35,9 +33,8 @@ def single_prediction_scores(args):
     os.makedirs(args.output, exist_ok=True)
 
     # Check if INPUT is a list of files or a single file
-    print(list(args.INPUT))
     files = list(args.INPUT)
-
+    print(f'\nLength INPUT is {len(files)}')
     print(args.input)
 
     # Create empty lists for average feature importances
@@ -106,18 +103,15 @@ def single_prediction_scores(args):
         clf = pipeline[model]
 
         # include prediction of input sample
-        logging.info('code values')
-        logging.info(driams_dataset.y['code'].values)
         if args.input in driams_dataset.y['code'].values:
             logging.info('Target code found in loaded dataset')
-            target_index = driams_dataset.y[driams_dataset.y['code'] == args.input].index.values
+            df = driams_dataset.y.reset_index()
+            target_index = df[df['code'] == args.input].index.values
+            assert df.shape[0] == X.shape[0]
             X_target = X[target_index]
         else:
             logging.info('Target code NOT found in loaded dataset. Abort.')
             break 
-
-        # FIXME remove
-        return
 
         # Append to lists for average feature importance output
         all_antibiotics.append(antibiotic)
@@ -127,8 +121,8 @@ def single_prediction_scores(args):
         all_seeds.append(seed)
         all_species.append(species)
         all_models.append(model) 
-        all_scores.append(clf.predict_proba(X_target).tolist())
-        all_predictions.append(clf.predict(X_target).tolist())
+        all_scores.append(clf.predict_proba(X_target)[0,1])
+        all_predictions.append(clf.predict(X_target))
         all_metadata_versions.append(metadata_fingerprints)
 
         output = {
@@ -140,13 +134,14 @@ def single_prediction_scores(args):
             'model': model,
             'best_params': best_params,
             'metadata_versions': metadata_fingerprints,
-            'scores': clf.predict_proba(X_target).tolist(),
+            'scores_positive': clf.predict_proba(X_target)[0,1].tolist(),
             'predictions': clf.predict(X_target).tolist(),
         }
 
         output_filename = generate_output_filename(
             args.output,
-            output
+            output,
+            suffix=f'{args.input}',
         )
 
         if not os.path.exists(output_filename) or args.force:
@@ -194,7 +189,7 @@ def single_prediction_scores(args):
             'model': models[0],
             #'best_params': best_params,
             #'metadata_versions': metadata_fingerprints,
-            'mean_scores': mean_scores,
+            'mean_scores_positive': mean_scores,
             'std_scores': std_scores,
         }
         for k in output.keys():
@@ -207,8 +202,9 @@ def single_prediction_scores(args):
         output_filename = generate_output_filename(
             args.output,
             output_print,
-            suffix='average',
+            suffix=f'average_{args.input}',
         )
+        print(f'the output_filename is {output_filename}')
 
         if not os.path.exists(output_filename) or args.force:
             logging.info(f'Saving {os.path.basename(output_filename)}')
