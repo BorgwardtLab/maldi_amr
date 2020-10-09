@@ -15,6 +15,8 @@ import os
 import numpy as np
 import pandas as pd
 
+from matplotlib.ticker import FormatStrFormatter
+
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -121,6 +123,8 @@ def plot_curves(df, outdir, metric='auroc'):
         linestyle = 'solid' if type_ == 'ensemble' else 'dashdot'
 
         mean_n_samples = np.mean(curve[metric]['count'])
+
+        ax.yaxis.set_major_formatter(FormatStrFormatter('%.02f'))
 
         ax.plot(
             x,

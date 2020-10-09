@@ -8,6 +8,8 @@ import itertools
 import json
 import os
 
+from matplotlib.ticker import FormatStrFormatter
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -105,6 +107,8 @@ def plot_temporal_validation(df, metric='auprc'):
             upper = [y_vals[i] + y_stds[i] for i,_ in enumerate(y_vals)]
             x = range(len(y_vals))
 
+            ax[i].yaxis.set_major_formatter(FormatStrFormatter('%.02f'))
+
             ax[i].plot(
                 x,
                 y_vals, 
@@ -166,9 +170,9 @@ def plot_temporal_validation(df, metric='auprc'):
                 ax[i].legend(loc='lower right')
             
             ax[i].set_xticklabels([
-                '', '2016 /\n2016 + 2017 + 2018', 
-                '', '2017 /\n2017 + 2018', 
-                '', '2018 /\n2018  '])
+                '', '2016 vs.\n2016 + 2017 + 2018', 
+                '', '2017 vs.\n2017 + 2018', 
+                '', '2018 vs.\n2018  '])
 
     plt.tight_layout()
     plt.savefig(f'plots/temporal_validation/temporal_validation_{metric}.png')
