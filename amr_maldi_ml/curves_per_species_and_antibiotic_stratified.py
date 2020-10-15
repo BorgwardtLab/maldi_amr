@@ -36,15 +36,27 @@ def _simple_stratification(df, antibiotic, test_size=0.20, random_state=123):
     unique_groups = df.groupby('FALL_comp').mean()
     unique_groups[antibiotic] = unique_groups[antibiotic].round()
 
-    train_index, test_index = train_test_split( 
+    df = df.reset_index(drop=True)
+
+    train_index, test_index = train_test_split(
         unique_groups,
         test_size=test_size,
         random_state=random_state,
         stratify=unique_groups[antibiotic],
     )
 
-    print(train_index)
+    # Make the FALL_comp column, which has become an index, into
+    # a column again.
+    train_index.reset_index(inplace=True)
+    test_index.reset_index(inplace=True)
 
+    train_id = train_index['FALL_comp'].values
+    test_id = test_index['FALL_comp'].values
+
+    train_index = df.query('FALL_comp in @train_id').index
+    test_index = df.query('FALL_comp in @test_id').index
+
+    return train_index, test_index
 
 
 def _run_experiment(
@@ -68,7 +80,6 @@ def _run_experiment(
             encoder=DRIAMSLabelEncoder(),
             handle_missing_resistance_measurements='remove_if_all_missing',
             id_suffix='strat',
-            nrows=1000,
             spectra_type='binned_6000',
     )
 
@@ -80,16 +91,8 @@ def _run_experiment(
 
     logging.info('Finished vectorisation')
 
-    _simple_stratification(
-        driams_dataset.y,
-        antibiotic,
-        random_state=seed
-    )
-
-    raise 'heck'
-
     # Stratified train--test split
-    train_index, test_index = stratify_by_species_and_label(
+    train_index, test_index = _simple_stratification(
         driams_dataset.y,
         antibiotic=antibiotic,
         random_state=seed,
@@ -112,6 +115,9 @@ def _run_experiment(
         'antibiotic': antibiotic,
         'species': species,
         'years': years,
+        'test_size_obtained': len(y_test) / (len(y_train) + len(y_test)),
+        'prevalence_train': (np.bincount(y_train) / len(y_train)).tolist(),
+        'prevalence_test': (np.bincount(y_test) / len(y_test)).tolist(),
     }
 
     output_filename = generate_output_filename(
