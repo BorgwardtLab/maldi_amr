@@ -20,6 +20,8 @@ from models import run_experiment
 
 from utilities import generate_output_filename
 
+from sklearn.model_selection import train_test_split
+
 dotenv.load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
 
@@ -28,6 +30,21 @@ DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
 # *all* available years.
 site = 'DRIAMS-A'
 years = ['2015', '2016', '2017', '2018']
+
+
+def _simple_stratification(df, antibiotic, test_size=0.20, random_state=123):
+    unique_groups = df.groupby('FALL_comp').mean()
+    unique_groups[antibiotic] = unique_groups[antibiotic].round()
+
+    train_index, test_index = train_test_split( 
+        unique_groups,
+        test_size=test_size,
+        random_state=random_state,
+        stratify=unique_groups[antibiotic],
+    )
+
+    print(train_index)
+
 
 
 def _run_experiment(
@@ -63,7 +80,11 @@ def _run_experiment(
 
     logging.info('Finished vectorisation')
 
-    print(driams_dataset.y)
+    _simple_stratification(
+        driams_dataset.y,
+        antibiotic,
+        random_state=seed
+    )
 
     raise 'heck'
 
