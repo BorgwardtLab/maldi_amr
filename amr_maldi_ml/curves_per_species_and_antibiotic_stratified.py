@@ -33,7 +33,7 @@ years = ['2015', '2016', '2017', '2018']
 
 
 def _simple_stratification(df, antibiotic, test_size=0.20, random_state=123):
-    unique_groups = df.groupby('FALL_comp').mean()
+    unique_groups = df.groupby('fall_comp').mean()
     unique_groups[antibiotic] = unique_groups[antibiotic].round()
 
     df = df.reset_index(drop=True)
@@ -45,7 +45,7 @@ def _simple_stratification(df, antibiotic, test_size=0.20, random_state=123):
         stratify=unique_groups[antibiotic],
     )
 
-    # Make the FALL_comp column, which has become an index, into
+    # Make the fall_comp column, which has become an index, into
     # a column again.
     train_index.reset_index(inplace=True)
     test_index.reset_index(inplace=True)
