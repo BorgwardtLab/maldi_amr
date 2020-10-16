@@ -50,11 +50,11 @@ def _simple_stratification(df, antibiotic, test_size=0.20, random_state=123):
     train_index.reset_index(inplace=True)
     test_index.reset_index(inplace=True)
 
-    train_id = train_index['FALL_comp'].values
-    test_id = test_index['FALL_comp'].values
+    train_id = train_index['fall_comp'].values
+    test_id = test_index['fall_comp'].values
 
-    train_index = df.query('FALL_comp in @train_id').index
-    test_index = df.query('FALL_comp in @test_id').index
+    train_index = df.query('fall_comp in @train_id').index
+    test_index = df.query('fall_comp in @test_id').index
 
     return train_index, test_index
 
