@@ -242,7 +242,7 @@ if __name__ == '__main__':
         required=True,
     )
 
-    name = 'single_prediction_scores'
+    name = 'single_prediction_scores/data_collection'
 
     parser.add_argument(
         '-o', '--output',
