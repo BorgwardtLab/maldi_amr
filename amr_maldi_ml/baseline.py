@@ -74,7 +74,7 @@ if __name__ == '__main__':
         required=True
     )
 
-    name = 'fig2_baseline_case_based_stratification'
+    name = 'baseline_case_based_stratification'
 
     parser.add_argument(
         '-o', '--output',
