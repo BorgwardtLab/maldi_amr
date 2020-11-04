@@ -15,7 +15,7 @@ from maldi_learn.driams import DRIAMSLabelEncoder
 
 from maldi_learn.driams import load_driams_dataset
 
-from maldi_learn.utilities import stratify_by_species_and_label
+from maldi_learn.utilities import case_based_stratification
 
 from models import run_experiment
 
@@ -44,6 +44,8 @@ def _run_experiment(
     model,
     n_jobs=-1
 ):
+    spectra_type = 'binned_6000_warped'
+
     """Run a single experiment for a given species--antibiotic combination."""
     driams_dataset = load_driams_dataset(
             root,
@@ -53,7 +55,9 @@ def _run_experiment(
             antibiotics=antibiotic,  # Only a single one for this run
             encoder=DRIAMSLabelEncoder(),
             handle_missing_resistance_measurements='remove_if_all_missing',
-            spectra_type='binned_6000',
+            id_suffix='strat',
+            on_error='warn',
+            spectra_type=spectra_type,
     )
 
     logging.info(f'Loaded data set for {species} and {antibiotic}')
@@ -65,7 +69,7 @@ def _run_experiment(
     logging.info('Finished vectorisation')
 
     # Stratified train--test split
-    train_index, test_index = stratify_by_species_and_label(
+    train_index, test_index = case_based_stratification(
         driams_dataset.y,
         antibiotic=antibiotic,
         random_state=seed,
@@ -167,7 +171,7 @@ if __name__ == '__main__':
         help='Selects model to use for subsequent training'
     )
 
-    name = 'fig4_curves_per_species_and_antibiotics'
+    name = 'curves_per_species_and_antibiotics_case_based_stratification'
 
     parser.add_argument(
         '-o', '--output',
@@ -236,11 +240,14 @@ if __name__ == '__main__':
     ])
 
     explorer = DRIAMSDatasetExplorer(DRIAMS_ROOT)
-    metadata_fingerprints = explorer.metadata_fingerprints(site)
+    metadata_fingerprints = explorer.metadata_fingerprints(
+        site,
+        id_suffix='strat'
+    )
 
     # How many jobs to use to run this experiment. Should be made
     # configurable ideally.
-    n_jobs = 24
+    n_jobs = -1
 
     # Run all combinations and ignore everything else. Other arguments
     # may be supplied, but we will not use them.
