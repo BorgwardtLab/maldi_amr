@@ -403,6 +403,14 @@ def run_experiment(
     # added.
     results = {}
 
+    # Add additional information about split. This is relevant for
+    # scenarios with a case-based stratification.
+    results.update({
+        'test_size_obtained': len(y_test) / (len(y_train) + len(y_test)),
+        'prevalence_train': (np.bincount(y_train) / len(y_train)).tolist(),
+        'prevalence_test': (np.bincount(y_test) / len(y_test)).tolist(),
+    })
+
     if verbose:
         results.update({
             'best_params': grid_search.best_params_,
