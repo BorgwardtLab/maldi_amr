@@ -25,7 +25,7 @@ from maldi_learn.driams import DRIAMSLabelEncoder
 
 from maldi_learn.driams import load_driams_dataset
 
-from maldi_learn.utilities import stratify_by_species_and_label
+from maldi_learn.utilities import case_based_stratification
 
 from models import run_experiment
 
@@ -74,7 +74,7 @@ if __name__ == '__main__':
         required=True
     )
 
-    name = 'fig2_baseline'
+    name = 'fig2_baseline_case_based_stratification'
 
     parser.add_argument(
         '-o', '--output',
@@ -104,12 +104,17 @@ if __name__ == '__main__':
     )
 
     explorer = DRIAMSDatasetExplorer(DRIAMS_ROOT)
-    metadata_fingerprints = explorer.metadata_fingerprints(site)
+    metadata_fingerprints = explorer.metadata_fingerprints(
+        site,
+        id_suffix='strat'
+    )
 
     logging.info(f'Site: {site}')
     logging.info(f'Years: {years}')
     logging.info(f'Seed: {args.seed}')
     logging.info(f'Antibiotic: {args.antibiotic}')
+
+    spectra_type = 'binned_6000_warped'
 
     driams_dataset = load_driams_dataset(
         DRIAMS_ROOT,
@@ -119,7 +124,9 @@ if __name__ == '__main__':
         antibiotics=args.antibiotic,
         encoder=DRIAMSLabelEncoder(),
         handle_missing_resistance_measurements='remove_if_all_missing',
-        spectra_type='binned_6000',
+        spectra_type=spectra_type,
+        on_error='warn',
+        id_suffix='strat',
     )
 
     logging.info(f'Loaded data set for {args.antibiotic}')
@@ -151,7 +158,7 @@ if __name__ == '__main__':
                     [spectrum.intensities for spectrum in driams_dataset.X]
                 )
 
-    train_index, test_index = stratify_by_species_and_label(
+    train_index, test_index = case_based_stratification(
         driams_dataset.y,
         antibiotic=args.antibiotic,
         random_state=args.seed,
@@ -189,6 +196,10 @@ if __name__ == '__main__':
         # I want it to be kept out of there. This is slightly hacky
         # but only required for this one experiment.
         output['species'] = 'all' if not t else 'all (w/o spectra)'
+
+        # Add information about the type of spectra used for this run of
+        # the script.
+        output['spectra_type'] = spectra_type
 
         # Only write if we either are running in `force` mode, or the
         # file does not yet exist.
