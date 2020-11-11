@@ -20,15 +20,14 @@ import numpy as np
 
 # Define paths
 
+PATH_spectra_usb = './usb_ec_sa_spectra/'
+PATH_res_usb = './usb_ec_sa_res/'
+PATH_output_usb = './Res_EcSa_USB.csv'
 
-PATH_spectra_usb = '/usb_ec_sa_spectra/'
-PATH_res_usb = '/usb_ec_sa_res/'
-PATH_output_usb = '/Res_EcSa_USB.csv'
-
-PATH_spectra_ksbl = '/ksbl_ec_sa_spectra/'
-PATH_res_ksbl = '/ksbl_ec_sa_res/'
-PATH_to_report_ksbl = '/ksbl_ec_sa_bruker.csv'
-PATH_output_ksbl = '/Res_EcSa_ksbl.csv'
+PATH_spectra_ksbl = './ksbl_ec_sa_spectra/'
+PATH_res_ksbl = './ksbl_ec_sa_res/'
+PATH_to_report_ksbl = './ksbl_ec_sa_bruker.csv'
+PATH_output_ksbl = './Res_EcSa_ksbl.csv'
 
 
 # # # # # # USB
@@ -127,7 +126,7 @@ for ID in list(all):
     for ab in AB:
         if re.search(re.escape(ab), all[ID]):
             ab_dict[ab] = dict()
-            pattern1 = re.escape(ab) + r'(\d|\<|\>)([^_]{0,9})([S|R|I]{1})(.*)'
+            pattern1 = re.escape(ab) + r'(\d|\<|\>)([^_|^S|^R]{0,9})([S|R|I]{1})(.*)'
             pattern2 = re.escape(ab) + r'(\_*|NEG*|POS*)([S|R|I|\-|\+]{1})(.*)'
             pattern3 = re.escape(ab) + r'(\_*)(NEG|POS)([S|R|I|\-|\+]{1})(.*)'
             if re.search(pattern1, all[ID]):
@@ -151,6 +150,9 @@ for ID in list(all):
     df['Species'] = str(info[ID]['Spezies'])
     df['Status'] = str(info[ID]['Status'])
     df_all = df_all.append(df, sort=True)
+
+# drop 'Cefoxitin -' for S. aureus, there were not measured, but are anartefact from the regex matching
+df_all = df_all[~((df_all['Species'] == 'Staphylococcus aureus') & (df_all['index'] == 'Cefoxitin')& (df_all['Interpretation'] == '-'))]
 
 
 # import usb spectra into dicts, translating from Brukercode to TGNR
@@ -285,7 +287,7 @@ for ID in list(all):
     for ab in AB:
         if re.search(re.escape(ab), all[ID]):
             ab_dict[ab] = dict()
-            pattern1 = re.escape(ab) + r'(\d|\<|\>)([^_]{0,9})([S|R|I]{1})(.*)'
+            pattern1 = re.escape(ab) + r'(\d|\<|\>)([^_|^S|^R]{0,9})([S|R|I]{1})(.*)'
             pattern2 = re.escape(ab) + r'(\_*|NEG*|POS*)([S|R|I|\-|\+]{1})(.*)'
             pattern3 = re.escape(ab) + r'(\_*)(NEG|POS)([S|R|I|\-|\+]{1})(.*)'
             if re.search(pattern1, all[ID]):
@@ -330,6 +332,9 @@ res_ksbl.loc[:,'Species'] = res_ksbl.loc[:,'Species'].str.replace('Escherichiaco
 # only keep finished runs
 res_ksbl = res_ksbl[res_ksbl['Status'] == 'Fertig']
 res_ksbl = res_ksbl.drop(['Status'], 1)
+
+# drop 'Cefoxitin -' for S. aureus, there were not measured, but are anartefact from the regex matching
+res_ksbl[~((res_ksbl['Species'] == 'Staphylococcus aureus') & (res_ksbl['index'] == 'Cefoxitin')& (res_ksbl['Interpretation'] == '-'))]
 
 res_ksbl['ID_AB'] = res_ksbl['ID'] + res_ksbl['index']
 res_ksbl = res_ksbl[~res_ksbl['ID_AB'].isin(res_ksbl['ID_AB'][res_ksbl['ID_AB'].duplicated()])]
