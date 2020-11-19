@@ -114,7 +114,7 @@ if __name__ == '__main__':
     logging.info(f'Seed: {args.seed}')
     logging.info(f'Antibiotic: {args.antibiotic}')
 
-    spectra_type = 'binned_6000_warped'
+    spectra_type = 'binned_6000'
 
     driams_dataset = load_driams_dataset(
         DRIAMS_ROOT,
