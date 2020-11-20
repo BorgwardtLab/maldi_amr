@@ -9,7 +9,6 @@ import numpy as np
 
 from sklearn.metrics import pairwise_kernels
 
-from maldi_learn.driams import DRIAMSDatasetExplorer
 from maldi_learn.driams import load_driams_dataset
 
 dotenv.load_dotenv()
@@ -19,6 +18,27 @@ DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
 def gaussian_kernel(x, y, sigma=1.0, **kwargs):
     """Gaussian (RBF) kernel."""
     return np.exp(-sigma * np.dot(x - y, x - y))
+
+
+class MetaKernel:
+    """Wraps a kernel for simplified evaluation later on."""
+
+    def __init__(self, kernel, **kwargs):
+        # Wrap the original kernel such that it can always be evaluated
+        # later on.
+        self.kernel = functools.partial(
+            kernel,
+            **kwargs
+        )
+
+    def __call__(self, X, Y=None):
+        return pairwise_kernels(X, Y, metric=self.kernel)
+
+    def diag(self, X, Y=None):
+        if Y is None:
+            Y = X
+
+        return [self.original_kernel(x, y) for x, y in zip(X, Y)]
 
 
 def calculate_kernel_matrix(X, Y, kernel, **kwargs):
@@ -210,8 +230,9 @@ if __name__ == '__main__':
             site,
             '*',
             species=args.species,
-            antibiotic=args.antibiotic,
-            spectra_type='binned_6000_warped'
+            antibiotics=args.antibiotic,
+            spectra_type='binned_6000',
+            nrows=1000,
         )
 
         X = np.asarray([spectrum.intensities for spectrum in dataset.X])
@@ -224,6 +245,6 @@ if __name__ == '__main__':
 
     # This is the difference between the two distributions under the
     # assumption that the labels are *known*.
-    theta_0 = mmd_linear_approximation(data[0], data[1], kernel=kernel)
+    theta_0 = mmd(data[0], data[1], kernel=kernel)
 
     print(theta_0)
