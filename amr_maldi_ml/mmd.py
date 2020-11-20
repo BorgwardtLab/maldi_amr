@@ -232,7 +232,13 @@ if __name__ == '__main__':
 
     # Will store all results of this experiment for subsequent
     # visualisation.
-    results = {}
+    results = {
+        'antibiotic': args.antibiotic,
+        'species': args.species,
+        'seed': args.seed,
+        'n_samples': args.num_samples,
+        'n_bootstrap_samples': args.bootstrap,
+    }
 
     # TODO: make configurable?
     kernel = MetaKernel(gaussian_kernel, sigma=1.0)
