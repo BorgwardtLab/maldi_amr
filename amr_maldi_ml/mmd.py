@@ -41,38 +41,6 @@ class MetaKernel:
         return [self.original_kernel(x, y) for x, y in zip(X, Y)]
 
 
-def calculate_kernel_matrix(X, Y, kernel, **kwargs):
-    """Calculate kernel matrix between two sets of elements.
-
-    Evaluates a kernel matrix between two sets of elements and returns
-    it. The kernel matrix dimension will be the product of each of the
-    set cardinalities.
-
-    Parameters
-    ----------
-    X : `np.array`
-        First set of elements
-
-    Y : `np.array`
-        Second set of elements
-
-    kernel : callable
-        Kernel function; must be compatible with the data type of `X`
-        and `Y`.
-
-    **kwargs
-        Additional keyword arguments that are presented to the kernel
-        function or used in the kernel matrix calculation itself. The
-        function currently supports the global parameter `n_jobs`; if
-        set to a non-zero value, jobs are being spawned in parallel.
-
-    Returns
-    -------
-    Kernel matrix between `X` and `Y`.
-    """
-    return pairwise_kernels(X, Y, metric=kernel, **kwargs)
-
-
 def mmd(X, Y, kernel):
     """Calculate MMD between two sets of samples, using a kernel.
 
@@ -241,7 +209,7 @@ if __name__ == '__main__':
     print(len(data[0]), len(data[1]))
 
     # TODO: make configurable?
-    kernel = functools.partial(gaussian_kernel, sigma=1.0)
+    kernel = MetaKernel(gaussian_kernel, sigma=1.0)
 
     # This is the difference between the two distributions under the
     # assumption that the labels are *known*.
