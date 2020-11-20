@@ -180,6 +180,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '-n', '--num-samples',
         type=int,
+        default=150,
         help='Number of samples for the comparison',
     )
 
@@ -192,6 +193,8 @@ if __name__ == '__main__':
     # spectra themselves *without* any labels.
     data = []
 
+    np.random.seed(args.seed)
+
     for site in sites:
         dataset = load_driams_dataset(
             DRIAMS_ROOT,
@@ -200,13 +203,18 @@ if __name__ == '__main__':
             species=args.species,
             antibiotics=args.antibiotic,
             spectra_type='binned_6000',
-            nrows=1000,
         )
 
         X = np.asarray([spectrum.intensities for spectrum in dataset.X])
-        data.append(X)
 
-    print(len(data[0]), len(data[1]))
+        # Down-sample the data. This is technically not required but it
+        # ensures that we are not having a bias here.
+        X = X[np.random.choice(
+                X.shape[0],
+                args.num_samples,
+                replace=False), :]
+
+        data.append(X)
 
     # TODO: make configurable?
     kernel = MetaKernel(gaussian_kernel, sigma=1.0)
@@ -216,3 +224,23 @@ if __name__ == '__main__':
     theta_0 = mmd(data[0], data[1], kernel=kernel)
 
     print(theta_0)
+
+    # Full data set, without provenance information (in case random
+    # samples are drawn).
+    X = np.concatenate(data)
+    print(X.shape)
+
+    # TODO: make configurable?
+    for i in range(1000):
+        X1 = X[np.random.choice(
+                X.shape[0],
+                args.num_samples,
+                replace=False), :]
+
+        X2 = X[np.random.choice(
+                X.shape[0],
+                args.num_samples,
+                replace=False), :]
+
+        theta = mmd(X1, X2, kernel=kernel)
+        print(theta)
