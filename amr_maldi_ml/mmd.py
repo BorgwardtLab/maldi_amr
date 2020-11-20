@@ -3,6 +3,7 @@
 import argparse
 import dotenv
 import functools
+import json
 import os
 
 import numpy as np
@@ -184,6 +185,19 @@ if __name__ == '__main__':
         help='Number of samples for the comparison',
     )
 
+    parser.add_argument(
+        '-b', '--bootstrap',
+        type=int,
+        default=1000,
+        help='Number of bootstrap samples'
+    )
+
+    parser.add_argument(
+        '-o', '--output',
+        required=True,
+        help='Output file'
+    )
+
     args = parser.parse_args()
 
     # TODO: make configurable
@@ -216,6 +230,10 @@ if __name__ == '__main__':
 
         data.append(X)
 
+    # Will store all results of this experiment for subsequent
+    # visualisation.
+    results = {}
+
     # TODO: make configurable?
     kernel = MetaKernel(gaussian_kernel, sigma=1.0)
 
@@ -223,15 +241,14 @@ if __name__ == '__main__':
     # assumption that the labels are *known*.
     theta_0 = mmd(data[0], data[1], kernel=kernel)
 
-    print(theta_0)
+    results['theta_original'] = theta_0
+    results['theta_bootstrap'] = []
 
     # Full data set, without provenance information (in case random
     # samples are drawn).
     X = np.concatenate(data)
-    print(X.shape)
 
-    # TODO: make configurable?
-    for i in range(1000):
+    for i in range(args.bootstrap):
         X1 = X[np.random.choice(
                 X.shape[0],
                 args.num_samples,
@@ -243,4 +260,7 @@ if __name__ == '__main__':
                 replace=False), :]
 
         theta = mmd(X1, X2, kernel=kernel)
-        print(theta)
+        results['theta_bootstrap'].append(theta)
+
+    with open(args.output, 'w') as f:
+        json.dump(results, f, indent=4)
