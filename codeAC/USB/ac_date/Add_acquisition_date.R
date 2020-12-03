@@ -19,7 +19,7 @@ ac_date2015<-ac_date2015 %>%
 
 ID_RES_2015<-merge(ID_RES_2015, ac_date2015, by.x = 'code', by.y = 'brukercode', all.x = T)
 
-write.csv(ID_RES_2015, './ac_date/2015-01-12_IDRES_AB_not_summarised.csv')
+write.csv(ID_RES_2015, './ac_date/2015-01-12_IDRES_AB_not_summarised.csv', row.names = F, quote = F)
 
 # 2016
 ID_RES_2016<-read.csv('./Stratification/2016-01-12_IDRES_AB_not_summarised.csv')
@@ -35,7 +35,7 @@ ac_date2016<-ac_date2016 %>%
   filter(acquisition_time == max(acquisition_time))
 
 ID_RES_2016<-merge(ID_RES_2016, ac_date2016, by.x = 'code', by.y = 'brukercode', all.x = T)
-write.csv(ID_RES_2016, './ac_date/2016-01-12_IDRES_AB_not_summarised.csv')
+write.csv(ID_RES_2016, './ac_date/2016-01-12_IDRES_AB_not_summarised.csv', row.names = F, quote = F)
 
 # 2017
 ID_RES_2017<-read.csv('./Stratification/2017-01-12_IDRES_AB_not_summarised.csv')
@@ -69,7 +69,7 @@ ID_RES_2017<-merge(ID_RES_2017, ac_date2017, by.x = 'code', by.y = 'brukercode',
 write.csv(ID_RES_2017, './ac_date/2017-01-12_IDRES_AB_not_summarised.csv')
 
 # 2018
-ID_RES_2018<-read.csv('./Stratification/2018_01-08_IDRES_AB_not_summarised.csv')
+ID_RES_2018<-read.csv('./Stratification/2018_01-08_IDRES_AB_not_summarised.csv', row.names = F, quote = F)
 
 # m1
 ac_date2018_m1<-read.csv('./ac_date/acquisition_dates_2018_m1.csv')
@@ -96,7 +96,7 @@ ac_date2018<-ac_date2018 %>%
   filter(acquisition_time == max(acquisition_time))
 
 
-ID_RES_2018<-merge(ID_RES_2018, ac_date2018, by.x = 'code', by.y = 'brukercode', all.x = T)
+ID_RES_2018<-merge(ID_RES_2018, ac_date2018, by.x = 'code', by.y = 'brukercode', all.x = T, row.names = F, quote = F)
 write.csv(ID_RES_2018, './ac_date/2018_01-08_IDRES_AB_not_summarised.csv')
 
 
