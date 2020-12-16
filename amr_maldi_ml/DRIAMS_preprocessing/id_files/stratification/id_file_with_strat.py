@@ -66,11 +66,15 @@ def clean_data(filename, outfile):
     print('Columns not covered by antibiotic name maps:\n{}'.format([n for n in df.columns if n not in ab_name_map.keys()]))
     df = df.rename(columns=ab_name_map)
 
+    id_map = {
+        'PATIENTENNUMMER_id': 'patient_no',
+        'FALLNUMMER_id': 'case_no',
+        'AUFTRAGSNUMMER_id': 'order_no',
+        }
     # add columns with exact stratification id info
     year = outfile.split('_')[0][-4:]
     for strat_id in ['PATIENTENNUMMER_id', 'FALLNUMMER_id', 'AUFTRAGSNUMMER_id']:
-        strat_comp = strat_id.strip('NUMMER_id') + '_comp'
-        strat_comp = strat_comp.lower()
+        strat_comp = id_map[strat_id]
         df = df.astype({strat_id: str})
         df[strat_id] = df[strat_id].str.strip('.0')
         df[strat_comp] = df[strat_id] + '_' + year + '_' + df['species']

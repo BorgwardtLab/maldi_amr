@@ -33,7 +33,7 @@ years = ['2015', '2016', '2017', '2018']
 
 
 def _simple_stratification(df, antibiotic, test_size=0.20, random_state=123):
-    unique_groups = df.groupby('fall_comp').mean()
+    unique_groups = df.groupby('case_no').mean()
     unique_groups[antibiotic] = unique_groups[antibiotic].round()
 
     df = df.reset_index(drop=True)
@@ -45,16 +45,16 @@ def _simple_stratification(df, antibiotic, test_size=0.20, random_state=123):
         stratify=unique_groups[antibiotic],
     )
 
-    # Make the fall_comp column, which has become an index, into
+    # Make the case_no column, which has become an index, into
     # a column again.
     train_index.reset_index(inplace=True)
     test_index.reset_index(inplace=True)
 
-    train_id = train_index['fall_comp'].values
-    test_id = test_index['fall_comp'].values
+    train_id = train_index['case_no'].values
+    test_id = test_index['case_no'].values
 
-    train_index = df.query('fall_comp in @train_id').index
-    test_index = df.query('fall_comp in @test_id').index
+    train_index = df.query('case_no in @train_id').index
+    test_index = df.query('case_no in @test_id').index
 
     return train_index, test_index
 
