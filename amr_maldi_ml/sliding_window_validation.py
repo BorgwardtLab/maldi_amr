@@ -130,7 +130,6 @@ if __name__ == '__main__':
         handle_missing_resistance_measurements='remove_if_all_missing',
         spectra_type='binned_6000',
         id_suffix='strat_acqu',
-        nrows=1000,
     )
 
     logging.info(f'Loaded full data set')
