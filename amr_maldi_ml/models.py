@@ -285,7 +285,12 @@ def calculate_metrics(y_true, y_pred, y_score, prefix=None):
     minority_class = np.argmin(np.bincount(y_true))
 
     auprc = average_precision_score(y_true, y_score[:, minority_class])
-    auroc = roc_auc_score(y_true, y_score[:, minority_class])
+
+    try:
+        auroc = roc_auc_score(y_true, y_score[:, minority_class])
+    except ValueError as e:
+        logging.warning(f'`roc_auc_score` calculation failed: {str(e)}')
+        auroc = np.nan
 
     kv = [
         ('accuracy', accuracy),
