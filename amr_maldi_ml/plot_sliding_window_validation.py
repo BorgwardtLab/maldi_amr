@@ -25,27 +25,49 @@ if __name__ == '__main__':
     df = pd.DataFrame(rows)
 
     for column in df.columns:
-        if 'date' in column:
+        if '_to' in column or '_from' in column:
             df[column] = pd.to_datetime(df[column])
 
-    for group, df_grouped in df.groupby(['species', 'model', 'antibiotic']):
-        df_ = df_grouped.groupby('train_to').agg(
+    df = df.sort_values('train_to')
+    df['auroc'] *= 100
+
+    print(
+        df.groupby(['train_to', 'species', 'antibiotic']).agg(
             {
                 'auroc': [np.mean, np.std]
             }
         )
+    )
 
-        df_.columns = df_.columns.to_flat_index()
+    df['scenario'] = df['species'] + ' (' + df['antibiotic'] + ')'
 
-        df_.rename(
-            columns={
-                column: '_'.join(column) for column in df_.columns
-            },
-            inplace=True
-        )
+    g = sns.lineplot(
+        x='train_to',
+        y='auroc',
+        data=df,
+        hue='scenario'
+    )
 
-        df_.reset_index(inplace=True)
+    #for group, df_grouped in df.groupby(['species', 'model', 'antibiotic']):
 
-        sns.lineplot(x='train_to', y='auroc_mean', data=df_)
+    #    df_grouped = df_grouped.sort_values('train_to')
+    #    df_grouped['auroc'] *= 100
 
+    #    print(
+    #        df_grouped.groupby('train_to').agg(
+    #            {
+    #                'auroc': [np.mean, np.std]
+    #            }
+    #        )
+    #    )
+
+    #    sns.lineplot(
+    #        x='train_to',
+    #        y='auroc',
+    #        data=df_grouped,
+    #        hue='species'
+    #    )
+
+    plt.xticks(rotation=45)
+    plt.tight_layout()
     plt.show()
