@@ -48,26 +48,6 @@ if __name__ == '__main__':
         hue='scenario'
     )
 
-    #for group, df_grouped in df.groupby(['species', 'model', 'antibiotic']):
-
-    #    df_grouped = df_grouped.sort_values('train_to')
-    #    df_grouped['auroc'] *= 100
-
-    #    print(
-    #        df_grouped.groupby('train_to').agg(
-    #            {
-    #                'auroc': [np.mean, np.std]
-    #            }
-    #        )
-    #    )
-
-    #    sns.lineplot(
-    #        x='train_to',
-    #        y='auroc',
-    #        data=df_grouped,
-    #        hue='species'
-    #    )
-
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()
