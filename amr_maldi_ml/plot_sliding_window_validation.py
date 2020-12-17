@@ -35,6 +35,17 @@ if __name__ == '__main__':
             }
         )
 
-        sns.scatterplot(x='train_to', y='auroc', data=df_)
+        df_.columns = df_.columns.to_flat_index()
+
+        df_.rename(
+            columns={
+                column: '_'.join(column) for column in df_.columns
+            },
+            inplace=True
+        )
+
+        df_.reset_index(inplace=True)
+
+        sns.lineplot(x='train_to', y='auroc_mean', data=df_)
 
     plt.show()
