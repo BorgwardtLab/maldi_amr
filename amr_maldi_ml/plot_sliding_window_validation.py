@@ -49,7 +49,10 @@ if __name__ == '__main__':
         if column.endswith('_to') or column.endswith('_from'):
             df[column] = pd.to_datetime(df[column])
 
-    df = df.sort_values(args.date_column)
+    # Create new column that describes the whole scenario.
+    df['scenario'] = df['species'] + ' (' + df['antibiotic'] + ')'
+
+    df = df.sort_values(['scenario', args.date_column])
     df[args.metric] *= 100
 
     # Some debug output, just so all values can be seen in all their
@@ -61,9 +64,6 @@ if __name__ == '__main__':
             }
         )
     )
-
-    # Create new column that describes the whole scenario.
-    df['scenario'] = df['species'] + ' (' + df['antibiotic'] + ')'
 
     g = sns.lineplot(
         x=args.date_column,
