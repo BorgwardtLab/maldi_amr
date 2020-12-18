@@ -12,5 +12,5 @@ ROOT=$1
 
 for MODEL in 'lightgbm' 'lr' 'rf' 'svm-linear' 'svm-rbf'; do
   mkdir -p $ROOT/$MODEL
-  mv $ROOT/*Model_$MODEL*.json $ROOT/$MODEL
+  git mv $ROOT/*Model_$MODEL*.json $ROOT/$MODEL
 done
