@@ -49,10 +49,18 @@ if __name__ == '__main__':
         if column.endswith('_to') or column.endswith('_from'):
             df[column] = pd.to_datetime(df[column])
 
-    # Create new column that describes the whole scenario.
-    df['scenario'] = df['species'] + ' (' + df['antibiotic'] + ')'
+    # Extract model
+    model_col = df['model'].unique()
 
-    df = df.sort_values(['scenario', args.date_column])
+    if len(model_col):
+        model = model_col[0]
+    else: 
+        raiseValueError('More than one model in input files.') 
+
+    # Create new column that describes the whole scenario.
+    df[f'scenario ({model})'] = df['species'] + ' (' + df['antibiotic'] + ')'
+
+    df = df.sort_values([f'scenario ({model})', args.date_column])
     df[args.metric] *= 100
 
     # Some debug output, just so all values can be seen in all their
@@ -65,13 +73,16 @@ if __name__ == '__main__':
         )
     )
 
+    fig, ax = plt.subplots(figsize=(15,5))
+
     g = sns.lineplot(
         x=args.date_column,
         y=args.metric,
         data=df,
-        hue='scenario'
+        hue=f'scenario ({model})'
     )
 
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.show()
+    plt.savefig(f'plots/sliding_window/Model_{model}_Date_{args.date_column}_Metric_{args.metric}.png')
+    #plt.show()
