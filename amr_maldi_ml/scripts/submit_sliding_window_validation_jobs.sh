@@ -6,7 +6,7 @@
 
 # Main command to execute for all combinations created in the script
 # below. The space at the end of the string is important.
-MAIN="poetry run python ../sliding_window_validation.py "
+MAIN="poetry run python ../sliding_window_validation.py --duration 8 "
 
 # Try to be smart: if `bsub` does *not* exist on the system, we just
 # pretend that it is an empty command.
