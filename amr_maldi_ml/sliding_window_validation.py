@@ -197,7 +197,10 @@ if __name__ == '__main__':
         # that the experiment is reproducible.
         output['metadata_versions'] = metadata_fingerprints
 
-        suffix = f'{date_from}_{date_to}'
+        # add time interval to output_filename
+        delta = dateparser.parse(f'{date_to}') - dateparser.parse(f'{date_from}')
+        
+        suffix = f'TimeDelta_{delta}_{date_from}_{date_to}'
 
         output_filename = generate_output_filename(
             args.output,
@@ -223,7 +226,8 @@ if __name__ == '__main__':
             )
 
             output.update(results)
-
+            # include sample size to output
+            output['train_sample_size'] = len(y_train_)
             logging.info(f'Saving {os.path.basename(output_filename)}')
 
             with open(output_filename, 'w') as f:
