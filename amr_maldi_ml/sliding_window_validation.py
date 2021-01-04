@@ -210,7 +210,7 @@ if __name__ == '__main__':
         delta = dateparser.parse(f'{date_to}') \
             - dateparser.parse(f'{date_from}')
 
-        suffix = f'TimeDelta_{delta}_{date_from}_{date_to}'
+        suffix = f'TimeDelta_{delta.days}_{date_from}_{date_to}'
 
         output_filename = generate_output_filename(
             args.output,
