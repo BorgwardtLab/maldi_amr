@@ -100,6 +100,13 @@ if __name__ == '__main__':
         help='Site to use for the temporal validation scenario',
     )
 
+    parser.add_argument(
+        '--duration',
+        default=5,
+        type=int,
+        help='Duration in months of the sliding window',
+    )
+
     args = parser.parse_args()
 
     # Create the output directory for storing all results of the
@@ -119,6 +126,7 @@ if __name__ == '__main__':
     logging.info(f'Site: {args.site}')
     logging.info(f'Seed: {args.seed}')
     logging.info(f'Model: {args.model}')
+    logging.info(f'Duration: {args.duration}')
     logging.info(f'Antibiotic: {args.antibiotic}')
 
     driams_dataset = load_driams_dataset(
@@ -141,7 +149,7 @@ if __name__ == '__main__':
     )
 
     # TODO: make configurable
-    test_from = '2018-04-30' 
+    test_from = '2018-04-30'
 
     date_filter = KeepAllBeforeFilter(date=test_from)
     mask = driams_dataset.y.apply(date_filter, axis=1)
@@ -161,9 +169,10 @@ if __name__ == '__main__':
     )
 
     df = pd.DataFrame(index=date_range)
-    for i, window in enumerate(df.rolling(6)):
-        # Ignore first periods that do not contain sufficient data.
-        if i <= 4:
+    for i, window in enumerate(df.rolling(args.duration + 1)):
+        # Ignore first periods that do not contain sufficient data. This
+        # is not an off-by-one error because `i` is an index.
+        if i < args.duration:
             continue
 
         date_from = window.index[0].strftime('%Y-%m-%d')
@@ -198,8 +207,9 @@ if __name__ == '__main__':
         output['metadata_versions'] = metadata_fingerprints
 
         # add time interval to output_filename
-        delta = dateparser.parse(f'{date_to}') - dateparser.parse(f'{date_from}')
-        
+        delta = dateparser.parse(f'{date_to}') \
+            - dateparser.parse(f'{date_from}')
+
         suffix = f'TimeDelta_{delta}_{date_from}_{date_to}'
 
         output_filename = generate_output_filename(
