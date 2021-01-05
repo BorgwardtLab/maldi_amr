@@ -61,7 +61,6 @@ if __name__ == '__main__':
     parser.add_argument(
         '-c', '--cumulative',
         action='store_true',
-        type=bool,
         help='If set, uses cumulative window'
     )
 
@@ -156,7 +155,7 @@ if __name__ == '__main__':
     )
 
     # TODO: make configurable
-    train_from = '2015-11-01',
+    train_from = '2015-11-01'
     test_from = '2018-04-30'
 
     date_filter = KeepAllBeforeFilter(date=test_from)
