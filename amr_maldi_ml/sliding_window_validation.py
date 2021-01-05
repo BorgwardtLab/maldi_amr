@@ -59,6 +59,13 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
+        '-c', '--cumulative',
+        action='store_true',
+        type=bool,
+        help='If set, uses cumulative window'
+    )
+
+    parser.add_argument(
         '-m', '--model',
         default='lr',
         help='Selects model to use for subsequent training'
@@ -140,7 +147,7 @@ if __name__ == '__main__':
         id_suffix='strat_acqu',
     )
 
-    logging.info(f'Loaded full data set')
+    logging.info('Loaded full data set')
 
     # Contains all spectra of the data set. Need to get this into an
     # `np.array` in order to slice it later on.
@@ -149,6 +156,7 @@ if __name__ == '__main__':
     )
 
     # TODO: make configurable
+    train_from = '2015-11-01',
     test_from = '2018-04-30'
 
     date_filter = KeepAllBeforeFilter(date=test_from)
@@ -163,20 +171,32 @@ if __name__ == '__main__':
     )
 
     date_range = pd.date_range(
-        start='2015-11-01',
-        end='2018-04-30',
+        start=train_from,
+        end=test_from,
         freq='M',
     )
 
+    # Set last date for training. If mode is not cumulative, this
+    # variable will be modified.
+    date_to = test_from
+
+    # Create data frame that only contains the date ranges, making it
+    # super easy to collect them subsequently.
     df = pd.DataFrame(index=date_range)
+
     for i, window in enumerate(df.rolling(args.duration + 1)):
         # Ignore first periods that do not contain sufficient data. This
         # is not an off-by-one error because `i` is an index.
         if i < args.duration:
             continue
 
+        # Always has to be adjusted
         date_from = window.index[0].strftime('%Y-%m-%d')
-        date_to = window.index[-1].strftime('%Y-%m-%d')
+
+        # Only adjust for proper sliding window operation, but *not* for
+        # cumulative operation.
+        if not args.cumulative:
+            date_to = window.index[-1].strftime('%Y-%m-%d')
 
         date_filter = KeepRangeFilter(date_from, date_to)
         mask = y_train.apply(date_filter, axis=1)
@@ -211,6 +231,9 @@ if __name__ == '__main__':
             - dateparser.parse(f'{date_from}')
 
         suffix = f'TimeDelta_{delta.days}_{date_from}_{date_to}'
+
+        if args.cumulative:
+            suffix += '_cumulative'
 
         output_filename = generate_output_filename(
             args.output,
