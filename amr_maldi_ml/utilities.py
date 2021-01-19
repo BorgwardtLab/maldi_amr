@@ -9,7 +9,12 @@ def _encode(s):
     return s.replace(' ', '_')
 
 
-def generate_output_filename(root, data, suffix=None):
+def generate_output_filename(
+    root,
+    data,
+    suffix=None,
+    create_model_subdirectory=True
+):
     """Generate output filename for dictionary.
 
     Given a root folder for storing output files, creates a filename
@@ -28,6 +33,14 @@ def generate_output_filename(root, data, suffix=None):
         Contains a suffix that is appended to the filename before the
         extension. This is useful when describing certain experiments
         that cannot be fully described by `data`.
+
+    create_model_subdirectory : bool, optional
+        If set creates a subdirectory within the root folder, depending
+        on the name of the model. This has the effect of automatically
+        sorting models based on their identifier.
+
+        Note that the identifier in the filename will always be kept,
+        making model identification possible in all cases.
 
     Returns
     -------
@@ -93,10 +106,14 @@ def generate_output_filename(root, data, suffix=None):
         filename += f'_{suffix}'
 
     filename += '.json'
-    filename = os.path.join(root, filename)
+
+    if create_model_subdirectory:
+        os.makedirs(os.path.join(root, model), exist_ok=True)
+        filename = os.path.join(root, model, filename)
+    else:
+        filename = os.path.join(root, filename)
 
     return filename
-
 
 
 # define color maps
