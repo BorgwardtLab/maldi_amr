@@ -101,6 +101,12 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
+        '-l', '--log-codes',
+        action='store_true',
+        help='If set, log spectra codes in output file.'
+    )
+
+    parser.add_argument(
         '--site',
         default='DRIAMS-A',
         help='Site to use for the temporal validation scenario',
@@ -169,6 +175,12 @@ if __name__ == '__main__':
         dtype=int
     )
 
+    if args.log_codes:
+        y_codes = np.asarray(
+            driams_dataset.y[~mask]['code'].values,
+            dtype=str
+        )
+
     date_range = pd.date_range(
         start=train_from,
         end=test_from,
@@ -233,6 +245,10 @@ if __name__ == '__main__':
 
         if args.cumulative:
             suffix += '_cumulative'
+
+        if args.log_codes:
+            suffix += '_codes'
+            output['y_codes'] = y_codes.to_list()
 
         output_filename = generate_output_filename(
             args.output,
