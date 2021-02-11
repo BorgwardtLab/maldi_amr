@@ -248,7 +248,7 @@ if __name__ == '__main__':
 
         if args.log_codes:
             suffix += '_codes'
-            output['y_codes'] = y_codes.to_list()
+            output['y_codes'] = y_codes.tolist()
 
         output_filename = generate_output_filename(
             args.output,
