@@ -11,7 +11,7 @@ MAIN="poetry run python ../sliding_window_validation.py --duration 29 "
 # Try to be smart: if `bsub` does *not* exist on the system, we just
 # pretend that it is an empty command.
 if [ -x "$(command -v bsub)" ]; then
-  BSUB='bsub -W 47:59 -o "clinical_validation_%J.out" -R "rusage[mem=16000]"'
+  BSUB='bsub -W 23:59 -o "clinical_validation_%J.out" -R "rusage[mem=16000]"'
 fi
 
 # Evaluates its first argument either by submitting a job, or by
