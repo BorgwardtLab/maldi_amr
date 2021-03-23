@@ -79,10 +79,10 @@ if __name__ == '__main__':
         x=args.date_column,
         y=args.metric,
         data=df,
-        hue=f'scenario ({model})'
+        hue=f'scenario ({model})',
     )
 
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.savefig(f'plots/sliding_window/Model_{model}_Date_{args.date_column}_Metric_{args.metric}.png')
-    #plt.show()
+    plt.show()
