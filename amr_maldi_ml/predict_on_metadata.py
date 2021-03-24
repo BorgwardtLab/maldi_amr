@@ -56,10 +56,27 @@ if __name__ == '__main__':
     # probably be smarter here.
     df_metadata = df_metadata.dropna(axis='columns')
 
-    X = pd.get_dummies(df_metadata).to_numpy()
+    df_metadata = df_metadata.drop(
+        columns=[
+            c for c in df_metadata.columns if c.endswith('_id')
+        ]
+    )
+
+    # TODO: make this configurable
+    if False:
+        X = df_metadata.select_dtypes(include=[np.number])
+    else:
+        X = pd.get_dummies(df_metadata).to_numpy()
+
+    X = df_metadata['TAGESNUMMER'].values.reshape(-1, 1)
+
     y = df_resistance.values.astype(int)
 
-    clf = LogisticRegressionCV(cv=5)
+    clf = LogisticRegressionCV(
+        cv=5,
+        scoring='average_precision',
+        class_weight='balanced'
+    )
     clf.fit(X, y)
 
     y_pred = clf.predict(X)
