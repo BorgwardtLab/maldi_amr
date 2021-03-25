@@ -8,10 +8,12 @@ import numpy as np
 import pandas as pd
 
 from sklearn.exceptions import ConvergenceWarning
+
 from sklearn.linear_model import LogisticRegressionCV
+
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import average_precision_score
-from sklearn.metrics import classification_report
+from sklearn.metrics import roc_auc_score
 
 from maldi_learn.driams import DRIAMSLabelEncoder
 
@@ -43,20 +45,26 @@ def make_dataframes(filename, args):
     n_columns = len(df.columns)
     metadata_columns = df.columns[np.r_[:21, n_columns-6:n_columns]]
 
-    columns_to_remove = [
-        'code', 'strain', 'Value', 'A', 'acquisition_date',
-        'Organism.best.match.',
-        'Organism.second.best.match.',
-        'GENUS',
-        'KEIM',
-        'acquisition_time',
-        'EINGANGSDATUM',
-        'SPEZIES_MALDI',
-        'SPEZIES_MLAB',
-    ]
+    # TODO: really?
+    #
+    #columns_to_remove = [
+    #    'code',
+    #    'strain',
+    #    'Value',
+    #    'A',
+    #    'acquisition_date',
+    #    'Organism.best.match.',
+    #    'Organism.second.best.match.',
+    #    'GENUS',
+    #    'KEIM',
+    #    'acquisition_time',
+    #    'EINGANGSDATUM',
+    #    'SPEZIES_MALDI',
+    #    'SPEZIES_MLAB',
+    #]
 
-    for col in columns_to_remove:
-        metadata_columns = metadata_columns.drop(col)
+    #for col in columns_to_remove:
+    #    metadata_columns = metadata_columns.drop(col)
 
     logging.info(f'All metadata columns: {metadata_columns}')
 
@@ -106,6 +114,10 @@ def make_dataframes(filename, args):
         )
 
         logging.info('Dropped ID columns from metadata')
+    
+    # Select columns/variables to use for the prediction task. This way,
+    # we store also their names.
+    columns = []
 
     if args.mode == 'numerical':
         logging.info('Only including numerical columns:')
@@ -113,22 +125,60 @@ def make_dataframes(filename, args):
             f'{df_metadata.select_dtypes(include=[np.number]).columns}'
         )
 
-        X = df_metadata.select_dtypes(include=[np.number])
+        columns = df_metadata.select_dtypes(include=[np.number]).columns
     elif args.mode == 'categorical':
         logging.info('Only including categorical columns:')
         logging.info(
             f'{df_metadata.select_dtypes(include=[np.object]).columns}'
         )
 
-        X = df_metadata.select_dtypes(include=[np.object])
-        X = pd.get_dummies(X).to_numpy()
+        columns = df_metadata.select_dtypes(include=[np.object]).columns
     elif args.mode == 'all':
         logging.info('Including all column types:')
         logging.info(f'{df_metadata.columns}')
 
-        X = pd.get_dummies(df_metadata).to_numpy()
+        columns = df_metadata.columns
+
+    if args.single:
+        X = []
+        for col in columns:
+            if df_metadata[col].dtype == np.object:
+                X.append(
+                    (col, pd.get_dummies(df_metadata[col]).to_numpy())
+                )
+            else:
+                X.append(
+                    (col, df_metadata[col].to_numpy().reshape(-1, 1))
+                )
+    else:
+        X = pd.get_dummies(df_metadata[columns]).to_numpy()
 
     return X, y
+
+
+def train_and_predict(X, y, name=None):
+    """Train and predict on a feature matrix."""
+    clf = LogisticRegressionCV(
+        cv=5,
+        scoring='average_precision',
+        class_weight='balanced',
+    )
+
+    with warnings.catch_warnings():
+        warnings.filterwarnings('ignore', category=ConvergenceWarning)
+        clf.fit(X, y)
+
+    logging.info(f'Using feature matrix of shape {X.shape}...')
+
+    y_pred = clf.predict(X)
+    y_score = clf.predict_proba(X)
+
+    if name is not None:
+        print(f'--- {name} ---')
+
+    print(f'Accuracy: {accuracy_score(y, y_pred):.2f}')
+    print(f'AUPRC: {average_precision_score(y, y_score[:, 1]):.2f}')
+    print(f'AUROC: {roc_auc_score(y, y_score[:, 1]):.2f}')
 
 
 if __name__ == '__main__':
@@ -165,23 +215,18 @@ if __name__ == '__main__':
         help='If set, drops ID columns'
     )
 
+    parser.add_argument(
+        '--single',
+        action='store_true',
+        help='If set, analyses each single variable individually'
+    )
+
     args = parser.parse_args()
 
     X, y = make_dataframes(args.FILE, args)
 
-    clf = LogisticRegressionCV(
-        cv=5,
-        scoring='average_precision',
-        class_weight='balanced',
-    )
-
-    with warnings.catch_warnings():
-        warnings.filterwarnings('ignore', category=ConvergenceWarning)
-        clf.fit(X, y)
-
-    y_pred = clf.predict(X)
-    y_score = clf.predict_proba(X)
-
-    print(f'Accuracy: {accuracy_score(y, y_pred):.2f}')
-    print(f'AUPRC: {average_precision_score(y, y_score[:, 1]):.2f}')
-    print(classification_report(y, y_pred, zero_division=0))
+    if type(X) is list:
+        for name, X_ in X:
+            train_and_predict(X_, y, name=name)
+    else:
+        train_and_predict(X, y)
