@@ -56,11 +56,16 @@ def make_dataframes(filename, args):
     # also be achieved in the query above.
     df_resistance = encoder.fit_transform(df_resistance)
     df_resistance = df_resistance[args.antibiotic]
-
+    
     # Remove all values of the prediction data frame that contain NaNs
     # because we cannot assign them a proper label.
     df_metadata = df_metadata[~df_resistance.isna()]
     df_resistance = df_resistance[~df_resistance.isna()]
+
+    # The labels should be integers such that categorical predictions
+    # work as expected. We lose the ability to represent NaNs, but we
+    # can live with this because we removed them anyway.
+    y = df_resistance.values.astype(int)
 
     # TODO: we remove all NaN values from the metadata because it is
     # unclear how to convert them.
@@ -69,17 +74,34 @@ def make_dataframes(filename, args):
     # probably be smarter here.
     df_metadata = df_metadata.dropna(axis='columns')
 
-    df_metadata = df_metadata.drop(
-        columns=[
-            c for c in df_metadata.columns if c.endswith('_id')
-        ]
-    )
+    #df_metadata = df_metadata.drop(
+    #    columns=[
+    #        c for c in df_metadata.columns if c.endswith('_id')
+    #    ]
+    #)
 
-    # TODO: make this configurable
-    if False:
+    if args.mode == 'numerical':
+        logging.info('Only including numerical columns:')
+        logging.info(
+            f'{df_metadata.select_dtypes(include=[np.number]).columns}'
+        )
+
         X = df_metadata.select_dtypes(include=[np.number])
-    else:
+    elif args.mode == 'categorical':
+        logging.info('Only including categorical columns:')
+        logging.info(
+            f'{df_metadata.select_dtypes(include=[np.object]).columns}'
+        )
+
+        X = df_metadata.select_dtypes(include=[np.object])
+        X = pd.get_dummies(X).to_numpy()
+    elif args.mode == 'all':
+        logging.info('Including all column types:')
+        logging.info(f'{df_metadata.columns}')
+
         X = pd.get_dummies(df_metadata).to_numpy()
+
+    return X, y
 
 
 if __name__ == '__main__':
@@ -112,22 +134,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    make_dataframes(args.FILE, args)
-
-    df = pd.read_csv(
-        args.FILE,
-        sep=';',
-        na_values='-',
-        keep_default_na=True,
-        low_memory=False
-    )
-    df = df.query('`Organism.best.match.` == @args.species')
-
-    n_columns = len(df.columns)
-    metadata_columns = df.columns[np.r_[:21, n_columns-6:n_columns]]
-    df_metadata = df[metadata_columns]
-
-    print(metadata_columns.values)
+    X, y = make_dataframes(args.FILE, args)
     raise 'crap'
 
     df_resistance = df.drop(columns=metadata_columns)
