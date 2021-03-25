@@ -2,10 +2,12 @@
 
 import argparse
 import logging
+import warnings
 
 import numpy as np
 import pandas as pd
 
+from sklearn.exceptions import ConvergenceWarning
 from sklearn.inspection import permutation_importance
 from sklearn.linear_model import LogisticRegressionCV
 from sklearn.metrics import accuracy_score
@@ -80,11 +82,14 @@ def make_dataframes(filename, args):
     # probably be smarter here.
     df_metadata = df_metadata.dropna(axis='columns')
 
-    #df_metadata = df_metadata.drop(
-    #    columns=[
-    #        c for c in df_metadata.columns if c.endswith('_id')
-    #    ]
-    #)
+    if args.drop_id:
+        df_metadata = df_metadata.drop(
+            columns=[
+                c for c in df_metadata.columns if c.endswith('_id')
+            ]
+        )
+
+        logging.info('Dropped ID columns from metadata')
 
     if args.mode == 'numerical':
         logging.info('Only including numerical columns:')
@@ -138,6 +143,12 @@ if __name__ == '__main__':
         default='numerical'
     )
 
+    parser.add_argument(
+        '-d', '--drop-id',
+        action='store_true',
+        help='If set, drops ID columns'
+    )
+
     args = parser.parse_args()
 
     X, y = make_dataframes(args.FILE, args)
@@ -145,9 +156,12 @@ if __name__ == '__main__':
     clf = LogisticRegressionCV(
         cv=5,
         scoring='average_precision',
-        class_weight='balanced'
+        class_weight='balanced',
     )
-    clf.fit(X, y)
+
+    with warnings.catch_warnings():
+        warnings.filterwarnings('ignore', category=ConvergenceWarning)
+        clf.fit(X, y)
 
     y_pred = clf.predict(X)
     y_score = clf.predict_proba(X)
