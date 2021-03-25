@@ -6,6 +6,7 @@ import logging
 import numpy as np
 import pandas as pd
 
+from sklearn.inspection import permutation_importance
 from sklearn.linear_model import LogisticRegressionCV
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import average_precision_score
@@ -25,6 +26,9 @@ def make_dataframes(filename, args):
         # for the columns.
         low_memory=False
     )
+
+    for col in ['Score1', 'Score2']:
+        df[col] = df[col].apply(lambda x: np.isscalar(x))
 
     # Get only the species we are interested in.
     df = df.query('`Organism.best.match.` == @args.species')
@@ -135,39 +139,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     X, y = make_dataframes(args.FILE, args)
-    raise 'crap'
-
-    df_resistance = df.drop(columns=metadata_columns)
-
-    encoder = DRIAMSLabelEncoder()
-
-    # Only use a specific antibiotic for the prediction task.
-    df_resistance = encoder.fit_transform(df_resistance)
-    df_resistance = df_resistance[args.antibiotic]
-
-    # Remove all values of the prediction data frame that contain NaNs.
-    df_metadata = df_metadata[~df_resistance.isna()]
-    df_resistance = df_resistance[~df_resistance.isna()]
-
-    # Need to drop NaN before converting to `numpy` data frame. We could
-    # probably be smarter here.
-    df_metadata = df_metadata.dropna(axis='columns')
-
-    df_metadata = df_metadata.drop(
-        columns=[
-            c for c in df_metadata.columns if c.endswith('_id')
-        ]
-    )
-
-    # TODO: make this configurable
-    if False:
-        X = df_metadata.select_dtypes(include=[np.number])
-    else:
-        X = pd.get_dummies(df_metadata).to_numpy()
-
-    X = df_metadata['TAGESNUMMER'].values.reshape(-1, 1)
-
-    y = df_resistance.values.astype(int)
 
     clf = LogisticRegressionCV(
         cv=5,
@@ -182,3 +153,12 @@ if __name__ == '__main__':
     print(f'Accuracy: {accuracy_score(y, y_pred):.2f}')
     print(f'AUPRC: {average_precision_score(y, y_score[:, 1]):.2f}')
     print(classification_report(y, y_pred, zero_division=0))
+
+    result = permutation_importance(
+        clf,
+        X, y,
+        n_repeats=5,
+        random_state=42,
+        scoring='average_precision'
+    )
+    print(result.importances_mean)
