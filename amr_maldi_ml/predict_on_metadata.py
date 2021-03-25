@@ -27,8 +27,10 @@ def make_dataframes(filename, args):
         low_memory=False
     )
 
+    # Ensures that these columns are always numerical. This will fill
+    # them up with NaNs.
     for col in ['Score1', 'Score2']:
-        df[col] = df[col].apply(lambda x: np.isscalar(x))
+        df[col] = pd.to_numeric(df[col], errors='coerce')
 
     # Get only the species we are interested in.
     df = df.query('`Organism.best.match.` == @args.species')
