@@ -8,7 +8,6 @@ import numpy as np
 import pandas as pd
 
 from sklearn.exceptions import ConvergenceWarning
-from sklearn.inspection import permutation_importance
 from sklearn.linear_model import LogisticRegressionCV
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import average_precision_score
@@ -29,7 +28,7 @@ def make_dataframes(filename, args):
         low_memory=False
     )
 
-    # Ensures that these columns are always numerical. This will fill
+       # Ensures that these columns are always numerical. This will fill
     # them up with NaNs.
     for col in ['Score1', 'Score2']:
         df[col] = pd.to_numeric(df[col], errors='coerce')
@@ -43,6 +42,23 @@ def make_dataframes(filename, args):
     # bunch of other data.
     n_columns = len(df.columns)
     metadata_columns = df.columns[np.r_[:21, n_columns-6:n_columns]]
+
+    columns_to_remove = [
+        'code', 'strain', 'Value', 'A', 'acquisition_date',
+        'Organism.best.match.',
+        'Organism.second.best.match.',
+        'GENUS',
+        'KEIM',
+        'acquisition_time',
+        'EINGANGSDATUM',
+        'SPEZIES_MALDI',
+        'SPEZIES_MLAB',
+    ]
+
+    for col in columns_to_remove:
+        metadata_columns = metadata_columns.drop(col)
+
+    logging.info(f'All metadata columns: {metadata_columns}')
 
     # Split the data set into two parts: one containing metadata
     # columns, the other one only containing resistance info. We
@@ -169,12 +185,3 @@ if __name__ == '__main__':
     print(f'Accuracy: {accuracy_score(y, y_pred):.2f}')
     print(f'AUPRC: {average_precision_score(y, y_score[:, 1]):.2f}')
     print(classification_report(y, y_pred, zero_division=0))
-
-    result = permutation_importance(
-        clf,
-        X, y,
-        n_repeats=5,
-        random_state=42,
-        scoring='average_precision'
-    )
-    print(result.importances_mean)
