@@ -9,7 +9,7 @@ authors = ["Caroline Weis <caroline.weis@bsse.ethz.ch>", "Bastian Rieck <bastian
 python = ">=3.6.1"
 maldi-learn = {git = "https://github.com/BorgwardtLab/maldi-learn.git"}
 matplotlib = "^3.2.0"
-seaborn = "^0.10.0"
+seaborn = "^0.11.0"
 #jupyter = "^1.0.0"
 numpy = "^1.18.1"
 pandas = "^1.0.1"
@@ -17,7 +17,7 @@ tabulate = "^0.8.6"
 python-dotenv = "^0.12.0"
 xlrd = "^1.2.0"
 lightgbm = "^2.3.1"
-heatmapz = {git = "ssh://git@github.com/cvweis/heatmap.git"}
+#heatmapz = {git = "ssh://git@github.com/cvweis/heatmap.git"}
 imbalanced-learn = "^0.6.1"
 
 [tool.poetry.dev-dependencies]
