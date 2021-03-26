@@ -1,0 +1,45 @@
+{
+    "site": "DRIAMS-A",
+    "seed": 480,
+    "model": "lr",
+    "antibiotic": "Ceftriaxone",
+    "species": "Klebsiella pneumoniae",
+    "column": "workstation",
+    "years": [
+        "2015",
+        "2016",
+        "2017",
+        "2018"
+    ],
+    "n_samples": 2860,
+    "bincount": [
+        273,
+        204,
+        5,
+        229,
+        268,
+        15,
+        1790,
+        76
+    ],
+    "metadata_versions": {
+        "2015_clean.csv": "d022b7aaae8f97f37ec499a0baa1d6428d83cf53",
+        "2016_clean.csv": "b64ae1e31e21b47b929bac6d65809c2e4ef4ad41",
+        "2017_clean.csv": "7d468e674a2201d6f03a6d9506069b605b5b50ac",
+        "2018_clean.csv": "c877802ee9e754f46cebf59ec00c27dff40c1719"
+    },
+    "train_accuracy": [
+        0.8177447552447552,
+        0.8046328671328671,
+        0.8059440559440559,
+        0.8068181818181818,
+        0.8033216783216783
+    ],
+    "test_accuracy": [
+        0.7587412587412588,
+        0.7797202797202797,
+        0.8041958041958042,
+        0.798951048951049,
+        0.7867132867132867
+    ]
+}

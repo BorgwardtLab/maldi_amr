@@ -1,0 +1,44 @@
+{
+    "site": "DRIAMS-A",
+    "seed": 270,
+    "model": "lr",
+    "antibiotic": "Oxacillin",
+    "species": "Staphylococcus aureus",
+    "column": "workstation",
+    "years": [
+        "2015",
+        "2016",
+        "2017",
+        "2018"
+    ],
+    "n_samples": 3790,
+    "bincount": [
+        708,
+        1356,
+        34,
+        379,
+        517,
+        187,
+        609
+    ],
+    "metadata_versions": {
+        "2015_clean.csv": "d022b7aaae8f97f37ec499a0baa1d6428d83cf53",
+        "2016_clean.csv": "b64ae1e31e21b47b929bac6d65809c2e4ef4ad41",
+        "2017_clean.csv": "7d468e674a2201d6f03a6d9506069b605b5b50ac",
+        "2018_clean.csv": "c877802ee9e754f46cebf59ec00c27dff40c1719"
+    },
+    "train_accuracy": [
+        0.633245382585752,
+        0.645778364116095,
+        0.616754617414248,
+        0.6012532981530343,
+        0.6464379947229552
+    ],
+    "test_accuracy": [
+        0.5382585751978892,
+        0.5620052770448549,
+        0.5712401055408971,
+        0.5606860158311345,
+        0.5343007915567283
+    ]
+}
