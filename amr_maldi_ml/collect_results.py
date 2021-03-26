@@ -62,7 +62,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     metrics = ['auroc', 'auprc', 'accuracy',
-               'train_auroc', 'train_auprc', 'train_accuracy']
+               'train_auroc', 'train_auprc', 'train_accuracy',
+               'test_accuracy']
 
     rows = []
     filenames = args.INPUT
@@ -169,6 +170,11 @@ if __name__ == '__main__':
             metrics = sorted(metrics_)
 
             for metric in metrics:
+
+                # We collate here for simplicity reasons...
+                if type(data_raw[metric]) is list:
+                    data_raw[metric] = np.mean(data_raw[metric])
+
                 row[metric] = data_raw[metric] * 100.0
 
         rows.append(row)
