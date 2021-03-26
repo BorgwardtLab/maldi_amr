@@ -18,6 +18,7 @@ xlrd = "^1.2.0"
 lightgbm = "^2.3.1"
 #heatmapz = {git = "ssh://git@github.com/cvweis/heatmap.git"}
 imbalanced-learn = "^0.6.1"
+uniplot = "^0.3.5"
 
 [tool.poetry.dev-dependencies]
 
