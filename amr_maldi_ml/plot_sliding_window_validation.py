@@ -26,6 +26,13 @@ if __name__ == '__main__':
         help='Date column to use for visualisation'
     )
 
+    parser.add_argument(
+        '-s', '--suffix',
+        type=str,
+        default='',
+        help='Suffix to be added to plot name'
+    )
+
     args = parser.parse_args()
 
     # Create new data frame by concatenating all the JSON files there
@@ -61,7 +68,8 @@ if __name__ == '__main__':
     df[f'scenario ({model})'] = df['species'] + ' (' + df['antibiotic'] + ')'
 
     df = df.sort_values([f'scenario ({model})', args.date_column])
-    df[args.metric] *= 100
+    if args.metric != 'train_sample_size':
+        df[args.metric] *= 100
 
     # Some debug output, just so all values can be seen in all their
     # glory.
@@ -82,7 +90,15 @@ if __name__ == '__main__':
         hue=f'scenario ({model})'
     )
 
+    if args.suffix != '':
+        suffix = '_' + args.suffix
+    else:
+        suffix = args.suffix
+
+    filename = f'plots/sliding_window/Model_{model}_Date_{args.date_column}_Metric_{args.metric}{suffix}.png'
+
+
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig(f'plots/sliding_window/Model_{model}_Date_{args.date_column}_Metric_{args.metric}.png')
+    plt.savefig(filename)
     #plt.show()
