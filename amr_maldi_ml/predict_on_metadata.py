@@ -42,7 +42,9 @@ def make_dataframes(files, args):
 
         df.append(df_)
 
-    df = pd.concat(df)
+    # Prevent issues with re-ordering columns, so we let the last data
+    # frame determine the order.
+    df = pd.concat(df[-1:], sort=False)
 
     # Ensures that these columns are always numerical. This will fill
     # them up with NaNs.
@@ -61,25 +63,23 @@ def make_dataframes(files, args):
     metadata_columns = df.columns[np.r_[:21, n_columns-6:n_columns]]
 
     # Remove columns that are (almost) unique for each sample, thus
-    # making prediction trivial.
+    # making prediction trivial. We only do this if the user didn't
+    # select their own columns. User-defined column selection needs
+    # to come first.
     columns_to_remove = [
-        #'code',
-        #'strain',
-        #'Value',
-        #'A',
-        #'acquisition_date',
-        #'Organism.best.match.',
-        #'Organism.second.best.match.',
-        #'GENUS',
-        #'KEIM',
-        #'acquisition_time',
-        #'EINGANGSDATUM',
-        #'SPEZIES_MALDI',
-        #'SPEZIES_MLAB',
+        'code',
+        'strain',
+        'A',
+        'SPEZIES_MALDI',
+        'Organism.best.match.',
+        'Organism.second.best.match.',
+        'GENUS',
+        'acquisition_time',
     ]
 
-    for col in columns_to_remove:
-        metadata_columns = metadata_columns.drop(col)
+    if not args.column:
+        for col in columns_to_remove:
+            metadata_columns = metadata_columns.drop(col)
 
     logging.info(f'Samples (before filtering): {len(df)}')
     logging.info(f'All metadata columns: {metadata_columns}')
@@ -99,7 +99,7 @@ def make_dataframes(files, args):
     resistance_values = set(df_resistance.values.ravel())
     resistance_values = set(filter(lambda x: x == x, resistance_values))
 
-    assert 'I' in resistance_values
+    assert 'S' in resistance_values
     assert 'R' in resistance_values
 
     encoder = DRIAMSLabelEncoder()
@@ -137,7 +137,12 @@ def make_dataframes(files, args):
     # we store also their names.
     columns = []
 
-    if args.mode == 'numerical':
+    if args.column:
+        columns = args.column
+        logging.info(f'Only using pre-defined columns: {columns}')
+    # Check first whether columns have been specified; `mode` needs to
+    # be ignored otherwise.
+    elif args.mode == 'numerical':
         columns = df_metadata.select_dtypes(include=[np.number]).columns
         logging.info(f'Only including numerical columns: {columns}')
     elif args.mode == 'categorical':
@@ -237,6 +242,12 @@ if __name__ == '__main__':
         '-s', '--species',
         type=str,
         default='Escherichia coli'
+    )
+
+    parser.add_argument(
+        '-c', '--column',
+        nargs='+',
+        help='Chooses columns to keep. Will override `mode`.'
     )
 
     parser.add_argument(
