@@ -46,6 +46,19 @@ def make_dataframes(files, args):
     # frame determine the order.
     df = pd.concat(df[-1:], sort=False)
 
+    # Excluding values only works if a single column has been selected.
+    # Moreover, this column should usually be categorical, but we have
+    # no way of enforcing this here.
+    if len(args.column) == 1 and args.exclude:
+        logging.info(
+            f'Excluding value "{args.exclude}" from "{args.column}"'
+        )
+
+        df.drop(
+            df.index[df[args.column[0]] == args.exclude],
+            inplace = True
+        )
+
     # Ensures that these columns are always numerical. This will fill
     # them up with NaNs.
     for col in ['Score1', 'Score2']:
@@ -246,8 +259,16 @@ if __name__ == '__main__':
 
     parser.add_argument(
         '-c', '--column',
+        type=str,
         nargs='+',
         help='Chooses columns to keep. Will override `mode`.'
+    )
+
+    parser.add_argument(
+        '-e', '--exclude',
+        type=str,
+        help='Excludes a certain value from a column. Only active if '
+             '`--column` is used.'
     )
 
     parser.add_argument(
