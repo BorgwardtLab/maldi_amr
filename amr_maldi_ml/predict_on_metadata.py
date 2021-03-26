@@ -19,6 +19,8 @@ from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import recall_score
 from sklearn.metrics import roc_auc_score
 
+from sklearn.model_selection import cross_validate
+
 from maldi_learn.driams import DRIAMSLabelEncoder
 
 
@@ -51,7 +53,7 @@ def make_dataframes(files, args):
     # no way of enforcing this here.
     if len(args.column) == 1 and args.exclude:
         logging.info(
-            f'Excluding value "{args.exclude}" from "{args.column}"'
+            f'Excluding value "{args.exclude}" from "{args.column[0]}"'
         )
 
         df.drop(
@@ -204,14 +206,30 @@ def train_and_predict(X, y, name=None):
     y_pred = clf.predict(X)
     y_score = clf.predict_proba(X)
 
+    scores = cross_validate(
+        clf,
+        X, y,
+        scoring=[
+            'accuracy',
+            'average_precision', 'precision', 'recall',
+            'roc_auc'
+        ],
+        cv=5
+    )
+
     if name is not None:
         logging.info(f'--- {name} ---')
 
-    logging.info(f'  Accuracy: {accuracy_score(y, y_pred):.2f}')
-    logging.info(f'  Precision: {precision_score(y, y_pred):.2f}')
-    logging.info(f'  Recall: {recall_score(y, y_pred):.2f}')
-    logging.info(f'  AUPRC: {average_precision_score(y, y_score[:, 1]):.2f}')
-    logging.info(f'  AUROC: {roc_auc_score(y, y_score[:, 1]):.2f}')
+    for score_name, score_values in scores.items():
+        if score_name.startswith('test_'):
+            score_name = score_name.split('test_')[1]
+
+            mean = np.mean(score_values)
+            sdev = np.std(score_values)
+
+            logging.info(f'  {score_name}: {mean:.2f} +- {sdev:.2f}')
+
+    logging.info('Plotting predictions over full data set\n')
 
     precision, recall, thres = precision_recall_curve(y, y_score[:, 1])
     uniplot.plot(
@@ -220,7 +238,7 @@ def train_and_predict(X, y, name=None):
         lines=True,
         y_min=-0.05, y_max=1.05,
         x_min=-0.05, x_max=1.05,
-        title='Precision--Recall'
+        title='Precision--Recall Curve'
     )
 
     uniplot.histogram(
@@ -239,7 +257,7 @@ if __name__ == '__main__':
     # spends most of its time.
     logging.basicConfig(
         level=logging.INFO,
-        format='%(asctime)s %(message)s'
+        format='%(message)s'
     )
 
     parser = argparse.ArgumentParser()
