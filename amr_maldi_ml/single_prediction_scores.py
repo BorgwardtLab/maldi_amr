@@ -35,7 +35,8 @@ def single_prediction_scores(args):
     # Check if INPUT is a list of files or a single file
     files = list(args.INPUT)
     print(f'\nLength INPUT is {len(files)}')
-    print(args.input)
+    print(f'\nFile to read model from {files}')
+    print(f'i\nID to classify {args.input}')
 
     # Create empty lists for average feature importances
     all_antibiotics = []
@@ -62,6 +63,7 @@ def single_prediction_scores(args):
         logging.info(f'Site: {site}')
         logging.info(f'Years: {years}')
         logging.info(f'Seed: {seed}')
+        logging.info(f'Model: {model}')
 
         explorer = DRIAMSDatasetExplorer(DRIAMS_ROOT)
         metadata_fingerprints = explorer.metadata_fingerprints(site)
@@ -100,7 +102,6 @@ def single_prediction_scores(args):
         X_train, y_train = X[train_index], y[train_index]
 
         pipeline.fit(X_train, y_train)
-        clf = pipeline[model]
 
         # include prediction of input sample
         if args.input in driams_dataset.y['code'].values:
@@ -121,8 +122,8 @@ def single_prediction_scores(args):
         all_seeds.append(seed)
         all_species.append(species)
         all_models.append(model) 
-        all_scores.append(clf.predict_proba(X_target)[0,1])
-        all_predictions.append(clf.predict(X_target))
+        all_scores.append(pipeline.predict_proba(X_target)[0,1])
+        all_predictions.append(pipeline.predict(X_target))
         all_metadata_versions.append(metadata_fingerprints)
 
         output = {
@@ -134,8 +135,8 @@ def single_prediction_scores(args):
             'model': model,
             'best_params': best_params,
             'metadata_versions': metadata_fingerprints,
-            'scores_positive': clf.predict_proba(X_target)[0,1].tolist(),
-            'predictions': clf.predict(X_target).tolist(),
+            'scores_positive': pipeline.predict_proba(X_target)[0,1].tolist(),
+            'predictions': pipeline.predict(X_target).tolist(),
         }
 
         output_filename = generate_output_filename(
@@ -154,67 +155,6 @@ def single_prediction_scores(args):
                 f'Skipping {output_filename} because it already exists.'
             )
 
-    if len(files) > 1:
-        mean_scores = np.mean(
-                     np.array(all_scores),
-                     axis=0).tolist()
-        std_scores = np.std(
-                     np.array(all_scores),
-                     axis=0).tolist()
-        #metadata_fingerprints = list(set(all_metadata_versions))
-        sites = list(set(all_sites))
-        antibiotics = list(set(all_antibiotics))
-        species = list(set(all_species))
-        models = list(set(all_models))
-
-        print(f'\nLength mean prediction scores {len(mean_scores)}')
-
-        # Stop if files from more than one antibiotics-species-model scenario 
-        # were given as input
-        if any([len(l) > 1 for l in [all_years,
-                                     sites,
-                                     antibiotics,
-                                     species,
-                                     models]]):
-            print('Cannot include more than one scenario in average \
-                   feature importance vectors.')
-            return
-
-        output = {
-            'site': sites[0],
-            'years': all_years[0],
-            'seed': all_seeds,
-            'antibiotic': antibiotics[0],
-            'species': species[0],
-            'model': models[0],
-            #'best_params': best_params,
-            #'metadata_versions': metadata_fingerprints,
-            'mean_scores_positive': mean_scores,
-            'std_scores': std_scores,
-        }
-        for k in output.keys():
-            if k != 'scores':
-                print(type(output[k]), output[k])
-
-        output_print = output.copy()
-        output_print['seed'] = '-'.join([str(seed) for seed in all_seeds])     
- 
-        output_filename = generate_output_filename(
-            args.output,
-            output_print,
-            suffix=f'average_{args.input}',
-        )
-        print(f'the output_filename is {output_filename}')
-
-        if not os.path.exists(output_filename) or args.force:
-            logging.info(f'Saving {os.path.basename(output_filename)}')
-
-            with open(output_filename, 'w') as f:
-                json.dump(output, f, indent=4)
-        else:
-            logging.warning(
-                f'Skipping {output_filename} because it already exists.'
-            )
 
 
 if __name__ == '__main__':
