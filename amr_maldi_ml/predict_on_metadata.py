@@ -22,19 +22,26 @@ from sklearn.metrics import roc_auc_score
 from maldi_learn.driams import DRIAMSLabelEncoder
 
 
-def make_dataframes(filename, args):
-    """Create data frames from file, based on mode."""
-    df = pd.read_csv(
-        args.FILE,
-        sep=';',
-        na_values='-',
-        keep_default_na=True,
-        # Required to ensure that different data types can be inferred
-        # for the columns.
-        low_memory=False
-    )
+def make_dataframes(files, args):
+    """Create data frames from file(s), based on mode."""
+    df = []
 
-       # Ensures that these columns are always numerical. This will fill
+    for filename in files:
+        df_ = pd.read_csv(
+            filename,
+            sep=';',
+            na_values='-',
+            keep_default_na=True,
+            # Required to ensure that different data types can be inferred
+            # for the columns.
+            low_memory=False
+        )
+
+        df.append(df_)
+
+    df = pd.concat(df)
+
+    # Ensures that these columns are always numerical. This will fill
     # them up with NaNs.
     for col in ['Score1', 'Score2']:
         df[col] = pd.to_numeric(df[col], errors='coerce')
@@ -124,24 +131,14 @@ def make_dataframes(filename, args):
     columns = []
 
     if args.mode == 'numerical':
-        logging.info('Only including numerical columns:')
-        logging.info(
-            f'{df_metadata.select_dtypes(include=[np.number]).columns}'
-        )
-
         columns = df_metadata.select_dtypes(include=[np.number]).columns
+        logging.info(f'Only including numerical columns: {columns}')
     elif args.mode == 'categorical':
-        logging.info('Only including categorical columns:')
-        logging.info(
-            f'{df_metadata.select_dtypes(include=[np.object]).columns}'
-        )
-
         columns = df_metadata.select_dtypes(include=[np.object]).columns
+        logging.info(f'Only including categorical columns: {columns}')
     elif args.mode == 'all':
-        logging.info('Including all column types:')
-        logging.info(f'{df_metadata.columns}')
-
         columns = df_metadata.columns
+        logging.info('Including all column types: {columns}')
 
     if args.single:
         X = []
@@ -196,6 +193,16 @@ def train_and_predict(X, y, name=None):
         title='Precision--Recall'
     )
 
+    uniplot.histogram(
+        np.max(y_score, axis=1),
+        bins=10,
+        # The histogram function has some issues with plotting
+        # everything properly under certain circumstances.
+        x_min=0.49,
+        x_max=0.99,
+        title='Prediction Probabilities'
+    )
+
 
 if __name__ == '__main__':
     # Basic log configuration to ensure that we see where the process
@@ -206,17 +213,25 @@ if __name__ == '__main__':
     )
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('FILE')
+
+    parser.add_argument(
+        'FILE',
+        nargs='+',
+        help='Input file(s)'
+    )
+
     parser.add_argument(
         '-a', '--antibiotic',
         type=str,
         default='Ceftriaxon'
+
     )
     parser.add_argument(
         '-s', '--species',
         type=str,
         default='Escherichia coli'
     )
+
     parser.add_argument(
         '-m', '--mode',
         type=str,
