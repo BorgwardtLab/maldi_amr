@@ -2,6 +2,7 @@
 
 import argparse
 import logging
+import uniplot
 import warnings
 
 import numpy as np
@@ -13,6 +14,9 @@ from sklearn.linear_model import LogisticRegressionCV
 
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import average_precision_score
+from sklearn.metrics import precision_score
+from sklearn.metrics import precision_recall_curve
+from sklearn.metrics import recall_score
 from sklearn.metrics import roc_auc_score
 
 from maldi_learn.driams import DRIAMSLabelEncoder
@@ -45,26 +49,26 @@ def make_dataframes(filename, args):
     n_columns = len(df.columns)
     metadata_columns = df.columns[np.r_[:21, n_columns-6:n_columns]]
 
-    # TODO: really?
-    #
-    #columns_to_remove = [
-    #    'code',
-    #    'strain',
-    #    'Value',
-    #    'A',
-    #    'acquisition_date',
-    #    'Organism.best.match.',
-    #    'Organism.second.best.match.',
-    #    'GENUS',
-    #    'KEIM',
-    #    'acquisition_time',
-    #    'EINGANGSDATUM',
-    #    'SPEZIES_MALDI',
-    #    'SPEZIES_MLAB',
-    #]
+    # Remove columns that are (almost) unique for each sample, thus
+    # making prediction trivial.
+    columns_to_remove = [
+        #'code',
+        #'strain',
+        #'Value',
+        #'A',
+        #'acquisition_date',
+        #'Organism.best.match.',
+        #'Organism.second.best.match.',
+        #'GENUS',
+        #'KEIM',
+        #'acquisition_time',
+        #'EINGANGSDATUM',
+        #'SPEZIES_MALDI',
+        #'SPEZIES_MLAB',
+    ]
 
-    #for col in columns_to_remove:
-    #    metadata_columns = metadata_columns.drop(col)
+    for col in columns_to_remove:
+        metadata_columns = metadata_columns.drop(col)
 
     logging.info(f'All metadata columns: {metadata_columns}')
 
@@ -174,11 +178,23 @@ def train_and_predict(X, y, name=None):
     y_score = clf.predict_proba(X)
 
     if name is not None:
-        print(f'--- {name} ---')
+        logging.info(f'--- {name} ---')
 
-    print(f'Accuracy: {accuracy_score(y, y_pred):.2f}')
-    print(f'AUPRC: {average_precision_score(y, y_score[:, 1]):.2f}')
-    print(f'AUROC: {roc_auc_score(y, y_score[:, 1]):.2f}')
+    logging.info(f'  Accuracy: {accuracy_score(y, y_pred):.2f}')
+    logging.info(f'  Precision: {precision_score(y, y_pred):.2f}')
+    logging.info(f'  Recall: {recall_score(y, y_pred):.2f}')
+    logging.info(f'  AUPRC: {average_precision_score(y, y_score[:, 1]):.2f}')
+    logging.info(f'  AUROC: {roc_auc_score(y, y_score[:, 1]):.2f}')
+
+    precision, recall, thres = precision_recall_curve(y, y_score[:, 1])
+    uniplot.plot(
+        precision,
+        recall,
+        lines=True,
+        y_min=-0.05, y_max=1.05,
+        x_min=-0.05, x_max=1.05,
+        title='Precision--Recall'
+    )
 
 
 if __name__ == '__main__':
@@ -224,6 +240,9 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     X, y = make_dataframes(args.FILE, args)
+
+    class_prevalence = np.min(np.bincount(y) / len(y))
+    logging.info(f'Class prevalence: {class_prevalence:.2f}')
 
     if type(X) is list:
         for name, X_ in X:
