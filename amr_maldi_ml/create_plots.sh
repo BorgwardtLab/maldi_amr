@@ -20,8 +20,8 @@
 # -------------
 # Figure 3: Ensemble training vs. species training curves
 # -------------
-python plot_fig3_ensemble_curves.py ../results/fig3_ensemble \
-        --outdir ./plots/fig3
+#python plot_fig3_ensemble_curves.py ../results/fig3_ensemble \
+#        --outdir ./plots/fig3
 
 
 # ------------
@@ -85,3 +85,17 @@ python plot_fig3_ensemble_curves.py ../results/fig3_ensemble \
 #  python plot_calibration_curves.py -m "$metric" ../results/calibrated_classifiers \
 #    --outdir plots/calibration
 #done
+
+    
+# ------------
+# Sliding Window Temporal Validation 
+# ------------
+
+for metric in "auroc" "auprc" "train_sample_size"; do
+    for clf in "lr" "lightgbm"; do
+#for metric in "auroc"; do
+#    for clf in "lr" "lightgbm"; do
+        python plot_sliding_window_validation.py -d train_from -m $metric ../results/sliding_window_validation/${clf}/*TimeDelta*[0-9].json 
+        python plot_sliding_window_validation.py -d train_from -m $metric -s cumulative ../results/sliding_window_validation/${clf}/*TimeDelta*cumulative.json 
+    done
+done
