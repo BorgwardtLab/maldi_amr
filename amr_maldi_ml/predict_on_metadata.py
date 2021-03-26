@@ -48,7 +48,11 @@ def make_dataframes(files, args):
     # them up with NaNs.
     for col in ['Score1', 'Score2']:
         df[col] = pd.to_numeric(df[col], errors='coerce')
-    
+
+    df = df.astype({
+        'TAGESNUMMER': 'category'
+    })
+
     # Retrieve all metadata columns. Since the file format differs
     # between sites, we cannot rely on the ordering. However, each
     # site has the same 21 columns, and the last 6 columns store a
