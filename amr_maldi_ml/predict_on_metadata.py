@@ -37,6 +37,9 @@ def make_dataframes(files, args):
             low_memory=False
         )
 
+        # Get only the species we are interested in.
+        df_ = df_.query('`Organism.best.match.` == @args.species')
+
         df.append(df_)
 
     df = pd.concat(df)
@@ -45,10 +48,7 @@ def make_dataframes(files, args):
     # them up with NaNs.
     for col in ['Score1', 'Score2']:
         df[col] = pd.to_numeric(df[col], errors='coerce')
-
-    # Get only the species we are interested in.
-    df = df.query('`Organism.best.match.` == @args.species')
-
+    
     # Retrieve all metadata columns. Since the file format differs
     # between sites, we cannot rely on the ordering. However, each
     # site has the same 21 columns, and the last 6 columns store a
@@ -77,6 +77,7 @@ def make_dataframes(files, args):
     for col in columns_to_remove:
         metadata_columns = metadata_columns.drop(col)
 
+    logging.info(f'Samples (before filtering): {len(df)}')
     logging.info(f'All metadata columns: {metadata_columns}')
 
     # Split the data set into two parts: one containing metadata
@@ -85,21 +86,21 @@ def make_dataframes(files, args):
     df_metadata = df[metadata_columns]
     df_resistance = df.drop(columns=metadata_columns)
 
+    # Only use a specific antibiotic for the prediction task. This could
+    # also be achieved in the query above.
+    df_resistance = df_resistance[args.antibiotic].to_frame()
+
     # Get all potential resistance values, but ignore all NaNs during
     # the set construction.
     resistance_values = set(df_resistance.values.ravel())
-    resistance_values = set(filter(lambda x: x == x , resistance_values))
+    resistance_values = set(filter(lambda x: x == x, resistance_values))
 
     assert 'I' in resistance_values
     assert 'R' in resistance_values
 
     encoder = DRIAMSLabelEncoder()
+    df_resistance = encoder.fit_transform(df_resistance).squeeze()
 
-    # Only use a specific antibiotic for the prediction task. This could
-    # also be achieved in the query above.
-    df_resistance = encoder.fit_transform(df_resistance)
-    df_resistance = df_resistance[args.antibiotic]
-    
     # Remove all values of the prediction data frame that contain NaNs
     # because we cannot assign them a proper label.
     df_metadata = df_metadata[~df_resistance.isna()]
@@ -125,7 +126,9 @@ def make_dataframes(files, args):
         )
 
         logging.info('Dropped ID columns from metadata')
-    
+
+    logging.info(f'Samples (after filtering): {len(df)}')
+
     # Select columns/variables to use for the prediction task. This way,
     # we store also their names.
     columns = []
@@ -253,6 +256,9 @@ if __name__ == '__main__':
     )
 
     args = parser.parse_args()
+
+    logging.info(f'Species: {args.species}')
+    logging.info(f'Antibiotic: {args.antibiotic}')
 
     X, y = make_dataframes(args.FILE, args)
 
