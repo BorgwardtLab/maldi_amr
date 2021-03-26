@@ -1,0 +1,45 @@
+{
+    "site": "DRIAMS-A",
+    "seed": 480,
+    "model": "lr",
+    "antibiotic": "Ceftriaxone",
+    "species": "Escherichia coli",
+    "column": "workstation",
+    "years": [
+        "2015",
+        "2016",
+        "2017",
+        "2018"
+    ],
+    "n_samples": 4961,
+    "bincount": [
+        1190,
+        1073,
+        24,
+        659,
+        364,
+        5,
+        1473,
+        173
+    ],
+    "metadata_versions": {
+        "2015_clean.csv": "d022b7aaae8f97f37ec499a0baa1d6428d83cf53",
+        "2016_clean.csv": "b64ae1e31e21b47b929bac6d65809c2e4ef4ad41",
+        "2017_clean.csv": "7d468e674a2201d6f03a6d9506069b605b5b50ac",
+        "2018_clean.csv": "c877802ee9e754f46cebf59ec00c27dff40c1719"
+    },
+    "train_accuracy": [
+        0.7202620967741935,
+        0.7147896195515243,
+        0.7354497354497355,
+        0.7120181405895691,
+        0.7291509196271101
+    ],
+    "test_accuracy": [
+        0.6273917421953675,
+        0.6612903225806451,
+        0.6804435483870968,
+        0.6683467741935484,
+        0.6754032258064516
+    ]
+}
