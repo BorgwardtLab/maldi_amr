@@ -5,6 +5,7 @@ predict metadata based on the spectrum itself.
 """
 
 import argparse
+import collections
 import dotenv
 import json
 import logging
@@ -22,7 +23,11 @@ from utilities import generate_output_filename
 from sklearn.exceptions import ConvergenceWarning
 from sklearn.linear_model import LogisticRegressionCV
 from sklearn.model_selection import cross_validate
+from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import recall_score
 
 dotenv.load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
@@ -57,6 +62,7 @@ def _run_experiment(
             handle_missing_resistance_measurements='remove_if_all_missing',
             id_suffix='strat',
             spectra_type='binned_6000_warped',
+            nrows=1000,
     )
 
     logging.info(f'Loaded data set for {species} and {antibiotic}')
@@ -92,15 +98,56 @@ def _run_experiment(
 
     logging.info('Finished training and hyperparameter selection')
 
-    scores = cross_validate(
-        clf,
-        X, y,
-        cv=5,
-        scoring=[
-            'accuracy',
-        ],
-        return_train_score=True,
-    )
+    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=seed)
+
+    # Store scores calculated during the cross-validation. This is
+    # slightly more tedious than doing it via `cross_validate` but
+    # we need a confusion matrix as well.
+    scores = collections.defaultdict(list)
+    cm = None
+
+    for train_index, test_index in cv.split(X, y):
+        X_train, X_test = X[train_index], X[test_index]
+        y_train, y_test = y[train_index], y[test_index]
+
+        clf.fit(X_train, y_train)
+
+        y_pred_train = clf.predict(X_train)
+        y_pred_test = clf.predict(X_test)
+
+        scores['train_accuracy'].append(
+            accuracy_score(y_train, y_pred_train)
+        )
+        scores['test_accuracy'].append(
+            accuracy_score(y_test, y_pred_test)
+        )
+
+        print(y_test, y_pred_test)
+
+        scores['recall'].append(
+            recall_score(
+                y_test,
+                y_pred_test,
+                average='weighted',
+            ).tolist()
+        )
+
+        if cm is None:
+            cm = confusion_matrix(
+                    label_encoder.inverse_transform(y_test),
+                    label_encoder.inverse_transform(y_pred_test),
+                    labels=label_encoder.classes_
+            )
+        else:
+            cm += confusion_matrix(
+                    label_encoder.inverse_transform(y_test),
+                    label_encoder.inverse_transform(y_pred_test),
+                    labels=label_encoder.classes_
+            )
+
+    cm = cm / 5
+
+    print(scores['recall'])
 
     logging.info('Finished cross-validated predictions')
 
@@ -116,6 +163,7 @@ def _run_experiment(
         'years': years,
         'n_samples': len(X),
         'bincount': np.bincount(y).tolist(),
+        'classes': label_encoder.classes_,
     }
 
     if exclude:
@@ -137,8 +185,9 @@ def _run_experiment(
     # file does not yet exist.
     if not os.path.exists(output_filename) or force:
 
-        output['train_accuracy'] = scores['train_accuracy'].tolist()
-        output['test_accuracy'] = scores['test_accuracy'].tolist()
+        output['train_accuracy'] = scores['train_accuracy']
+        output['test_accuracy'] = scores['test_accuracy']
+        output['confusion_matrix'] = cm.ravel().tolist() 
 
         logging.info(f'Saving {os.path.basename(output_filename)}')
 
