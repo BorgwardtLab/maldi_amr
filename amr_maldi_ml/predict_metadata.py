@@ -10,6 +10,7 @@ import json
 import logging
 import pathlib
 import os
+import warnings
 
 import numpy as np
 
@@ -18,6 +19,7 @@ from maldi_learn.driams import load_driams_dataset
 
 from utilities import generate_output_filename
 
+from sklearn.exceptions import ConvergenceWarning
 from sklearn.linear_model import LogisticRegressionCV
 from sklearn.model_selection import cross_validate
 from sklearn.preprocessing import LabelEncoder
@@ -84,7 +86,9 @@ def _run_experiment(
         random_state=seed
     )
 
-    clf.fit(X, y)
+    with warnings.catch_warnings():
+        warnings.filterwarnings('ignore', category=ConvergenceWarning)
+        clf.fit(X, y)
 
     logging.info('Finished training and hyperparameter selection')
 
