@@ -65,7 +65,10 @@ def make_dataframes(files, args):
         df[col] = pd.to_numeric(df[col], errors='coerce')
 
     df = df.astype({
-        'TAGESNUMMER': 'category'
+        'TAGESNUMMER': 'category',
+        'PATIENTENNUMMER_id': 'category',
+        'FALLNUMMER_id': 'category',
+        'AUFTRAGSNUMMER_id': 'category',
     })
 
     # Retrieve all metadata columns. Since the file format differs
@@ -84,6 +87,8 @@ def make_dataframes(files, args):
         'strain',
         'A',
         'SPEZIES_MALDI',
+        'SPEZIES_MLAB',
+        'KEIM',
         'Organism.best.match.',
         'Organism.second.best.match.',
         'GENUS',
