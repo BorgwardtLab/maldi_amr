@@ -38,6 +38,7 @@ def _run_experiment(
     species,
     antibiotic,
     column,
+    exclude,
     seed,
     output_path,
     force,
@@ -54,7 +55,6 @@ def _run_experiment(
             handle_missing_resistance_measurements='remove_if_all_missing',
             id_suffix='strat',
             spectra_type='binned_6000_warped',
-            nrows=1000,
     )
 
     logging.info(f'Loaded data set for {species} and {antibiotic}')
@@ -66,6 +66,13 @@ def _run_experiment(
     logging.info('Finished vectorisation')
 
     y = driams_dataset.y[column].values
+
+    if exclude:
+        logging.info(f'Excluding value "{exclude}" from column')
+
+        indices = y != exclude
+        X = X[indices]
+        y = y[indices]
 
     label_encoder = LabelEncoder()
     y = label_encoder.fit_transform(y)
@@ -103,12 +110,19 @@ def _run_experiment(
         'species': species,
         'column': column,
         'years': years,
+        'n_samples': len(X),
+        'bincount': np.bincount(y).tolist(),
     }
+
+    if exclude:
+        suffix = f'{column}_no_{exclude}'
+    else:
+        suffix = column
 
     output_filename = generate_output_filename(
         output_path,
         output,
-        suffix=column
+        suffix=suffix
     )
 
     # Add fingerprint information about the metadata files to make sure
@@ -177,6 +191,12 @@ if __name__ == '__main__':
         help='Selects metadata column to predict'
     )
 
+    parser.add_argument(
+        '-e', '--exclude',
+        type=str,
+        help='Selects optional value to exclude from column'
+    )
+
     name = 'predict_metadata'
 
     parser.add_argument(
@@ -217,6 +237,7 @@ if __name__ == '__main__':
         args.species,
         args.antibiotic,
         args.column,
+        args.exclude,
         args.seed,
         args.output,
         args.force,
