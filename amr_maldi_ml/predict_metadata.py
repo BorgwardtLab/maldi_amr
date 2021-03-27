@@ -22,7 +22,6 @@ from utilities import generate_output_filename
 
 from sklearn.exceptions import ConvergenceWarning
 from sklearn.linear_model import LogisticRegressionCV
-from sklearn.model_selection import cross_validate
 from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score
@@ -62,7 +61,7 @@ def _run_experiment(
             handle_missing_resistance_measurements='remove_if_all_missing',
             id_suffix='strat',
             spectra_type='binned_6000_warped',
-            nrows=1000,
+            nrows=200,
     )
 
     logging.info(f'Loaded data set for {species} and {antibiotic}')
@@ -98,7 +97,8 @@ def _run_experiment(
 
     logging.info('Finished training and hyperparameter selection')
 
-    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=seed)
+    n_splits = 5
+    cv = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=seed)
 
     # Store scores calculated during the cross-validation. This is
     # slightly more tedious than doing it via `cross_validate` but
@@ -122,15 +122,17 @@ def _run_experiment(
             accuracy_score(y_test, y_pred_test)
         )
 
-        print(y_test, y_pred_test)
-
-        scores['recall'].append(
-            recall_score(
-                y_test,
-                y_pred_test,
-                average='weighted',
-            ).tolist()
-        )
+        for i in range(len(label_encoder.classes_)):
+            class_name = label_encoder.classes_[i]
+            name = f'recall_class_{class_name}'
+            scores[name].append(
+                recall_score(
+                    y_test,
+                    y_pred_test,
+                    labels=[i],
+                    average='weighted',
+                )
+            )
 
         if cm is None:
             cm = confusion_matrix(
@@ -145,9 +147,7 @@ def _run_experiment(
                     labels=label_encoder.classes_
             )
 
-    cm = cm / 5
-
-    print(scores['recall'])
+    cm = cm / n_splits
 
     logging.info('Finished cross-validated predictions')
 
@@ -163,7 +163,7 @@ def _run_experiment(
         'years': years,
         'n_samples': len(X),
         'bincount': np.bincount(y).tolist(),
-        'classes': label_encoder.classes_,
+        'classes': label_encoder.classes_.tolist(),
     }
 
     if exclude:
@@ -185,8 +185,7 @@ def _run_experiment(
     # file does not yet exist.
     if not os.path.exists(output_filename) or force:
 
-        output['train_accuracy'] = scores['train_accuracy']
-        output['test_accuracy'] = scores['test_accuracy']
+        output.update(scores)
         output['confusion_matrix'] = cm.ravel().tolist() 
 
         logging.info(f'Saving {os.path.basename(output_filename)}')
