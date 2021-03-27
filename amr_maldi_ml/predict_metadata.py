@@ -61,7 +61,6 @@ def _run_experiment(
             handle_missing_resistance_measurements='remove_if_all_missing',
             id_suffix='strat',
             spectra_type='binned_6000_warped',
-            nrows=200,
     )
 
     logging.info(f'Loaded data set for {species} and {antibiotic}')
@@ -131,6 +130,7 @@ def _run_experiment(
                     y_pred_test,
                     labels=[i],
                     average='weighted',
+                    zero_division=0,
                 )
             )
 
