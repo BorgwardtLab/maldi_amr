@@ -76,11 +76,16 @@ def _run_experiment(
 
     logging.info('Finished stratification')
 
-    # Create labels
+    # Use the column containing antibiotic information as the primary
+    # label for the experiment. All other columns will be considered
+    # metadata. The remainder of the script decides whether they are
+    # being used or not.
     y = driams_dataset.to_numpy(antibiotic)
+    meta = driams_dataset.y.drop(column=antibiotic)
 
     X_train, y_train = X[train_index], y[train_index]
     X_test, y_test = X[test_index], y[test_index]
+    meta_train, meta_test = meta[train_index], meta[test_index]
 
     # Prepare the output dictionary containing all information to
     # reproduce the experiment.
@@ -118,6 +123,8 @@ def _run_experiment(
             n_folds,
             verbose=True,
             random_state=seed,
+            meta_train=meta_train,
+            meta_test=meta_test,
         )
 
         output.update(results)
