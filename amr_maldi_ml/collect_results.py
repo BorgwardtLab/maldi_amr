@@ -7,6 +7,7 @@ import argparse
 import itertools
 import json
 import os
+import tabulate
 
 import numpy as np
 import pandas as pd
@@ -54,6 +55,12 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
+        '-t', '--transpose',
+        action='store_true',
+        help='If set, transpose output'
+    )
+
+    parser.add_argument(
         '-i', '--ignore',
         type=str,
         help='If set, ignores files that contain the specified string.'
@@ -61,9 +68,16 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    metrics = ['auroc', 'auprc', 'accuracy',
-               'train_auroc', 'train_auprc', 'train_accuracy',
-               'test_accuracy']
+    metrics = [
+        'auroc',
+        'auprc',
+        'accuracy',
+        'train_auroc',
+        'train_auprc',
+        'train_accuracy',
+        'test_accuracy',
+        'recall_class',
+    ]
 
     rows = []
     filenames = args.INPUT
@@ -140,6 +154,8 @@ if __name__ == '__main__':
                  in metrics]
         ))
 
+        print(metrics)
+
         # No metrics founds; check whether we have folds to traverse and
         # collect the data.
         if len(metrics_) == 0:
@@ -170,7 +186,6 @@ if __name__ == '__main__':
             metrics = sorted(metrics_)
 
             for metric in metrics:
-
                 # We collate here for simplicity reasons...
                 if type(data_raw[metric]) is list:
                     data_raw[metric] = np.mean(data_raw[metric])
@@ -235,4 +250,7 @@ if __name__ == '__main__':
         # the rank.
         df = df.groupby('model').mean()
 
-    print(df)
+    if args.transpose:
+        print(df.transpose())
+    else:
+        print(df)
