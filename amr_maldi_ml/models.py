@@ -311,6 +311,8 @@ def run_experiment(
     n_folds,
     random_state=None,
     verbose=False,
+    meta_train=None,
+    meta_test=None,
 ):
     """Run experiment for given train--test split.
 
@@ -347,7 +349,15 @@ def run_experiment(
     verbose : bool, optional
         If set, will add verbose information about the trained model in
         the form of adding the best parameters as well as information
-        about predict labels and scores.
+        about predicted labels and scores.
+
+    meta_train : `pd.DataFrame`, optional
+        If set, will add additional information about training samples
+        based on metadata. Only applies if `verbose = True`.
+
+    meta_test : `pd.DataFrame`, optional
+        If set, will add additional information about test samples based
+        on metadata. Only applies if `verbose = True`.
 
     Returns
     -------
@@ -422,7 +432,20 @@ def run_experiment(
             'y_score': y_score.tolist(),
             'y_pred': y_pred.tolist(),
             'y_test': y_test.tolist(),
+            'meta_train': meta_train['workstation'].value.tolist(),
+            'meta_test': meta_test['workstation'].value.tolist(),
         })
+
+        # Only include certain columns of the meta data. This is
+        # future-proof in case we need more columns or more data
+        # later on.
+        meta_columns = ['workstation']
+
+        for col in meta_columns:
+            results.update({
+                f'meta_train_{col}': meta_train[col].values.tolist(),
+                f'meta_test_{col}': meta_test[col].values.tolist()
+            })
 
     # Add information that *always* needs to be available.
     results.update(train_metrics)
