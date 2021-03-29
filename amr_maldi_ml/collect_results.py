@@ -47,6 +47,15 @@ if __name__ == '__main__':
     parser.add_argument('INPUT', nargs='+', type=str)
 
     parser.add_argument(
+        '-a', '--aggregate',
+        type=str,
+        default=['mean', 'std'],
+        nargs='+',
+        help='Provide aggregation functions for each metric. By default, '
+             'mean and standard deviation will be calculated.'
+    )
+
+    parser.add_argument(
         '-r', '--rank-by',
         type=str,
         help='If set, provides metric by which to rank models. This will '
@@ -154,8 +163,6 @@ if __name__ == '__main__':
                  in metrics]
         ))
 
-        print(metrics)
-
         # No metrics founds; check whether we have folds to traverse and
         # collect the data.
         if len(metrics_) == 0:
@@ -205,11 +212,20 @@ if __name__ == '__main__':
     if 'train_years' in df.columns and 'test_years' in df.columns:
         group_columns += ['train_years', 'test_years']
 
+    aggregation_fns = []
+    for agg in args.aggregate:
+        if agg == 'mean':
+            aggregation_fns.append(np.mean)
+        elif agg == 'std':
+            aggregation_fns.append(np.std)
+        elif agg == 'median':
+            aggregation_fns.append(np.median)
+
     # Create a data frame that contains metrics over all the different
     # seeds. Each species--antibiotic combination is represented here.
     df = df.groupby(group_columns).agg(
             {
-                metric: [np.mean, np.std] for metric in metrics
+                metric: aggregation_fns for metric in metrics
             }
         )
 
