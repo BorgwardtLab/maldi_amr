@@ -12,6 +12,8 @@ import numpy as np
 from maldi_learn.driams import DRIAMSDatasetExplorer
 from maldi_learn.driams import DRIAMSLabelEncoder
 
+from maldi_learn.filters import DRIAMSBooleanExpressionFilter
+
 from maldi_learn.driams import load_driams_dataset
 
 from maldi_learn.utilities import case_based_stratification
@@ -20,7 +22,6 @@ from models import run_experiment
 
 from utilities import generate_output_filename
 
-from sklearn.model_selection import ParameterGrid
 
 dotenv.load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
@@ -41,11 +42,21 @@ def _run_experiment(
     output_path,
     force,
     model,
+    filter_expression,
     n_jobs=-1
 ):
+    """Run a single experiment for a given species--antibiotic combination."""
+    # Encode type of spectra to use for the remainder of this experiment;
+    # this ensures that there are no magic strings flying around in the
+    # code.
     spectra_type = 'binned_6000_warped'
 
-    """Run a single experiment for a given species--antibiotic combination."""
+    extra_filters = []
+    if filter_expression:
+        extra_filters.append(
+            DRIAMSBooleanExpressionFilter(filter_expression)
+        )
+
     driams_dataset = load_driams_dataset(
             root,
             site,
@@ -57,6 +68,7 @@ def _run_experiment(
             id_suffix='strat',
             on_error='warn',
             spectra_type=spectra_type,
+            extra_filters=extra_filters,
     )
 
     logging.info(f'Loaded data set for {species} and {antibiotic}')
@@ -81,11 +93,11 @@ def _run_experiment(
     # metadata. The remainder of the script decides whether they are
     # being used or not.
     y = driams_dataset.to_numpy(antibiotic)
-    meta = driams_dataset.y.drop(column=antibiotic)
+    meta = driams_dataset.y.drop(columns=antibiotic)
 
     X_train, y_train = X[train_index], y[train_index]
     X_test, y_test = X[test_index], y[test_index]
-    meta_train, meta_test = meta[train_index], meta[test_index]
+    meta_train, meta_test = meta.iloc[train_index], meta.iloc[test_index]
 
     # Prepare the output dictionary containing all information to
     # reproduce the experiment.
@@ -101,9 +113,22 @@ def _run_experiment(
         'prevalence_test': (np.bincount(y_test) / len(y_test)).tolist(),
     }
 
+    suffix = None
+
+    # Generate new suffix based on filter expression. This ensures that
+    # different filters result in different filenames.
+    if filter_expression:
+        # This can surely be solved in a more elegant fashion, but what
+        # the heck?
+        suffix = filter_expression.replace(' ', '_')
+        suffix = suffix.replace('==', '')
+        suffix = suffix.replace('!=', 'no')
+        suffix = suffix.replace('__', '_')
+
     output_filename = generate_output_filename(
         output_path,
-        output
+        output,
+        suffix=suffix,
     )
 
     # Add fingerprint information about the metadata files to make sure
@@ -177,6 +202,14 @@ if __name__ == '__main__':
         help='Selects model to use for subsequent training'
     )
 
+    parser.add_argument(
+        '-F', '--filter-expression',
+        type=str,
+        help='Optional filter expression to use for reducing the input '
+             'data set. Can be `workstation == Blood`, for instance, to '
+            'keep only certain samples.'
+    )
+
     name = 'curves_per_species_and_antibiotics_case_based_stratification'
 
     parser.add_argument(
@@ -200,6 +233,8 @@ if __name__ == '__main__':
     os.makedirs(args.output, exist_ok=True)
 
     logging.info(f'Site: {site}')
+    logging.info(f'Species: {args.species}')
+    logging.info(f'Antibiotic: {args.antibiotic}')
     logging.info(f'Years: {years}')
     logging.info(f'Seed: {args.seed}')
 
@@ -222,5 +257,6 @@ if __name__ == '__main__':
         args.output,
         args.force,
         args.model,
+        args.filter_expression,
         n_jobs
     )
