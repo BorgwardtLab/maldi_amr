@@ -2,7 +2,6 @@
 
 import argparse
 import dotenv
-import joblib
 import json
 import logging
 import pathlib
@@ -92,6 +91,9 @@ def _run_experiment(
         'antibiotic': antibiotic,
         'species': species,
         'years': years,
+        'test_size_obtained': len(y_test) / (len(y_train) + len(y_test)),
+        'prevalence_train': (np.bincount(y_train) / len(y_train)).tolist(),
+        'prevalence_test': (np.bincount(y_test) / len(y_test)).tolist(),
     }
 
     output_filename = generate_output_filename(
@@ -142,19 +144,15 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        '-A', '--all',
-        action='store_true',
-        help='Calculate curves for all pre-defined combinations'
-    )
-
-    parser.add_argument(
         '-a', '--antibiotic',
+        default='Ceftriaxone',
         type=str,
         help='Antibiotic for which to run the experiment'
     )
 
     parser.add_argument(
         '-s', '--species',
+        default='Escherichia coli',
         type=str,
         help='Species for which to run the experiment'
     )
@@ -162,6 +160,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '-S', '--seed',
         type=int,
+        default=123,
         help='Random seed to use for the experiment'
     )
 
@@ -189,55 +188,13 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    # Only required in case the pre-defined grid is being used.
-    seeds = [344, 172, 188, 270, 35, 164, 545, 480, 89, 409]
-
     # Create the output directory for storing all results of the
     # individual combinations.
     os.makedirs(args.output, exist_ok=True)
 
     logging.info(f'Site: {site}')
     logging.info(f'Years: {years}')
-
-    if args.seed:
-        logging.info(f'Seed: {args.seed}')
-    else:
-        logging.info(f'Seeds: {seeds}')
-
-    # Create input grid for the subsequent experiments. Not all
-    # combinations are useful, hence we specify them in a list.
-    # This will only be used if '-A' or '--all' was specified.
-    input_grid = ParameterGrid([
-        {
-            'species': ['Escherichia coli'],
-            'antibiotic': ['Ciprofloxacin',
-                           'Amoxicillin-Clavulanic acid',
-                           'Ceftriaxone',
-                           'Tobramycin',
-                           'Piperacillin-Tazobactam',
-                           'Cefepime'],
-            'seed': seeds,
-        },
-        {
-            'species': ['Klebsiella pneumoniae'],
-            'antibiotic': ['Ciprofloxacin',
-                           'Amoxicillin-Clavulanic acid',
-                           'Ceftriaxone',
-                           'Tobramycin',
-                           'Piperacillin-Tazobactam',
-                           'Meropenem',
-                           'Cefepime'],
-            'seed': seeds,
-        },
-        {
-            'species': ['Staphylococcus aureus'],
-            'antibiotic': ['Ciprofloxacin',
-                           'Penicillin',
-                           'Oxacillin',
-                           'Fusidic acid'],
-            'seed': seeds,
-        }
-    ])
+    logging.info(f'Seed: {args.seed}')
 
     explorer = DRIAMSDatasetExplorer(DRIAMS_ROOT)
     metadata_fingerprints = explorer.metadata_fingerprints(
@@ -247,46 +204,16 @@ if __name__ == '__main__':
 
     # How many jobs to use to run this experiment. Should be made
     # configurable ideally.
-    n_jobs = -1
+    n_jobs = 24
 
-    # Run all combinations and ignore everything else. Other arguments
-    # may be supplied, but we will not use them.
-    if args.all:
-
-        logging.info('Running all experiments for pre-defined grid.')
-        logging.info('Ignoring *all* other parameters.')
-
-        for combination in input_grid:
-            species = combination['species']
-            antibiotic = combination['antibiotic']
-            seed = combination['seed']
-
-            _run_experiment(
-                explorer.root,
-                metadata_fingerprints,
-                species,
-                antibiotic,
-                seed,
-                args.output,
-                args.force,
-                args.model,
-                n_jobs
-            )
-    # Run a specific experiment: species, antibiotic, and seed have to
-    # be specified.
-    else:
-        assert args.species is not None
-        assert args.antibiotic is not None
-        assert args.seed is not None
-
-        _run_experiment(
-            explorer.root,
-            metadata_fingerprints,
-            args.species,
-            args.antibiotic,
-            args.seed,
-            args.output,
-            args.force,
-            args.model,
-            n_jobs
-        )
+    _run_experiment(
+        explorer.root,
+        metadata_fingerprints,
+        args.species,
+        args.antibiotic,
+        args.seed,
+        args.output,
+        args.force,
+        args.model,
+        n_jobs
+    )
