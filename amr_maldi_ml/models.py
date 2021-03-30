@@ -54,8 +54,9 @@ def get_pipeline_and_parameters(model, random_state):
         lr = LogisticRegression(
                 solver='saga',
                 max_iter=500,
+                class_weight='balanced',
                 random_state=random_state
-            )
+        )
 
         pipeline = Pipeline(
             steps=[
@@ -311,6 +312,7 @@ def run_experiment(
     n_folds,
     random_state=None,
     verbose=False,
+    scoring='roc_auc',
     meta_train=None,
     meta_test=None,
 ):
@@ -346,6 +348,10 @@ def run_experiment(
         If set, propagates random state to a model. This is *not*
         required or used for all models.
 
+    scoring : str, optional
+        Specifies scoring function to use. Should be a string that can
+        be understood by `GridSearchCV`.
+
     verbose : bool, optional
         If set, will add verbose information about the trained model in
         the form of adding the best parameters as well as information
@@ -373,7 +379,7 @@ def run_experiment(
         pipeline,
         param_grid=param_grid,
         cv=n_folds,
-        scoring='roc_auc',
+        scoring=scoring,
         n_jobs=-1,
     )
 
@@ -416,7 +422,9 @@ def run_experiment(
     # Prepare the results dictionary for this experiment. Depending on
     # the input parameters of this function, additional information is
     # added.
-    results = {}
+    results = {
+        'scoring': scoring,
+    }
 
     # Add additional information about split. This is relevant for
     # scenarios with a case-based stratification.
