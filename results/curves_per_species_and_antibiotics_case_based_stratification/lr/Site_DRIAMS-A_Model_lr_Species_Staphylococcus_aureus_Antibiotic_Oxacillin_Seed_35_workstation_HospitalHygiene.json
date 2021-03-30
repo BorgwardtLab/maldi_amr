@@ -25,6 +25,7 @@
         "2017_strat.csv": "a474ce364f6d3e201b3a527d8786e2c31bbc8577",
         "2018_strat.csv": "e650292c172f16845899c3a566b8f3c427b3e9c2"
     },
+    "scoring": "roc_auc",
     "best_params": {
         "lr__C": 0.001,
         "lr__penalty": "l1",
@@ -32,372 +33,372 @@
     },
     "y_score": [
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ],
         [
-            0.004324505518079724,
-            0.9956754944819203
+            1.0,
+            3.142590559037592e-288
         ]
     ],
     "y_pred": [
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
     ],
     "y_test": [
         1,
@@ -473,384 +474,6 @@
         1,
         1,
         1
-    ],
-    "meta_train": [
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene"
-    ],
-    "meta_test": [
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene",
-        "HospitalHygiene"
     ],
     "meta_train_workstation": [
         "HospitalHygiene",
@@ -1230,10 +853,10 @@
         "HospitalHygiene",
         "HospitalHygiene"
     ],
-    "train_accuracy": 0.9966777408637874,
+    "train_accuracy": 0.0033222591362126247,
     "train_auprc": 0.9966777408637874,
     "train_auroc": 0.5,
-    "accuracy": 1.0,
+    "accuracy": 0.0,
     "auprc": 1.0,
     "auroc": NaN
 }
