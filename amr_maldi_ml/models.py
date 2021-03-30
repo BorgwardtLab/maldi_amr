@@ -432,8 +432,6 @@ def run_experiment(
             'y_score': y_score.tolist(),
             'y_pred': y_pred.tolist(),
             'y_test': y_test.tolist(),
-            'meta_train': meta_train['workstation'].values.tolist(),
-            'meta_test': meta_test['workstation'].values.tolist(),
         })
 
         # Only include certain columns of the meta data. This is
