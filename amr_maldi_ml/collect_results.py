@@ -71,8 +71,10 @@ if __name__ == '__main__':
 
     parser.add_argument(
         '-i', '--ignore',
+        default=[],
         type=str,
-        help='If set, ignores files that contain the specified string.'
+        nargs='+',
+        help='If set, ignores files that contain one of the specified strings.'
     )
 
     args = parser.parse_args()
@@ -99,7 +101,9 @@ if __name__ == '__main__':
             filenames = sorted(filenames)
 
     if args.ignore is not None:
-        filenames = [fn for fn in filenames if args.ignore not in fn]
+        filenames = [
+            fn for fn in filenames if all(ig not in fn for ig in args.ignore)
+        ]
 
     for filename in tqdm(filenames, desc='Loading'):
         with open(filename) as f:
