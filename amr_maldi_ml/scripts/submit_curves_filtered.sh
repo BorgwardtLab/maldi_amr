@@ -40,4 +40,10 @@ for SEED in 344 172 188 270 35 164 545 480 89 409; do
   make_jobs $SEED
   make_jobs $SEED "-F \"workstation == HospitalHygiene\""
   make_jobs $SEED "-F \"workstation != HospitalHygiene\""
+
+  # Additional columns we are interested in at the moment. Not all
+  # existing scenarios need to be run, though.
+  make_jobs $SEED "-F \"workstation == Blood\""
+  make_jobs $SEED "-F \"workstation == DeepTissue\""
+  make_jobs $SEED "-F \"workstation == Urine\""
 done
