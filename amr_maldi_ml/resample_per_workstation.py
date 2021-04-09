@@ -22,6 +22,8 @@ from models import run_experiment
 
 from utilities import generate_output_filename
 
+from sklearn.utils import resample
+
 
 dotenv.load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
@@ -40,7 +42,8 @@ def _load_dataset(
     species,
     antibiotic,
     filter_expression,
-    resample=0,
+    seed,
+    n_samples=0,
 ):
     """Load data set with a specific filter expression."""
     # Encode type of spectra to use for the remainder of this experiment;
@@ -68,9 +71,18 @@ def _load_dataset(
         nrows=1000,
     )
 
-    # TODO: resample data set to specific size
-    if resample != 0:
-        pass
+    if n_samples != 0:
+
+        # Should never be violated; we only want *fewer* samples in the
+        # exclusion scenario.
+        assert n_samples < len(data.X)
+
+        data.X, data.y = resample(
+            data.X, data.y,
+            n_samples=n_samples,
+            replace=False,
+            random_state=seed
+        )
 
     return data
 
@@ -88,7 +100,6 @@ def _run_experiment(
     n_jobs=-1
 ):
     """Run a single experiment for a given species--antibiotic combination."""
-
     # Create feature matrix from the binned spectra. We only need to
     # consider the second column of each spectrum for this.
     X = np.asarray([spectrum.intensities for spectrum in driams_dataset.X])
@@ -258,8 +269,13 @@ if __name__ == '__main__':
         years,
         args.species,
         args.antibiotic,
-        f'workstation == {args.workstation}'
+        f'workstation == {args.workstation}',
+        args.seed
     )
+
+    n_samples = len(only_workstation_data.X)
+
+    logging.info(f'Per workstation data set contains {n_samples} samples')
 
     _run_experiment(
         only_workstation_data,
@@ -280,7 +296,9 @@ if __name__ == '__main__':
         years,
         args.species,
         args.antibiotic,
-        f'workstation != {args.workstation}'
+        f'workstation != {args.workstation}',
+        args.seed,
+        n_samples=n_samples,
     )
 
     _run_experiment(
