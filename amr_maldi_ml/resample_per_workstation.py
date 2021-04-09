@@ -67,8 +67,6 @@ def _load_dataset(
         on_error='warn',
         spectra_type=spectra_type,
         extra_filters=extra_filters,
-        # FIXME: remove!
-        nrows=1000,
     )
 
     if n_samples != 0:
@@ -290,6 +288,8 @@ if __name__ == '__main__':
         n_jobs,
     )
 
+    logging.info('Excluding workstation data for resampled training')
+
     no_workstation_data = _load_dataset(
         explorer.root,
         site,
@@ -313,4 +313,3 @@ if __name__ == '__main__':
         f'no_{args.workstation}',
         n_jobs,
     )
-
