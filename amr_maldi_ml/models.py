@@ -383,7 +383,7 @@ def run_experiment(
         n_jobs=-1,
     )
 
-    logging.info(f'Starting grid search for {len(X_train)} samples')
+    logging.info(f'Starting grid search for {len(X_train)} training samples')
 
     # Ignore these warnings only for the grid search process. The
     # reason is that some of the jobs will inevitably *fail* to
