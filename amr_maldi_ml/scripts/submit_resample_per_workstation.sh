@@ -23,22 +23,22 @@ run() {
 function make_jobs {
   local SEED=${1}
   local WORKSTATION=${2}
+  local EXCLUDE_WORKSTATION={$3}
 
   # S. aureus jobs
-  CMD="${MAIN} --antibiotic Oxacillin --species \"Staphylococcus aureus\" --seed $SEED --workstation $WORKSTATION"
+  CMD="${MAIN} --antibiotic Oxacillin --species \"Staphylococcus aureus\" --seed $SEED --workstation $WORKSTATION --exclude-workstation $EXCLUDE_WORKSTATION"
   run "$CMD";
 
   # E. coli and K. pneumoniae jobs
   for SPECIES in 'Escherichia coli' 'Klebsiella pneumoniae'; do
-    CMD="${MAIN} --antibiotic Ceftriaxone --species \"$SPECIES\" --seed $SEED --workstation $WORKSTATION"
+    CMD="${MAIN} --antibiotic Ceftriaxone --species \"$SPECIES\" --seed $SEED --workstation $WORKSTATION --exclude-workstation $EXCLUDE_WORKSTATION"
     run "$CMD";
   done
 }
 
 # The grid is kept sparse for now. This is *not* an inconsistency.
 for SEED in 344 172 188 270 35 164 545 480 89 409; do
-  make_jobs $SEED "HospitalHygiene"
-  make_jobs $SEED "Blood"
-  make_jobs $SEED "DeepTissue"
-  make_jobs $SEED "Urine"
+  make_jobs $SEED "Blood"      "HospitalHygiene"
+  make_jobs $SEED "DeepTissue" "HospitalHygiene"
+  make_jobs $SEED "Urine"      "HospitalHygiene"
 done

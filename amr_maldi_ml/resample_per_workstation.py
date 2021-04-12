@@ -222,6 +222,15 @@ if __name__ == '__main__':
         help='Sets name of workstation on which to perform the analysis'
     )
 
+    parser.add_argument(
+        '-W', '--exclude-workstation',
+        required=True,
+        type=str,
+        help='Sets name of workstation that is to be excluded from the '
+             'analysis. Resampling happens on the workstation that was '
+             'specified using `--workstation`.'
+    )
+
     name = 'resample_per_workstation'
 
     parser.add_argument(
@@ -273,7 +282,7 @@ if __name__ == '__main__':
 
     n_samples = len(only_workstation_data.X)
 
-    logging.info(f'Per workstation data set contains {n_samples} samples')
+    logging.info(f'Per-workstation data set contains {n_samples} samples')
 
     _run_experiment(
         only_workstation_data,
@@ -288,7 +297,10 @@ if __name__ == '__main__':
         n_jobs,
     )
 
-    logging.info('Excluding workstation data for resampled training')
+    logging.info(
+        f'Excluding workstation {args.exclude_workstation} data for '
+        f'resampled training (n = {n_samples}).'
+    )
 
     no_workstation_data = _load_dataset(
         explorer.root,
@@ -296,7 +308,7 @@ if __name__ == '__main__':
         years,
         args.species,
         args.antibiotic,
-        f'workstation != {args.workstation}',
+        f'workstation != {args.exclude_workstation}',
         args.seed,
         n_samples=n_samples,
     )
@@ -310,6 +322,6 @@ if __name__ == '__main__':
         args.output,
         args.force,
         args.model,
-        f'no_{args.workstation}',
+        f'no_{args.exclude_workstation}',
         n_jobs,
     )
