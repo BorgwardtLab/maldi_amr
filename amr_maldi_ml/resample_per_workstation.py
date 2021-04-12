@@ -322,6 +322,6 @@ if __name__ == '__main__':
         args.output,
         args.force,
         args.model,
-        f'no_{args.exclude_workstation}',
+        f'no_{args.exclude_workstation}_resample_{args.workstation}',
         n_jobs,
     )
