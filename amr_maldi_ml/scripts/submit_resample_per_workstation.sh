@@ -23,7 +23,7 @@ run() {
 function make_jobs {
   local SEED=${1}
   local WORKSTATION=${2}
-  local EXCLUDE_WORKSTATION={$3}
+  local EXCLUDE_WORKSTATION=${3}
 
   # S. aureus jobs
   CMD="${MAIN} --antibiotic Oxacillin --species \"Staphylococcus aureus\" --seed $SEED --workstation $WORKSTATION --exclude-workstation $EXCLUDE_WORKSTATION"
