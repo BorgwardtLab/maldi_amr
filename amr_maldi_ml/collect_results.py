@@ -77,15 +77,19 @@ if __name__ == '__main__':
         help='If set, ignores files that contain one of the specified strings.'
     )
 
+    parser.add_argument(
+        '-T', '--no-train-metrics',
+        help='If set, ignores metrics pertaining to the training of a model, '
+             'thus decluttering the output.',
+        action='store_true',
+    )
+
     args = parser.parse_args()
 
     metrics = [
         'auroc',
         'auprc',
         'accuracy',
-        'train_auroc',
-        'train_auprc',
-        'train_accuracy',
         'test_accuracy',
         'recall_class',
     ]
@@ -166,6 +170,12 @@ if __name__ == '__main__':
                 [[key for key in data_raw if metric in key] for metric
                  in metrics]
         ))
+
+        # Remove all 'train' metrics if need be.
+        if args.no_train_metrics:
+            metrics_ = [
+                metric for metric in metrics_ if 'train' not in metric
+            ]
 
         # No metrics founds; check whether we have folds to traverse and
         # collect the data.
