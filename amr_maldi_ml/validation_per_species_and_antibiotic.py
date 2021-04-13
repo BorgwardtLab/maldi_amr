@@ -77,13 +77,17 @@ def _load_data(
     logging.info('Finished stratification')
 
     # Use the column containing antibiotic information as the primary
-    # label for the experiment.
+    # label for the experiment. All other columns will be considered
+    # metadata. The remainder of the script decides whether they are
+    # being used or not.
     y = driams_dataset.to_numpy(antibiotic)
+    meta = driams_dataset.y.drop(columns=antibiotic)
 
     X_train, y_train = X[train_index], y[train_index]
     X_test, y_test = X[test_index], y[test_index]
+    meta_train, meta_test = meta.iloc[train_index], meta.iloc[test_index]
 
-    return X_train, y_train, X_test, y_test
+    return X_train, y_train, X_test, y_test, meta_train, meta_test
 
 
 if __name__ == '__main__':
@@ -179,7 +183,7 @@ if __name__ == '__main__':
     logging.info(f'Antibiotic: {args.antibiotic}')
     logging.info(f'Species: {args.species}')
 
-    X_train, y_train, _, _ = _load_data(
+    X_train, y_train, _, _, meta_train, _ = _load_data(
         args.train_site,
         args.train_years,
         args.species,
@@ -189,7 +193,7 @@ if __name__ == '__main__':
 
     logging.info('Loaded training site data')
 
-    _, _, X_test, y_test = _load_data(
+    _, _, X_test, y_test, _, meta_test =  _load_data(
         args.test_site,
         args.test_years,
         args.species,
@@ -234,7 +238,9 @@ if __name__ == '__main__':
             args.model,
             n_folds,
             random_state=args.seed,  # use seed whenever possible
-            verbose=True             # want info about best model etc.
+            verbose=True,            # want info about best model etc.
+            meta_train=meta_train,
+            meta_test=meta_test,
         )
 
         output.update(results)
