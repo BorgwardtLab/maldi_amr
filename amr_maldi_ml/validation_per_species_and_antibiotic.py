@@ -18,9 +18,11 @@ import numpy as np
 from maldi_learn.driams import DRIAMSDatasetExplorer
 from maldi_learn.driams import DRIAMSLabelEncoder
 
+from maldi_learn.filters import DRIAMSBooleanExpressionFilter
+
 from maldi_learn.driams import load_driams_dataset
 
-from maldi_learn.utilities import stratify_by_species_and_label
+from maldi_learn.utilities import case_based_stratification
 
 from models import run_experiment
 
@@ -28,6 +30,61 @@ from utilities import generate_output_filename
 
 dotenv.load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
+
+
+def _load_data(
+    site,
+    years,
+    species,
+    antibiotic,
+    seed,
+):
+    """Load data set and return it in partitioned form."""
+    extra_filters = []
+    if site == 'DRIAMS-A':
+        extra_filters.append(
+            DRIAMSBooleanExpressionFilter('workstation != HospitalHygiene')
+        )
+
+    id_suffix = 'strat' if site == 'DRIAMS-A' else None
+
+    driams_dataset = load_driams_dataset(
+        DRIAMS_ROOT,
+        site,
+        '*',
+        species=species,
+        antibiotics=antibiotic,
+        handle_missing_resistance_measurements='remove_if_all_missing',
+        spectra_type='binned_6000',
+        on_error='warn',
+        id_suffix=id_suffix,
+        extra_filters=extra_filters,
+    )
+
+    logging.info(f'Loaded data set for {species} and {antibiotic}')
+
+    X = np.asarray([spectrum.intensities for spectrum in driams_dataset.X])
+
+    logging.info('Finished vectorisation')
+
+    # Stratified train--test split
+    train_index, test_index = case_based_stratification(
+        driams_dataset.y,
+        antibiotic=antibiotic,
+        random_state=seed,
+    )
+
+    logging.info('Finished stratification')
+
+    # Use the column containing antibiotic information as the primary
+    # label for the experiment.
+    y = driams_dataset.to_numpy(antibiotic)
+
+    X_train, y_train = X[train_index], y[train_index]
+    X_test, y_test = X[test_index], y[test_index]
+
+    return X_train, y_train, X_test, y_test
+
 
 if __name__ == '__main__':
 
@@ -122,59 +179,25 @@ if __name__ == '__main__':
     logging.info(f'Antibiotic: {args.antibiotic}')
     logging.info(f'Species: {args.species}')
 
-    driams_dataset_train = load_driams_dataset(
-        DRIAMS_ROOT,
-        train_site,
-        train_years,
-        species=args.species,
-        antibiotics=args.antibiotic,
-        encoder=DRIAMSLabelEncoder(),
-        handle_missing_resistance_measurements='remove_if_all_missing',
-        spectra_type='binned_6000',
+    X_train, y_train, _, _ = _load_data(
+        args.train_site,
+        args.train_years,
+        args.species,
+        args.antibiotic,
+        args.seed,
     )
 
     logging.info('Loaded training site data')
 
-    driams_dataset_test = load_driams_dataset(
-        DRIAMS_ROOT,
-        test_site,
-        test_years,
-        species=args.species,
-        antibiotics=args.antibiotic,
-        encoder=DRIAMSLabelEncoder(),
-        handle_missing_resistance_measurements='remove_if_all_missing',
-        spectra_type='binned_6000',
+    _, _, X_test, y_test = _load_data(
+        args.test_site,
+        args.test_years,
+        args.species,
+        args.antibiotic,
+        args.seed,
     )
 
     logging.info('Loaded test site data')
-
-    train_index, _ = stratify_by_species_and_label(
-        driams_dataset_train.y,
-        antibiotic=args.antibiotic,
-        random_state=args.seed,
-    )
-
-    X_train = np.asarray(
-        [spectrum.intensities for spectrum in driams_dataset_train.X]
-    )
-    y_train = driams_dataset_train.to_numpy(args.antibiotic)
-
-    _, test_index = stratify_by_species_and_label(
-        driams_dataset_test.y,
-        antibiotic=args.antibiotic,
-        random_state=args.seed,
-    )
-
-    X_test = np.asarray(
-        [spectrum.intensities for spectrum in driams_dataset_test.X]
-    )
-    y_test = driams_dataset_test.to_numpy(args.antibiotic)
-
-    # Subset *twice* because `X_train` initially refers to the *whole*
-    # training data set, but we only get a smaller subset based on the
-    # split we defined earlier.
-    X_train, y_train = X_train[train_index], y_train[train_index]
-    X_test, y_test = X_test[test_index], y_test[test_index]
 
     # Prepare the output dictionary containing all information to
     # reproduce the experiment.
