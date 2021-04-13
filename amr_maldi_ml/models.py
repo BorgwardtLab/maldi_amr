@@ -448,11 +448,11 @@ def run_experiment(
         meta_columns = ['workstation']
 
         for col in meta_columns:
-            if meta_train is not None:
+            if meta_train is not None and col in meta_train:
                 results.update({
                     f'meta_train_{col}': meta_train[col].values.tolist(),
                 })
-            if meta_test is not None:
+            if meta_test is not None and col in meta_test:
                 results.update({
                     f'meta_test_{col}': meta_test[col].values.tolist()
                 })
