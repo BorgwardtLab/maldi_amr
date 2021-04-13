@@ -49,7 +49,7 @@ def _run_experiment(
     # Encode type of spectra to use for the remainder of this experiment;
     # this ensures that there are no magic strings flying around in the
     # code.
-    spectra_type = 'binned_6000_warped'
+    spectra_type = 'binned_6000'
 
     extra_filters = []
     if filter_expression:
