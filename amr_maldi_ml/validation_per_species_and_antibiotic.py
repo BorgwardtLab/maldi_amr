@@ -23,6 +23,7 @@ from maldi_learn.filters import DRIAMSBooleanExpressionFilter
 from maldi_learn.driams import load_driams_dataset
 
 from maldi_learn.utilities import case_based_stratification
+from maldi_learn.utilities import stratify_by_species_and_label
 
 from models import run_experiment
 
@@ -46,7 +47,12 @@ def _load_data(
             DRIAMSBooleanExpressionFilter('workstation != HospitalHygiene')
         )
 
-    id_suffix = 'strat' if site == 'DRIAMS-A' else None
+    id_suffix = 'clean'
+    strat_fn = stratify_by_species_and_label
+
+    if site == 'DRIAMS-A':
+        id_suffix = 'strat'
+        strat_fn = case_based_stratification
 
     driams_dataset = load_driams_dataset(
         DRIAMS_ROOT,
@@ -68,7 +74,7 @@ def _load_data(
     logging.info('Finished vectorisation')
 
     # Stratified train--test split
-    train_index, test_index = case_based_stratification(
+    train_index, test_index = strat_fn(
         driams_dataset.y,
         antibiotic=antibiotic,
         random_state=seed,
