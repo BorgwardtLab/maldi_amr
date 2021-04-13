@@ -185,7 +185,7 @@ if __name__ == '__main__':
 
     X_train, y_train, _, _, meta_train, _ = _load_data(
         args.train_site,
-        args.train_years,
+        train_years,
         args.species,
         args.antibiotic,
         args.seed,
@@ -195,7 +195,7 @@ if __name__ == '__main__':
 
     _, _, X_test, y_test, _, meta_test =  _load_data(
         args.test_site,
-        args.test_years,
+        test_years,
         args.species,
         args.antibiotic,
         args.seed,
