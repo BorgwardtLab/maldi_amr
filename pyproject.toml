@@ -21,6 +21,7 @@ imbalanced-learn = "^0.6.1"
 uniplot = "^0.3.5"
 plotly = "^4.14.3"
 dash = "^1.19.0"
+libTLDA = {git = "https://github.com/BorgwardtLab/libTLDA.git", rev="master"}
 
 [tool.poetry.dev-dependencies]
 
