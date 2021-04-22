@@ -21,7 +21,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 
 
-def get_pipeline_and_parameters(model, random_state):
+def get_pipeline_and_parameters(model, random_state, class_weight='balanced'):
     """Return pipeline and parameters for a given model.
 
     This function creates a full training pipeline for a given model
@@ -54,7 +54,7 @@ def get_pipeline_and_parameters(model, random_state):
         lr = LogisticRegression(
                 solver='saga',
                 max_iter=500,
-                class_weight='balanced',
+                class_weight=class_weight,
                 random_state=random_state
         )
 
@@ -84,7 +84,7 @@ def get_pipeline_and_parameters(model, random_state):
             kernel='rbf',
             max_iter=500,
             probability=True,
-            class_weight='balanced',
+            class_weight=class_weight,
             random_state=random_state,
         )
 
@@ -108,7 +108,7 @@ def get_pipeline_and_parameters(model, random_state):
             kernel='linear',
             max_iter=500,
             probability=True,
-            class_weight='balanced',
+            class_weight=class_weight,
             random_state=random_state,
         )
 
@@ -137,7 +137,7 @@ def get_pipeline_and_parameters(model, random_state):
             )
 
         rf = RandomForestClassifier(
-            class_weight='balanced',
+            class_weight=class_weight,
             n_jobs=-1,
             random_state=random_state,
         )
@@ -176,7 +176,7 @@ def get_pipeline_and_parameters(model, random_state):
             )
 
         lightgbm = LGBMClassifier(
-            class_weight='balanced',
+            class_weight=class_weight,
             n_jobs=-1,
             random_state=random_state,
         )
@@ -313,6 +313,7 @@ def run_experiment(
     random_state=None,
     verbose=False,
     scoring='roc_auc',
+    class_weight='balanced',
     meta_train=None,
     meta_test=None,
 ):
@@ -373,6 +374,7 @@ def run_experiment(
     pipeline, param_grid = get_pipeline_and_parameters(
         model,
         random_state
+        class_weight=class_weight,
     )
 
     grid_search = GridSearchCV(
