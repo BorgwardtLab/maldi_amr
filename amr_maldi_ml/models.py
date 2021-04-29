@@ -373,7 +373,7 @@ def run_experiment(
     """
     pipeline, param_grid = get_pipeline_and_parameters(
         model,
-        random_state
+        random_state,
         class_weight=class_weight,
     )
 
