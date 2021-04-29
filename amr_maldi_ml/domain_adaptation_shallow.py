@@ -23,6 +23,8 @@ from maldi_learn.utilities import stratify_by_species_and_label
 
 from utilities import generate_output_filename
 
+from models import calculate_metrics
+
 dotenv.load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
 
@@ -90,11 +92,18 @@ def _load_data(
     return X_train, y_train, X_test, y_test, meta_train, meta_test
 
 
-def _run_experiment(X, y, Z, z_true, random_state=None):
+def _run_experiment(
+    X, y,
+    Z_train, Z_test, z_test,
+    random_state=None
+):
     """Run domain adaptation experiment."""
+    # TODO: this is maybe not the most appropriate thing to do. We could
+    # also load the best model and work with that.
     scaler = StandardScaler()
     X = scaler.fit_transform(X)
-    Z = scaler.fit_transform(Z)
+    Z_train = scaler.fit_transform(Z_train)
+    Z_test = scaler.fit_transform(Z_test)
 
     clf = ImportanceWeightedClassifier(
         loss_function='logistic',
@@ -102,17 +111,16 @@ def _run_experiment(X, y, Z, z_true, random_state=None):
         weight_estimator='lr',  # Use LR to discriminate the domains
     )
 
-    clf.fit(X, y, Z)
-    z_pred = clf.predict(Z)
+    clf.fit(X, y, Z_train)
 
-    print(clf.iw)
-    print(max(clf.iw))
+    z_pred = clf.predict(Z_test)
+    z_score = clf.predict_proba(Z_test)
 
-    print(sum(z_true))
-    print(sum(z_pred))
+    output = calculate_metrics(
+        z_test, z_pred, z_score
+    )
 
-    # TODO: need to return `dict` with additional information about
-    # experiment, such as performance etc.
+    return output
 
 
 if __name__ == '__main__':
@@ -214,8 +222,9 @@ if __name__ == '__main__':
 
     logging.info('Loaded source site data')
 
-    # TODO: need test split here as well
-    Z, z_true, *_ = _load_data(
+    # We don't need `z_train`, i.e. the labels on the training domain,
+    # because we never look at them anyway.
+    Z_train, _, Z_test, z_test, *_ = _load_data(
         args.target_site,
         target_years,
         args.species,
@@ -253,7 +262,8 @@ if __name__ == '__main__':
     if not os.path.exists(output_filename) or args.force:
 
         results = _run_experiment(
-            X, y, Z, z_true,
+            X, y,
+            Z_train, Z_test, z_test,
             random_state=args.seed,  # use seed whenever possible
         )
 
