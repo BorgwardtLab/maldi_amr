@@ -207,7 +207,7 @@ if __name__ == '__main__':
         type=str,
         help='Optional filter expression to use for reducing the input '
              'data set. Can be `workstation == Blood`, for instance, to '
-            'keep only certain samples.'
+             'keep only certain samples.'
     )
 
     name = 'curves_per_species_and_antibiotics_case_based_stratification'
