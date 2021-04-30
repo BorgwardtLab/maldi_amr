@@ -23,27 +23,22 @@ run() {
 function make_jobs {
   local SEED=${1}
   local FILTER=${2}
+  local MODEL=${3}
 
   # S. aureus jobs
-  CMD="${MAIN} --antibiotic Oxacillin --species \"Staphylococcus aureus\" --seed $SEED $FILTER"
+  CMD="${MAIN} --antibiotic Oxacillin --species \"Staphylococcus aureus\" --model $MODEL --seed $SEED $FILTER"
   run "$CMD";
 
   # E. coli and K. pneumoniae jobs
   for SPECIES in 'Escherichia coli' 'Klebsiella pneumoniae'; do
-    CMD="${MAIN} --antibiotic Ceftriaxone --species \"$SPECIES\" --seed $SEED $FILTER"
+    CMD="${MAIN} --antibiotic Ceftriaxone --species \"$SPECIES\" --model $MODEL --seed $SEED $FILTER"
     run "$CMD";
   done
 }
 
 # The grid is kept sparse for now. This is *not* an inconsistency.
 for SEED in 344 172 188 270 35 164 545 480 89 409; do
-  make_jobs $SEED
-  make_jobs $SEED "-F \"workstation == HospitalHygiene\""
-  make_jobs $SEED "-F \"workstation != HospitalHygiene\""
-
-  # Additional columns we are interested in at the moment. Not all
-  # existing scenarios need to be run, though.
-  make_jobs $SEED "-F \"workstation == Blood\""
-  make_jobs $SEED "-F \"workstation == DeepTissue\""
-  make_jobs $SEED "-F \"workstation == Urine\""
+  for MODEL in "lr" "lightgbm"; do
+    make_jobs $SEED "-F \"workstation != HospitalHygiene\"" $MODEL
+  done
 done
