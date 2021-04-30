@@ -9,7 +9,7 @@
 
 # Main command to execute for all combinations created in the script
 # below. The space at the end of the string is important.
-MAIN="poetry run python ../validation_per_species_and_antibiotic.py --force "
+MAIN="poetry run python ../validation_per_species_and_antibiotic.py "
 
 # Try to be smart: if `bsub` does *not* exist on the system, we just
 # pretend that it is an empty command.
@@ -30,7 +30,7 @@ run() {
 for SEED in 344 172 188 270 35 164 545 480 89 409; do
   for TRAIN in "DRIAMS-A"; do
     for TEST in "DRIAMS-B" "DRIAMS-C" "DRIAMS-D"; do
-      for MODEL in "lr"; do 
+      for MODEL in "lr" "lightgbm"; do
 
         # E. coli and K. pneu jobs
         for ANTIBIOTIC in "Ceftriaxone"; do
