@@ -12,6 +12,7 @@ from lightgbm import LGBMClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.exceptions import ConvergenceWarning
 from sklearn.linear_model import LogisticRegression
+from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import average_precision_score
 from sklearn.metrics import roc_auc_score
@@ -194,6 +195,38 @@ def get_pipeline_and_parameters(model, random_state, class_weight='balanced'):
         }
 
         return pipeline, param_grid
+
+    elif model == 'mlp':
+
+        # Make sure that we set a random state here; else, the results
+        # are not reproducible.
+        if random_state is None:
+            warnings.warn(
+                '`random_state` is not set for mlp '
+                ' classifier.'
+            )
+
+        mlp = MLPClassifier(
+            max_iter=500,
+            random_state=random_state,
+            solver='adam',
+        )
+
+        pipeline = Pipeline(
+            steps=[
+                ('scaler', None),
+                ('mlp', mlp),
+            ]
+        )
+
+        param_grid = {
+            'scaler': ['passthrough', StandardScaler()],
+            'mlp__hidden_layer_sizes': [(512, 256, 128), (512, 128, 64), (256, 64), (256, 128)],
+            'mlp__activation': ['relu'],
+            'mlp__alpha': [0.0001],
+        }
+
+    return pipeline, param_grid
 
     # If we reached this point, we should signal that we are not aware
     # of the currently-selected model.
