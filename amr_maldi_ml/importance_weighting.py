@@ -185,6 +185,7 @@ def run_experiment(
             'y_score': y_score.tolist(),
             'y_pred': y_pred.tolist(),
             'y_test': y_test.tolist(),
+            'importance_weights': X_importance_weights.tolist(),
         })
 
         # Only include certain columns of the meta data. This is
