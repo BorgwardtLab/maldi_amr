@@ -31,8 +31,6 @@ def run_experiment(
     verbose=False,
     scoring='roc_auc',
     class_weight='balanced',
-    meta_train=None,
-    meta_test=None,
 ):
     """Run experiment for given train--test split.
 
@@ -74,14 +72,6 @@ def run_experiment(
         If set, will add verbose information about the trained model in
         the form of adding the best parameters as well as information
         about predicted labels and scores.
-
-    meta_train : `pd.DataFrame`, optional
-        If set, will add additional information about training samples
-        based on metadata. Only applies if `verbose = True`.
-
-    meta_test : `pd.DataFrame`, optional
-        If set, will add additional information about test samples based
-        on metadata. Only applies if `verbose = True`.
 
     Returns
     -------
@@ -125,8 +115,6 @@ def run_experiment(
 
     # Calculate importance weighting
     X_importance_weights = grid_search.predict_proba(X_train)
-    print(X_importance_weights.min())
-    print(X_importance_weights.max())
 
     # Ignore these warnings only for the grid search process. The
     # reason is that some of the jobs will inevitably *fail* to
@@ -147,13 +135,24 @@ def run_experiment(
         y_train,
         grid_search.predict(X_train),
         grid_search.predict_proba(X_train),
-        prefix='train'
+        prefix='source_train'
     )
 
     y_pred = grid_search.predict(X_test)
     y_score = grid_search.predict_proba(X_test)
 
-    test_metrics = calculate_metrics(y_test, y_pred, y_score)
+    test_metrics = calculate_metrics(y_test, 
+                                     y_pred, 
+                                     y_score,
+                                     prefix='source_test')
+
+    z_pred = grid_search.predict(Z_test)
+    z_score = grid_search.predict_proba(Z_test)
+
+    target_metrics = calculate_metrics(z_test, 
+                                       z_pred,
+                                       z_score,
+                                       prefix='target_test')
 
     # Replace information about the standard scaler prior to writing out
     # the `best_params_` grid. The reason for this is that we cannot and
@@ -177,6 +176,9 @@ def run_experiment(
         'test_size_obtained': len(y_test) / (len(y_train) + len(y_test)),
         'prevalence_train': (np.bincount(y_train) / len(y_train)).tolist(),
         'prevalence_test': (np.bincount(y_test) / len(y_test)).tolist(),
+        'target_test_size_obtained': len(z_test) / (len(z_train) + len(z_test)),
+        'target_prevalence_train': (np.bincount(z_train) / len(z_train)).tolist(),
+        'target_prevalence_test': (np.bincount(z_test) / len(z_test)).tolist(),
     })
 
     if verbose:
@@ -185,26 +187,15 @@ def run_experiment(
             'y_score': y_score.tolist(),
             'y_pred': y_pred.tolist(),
             'y_test': y_test.tolist(),
+            'z_score': z_score.tolist(),
+            'z_pred': z_pred.tolist(),
+            'z_test': z_test.tolist(),
             'importance_weights': X_importance_weights.tolist(),
         })
-
-        # Only include certain columns of the meta data. This is
-        # future-proof in case we need more columns or more data
-        # later on.
-        meta_columns = ['workstation']
-
-        for col in meta_columns:
-            if meta_train is not None and col in meta_train:
-                results.update({
-                    f'meta_train_{col}': meta_train[col].values.tolist(),
-                })
-            if meta_test is not None and col in meta_test:
-                results.update({
-                    f'meta_test_{col}': meta_test[col].values.tolist()
-                })
 
     # Add information that *always* needs to be available.
     results.update(train_metrics)
     results.update(test_metrics)
+    results.update(target_metrics)
 
     return results
