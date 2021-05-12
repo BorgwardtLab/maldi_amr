@@ -22,6 +22,26 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 
 
+def get_feature_weights(pipeline, model):
+    """Get feature weights of model from pipeline.
+
+    Returns
+    -------
+    List of feature importance values. The length of the list
+    corresponds to the dimension of the input data.
+    """
+    clf = pipeline[model]
+    if model == 'lr':
+        weights = clf.coef_.ravel()
+    elif model == 'lightgbm':
+        weights = clf.feature_importances_.ravel()
+    elif model == 'mlp':
+        weights = clf.coefs_[0]
+        weights = np.mean(weights, axis=1).ravel()
+
+    return weights.tolist()
+
+
 def get_pipeline_and_parameters(model, random_state, class_weight='balanced'):
     """Return pipeline and parameters for a given model.
 
