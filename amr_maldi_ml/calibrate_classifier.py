@@ -14,23 +14,16 @@ from maldi_learn.driams import DRIAMSLabelEncoder
 
 from maldi_learn.driams import load_driams_dataset
 
-from maldi_learn.utilities import stratify_by_species_and_label
-
 from models import calculate_metrics
 from models import load_pipeline
 
 from utilities import generate_output_filename
+from utilities import load_stratify_split_data
 
 from sklearn.calibration import CalibratedClassifierCV
 
 dotenv.load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
-
-# These parameters should remain fixed for this particular
-# experiment. We always train on the same data set, using
-# *all* available years.
-site = 'DRIAMS-A'
-years = ['2015', '2016', '2017', '2018']
 
 
 if __name__ == '__main__':
@@ -89,39 +82,14 @@ if __name__ == '__main__':
     explorer = DRIAMSDatasetExplorer(DRIAMS_ROOT)
     metadata_fingerprints = explorer.metadata_fingerprints(site)
 
-    driams_dataset = load_driams_dataset(
-            DRIAMS_ROOT,
-            site,
-            years,
-            species=species,
-            antibiotics=antibiotic,  # Only a single one for this run
-            encoder=DRIAMSLabelEncoder(),
-            handle_missing_resistance_measurements='remove_if_all_missing',
-            spectra_type='binned_6000',
+    X_train, y_train, X_test, y_test, *_ = load_stratify_split_data(
+        DRIAMS_ROOT,
+        site,
+        years,
+        species,
+        antibiotic,
+        seed
     )
-
-    logging.info(f'Loaded data set for {species} and {antibiotic}')
-
-    # Create feature matrix from the binned spectra. We only need to
-    # consider the second column of each spectrum for this.
-    X = np.asarray([spectrum.intensities for spectrum in driams_dataset.X])
-
-    logging.info('Finished vectorisation')
-
-    # Stratified train--test split
-    train_index, test_index = stratify_by_species_and_label(
-        driams_dataset.y,
-        antibiotic=antibiotic,
-        random_state=seed,
-    )
-
-    logging.info('Finished stratification')
-
-    # Create labels
-    y = driams_dataset.to_numpy(antibiotic)
-
-    X_train, y_train = X[train_index], y[train_index]
-    X_test, y_test = X[test_index], y[test_index]
 
     pipeline.fit(X_train, y_train)
 
@@ -150,7 +118,7 @@ if __name__ == '__main__':
     cccv = CalibratedClassifierCV(
         pipeline,
         cv=5,              # This is the default anyway
-        method='isotonic'  # We assume that sufficient data are available
+        method='sigmoid' 
     )
 
     cccv.fit(X_train, y_train)
