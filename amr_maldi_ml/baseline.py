@@ -23,23 +23,12 @@ import numpy as np
 from maldi_learn.driams import DRIAMSDatasetExplorer
 from maldi_learn.driams import DRIAMSLabelEncoder
 
-from maldi_learn.driams import load_driams_dataset
-
-from maldi_learn.utilities import case_based_stratification
-
 from models import run_experiment
 
 from utilities import generate_output_filename
+from utilities import load_stratify_split_data
 
-from sklearn.exceptions import ConvergenceWarning
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import average_precision_score
-from sklearn.metrics import roc_auc_score
-from sklearn.model_selection import GridSearchCV
-from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
-from sklearn.preprocessing import StandardScaler
 
 dotenv.load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
@@ -114,22 +103,17 @@ if __name__ == '__main__':
     logging.info(f'Seed: {args.seed}')
     logging.info(f'Antibiotic: {args.antibiotic}')
 
-    spectra_type = 'binned_6000'
-
-    driams_dataset = load_driams_dataset(
+    X_train, y_train, X_test, y_test, meta_train, meta_test = load_stratify_split_data(
         DRIAMS_ROOT,
         site,
         years,
-        '*',
-        antibiotics=args.antibiotic,
-        encoder=DRIAMSLabelEncoder(),
-        handle_missing_resistance_measurements='remove_if_all_missing',
-        spectra_type=spectra_type,
-        on_error='warn',
-        id_suffix='strat',
+        'Escherichia coli',
+        args.antibiotic,
+        args.seed
     )
 
     logging.info(f'Loaded data set for {args.antibiotic}')
+    print(meta_train.head())
 
     # Having loaded the data set, we have to generate two different
     # feature vectors:
@@ -146,32 +130,22 @@ if __name__ == '__main__':
     # about the species.
 
     ohe = OneHotEncoder(sparse=False)
-    X_species = ohe.fit_transform(
-        driams_dataset.y['species'].values.reshape(-1, 1)
+    species_vector = np.r_[meta_train['species'].values, meta_test['species'].values]
+    
+    ohe.fit(species_vector.reshape(-1,1))
+    X_species_train = ohe.transform(
+        meta_train['species'].values.reshape(-1, 1)
+    )
+    X_species_test = ohe.transform(
+        meta_test['species'].values.reshape(-1, 1)
     )
 
-    logging.info('Created species-only feature vector')
+    logging.info('Created species-only feature vectors')
 
-    # Create feature matrix from the binned spectra. We only need to
-    # consider the second column of each spectrum for this.
-    X_spectra = np.asarray(
-                    [spectrum.intensities for spectrum in driams_dataset.X]
-                )
-
-    train_index, test_index = case_based_stratification(
-        driams_dataset.y,
-        antibiotic=args.antibiotic,
-        random_state=args.seed,
-    )
-
-    # Labels are shared for both of these experiments, so they only
-    # need to be created once.
-    y = driams_dataset.to_numpy(args.antibiotic)
-
-    for X, t in zip([X_species, X_spectra], ['no_spectra', '']):
-        X_train, y_train = X[train_index], y[train_index]
-        X_test, y_test = X[test_index], y[test_index]
-
+    for [X_train, X_test], t in zip(
+                [[X_species_train, X_species_test], [X_train, X_test]], 
+                ['no_spectra', '']
+                    ):
         # Prepare the output dictionary containing all information to
         # reproduce the experiment.
         output = {
@@ -196,10 +170,6 @@ if __name__ == '__main__':
         # I want it to be kept out of there. This is slightly hacky
         # but only required for this one experiment.
         output['species'] = 'all' if not t else 'all (w/o spectra)'
-
-        # Add information about the type of spectra used for this run of
-        # the script.
-        output['spectra_type'] = spectra_type
 
         # Only write if we either are running in `force` mode, or the
         # file does not yet exist.
