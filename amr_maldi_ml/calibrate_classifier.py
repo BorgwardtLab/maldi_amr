@@ -16,6 +16,7 @@ from maldi_learn.driams import load_driams_dataset
 
 from models import calculate_metrics
 from models import load_pipeline
+from models import get_feature_weights
 
 from utilities import generate_output_filename
 from utilities import load_stratify_split_data
@@ -93,6 +94,9 @@ if __name__ == '__main__':
 
     pipeline.fit(X_train, y_train)
 
+    # Weights are available as soon as `fit` has been called.
+    feature_weights = get_feature_weights(pipeline, model)
+
     train_metrics = calculate_metrics(
         y_train,
         pipeline.predict(X_train),
@@ -118,7 +122,8 @@ if __name__ == '__main__':
     cccv = CalibratedClassifierCV(
         pipeline,
         cv=5,              # This is the default anyway
-        method='sigmoid' 
+        ensemble=False,    # We want a single classifier
+        method='sigmoid',
     )
 
     cccv.fit(X_train, y_train)
@@ -146,6 +151,7 @@ if __name__ == '__main__':
         'y_pred_calibrated': y_pred_calibrated,
         'y_score_calibrated': y_score_calibrated.tolist(),
         'metadata_versions': metadata_fingerprints,
+        'feature_weights': feature_weights,
     }
 
     output.update(train_metrics)
