@@ -489,12 +489,17 @@ def run_experiment(
         'prevalence_test': (np.bincount(y_test) / len(y_test)).tolist(),
     })
 
+    feature_weights = get_feature_weights(
+        grid_search.best_estimator_, model
+    )
+
     if verbose:
         results.update({
             'best_params': grid_search.best_params_,
             'y_score': y_score.tolist(),
             'y_pred': y_pred.tolist(),
             'y_test': y_test.tolist(),
+            'feature_weights': feature_weights,
         })
 
         # Only include certain columns of the meta data. This is
