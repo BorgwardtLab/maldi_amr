@@ -107,7 +107,7 @@ if __name__ == '__main__':
         DRIAMS_ROOT,
         site,
         years,
-        'Escherichia coli',
+        '*',
         args.antibiotic,
         args.seed
     )
