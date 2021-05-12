@@ -10,7 +10,7 @@ MAIN="poetry run python ../calibrate_classifier.py "
 # Try to be smart: if `bsub` does *not* exist on the system, we just
 # pretend that it is an empty command.
 if [ -x "$(command -v bsub)" ]; then
-  BSUB='bsub -W 3:59 -o "calibration_%J.out" -R "rusage[mem=32000]"'
+  BSUB='bsub -W 23:59 -o "calibration_%J.out" -R "rusage[mem=32000]"'
 fi
 
 # Evaluates its first argument either by submitting a job, or by
@@ -23,17 +23,8 @@ run() {
   fi
 }
 
-# S. aureus jobs
-for FILE in $(find ../../results/fig4_curves_per_species_and_antibiotics/ -name "*aureus*Oxacillin*" -or -name "*aureus*Ciprofloxacin*" ); do
-  run "${MAIN} ${FILE}"
-done
-
-# K. pneumoniae jobs
-for FILE in $(find ../../results/fig4_curves_per_species_and_antibiotics/ -name "*pneu*Meropenem*" -or -name "*pneu*Ceftriaxone*" -or -name "*pneu*Tobramycin*" ); do
-  run "${MAIN} ${FILE}"
-done
-
-# E. coli jobs
-for FILE in $(find ../../results/fig4_curves_per_species_and_antibiotics/ -name "*coli*Ceftriaxone*" -or -name "*coli*Cefepime*"); do
-  run "${MAIN} ${FILE}"
+for MODEL in "lr" "lightgbm" "mlp"; do 
+  for FILE in $(find ../../results/curves_per_species_and_antibiotics_case_based_stratification/$MODEL/ -name "*.json" ); do
+    run "${MAIN} ${FILE}"
+  done
 done
