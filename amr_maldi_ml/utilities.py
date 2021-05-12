@@ -1,12 +1,86 @@
 """Utility functions."""
 
+import logging
 import os
+
+import numpy as np
 import seaborn as sns
+
+from maldi_learn.driams import load_driams_dataset
+
+from maldi_learn.filters import DRIAMSBooleanExpressionFilter
+
+from maldi_learn.utilities import case_based_stratification
+from maldi_learn.utilities import stratify_by_species_and_label
 
 
 def _encode(s):
     """Encode string for filename generation."""
     return s.replace(' ', '_')
+
+
+def load_stratify_split_data(
+    root,
+    site,
+    years,
+    species,
+    antibiotic,
+    seed,
+):
+    """Load data set and return it in partitioned form."""
+    extra_filters = []
+    if site == 'DRIAMS-A':
+        extra_filters.append(
+            DRIAMSBooleanExpressionFilter('workstation != HospitalHygiene')
+        )
+
+    id_suffix = 'clean'
+    strat_fn = stratify_by_species_and_label
+
+    if site == 'DRIAMS-A':
+        id_suffix = 'strat'
+        strat_fn = case_based_stratification
+
+    driams_dataset = load_driams_dataset(
+        root,
+        site,
+        years=years,
+        species=species,
+        antibiotics=antibiotic,
+        handle_missing_resistance_measurements='remove_if_all_missing',
+        spectra_type='binned_6000',
+        on_error='warn',
+        id_suffix=id_suffix,
+        extra_filters=extra_filters,
+    )
+
+    logging.info(f'Loaded data set for {species} and {antibiotic}')
+
+    X = np.asarray([spectrum.intensities for spectrum in driams_dataset.X])
+
+    logging.info('Finished vectorisation')
+
+    # Stratified train--test split
+    train_index, test_index = strat_fn(
+        driams_dataset.y,
+        antibiotic=antibiotic,
+        random_state=seed,
+    )
+
+    logging.info('Finished stratification')
+
+    # Use the column containing antibiotic information as the primary
+    # label for the experiment. All other columns will be considered
+    # metadata. The remainder of the script decides whether they are
+    # being used or not.
+    y = driams_dataset.to_numpy(antibiotic)
+    meta = driams_dataset.y.drop(columns=antibiotic)
+
+    X_train, y_train = X[train_index], y[train_index]
+    X_test, y_test = X[test_index], y[test_index]
+    meta_train, meta_test = meta.iloc[train_index], meta.iloc[test_index]
+
+    return X_train, y_train, X_test, y_test, meta_train, meta_test
 
 
 def generate_output_filename(
