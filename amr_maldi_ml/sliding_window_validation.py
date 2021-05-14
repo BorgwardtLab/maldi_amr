@@ -16,9 +16,13 @@ from maldi_learn.filters import DRIAMSBooleanExpressionFilter
 from maldi_learn.driams import DRIAMSDatasetExplorer
 from maldi_learn.driams import load_driams_dataset
 
+from models import calculate_metrics
+from models import get_feature_weights
 from models import run_experiment
 
 from utilities import generate_output_filename
+
+from sklearn.calibration import CalibratedClassifierCV
 
 dotenv.load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
@@ -240,7 +244,7 @@ if __name__ == '__main__':
 
         # Add fingerprint information about the metadata files to make sure
         # that the experiment is reproducible.
-        output['metadata_versions'] = metadata_fingerprints
+        output['oetadata_versions'] = metadata_fingerprints
 
         # add time interval to output_filename
         delta = dateparser.parse(f'{date_to}') \
@@ -267,20 +271,53 @@ if __name__ == '__main__':
 
             n_folds = 5
 
-            results = run_experiment(
+            results, clf = run_experiment(
                 # Use local variants of the train data set because they
                 # have been subset to a range of months.
                 X_train_, y_train_,
                 X_test, y_test,
                 args.model,
                 n_folds,
-                random_state=args.seed,  # use seed whenever possible
-                verbose=True             # want info about best model etc.
+                random_state=args.seed,      # use seed whenever possible
+                verbose=True,                # want info about best model etc.
+                return_best_estimator=True,  # want best estimator
+            )
+
+            feature_weights = get_feature_weights(clf, args.model)
+
+            # Calibrate the classifier as well so that we get the best
+            # scores for the prediction; they should already reflect a
+            # probability ideally.
+            cccv = CalibratedClassifierCV(
+                clf,
+                cv=5,              # This is the default anyway
+                ensemble=False,    # We want a single classifier
+                method='sigmoid',
+            )
+
+            cccv.fit(X_train_, y_train_)
+            y_pred_calibrated = cccv.predict(X_test).tolist()
+            y_score_calibrated = cccv.predict_proba(X_test)
+
+            test_metrics_calibrated = calculate_metrics(
+                y_test,
+                y_pred_calibrated,
+                y_score_calibrated,
+                prefix='test_calibrated'
             )
 
             output.update(results)
+            output.update(test_metrics_calibrated)
+
+            output.update({
+                'y_pred_calibrated': y_pred_calibrated,
+                'y_score_calibrated': y_score_calibrated.tolist(),
+                'feature_weights': feature_weights,
+            })
+
             # include sample size to output
             output['train_sample_size'] = len(y_train_)
+
             logging.info(f'Saving {os.path.basename(output_filename)}')
 
             with open(output_filename, 'w') as f:
