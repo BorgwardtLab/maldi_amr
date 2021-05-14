@@ -12,7 +12,6 @@ def remove_overlap(id_2017, id_2018, keep='first'):
     print('shape df_2017 {}'.format(df_2017.shape))
     print('shape df_2018 {}'.format(df_2018.shape))
 
-    # TODO implement if not first
     if keep == 'first':
         overlap = df_2018['code'].isin(df_2017['code']) == True
         df_2018.drop(df_2018[overlap].index, inplace=True)
