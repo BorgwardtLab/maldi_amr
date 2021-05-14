@@ -27,7 +27,7 @@ run() {
 for SEED in 344 172 188 270 35 164 545 480 89 409; do
   # Models are ordered by their 'utility' for the project. We are
   # most interested in logistic regression.
-  for MODEL in "lr" "lightgbm"; do
+  for MODEL in "lr" "lightgbm" "mlp"; do
     for SPECIES in "Escherichia coli" "Klebsiella pneumoniae"; do
         CMD="${MAIN} --species \"$SPECIES\" --antibiotic \"Ceftriaxone\" --model $MODEL --seed $SEED --log-codes"
         run "$CMD";
