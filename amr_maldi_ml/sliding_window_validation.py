@@ -11,16 +11,12 @@ import pathlib
 import numpy as np
 import pandas as pd
 
-from maldi_learn.driams import DRIAMSDatasetExplorer
+from maldi_learn.filters import DRIAMSBooleanExpressionFilter
 
+from maldi_learn.driams import DRIAMSDatasetExplorer
 from maldi_learn.driams import load_driams_dataset
 
-from maldi_learn.utilities import stratify_by_species_and_label
-
 from models import run_experiment
-
-from sklearn.utils import resample
-from sklearn.utils import shuffle
 
 from utilities import generate_output_filename
 
@@ -141,6 +137,14 @@ if __name__ == '__main__':
     logging.info(f'Duration: {args.duration}')
     logging.info(f'Antibiotic: {args.antibiotic}')
 
+    extra_filters = []
+    if args.site == 'DRIAMS-A':
+        extra_filters.append(
+            DRIAMSBooleanExpressionFilter('workstation != HospitalHygiene')
+        )
+
+    id_suffix = 'strat' if args.site == 'DRIAMS-A' else 'clean'
+
     driams_dataset = load_driams_dataset(
         DRIAMS_ROOT,
         args.site,
@@ -149,7 +153,8 @@ if __name__ == '__main__':
         antibiotics=args.antibiotic,
         handle_missing_resistance_measurements='remove_if_all_missing',
         spectra_type='binned_6000',
-        id_suffix='strat_acqu',
+        extra_filters=extra_filters,
+        id_suffix=id_suffix,
     )
 
     logging.info('Loaded full data set')
