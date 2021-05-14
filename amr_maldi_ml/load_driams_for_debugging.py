@@ -30,18 +30,22 @@ DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
 site = 'DRIAMS-A'
 years = ['2015', '2016', '2017', '2018']
 
-driams_dataset = load_driams_dataset(
-            DRIAMS_ROOT,
-            site,
-            years,
-            species='*',
-            antibiotics='Amoxicillin-Clavulanic acid',  # Only a single one for this run
-            encoder=DRIAMSLabelEncoder(),
-            handle_missing_resistance_measurements='keep',
-            spectra_type='binned_6000',
-            on_error='warn'
-    )
-print(driams_dataset.y.shape)
+for id_suffix in ['clean', 'strat']:
+    driams_dataset = load_driams_dataset(
+                DRIAMS_ROOT,
+                site,
+                years,
+                species='*',
+                antibiotics='Amoxicillin-Clavulanic acid',  # Only a single one for this run
+                encoder=DRIAMSLabelEncoder(),
+                handle_missing_resistance_measurements='remove_if_all_missing',
+                spectra_type='binned_6000',
+                on_error='warn',
+                id_suffix=id_suffix,
+        )
+    print(id_suffix)
+    print(driams_dataset.y.shape)
+    print(driams_dataset.y.head())
 
 
 X_train, y_train, X_test, y_test, meta_train, meta_test = load_stratify_split_data(
@@ -49,8 +53,8 @@ X_train, y_train, X_test, y_test, meta_train, meta_test = load_stratify_split_da
     site,
     years,
     '*',
-    antibiotics='Amoxicillin-Clavulanic acid',  # Only a single one for this run
-    42,
+    antibiotic='Amoxicillin-Clavulanic acid',  # Only a single one for this run
+    seed=42,
 )
 print(X_train.shape)
 print(X_test.shape)
