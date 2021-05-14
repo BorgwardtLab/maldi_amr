@@ -369,6 +369,7 @@ def run_experiment(
     class_weight='balanced',
     meta_train=None,
     meta_test=None,
+    return_best_estimator=False,
 ):
     """Run experiment for given train--test split.
 
@@ -419,10 +420,15 @@ def run_experiment(
         If set, will add additional information about test samples based
         on metadata. Only applies if `verbose = True`.
 
+    return_best_estimator : bool, optional
+        If set, will return the best estimator in addition to the
+        results dictionary.
+
     Returns
     -------
     A dictionary containing measurement descriptions and their
-    corresponding values.
+    corresponding values. If `return_best_estimator` is set, a
+    tuple will be returned.
     """
     pipeline, param_grid = get_pipeline_and_parameters(
         model,
@@ -521,4 +527,7 @@ def run_experiment(
     results.update(train_metrics)
     results.update(test_metrics)
 
-    return results
+    if return_best_estimator:
+        return results, grid_search.best_estimator_
+    else:
+        return results
