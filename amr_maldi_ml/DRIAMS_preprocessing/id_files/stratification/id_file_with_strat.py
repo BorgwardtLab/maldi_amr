@@ -7,9 +7,8 @@ import pandas as pd
 
 from amr_maldi_ml.utilities import ab_name_map
 
-
 def clean_data(filename, outfile):
-    df = pd.read_csv(filename, low_memory=False, encoding='utf8')
+    df = pd.read_csv(filename, low_memory=False, sep=';', encoding='utf8')
     print(f'\nInput file: {filename}')
     print(f'ID file starting shape: {df.shape}')
 
@@ -18,9 +17,17 @@ def clean_data(filename, outfile):
     #print(df['Ceftazidim.1'].isna().sum())
     df = df.drop(columns=['Cefepim.1', 'Ceftazidim.1'])
 
+    # rename newer versions of the columns
+    df = df.rename(columns={
+        'Amoxicillin.Clavulansaeure.unkompl.HWI': 'Amoxicillin-Clavulansaeure.unkompl.HWI',
+        'Organism.best.match.': 'Organism(best match)',
+        'Organism.second.best.match.': 'Organism(second best match)',
+                            })
+
     # Select columns for deletion. We want to remove columns that could
     # potentially leak patient information.
     columns_to_delete = [
+        'Unnamed: 0',
         'strain',
         'TAGESNUMMER',
         'Value',
@@ -42,7 +49,8 @@ def clean_data(filename, outfile):
     ]
     print(f'Remove columns: {columns_to_delete}')
 
-    df = df.drop(columns=columns_to_delete)     # remove obsolete columns
+    # remove obsolete columns if exist
+    df = df.drop(columns=columns_to_delete, errors='ignore') 
     df = df.dropna(subset=['code'])             # remove missing codes
     df = df.drop_duplicates()                   # drop full duplicates
     df = df.dropna(subset=['Organism(best match)'])
@@ -74,7 +82,7 @@ def clean_data(filename, outfile):
     # add columns with exact stratification id info
     year = outfile.split('_')[0][-4:]
     for strat_id in ['PATIENTENNUMMER_id', 'FALLNUMMER_id', 'AUFTRAGSNUMMER_id']:
-        strat_comp = id_map[strat_id]
+        strat_comp = id_map[strat_id] 
         df = df.astype({strat_id: str})
         df[strat_id] = df[strat_id].str.strip('.0')
         df[strat_comp] = df[strat_id] + '_' + year + '_' + df['species']
@@ -87,6 +95,7 @@ def clean_data(filename, outfile):
     if 'Dummy' in list(df.columns):
         df = df.drop(columns='Dummy')
 
+    print(df.head())
     df.to_csv(outfile, index=False)
 
 
