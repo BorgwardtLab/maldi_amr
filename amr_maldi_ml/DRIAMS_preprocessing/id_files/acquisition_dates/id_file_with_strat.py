@@ -7,7 +7,6 @@ import pandas as pd
 
 from amr_maldi_ml.utilities import ab_name_map
 
-
 def clean_data(filename, outfile):
     df = pd.read_csv(filename, low_memory=False, sep=';', encoding='utf8')
     print(f'\nInput file: {filename}')
@@ -20,8 +19,7 @@ def clean_data(filename, outfile):
 
     # rename newer versions of the columns
     df = df.rename(columns={
-        'Amoxicillin...Clavulansaeure': 'Amoxicillin-Clavulansaeure.unkompl.HWI',
-        'Amoxicillin.Clavulansaeure.unkompl.HWI': 'Amoxicillin...Clavulansaeure',
+        'Amoxicillin.Clavulansaeure.unkompl.HWI': 'Amoxicillin-Clavulansaeure.unkompl.HWI',
         'Organism.best.match.': 'Organism(best match)',
         'Organism.second.best.match.': 'Organism(second best match)',
                             })
