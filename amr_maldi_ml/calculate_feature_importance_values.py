@@ -9,14 +9,7 @@ import os
 
 import numpy as np
 
-from maldi_learn.driams import DRIAMSDatasetExplorer
-from maldi_learn.driams import DRIAMSLabelEncoder
-
 from maldi_learn.driams import load_driams_dataset
-
-from maldi_learn.utilities import stratify_by_species_and_label
-
-from models import load_pipeline
 
 from utilities import generate_output_filename
 
@@ -35,172 +28,77 @@ def feature_importances(args):
     os.makedirs(args.output, exist_ok=True)
 
     # Check if INPUT is a list of files or a single file
-    print(list(args.INPUT))
+    print('\nFiles used to calculate average:')
+    [print(file) for file in list(args.INPUT)]
     files = list(args.INPUT)
 
     # Create empty lists for average feature importances
-    all_antibiotics =[]
-    all_sites = []
-    all_years = []
-    all_seeds = []
-    all_species = []
-    all_models = [] 
-    all_feature_importances = []
-    all_metadata_versions = []
+    antibiotics =[]
+    sites = []
+    seeds = []
+    species = []
+    models = [] 
+    feature_weights = []
 
-    for f in files:
-        pipeline, data = load_pipeline(f)
-
-        antibiotic = data['antibiotic']
-        site = data['site']
-        years = data['years']
-        seed = data['seed']
-        species = data['species']
-        best_params = data['best_params']
-        model = data['model']
-
-        logging.info(f'Site: {site}')
-        logging.info(f'Years: {years}')
-        logging.info(f'Seed: {seed}')
-
-        explorer = DRIAMSDatasetExplorer(DRIAMS_ROOT)
-        metadata_fingerprints = explorer.metadata_fingerprints(site)
-
-        driams_dataset = load_driams_dataset(
-                DRIAMS_ROOT,
-                site,
-                years,
-                species=species,
-                antibiotics=antibiotic,  # Only a single one for this run
-                encoder=DRIAMSLabelEncoder(),
-                handle_missing_resistance_measurements='remove_if_all_missing',
-                spectra_type='binned_6000',
-        )
-
-        logging.info(f'Loaded data set for {species} and {antibiotic}')
-
-        # Create feature matrix from the binned spectra. We only need to
-        # consider the second column of each spectrum for this.
-        X = np.asarray([spectrum.intensities for spectrum in driams_dataset.X])
-
-        logging.info('Finished vectorisation')
-
-        # Stratified train--test split
-        train_index, test_index = stratify_by_species_and_label(
-            driams_dataset.y,
-            antibiotic=antibiotic,
-            random_state=seed,
-        )
-
-        logging.info('Finished stratification')
-
-        # Create labels
-        y = driams_dataset.to_numpy(antibiotic)
-
-        X_train, y_train = X[train_index], y[train_index]
-
-        pipeline.fit(X_train, y_train)
-        clf = pipeline[model]
+    for file in files:
+        with open(file) as f:
+            data = json.load(f)
 
         # Append to lists for average feature importance output
-        all_antibiotics.append(antibiotic)
-        all_sites.append(site)
-        if years not in all_years:
-            all_years.append(years)
-        all_seeds.append(seed)
-        all_species.append(species)
-        all_models.append(model) 
-        all_feature_importances.append(clf.coef_.tolist())
-        all_metadata_versions.append(metadata_fingerprints)
-        print(f'\nLength feat importances {len(clf.coef_.tolist())}')
+        antibiotics.append(data['antibiotic'])
+        sites.append(data['site'])
+        seeds.append(data['seed'])
+        species.append(data['species'])
+        models.append(data['model']) 
+        feature_weights.append(data['feature_weights'])
 
-        output = {
-            'site': site,
-            'years': years,
-            'seed': seed,
-            'antibiotic': antibiotic,
-            'species': species,
-            'model': model,
-            'best_params': best_params,
-            'metadata_versions': metadata_fingerprints,
-            'feature_importance': clf.coef_.tolist(),
-        }
+    # Stop if files from more than one antibiotics-species-model scenario 
+    # were given as input
+    if any([len(set(l)) > 1 for l in [sites,
+                                 antibiotics,
+                                 species,
+                                 models]]):
+        print('Cannot include more than one scenario in average \
+               feature importance vectors.')
+        return
 
-        output_filename = generate_output_filename(
-            args.output,
-            output
+    # Condense experiments to mean or single value.
+    site = list(set(sites))[0]
+    antibiotic = list(set(antibiotics))[0]
+    species = list(set(species))[0]
+    model = list(set(models))[0]
+    mean_feature_weights = np.mean(
+                 np.array(feature_weights),
+                 axis=0).tolist()
+    std_feature_weights = np.std(
+                 np.array(feature_weights),
+                 axis=0).tolist()
+
+    output = {
+        'site': site,
+        'seed': '-'.join([str(seed) for seed in seeds]),
+        'antibiotic': antibiotic,
+        'species': species,
+        'model': model,
+        'mean_feature_weights': mean_feature_weights,
+        'std_feature_weights': std_feature_weights,
+    }
+
+    output_filename = generate_output_filename(
+        args.output,
+        output,
+        suffix='average',
+    )
+
+    if not os.path.exists(output_filename) or args.force:
+        logging.info(f'Saving {os.path.basename(output_filename)}')
+
+        with open(output_filename, 'w') as f:
+            json.dump(output, f, indent=4)
+    else:
+        logging.warning(
+            f'Skipping {output_filename} because it already exists.'
         )
-
-        if not os.path.exists(output_filename) or args.force:
-            logging.info(f'Saving {os.path.basename(output_filename)}')
-
-            with open(output_filename, 'w') as f:
-                json.dump(output, f, indent=4)
-        else:
-            logging.warning(
-                f'Skipping {output_filename} because it already exists.'
-            )
-
-    if len(files) > 1:
-        mean_feature_importances = np.mean(
-                     np.array(all_feature_importances),
-                     axis=0).tolist()
-        std_feature_importances = np.std(
-                     np.array(all_feature_importances),
-                     axis=0).tolist()
-        #metadata_fingerprints = list(set(all_metadata_versions))
-        sites = list(set(all_sites))
-        antibiotics = list(set(all_antibiotics))
-        species = list(set(all_species))
-        models = list(set(all_models))
-
-        print(f'\nLength mean feat importances {len(mean_feature_importances)}')
-
-        # Stop if files from more than one antibiotics-species-model scenario 
-        # were given as input
-        if any([len(l) > 1 for l in [all_years,
-                                     sites,
-                                     antibiotics,
-                                     species,
-                                     models]]):
-            print('Cannot include more than one scenario in average \
-                   feature importance vectors.')
-            return
-
-        output = {
-            'site': sites[0],
-            'years': all_years[0],
-            'seed': all_seeds,
-            'antibiotic': antibiotics[0],
-            'species': species[0],
-            'model': models[0],
-            #'best_params': best_params,
-            #'metadata_versions': metadata_fingerprints,
-            'mean_feature_importance': mean_feature_importances,
-            'std_feature_importance': std_feature_importances,
-        }
-        for k in output.keys():
-            if k != 'feature_importance':
-                print(type(output[k]), output[k])
-
-        output_print = output.copy()
-        output_print['seed'] = '-'.join([str(seed) for seed in all_seeds])     
- 
-        output_filename = generate_output_filename(
-            args.output,
-            output_print,
-            suffix='average',
-        )
-
-        if not os.path.exists(output_filename) or args.force:
-            logging.info(f'Saving {os.path.basename(output_filename)}')
-
-            with open(output_filename, 'w') as f:
-                json.dump(output, f, indent=4)
-        else:
-            logging.warning(
-                f'Skipping {output_filename} because it already exists.'
-            )
 
 
 if __name__ == '__main__':
