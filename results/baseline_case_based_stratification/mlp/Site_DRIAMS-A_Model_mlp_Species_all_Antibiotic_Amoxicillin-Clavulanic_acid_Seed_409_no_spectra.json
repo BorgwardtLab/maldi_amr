@@ -1,0 +1,102 @@
+{
+    "site": "DRIAMS-A",
+    "seed": 409,
+    "model": "mlp",
+    "antibiotic": "Amoxicillin-Clavulanic acid",
+    "years": [
+        "2015",
+        "2016",
+        "2017",
+        "2018"
+    ],
+    "metadata_versions": {
+        "2015_strat.csv": "56d646ce31a05dd704a4a6693aabc413a4e75f76",
+        "2016_strat.csv": "d06fff6b6b60af9fc10fadc858cf5624808aaf3f",
+        "2017_strat.csv": "a474ce364f6d3e201b3a527d8786e2c31bbc8577",
+        "2018_strat.csv": "e650292c172f16845899c3a566b8f3c427b3e9c2"
+    },
+    "species": "all (w/o spectra)",
+    "scoring": "roc_auc",
+    "test_size_obtained": 0.14285714285714285,
+    "prevalence_train": [
+        1.0
+    ],
+    "prevalence_test": [
+        1.0
+    ],
+    "best_params": {
+        "mlp__activation": "relu",
+        "mlp__alpha": 0.0001,
+        "mlp__hidden_layer_sizes": [
+            512,
+            256,
+            128
+        ],
+        "scaler": "passthrough"
+    },
+    "y_score": [
+        [
+            0.9999745060683953,
+            2.5493931604650527e-05
+        ],
+        [
+            0.9999745060683953,
+            2.5493931604650527e-05
+        ],
+        [
+            0.9999832923647403,
+            1.6707635259757437e-05
+        ],
+        [
+            0.9999745060683953,
+            2.5493931604650527e-05
+        ],
+        [
+            0.9999832923647403,
+            1.6707635259757437e-05
+        ],
+        [
+            0.9999745060683953,
+            2.5493931604650527e-05
+        ],
+        [
+            0.9999745060683953,
+            2.5493931604650527e-05
+        ],
+        [
+            0.9999745060683953,
+            2.5493931604650527e-05
+        ]
+    ],
+    "y_pred": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
+    "y_test": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
+    "feature_weights": [
+        0.010838398520046685,
+        0.011678818047714114,
+        0.010941720313765814
+    ],
+    "train_accuracy": 1.0,
+    "train_auprc": NaN,
+    "train_auroc": NaN,
+    "accuracy": 1.0,
+    "auprc": NaN,
+    "auroc": NaN
+}
