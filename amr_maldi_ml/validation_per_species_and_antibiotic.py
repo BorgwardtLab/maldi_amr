@@ -16,7 +16,6 @@ import pathlib
 import numpy as np
 
 from maldi_learn.driams import DRIAMSDatasetExplorer
-from maldi_learn.driams import DRIAMSLabelEncoder
 
 from maldi_learn.filters import DRIAMSBooleanExpressionFilter
 

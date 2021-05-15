@@ -101,7 +101,7 @@ def remove_missing(id_2017):
                 '8045605f-4f96-4cd6-98d9-bf75b7b76629_MALDI1',
                 '41031f89-d860-4fab-8731-45042dcb6ce1_MALDI1',
                    ]
-    print(f'{len(missing_ids)} codes to be removed from 2017_clean.csv')
+    print(f'{len(missing_ids)} codes to be removed from 2017_strat.csv')
 
     # drop codes
     print(df_2017.head())
