@@ -20,7 +20,7 @@ from sklearn.metrics import roc_auc_score
 
 def plot_figure2(args):
 
-    PATH_fig2 = '../results/fig2_baseline/lr/'
+    PATH_fig2 = '../../results/baseline_case_based_stratification/lr/'
 
     # --------------
     # create dataframe giving an overview of all files in path
@@ -68,7 +68,7 @@ def plot_figure2(args):
     # add lines for each antibiotic
     for antibiotic in antibiotic_list:
         content_ab = content.query('antibiotic==@antibiotic')
-        assert content_ab.shape == (20, 5)
+        #assert content_ab.shape == (20, 5)
 
         content_spectra = content_ab.query("species=='all'")
         content_wo_spectra = content_ab.query("species=='all (w/o spectra)'")
@@ -119,6 +119,7 @@ def plot_figure2(args):
 
     # correct Cotrimoxazole spelling
     values = values.replace({'Cotrimoxazol': 'Cotrimoxazole'})
+    print(values)
 
     # -------------
     # plot barplot
