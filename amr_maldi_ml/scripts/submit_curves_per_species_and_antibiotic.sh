@@ -26,19 +26,36 @@ function make_jobs {
   local MODEL=${3}
 
   # S. aureus jobs
-  CMD="${MAIN} --antibiotic Oxacillin --species \"Staphylococcus aureus\" --model $MODEL --seed $SEED $FILTER"
+  #CMD="${MAIN} --antibiotic Oxacillin --species \"Staphylococcus aureus\" --model $MODEL --seed $SEED $FILTER"
+  #run "$CMD";
+  CMD="${MAIN} --antibiotic Penicillin --species \"Staphylococcus aureus\" --model $MODEL --seed $SEED $FILTER"
+  run "$CMD";
+  CMD="${MAIN} --antibiotic Ciprofloxacin --species \"Staphylococcus aureus\" --model $MODEL --seed $SEED $FILTER"
+  run "$CMD";
+  CMD="${MAIN} --antibiotic \"Fusidic acid\" --species \"Staphylococcus aureus\" --model $MODEL --seed $SEED $FILTER"
   run "$CMD";
 
   # E. coli and K. pneumoniae jobs
   for SPECIES in 'Escherichia coli' 'Klebsiella pneumoniae'; do
-    CMD="${MAIN} --antibiotic Ceftriaxone --species \"$SPECIES\" --model $MODEL --seed $SEED $FILTER"
+    #CMD="${MAIN} --antibiotic Ceftriaxone --species \"$SPECIES\" --model $MODEL --seed $SEED $FILTER"
+    #run "$CMD";
+    CMD="${MAIN} --antibiotic Ciprofloxacin --species \"$SPECIES\" --model $MODEL --seed $SEED $FILTER"
+    run "$CMD";
+    CMD="${MAIN} --antibiotic Cefepime --species \"$SPECIES\" --model $MODEL --seed $SEED $FILTER"
+    run "$CMD";
+    CMD="${MAIN} --antibiotic Tobramycin --species \"$SPECIES\" --model $MODEL --seed $SEED $FILTER"
     run "$CMD";
   done
+
+  CMD="${MAIN} --antibiotic \"Piperacillin-Tazobactam\" --species \"Escherichia coli\" --model $MODEL --seed $SEED $FILTER"
+  run "$CMD";
+  CMD="${MAIN} --antibiotic \"Meropenem\" --species \"Klebsiella pneumoniae\" --model $MODEL --seed $SEED $FILTER"
+  run "$CMD";
 }
 
 # The grid is kept sparse for now. This is *not* an inconsistency.
 for SEED in 344 172 188 270 35 164 545 480 89 409; do
-  for MODEL in "lr" "lightgbm"; do
+  for MODEL in "lr" "lightgbm" "mlp"; do
     make_jobs $SEED "-F \"workstation != HospitalHygiene\"" $MODEL
   done
 done
