@@ -19,14 +19,14 @@ from sklearn.metrics import roc_auc_score
 from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import average_precision_score
 from maldi_learn.metrics import specificity_sensitivity_curve
-from utilities import maldi_col_map_seaborn
+from utils import maldi_col_map_seaborn
 from warnings import simplefilter
 
 def plot_figure4(args):
     # ignore all future warnings
     simplefilter(action='ignore', category=FutureWarning)
 
-    PATH_fig4 = os.path.join('../results/fig4_curves_per_species_and_antibiotics',
+    PATH_fig4 = os.path.join('../../results/calibrated_classifiers',
                              f'{args.model}/')
 
     # create dataframe giving an overview of all files in path
@@ -65,6 +65,7 @@ def plot_figure4(args):
     else:
         antibiotic_list = set(content['antibiotic'])
 
+    print(content)
     # ------------
     # plot
     # ------------
