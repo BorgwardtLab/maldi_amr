@@ -68,7 +68,7 @@ def plot_figure2(args):
     # add lines for each antibiotic
     for antibiotic in antibiotic_list:
         content_ab = content.query('antibiotic==@antibiotic')
-        #assert content_ab.shape == (20, 5)
+        assert content_ab.shape == (20, 5)
 
         content_spectra = content_ab.query("species=='all'")
         content_wo_spectra = content_ab.query("species=='all (w/o spectra)'")
