@@ -26,7 +26,6 @@ from tqdm import tqdm
 
 from maldi_learn.metrics import specificity_score
 from maldi_learn.metrics import sensitivity_score
-from utilities import _encode
 
 # Global metadata information; this will be updated by the script to
 # ensure that we are working with data files from the *same* sources
@@ -163,6 +162,7 @@ def build_rejection_table(df, outdir, curve_type='calibrated'):
 
     thresholds_lower = np.linspace(0.0, 0.5, 21)
     thresholds_upper = np.linspace(0.5, 1.0, 21)
+    print(f'df input {df}')
 
     # The way the data are handed over to this function, there is only
     # a single model.
@@ -171,7 +171,10 @@ def build_rejection_table(df, outdir, curve_type='calibrated'):
     for (species, antibiotic), df_ in df.groupby(['species', 'antibiotic']):
         table_df = pd.DataFrame()
 
-        y_test = np.vstack(df_['y_test']).ravel()
+        y_test = []
+        for yt_ in df_['y_test']:
+            y_test.extend(yt_)
+        y_test = np.array(y_test)
         y_score = np.vstack(df_['y_score'])
         y_score_calibrated = np.vstack(df_['y_score_calibrated'])
 
@@ -214,6 +217,7 @@ def build_rejection_table(df, outdir, curve_type='calibrated'):
                 f'{species}_{antibiotic}_' + 
                 f'{curve_type}_{model}.csv'
         )
+        filename = filename.replace(' ','_')
         table_df.to_csv(
             os.path.join(outdir, filename),
             index=False
@@ -226,7 +230,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--outdir',
         type=str,
-        default='.',
+        default='../tables',
         help='Output directory'
     )
 
