@@ -244,7 +244,7 @@ if __name__ == '__main__':
 
         # Add fingerprint information about the metadata files to make sure
         # that the experiment is reproducible.
-        output['oetadata_versions'] = metadata_fingerprints
+        output['metadata_versions'] = metadata_fingerprints
 
         # add time interval to output_filename
         delta = dateparser.parse(f'{date_to}') \
