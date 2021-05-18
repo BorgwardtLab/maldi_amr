@@ -23,6 +23,9 @@ from models import run_experiment
 from utilities import generate_output_filename
 
 from sklearn.calibration import CalibratedClassifierCV
+from sklearn.utils import resample
+
+from imblearn.over_sampling import RandomOverSampler
 
 dotenv.load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
@@ -117,6 +120,12 @@ if __name__ == '__main__':
         default=5,
         type=int,
         help='Duration in months of the sliding window',
+    )
+
+    parser.add_argument(
+        '--oversampling',
+        action='store_true',
+        help='If set, training data will be oversampled to match test data.',
     )
 
     args = parser.parse_args()
@@ -228,6 +237,62 @@ if __name__ == '__main__':
             dtype=int
         )
 
+        # If args.oversampling is set, oversample X_train_ and y_train_
+        # to match X_test and y_test in terms of class ratio.
+        if args.oversampling:
+            # determine desired class ratio
+            class_ratios = np.bincount(y_test) / len(y_test)
+            assert class_ratios[0] > class_ratios[1], \
+                        'Class 1 must be the minority class.'
+            
+            # This is not a bug; the desired ratio required by RandomOverSampler
+            # is _not_ the positive class ratio in the dataset.
+            desired_ratio = class_ratios[1] / class_ratios[0]
+            
+            n0, n1 = np.bincount(y_train_)
+            print(f'desired_ratio {desired_ratio}')
+            print(f'actual ratio {n1 / n0}')
+            # Need random oversampling because the actual ratio is smaller
+            # than the desired ratio.
+            if n1 / n0 < desired_ratio:
+                ros = RandomOverSampler(
+                        sampling_strategy=desired_ratio,
+                        random_state=args.seed,
+                )
+
+                X_train_, y_train_ = ros.fit_resample(X_train_, y_train_)
+            # Just pick the desired number of points at random and subset
+            # `X_train_` and `y_train_` accordingly.
+            else:
+                # Be generous with the number of points that we have to
+                # resample. This makes a difference of a single sample,
+                # so we should be good.
+                n_points_to_sample = int(desired_ratio * n0 + 0.5)
+
+                # The resampling only pertains to the positive, i.e. the
+                # minority, class.
+                indices = np.nonzero(y_train_ == 1)[0]
+
+                indices = resample(
+                    indices,
+                    n_samples=n_points_to_sample,
+                    replace=False,
+                    random_state=args.seed
+                )
+
+                # Add the remaining indices as well (of the majority class);
+                # we do not need to perform any resampling here.
+                indices = np.concatenate(
+                        (indices, np.nonzero(y_train_ == 0)[0])
+                )
+
+                X_train_, y_train_ = X_train_[indices], y_train_[indices]
+
+        class_ratio = np.bincount(y_train_)[1] / len(y_train_)
+
+        logging.info(f'Achieved minority class ratio of {class_ratio:.2f}.')
+        
+
         # Prepare the output dictionary containing all information to
         # reproduce the experiment.
         output = {
@@ -240,6 +305,7 @@ if __name__ == '__main__':
             'train_from': date_from,
             'train_to': date_to,
             'test_from': test_from,
+            'oversampling': 'True' if args.oversampling else 'False',
         }
 
         # Add fingerprint information about the metadata files to make sure
