@@ -140,7 +140,7 @@ def plot_figure4(args):
     ax[1].set_ylabel('Precision', fontsize=xy_label_fs)
     ax[0].legend(bbox_to_anchor=(0.99, 0.01), loc='lower right',
                  prop={'family': 'DejaVu Sans Mono', 'size': 15})
-    ax[1].legend(bbox_to_anchor=(0.01, 0.01), loc='lower left',
+    ax[1].legend(bbox_to_anchor=(0.99, 0.99), loc='upper right',
                  prop={'family': 'DejaVu Sans Mono', 'size': 15})
 
     ax[0].set_xlim([-0.01, 1.0])
