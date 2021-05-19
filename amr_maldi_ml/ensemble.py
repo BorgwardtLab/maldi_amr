@@ -21,26 +21,18 @@ import warnings
 
 import numpy as np
 
+from sklearn.utils import resample
+
 from maldi_learn.driams import DRIAMSDatasetExplorer
 from maldi_learn.driams import DRIAMSLabelEncoder
 
 from maldi_learn.driams import load_driams_dataset
 
-from maldi_learn.utilities import stratify_by_species_and_label
-
 from models import run_experiment
 
 from utilities import generate_output_filename
 
-from sklearn.exceptions import ConvergenceWarning
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import average_precision_score
-from sklearn.metrics import roc_auc_score
-from sklearn.model_selection import GridSearchCV
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.utils import resample
+from utilities import load_data_and_strat_fn
 
 dotenv.load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
@@ -163,7 +155,7 @@ if __name__ == '__main__':
         required=True,
     )
 
-    name = 'fig3_ensemble'
+    name = 'ensemble'
 
     parser.add_argument(
         '-o', '--output',
@@ -205,18 +197,13 @@ if __name__ == '__main__':
     logging.info(f'Antibiotic: {args.antibiotic}')
     logging.info(f'Species: {args.species}')
 
-    driams_dataset = load_driams_dataset(
+    driams_dataset, strat_fn = load_data_and_strat_fn(
         DRIAMS_ROOT,
         site,
         years,
-        '*',   # This is correct; we initially want *all* species
-        antibiotics=args.antibiotic,
-        encoder=DRIAMSLabelEncoder(),
-        handle_missing_resistance_measurements='remove_if_all_missing',
-        spectra_type='binned_6000',
+        species='*',   # This is correct; we initially want *all* species
+        antibiotic=args.antibiotic,
     )
-
-    logging.info(f'Loaded data set')
 
     # Create feature matrix from the binned spectra. We only need to
     # consider the second column of each spectrum for this.
@@ -224,7 +211,7 @@ if __name__ == '__main__':
 
     # Do the split only once in order to ensure that we are
     # predicting on the same samples subsequently.
-    train_index, test_index, train_stratify, _ = stratify_by_species_and_label(
+    train_index, test_index, train_stratify, _ = strat_fn(
         driams_dataset.y,
         antibiotic=args.antibiotic,
         return_stratification=True,
@@ -354,6 +341,7 @@ if __name__ == '__main__':
                 n_folds=n_folds,
                 model=args.model,
                 random_state=args.seed,
+                verbose=True,
             )
 
             output.update(results)
