@@ -66,7 +66,6 @@ def load_stratify_split_data(
     seed,
 ):
     """Load data set and return it in partitioned form."""
-
     driams_dataset, strat_fn = load_data_and_strat_fn(
         root,
         site,
