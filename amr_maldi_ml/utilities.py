@@ -19,15 +19,14 @@ def _encode(s):
     return s.replace(' ', '_')
 
 
-def load_stratify_split_data(
+def load_data_and_strat_fn(
     root,
     site,
     years,
     species,
-    antibiotic,
-    seed,
+    antibiotic
 ):
-    """Load data set and return it in partitioned form."""
+    """Load data without additional splits and return it with `strat_fn`."""
     extra_filters = []
     if site == 'DRIAMS-A':
         extra_filters.append(
@@ -55,7 +54,26 @@ def load_stratify_split_data(
     )
 
     logging.info(f'Loaded data set for {species} and {antibiotic}')
+    return driams_dataset, strat_fn
 
+
+def load_stratify_split_data(
+    root,
+    site,
+    years,
+    species,
+    antibiotic,
+    seed,
+):
+    """Load data set and return it in partitioned form."""
+    driams_dataset, strat_fn = load_data_and_strat_fn(
+        root,
+        site,
+        years,
+        species,
+        antibiotic
+    )
+   
     X = np.asarray([spectrum.intensities for spectrum in driams_dataset.X])
 
     logging.info('Finished vectorisation')
