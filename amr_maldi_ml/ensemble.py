@@ -12,19 +12,16 @@ This script reproduces Figure 3 in the main paper.
 
 import argparse
 import dotenv
-import joblib
 import logging
 import os
 import json
 import pathlib
-import warnings
 
 import numpy as np
 
 from sklearn.utils import resample
 
 from maldi_learn.driams import DRIAMSDatasetExplorer
-from maldi_learn.driams import DRIAMSLabelEncoder
 
 from maldi_learn.driams import load_driams_dataset
 
