@@ -5,6 +5,7 @@ import json
 import glob
 
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 
 import numpy as np
 import pandas as pd
@@ -114,10 +115,18 @@ if __name__ == '__main__':
     plt.xlabel('last month of 8-month training interval')
     plt.ylabel(f'{args.metric}'.upper())
 
+    # Minor ticks every month.
+    fmt_month = mdates.MonthLocator(interval=1)
+    ax.xaxis.set_major_locator(fmt_month)
+    
+    # Format dates in xticks.
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+
     if args.metric == 'auprc':
         plt.ylim((0.0,0.5))
     else:
-        plt.ylim((0.5,0.0))
+        plt.ylim((0.0,1.0))
+        plt.axhline(0.5, color='lightgrey', linestyle='--')
 
     if args.suffix != '':
         suffix = '_' + args.suffix
