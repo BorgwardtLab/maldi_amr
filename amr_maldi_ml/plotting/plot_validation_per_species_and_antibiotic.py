@@ -136,8 +136,8 @@ def plot_figure5(args):
 
     # adjust y axis label position
     yticks = ax.get_yticks()
-    ax.set_yticklabels(ax.get_xticklabels())
     ax.set_yticks([i-0.3 for i in yticks])
+    ax.set_yticklabels(ax.get_xticklabels())
 
     ax.set_ylabel('training')    
     ax.set_xlabel('testing')
