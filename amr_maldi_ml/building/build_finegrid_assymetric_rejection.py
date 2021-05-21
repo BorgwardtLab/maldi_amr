@@ -186,6 +186,12 @@ def build_rejection_table(df, outdir, curve_type='calibrated'):
         print(f'thresholds_lower {np.shape(thresholds_lower)} {thresholds_lower[:10]}')
         print(f'thresholds_upper {np.shape(thresholds_upper)} {thresholds_upper[-10:]}')
 
+        # Make sure there is at least on element in the threshold lists.
+        if len(thresholds_upper) == 0:
+            thresholds_upper = [0.5+10**-9]
+        if len(thresholds_lower) == 0:
+            thresholds_lower = [0.5]
+
         for threshold_upper in thresholds_upper:
             for threshold_lower in thresholds_lower:
                 row = calc_metrics_for_rejection_threshold(
@@ -247,7 +253,6 @@ if __name__ == '__main__':
     # Contains the combinations of species--antibiotic that we want to
     # plot in the end. Anything else is ignored.
     selected_combinations = [
-        ('Escherichia coli', 'Cefepime'),
         ('Escherichia coli', 'Ceftriaxone'),
         ('Klebsiella pneumoniae', 'Ceftriaxone'),
         ('Staphylococcus aureus', 'Oxacillin')
