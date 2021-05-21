@@ -250,17 +250,19 @@ if __name__ == '__main__':
             desired_ratio = class_ratios[1] / class_ratios[0]
             
             n0, n1 = np.bincount(y_train_)
-            print(f'desired_ratio {desired_ratio}')
-            print(f'actual ratio {n1 / n0}')
             # Need random oversampling because the actual ratio is smaller
             # than the desired ratio.
             if n1 / n0 < desired_ratio:
-                ros = RandomOverSampler(
-                        sampling_strategy=desired_ratio,
-                        random_state=args.seed,
-                )
+                try:
+                    ros = RandomOverSampler(
+                            sampling_strategy=desired_ratio,
+                            random_state=args.seed,
+                    )
 
-                X_train_, y_train_ = ros.fit_resample(X_train_, y_train_)
+                    X_train_, y_train_ = ros.fit_resample(X_train_, y_train_)
+                except:
+                    logging.info(f'RandomOverSampler threw an error:'
+                                  ' y_train_ {n1/n0} y_test {desired_ratio}')
             # Just pick the desired number of points at random and subset
             # `X_train_` and `y_train_` accordingly.
             else:
@@ -291,7 +293,6 @@ if __name__ == '__main__':
         class_ratio = np.bincount(y_train_)[1] / len(y_train_)
 
         logging.info(f'Achieved minority class ratio of {class_ratio:.2f}.')
-        
 
         # Prepare the output dictionary containing all information to
         # reproduce the experiment.

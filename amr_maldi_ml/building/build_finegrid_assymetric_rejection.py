@@ -13,6 +13,7 @@ import argparse
 import collections
 import json
 import os
+import glob
 
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import average_precision_score
@@ -136,7 +137,7 @@ def calc_metrics_for_rejection_threshold(y_true, y_score,
     return row
 
 
-def build_rejection_table(df, outdir, curve_type='calibrated'):
+def build_rejection_table(df, outdir, force, curve_type='calibrated'):
     """Contruct table with different rejection threshold in each row.
 
     This function simulates different rejection scenarios based on the
@@ -165,61 +166,81 @@ def build_rejection_table(df, outdir, curve_type='calibrated'):
     model = df.model.unique()[0]
 
     for (species, antibiotic), df_ in df.groupby(['species', 'antibiotic']):
-        table_df = pd.DataFrame()
 
-        y_test = []
-        for yt_ in df_['y_test']:
-            y_test.extend(yt_)
-        y_test = np.array(y_test)
-
-        if curve_type == 'calibrated':
-            y_score = np.vstack(df_['y_score_calibrated'])
-        else:
-            y_score = np.vstack(df_['y_score'])
-
-        # Thresholds are recalculated for every scenario through
-        # by extracting the y_scores
-        y_pos_score = y_score[:,1]
-        thresholds_lower = sorted(y_pos_score[y_pos_score<=0.5])
-        thresholds_upper = sorted(y_pos_score[y_pos_score>0.5]) 
-        print(y_score.shape)
-        print(f'thresholds_lower {np.shape(thresholds_lower)} {thresholds_lower[:10]}')
-        print(f'thresholds_upper {np.shape(thresholds_upper)} {thresholds_upper[-10:]}')
-
-        for threshold_upper in thresholds_upper:
-            for threshold_lower in thresholds_lower:
-                row = calc_metrics_for_rejection_threshold(
-                    y_test, 
-                    y_score, 
-                    threshold_lower,
-                    threshold_upper,
-                )
-                
-                if row is not None:
-                    table_df = table_df.append(row)
-
-        # Convert fo format for table display
-        table_df['specificity'] = table_df['specificity'].round(2)
-        table_df[
-                'percentage rejected samples'
-                 ]  = table_df['percentage rejected samples'].round(2) * 100
-        table_df[
-                'percentage rejected samples'
-                 ]  = table_df['percentage rejected samples'].astype(int)
-        table_df['sensitivity'] = table_df['sensitivity'].round(2)
-    
-        print(table_df)
-        filename = (
+        # Builf filename for output.
+        fname_ = (
                 f'Rejection_table_' +
                 f'assymetric_finegrid_' +
                 f'{species}_{antibiotic}_' + 
                 f'{curve_type}_{model}.csv'
         )
-        filename = filename.replace(' ','_')
-        table_df.to_csv(
-            os.path.join(outdir, filename),
-            index=False
+        output_filename = os.path.join(
+                    outdir, 
+                    fname_.replace(' ','_'),
         )
+
+        # Only write if we either are running in `force` mode, or the
+        # file does not yet exist.
+        if not os.path.exists(output_filename) or force:
+        
+            table_df = pd.DataFrame()
+
+            y_test = []
+            for yt_ in df_['y_test']:
+                y_test.extend(yt_)
+            y_test = np.array(y_test)
+
+            if curve_type == 'calibrated':
+                y_score = np.vstack(df_['y_score_calibrated'])
+            else:
+                y_score = np.vstack(df_['y_score'])
+
+            # Thresholds are recalculated for every scenario through
+            # by extracting the y_scores
+            y_pos_score = y_score[:,1]
+            thresholds_lower = sorted(y_pos_score[y_pos_score<=0.5])
+            thresholds_upper = sorted(y_pos_score[y_pos_score>0.5]) 
+            print(y_score.shape)
+            print(f'thresholds_lower {np.shape(thresholds_lower)} {thresholds_lower[:10]}')
+            print(f'thresholds_upper {np.shape(thresholds_upper)} {thresholds_upper[-10:]}')
+
+            # Make sure there is at least on element in the threshold lists.
+            if len(thresholds_upper) == 0:
+                thresholds_upper = [0.5+10**-9]
+            if len(thresholds_lower) == 0:
+                thresholds_lower = [0.5]
+
+            for threshold_upper in thresholds_upper:
+                for threshold_lower in thresholds_lower:
+                    row = calc_metrics_for_rejection_threshold(
+                        y_test, 
+                        y_score, 
+                        threshold_lower,
+                        threshold_upper,
+                    )
+                    
+                    if row is not None:
+                        table_df = table_df.append(row)
+
+            # Convert fo format for table display
+            table_df['specificity'] = table_df['specificity'].round(2)
+            table_df[
+                    'percentage rejected samples'
+                     ]  = table_df['percentage rejected samples'].round(2) * 100
+            table_df[
+                    'percentage rejected samples'
+                     ]  = table_df['percentage rejected samples'].astype(int)
+            table_df['sensitivity'] = table_df['sensitivity'].round(2)
+        
+            print(table_df)
+            table_df.to_csv(
+                filename,
+                index=False
+            )
+        else:
+            print(
+                f'Skipping {output_filename} because it already exists.'
+            )
 
 
 if __name__ == '__main__':
@@ -230,6 +251,12 @@ if __name__ == '__main__':
         type=str,
         default='../tables',
         help='Output directory'
+    )
+
+    parser.add_argument(
+        '-f', '--force',
+        action='store_true',
+        help='If set, overwrites all files. Else, skips existing files.'
     )
 
     args = parser.parse_args()
@@ -247,18 +274,12 @@ if __name__ == '__main__':
     # Contains the combinations of species--antibiotic that we want to
     # plot in the end. Anything else is ignored.
     selected_combinations = [
-        ('Escherichia coli', 'Cefepime'),
         ('Escherichia coli', 'Ceftriaxone'),
         ('Klebsiella pneumoniae', 'Ceftriaxone'),
         ('Staphylococcus aureus', 'Oxacillin')
     ]
 
-    files_to_load = []
-    for root, dirs, files in os.walk(args.INPUT):
-        files_to_load.extend([
-            os.path.join(root, fn) for fn in files if
-            os.path.splitext(fn)[1] == '.json'
-        ])
+    files_to_load = sorted(glob.glob(args.INPUT))
 
     for filename in tqdm(files_to_load, desc='File'):
 
@@ -287,4 +308,4 @@ if __name__ == '__main__':
         rows = scenarios[model]
         df = pd.DataFrame.from_records(rows)
 
-        build_rejection_table(df, args.outdir)
+        build_rejection_table(df, args.outdir, args.force)

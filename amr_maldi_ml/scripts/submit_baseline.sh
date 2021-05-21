@@ -69,7 +69,7 @@ for SEED in 344 172 188 270 35 164 545 480 89 409; do
   do
     # Models are ordered by their 'utility' for the project. We are
     # most interested in logistic regression.
-    for MODEL in "lr" "svm-rbf" "rf" "lightgbm" "svm-linear"; do
+    for MODEL in "lr" "lightgbm" "mlp"; do
       CMD="${MAIN} --antibiotic \"$ANTIBIOTIC\" --seed $SEED --model $MODEL"
       run "$CMD";
     done
