@@ -29,7 +29,6 @@ def plot_figure5(args):
                          )
     file_list = glob.glob(files)
 
-    print(file_list)
     content = pd.DataFrame(columns=[])
 
     for filename in file_list:
@@ -60,45 +59,56 @@ def plot_figure5(args):
     content = content.query("model==@args.model")
     print(content)
 
-    for tr_site in ['DRIAMS-A']:
-        #for te_site in ['DRIAMS-D','DRIAMS-C','DRIAMS-B']:
-        for te_site in ['DRIAMS-C','DRIAMS-B']:
-            results = []
-            
+    for tr_site in ['DRIAMS-D','DRIAMS-C','DRIAMS-B','DRIAMS-A']:
+        for te_site in ['DRIAMS-D','DRIAMS-C','DRIAMS-B','DRIAMS-A']:
             content_scenario = content.query("train_site==@tr_site")
             content_scenario = content_scenario.query("test_site==@te_site")
-            print(content_scenario)
-            assert content_scenario.shape[0]==10
+            if content_scenario.shape[0]>0:
+                assert content_scenario.shape[0]==10
 
-            for filename in content_scenario['filename'].values:
-                with open(filename) as f:
-                    data = json.load(f)
-                    # TODO make dynamic for different metrics
-                    results.append(roc_auc_score(data['y_test'],
-                                  [sc[1] for sc in data['y_score']]))
-                    assert np.all([x in [0, 1] for x in data['y_test']])
-            result_mean_all = round(np.mean(results), 3)
-            result_std_all = round(np.std(results), 3)
+                results = []
+                for filename in content_scenario['filename'].values:
+                    with open(filename) as f:
+                        data = json.load(f)
+                        # TODO make dynamic for different metrics
+                        results.append(roc_auc_score(data['y_test'],
+                                      [sc[1] for sc in data['y_score']]))
+                        assert np.all([x in [0, 1] for x in data['y_test']])
+                result_mean_all = round(np.mean(results), 3)
+                result_std_all = round(np.std(results), 3)
 
-            # add to values dataframe
-            values = values.append(
-                pd.DataFrame({
-                    'antibiotic': [args.antibiotic],
-                    'species': [args.species],
-                    'train_site': [tr_site],
-                    'test_site': [te_site],
-                    'result': [result_mean_all],
-                    'result_std_all': [result_std_all],
-                    }),
-                ignore_index=True,
-                sort=False,
-                )
+                # add to values dataframe
+                values = values.append(
+                    pd.DataFrame({
+                        'antibiotic': [args.antibiotic],
+                        'species': [args.species],
+                        'train_site': [tr_site],
+                        'test_site': [te_site],
+                        'result': [result_mean_all],
+                        'result_std_all': [result_std_all],
+                        }),
+                    ignore_index=True,
+                    sort=False,
+                    )
+            else:
+                values = values.append(
+                    pd.DataFrame({
+                        'antibiotic': [args.antibiotic],
+                        'species': [args.species],
+                        'train_site': [tr_site],
+                        'test_site': [te_site],
+                        'result': [np.nan],
+                        'result_std_all': [np.nan],
+                        }),
+                    ignore_index=True,
+                    sort=False,
+                    )
 
     # -------------
     # plot barplot
     # -------------
     print(f'plotting.. {args.outfile}')
-    #assert len(values) == 16
+    assert len(values) == 16
     rc = {
             'legend.fontsize': 8,
             'axes.labelsize': 10,
@@ -127,6 +137,7 @@ def plot_figure5(args):
     # adjust y axis label position
     yticks = ax.get_yticks()
     ax.set_yticks([i-0.3 for i in yticks])
+    ax.set_yticklabels(ax.get_xticklabels())
 
     ax.set_ylabel('training')    
     ax.set_xlabel('testing')
@@ -151,7 +162,7 @@ if __name__ == '__main__':
                         default='lr')
     parser.add_argument('--outfile',
                         type=str,
-                        default='fig5_plot')
+                        default='validation_per_species_and_antibiotic')
     args = parser.parse_args()
 
     plot_figure5(args)
