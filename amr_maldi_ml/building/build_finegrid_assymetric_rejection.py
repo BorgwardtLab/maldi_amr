@@ -13,7 +13,6 @@ import argparse
 import collections
 import json
 import os
-import glob
 
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import average_precision_score
@@ -245,7 +244,11 @@ def build_rejection_table(df, outdir, force, curve_type='calibrated'):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('INPUT', type=str, help='Input directory')
+    parser.add_argument(
+        'INPUT',
+        nargs='+',
+        help='Input file(s)'
+    )
     parser.add_argument(
         '--outdir',
         type=str,
@@ -279,7 +282,7 @@ if __name__ == '__main__':
         ('Staphylococcus aureus', 'Oxacillin')
     ]
 
-    files_to_load = sorted(glob.glob(args.INPUT))
+    files_to_load = args.INPUT
 
     for filename in tqdm(files_to_load, desc='File'):
 
