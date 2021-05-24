@@ -104,7 +104,7 @@ if __name__ == '__main__':
 
     # Plot lineplot.
     sns.set(style="whitegrid")
-    fig, ax = plt.subplots(figsize=(15,5))
+    fig, ax = plt.subplots(figsize=(15,6))
 
     g = sns.lineplot(
         x=args.date_column,
@@ -123,10 +123,10 @@ if __name__ == '__main__':
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
 
     if args.metric == 'auprc':
-        plt.ylim((0.0,0.5))
+        plt.ylim((0.0,0.4))
     else:
-        plt.ylim((0.0,1.0))
-        plt.axhline(0.5, color='lightgrey', linestyle='--')
+        plt.ylim((0.3,1.0))
+        plt.axhline(0.5, color='darkgrey', linestyle='--')
 
     if args.suffix != '':
         suffix = '_' + args.suffix

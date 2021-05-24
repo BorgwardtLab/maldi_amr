@@ -44,17 +44,24 @@
 
 
 # ------------
+# Sliding window validation
+# ------------
+python plot_sliding_window_validation_major_scenarios.py --metric auroc
+python plot_sliding_window_validation_major_scenarios.py --metric auprc
+
+
+# ------------
 # Validation per species and antibiotic 
 # ------------
-poetry run python plot_validation_per_species_and_antibiotic.py --species 'Escherichia coli' \
-                                                                --antibiotic Ceftriaxone \
-                                                                --outfile 'Escherichia_coli_Ceftriaxone_lightgbm' \
-                                                                -m lightgbm
-poetry run python plot_validation_per_species_and_antibiotic.py --species 'Klebsiella pneumoniae' \
-                                                                --antibiotic Ceftriaxone \
-                                                                --outfile 'Klebsiella_pneumoniae_Ceftriaxone_mlp' \
-                                                                -m mlp
-poetry run python plot_validation_per_species_and_antibiotic.py --species 'Staphylococcus aureus' \
-                                                                --antibiotic Oxacillin \
-                                                                --outfile 'Staphylococcus_aureus_Oxacillin_lightgbm' \
-                                                                -m lightgbm
+#poetry run python plot_validation_per_species_and_antibiotic.py --species 'Escherichia coli' \
+#                                                                --antibiotic Ceftriaxone \
+#                                                                --outfile 'Escherichia_coli_Ceftriaxone_lightgbm' \
+#                                                                -m lightgbm
+#poetry run python plot_validation_per_species_and_antibiotic.py --species 'Klebsiella pneumoniae' \
+#                                                                --antibiotic Ceftriaxone \
+#                                                                --outfile 'Klebsiella_pneumoniae_Ceftriaxone_mlp' \
+#                                                                -m mlp
+#poetry run python plot_validation_per_species_and_antibiotic.py --species 'Staphylococcus aureus' \
+#                                                                --antibiotic Oxacillin \
+#                                                                --outfile 'Staphylococcus_aureus_Oxacillin_lightgbm' \
+#                                                                -m lightgbm
