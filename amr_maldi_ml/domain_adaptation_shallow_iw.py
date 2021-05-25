@@ -9,7 +9,7 @@ import pathlib
 
 import numpy as np
 
-from importance_weighting import run_experiment
+from importance_weighting import run_iw_experiment
 
 from sklearn.preprocessing import StandardScaler
 
@@ -22,74 +22,13 @@ from maldi_learn.utilities import case_based_stratification
 from maldi_learn.utilities import stratify_by_species_and_label
 
 from utilities import generate_output_filename
+from utilities import load_stratify_split_data
 
 from models import calculate_metrics
 
 dotenv.load_dotenv()
 DRIAMS_ROOT = os.getenv('DRIAMS_ROOT')
 
-
-def _load_data(
-    site,
-    years,
-    species,
-    antibiotic,
-    seed):
-
-    """Load data set and return it in partitioned form."""
-    extra_filters = []
-    if site == 'DRIAMS-A':
-        extra_filters.append(
-            DRIAMSBooleanExpressionFilter('workstation != HospitalHygiene')
-        )
-
-    id_suffix = 'clean'
-    strat_fn = stratify_by_species_and_label
-
-    if site == 'DRIAMS-A':
-        id_suffix = 'strat'
-        strat_fn = case_based_stratification
-
-    driams_dataset = load_driams_dataset(
-        DRIAMS_ROOT,
-        site,
-        '*',
-        species=species,
-        antibiotics=antibiotic,
-        handle_missing_resistance_measurements='remove_if_all_missing',
-        spectra_type='binned_6000',
-        on_error='warn',
-        id_suffix=id_suffix,
-        extra_filters=extra_filters,
-    )
-
-    logging.info(f'Loaded data set for {species} and {antibiotic}')
-
-    X = np.asarray([spectrum.intensities for spectrum in driams_dataset.X])
-
-    logging.info('Finished vectorisation')
-
-    # Stratified train--test split
-    train_index, test_index = strat_fn(
-        driams_dataset.y,
-        antibiotic=antibiotic,
-        random_state=seed,
-    )
-
-    logging.info('Finished stratification')
-
-    # Use the column containing antibiotic information as the primary
-    # label for the experiment. All other columns will be considered
-    # metadata. The remainder of the script decides whether they are
-    # being used or not.
-    y = driams_dataset.to_numpy(antibiotic)
-    meta = driams_dataset.y.drop(columns=antibiotic)
-
-    X_train, y_train = X[train_index], y[train_index]
-    X_test, y_test = X[test_index], y[test_index]
-    meta_train, meta_test = meta.iloc[train_index], meta.iloc[test_index]
-
-    return X_train, y_train, X_test, y_test, meta_train, meta_test
 
 
 if __name__ == '__main__':
@@ -123,7 +62,7 @@ if __name__ == '__main__':
         help='Species for which to run the experiment',
     )
 
-    name = 'domain_adaptation_shallow'
+    name = 'domain_adaptation_shallow_iw'
 
     parser.add_argument(
         '-o', '--output',
@@ -187,7 +126,7 @@ if __name__ == '__main__':
     # TODO: we are losing some samples here because we ignore the
     # `X_test` split; on the other hand, this is compatible  with
     # our validation scenario(s).
-    X_train, y_train, X_test, y_test, *_ = _load_data(
+    X_train, y_train, X_test, y_test, *_ = load_stratify_split_data(
         args.source_site,
         source_years,
         args.species,
@@ -199,7 +138,7 @@ if __name__ == '__main__':
 
     # We don't need `z_train`, i.e. the labels on the training domain,
     # because we never look at them anyway.
-    Z_train, z_train, Z_test, z_test, *_ = _load_data(
+    Z_train, z_train, Z_test, z_test, *_ = load_stratify_split_data(
         args.target_site,
         target_years,
         args.species,
@@ -219,7 +158,7 @@ if __name__ == '__main__':
         'seed': args.seed,
         'antibiotic': args.antibiotic,
         'species': args.species,
-        'model': 'ImportanceWeightedClassifier',  # TODO: Make adjustable
+        'model': args.model, 
     }
 
     # Add fingerprint information about the metadata files to make sure
@@ -238,7 +177,7 @@ if __name__ == '__main__':
 
         n_folds = 5
         
-        results = run_experiment(
+        results = run_iw_experiment(
                 X_train, y_train,
                 X_test, y_test,
                 Z_train, z_train,
