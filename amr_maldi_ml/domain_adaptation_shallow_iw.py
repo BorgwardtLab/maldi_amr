@@ -127,6 +127,7 @@ if __name__ == '__main__':
     # `X_test` split; on the other hand, this is compatible  with
     # our validation scenario(s).
     X_train, y_train, X_test, y_test, *_ = load_stratify_split_data(
+        DRIAMS_ROOT,
         args.source_site,
         source_years,
         args.species,
@@ -139,6 +140,7 @@ if __name__ == '__main__':
     # We don't need `z_train`, i.e. the labels on the training domain,
     # because we never look at them anyway.
     Z_train, z_train, Z_test, z_test, *_ = load_stratify_split_data(
+        DRIAMS_ROOT,
         args.target_site,
         target_years,
         args.species,
