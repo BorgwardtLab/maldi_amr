@@ -46,8 +46,15 @@
 # ------------
 # Sliding window validation
 # ------------
-python plot_sliding_window_validation_major_scenarios.py --metric auroc
-python plot_sliding_window_validation_major_scenarios.py --metric auprc
+#python plot_sliding_window_validation_major_scenarios.py --metric auroc
+#python plot_sliding_window_validation_major_scenarios.py --metric auprc
+
+
+# ------------
+# Sensitivity-Specificity threshold
+# ------------
+python plot_specificity_sensitivity_per_threshold.py ../tables/Rejection_table_assymetric_finegrid_Escherichia_coli_Ceftriaxone_calibrated_lightgbm.csv
+python plot_specificity_sensitivity_per_threshold.py ../tables/Rejection_table_assymetric_finegrid_Staphylococcus_aureus_Oxacillin_calibrated_lightgbm.csv
 
 
 # ------------
