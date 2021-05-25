@@ -28,9 +28,9 @@ run() {
 }
 
 for SEED in 344 172 188 270 35 164 545 480 89 409; do
-  for TRAIN in "DRIAMS-A"; do
-    for TEST in "DRIAMS-B" "DRIAMS-C" "DRIAMS-D"; do
-      for MODEL in "lr" "lightgbm"; do
+  for TRAIN in "DRIAMS-A" "DRIAMS-B" "DRIAMS-C" "DRIAMS-D"; do
+    for TEST in "DRIAMS-A" "DRIAMS-B" "DRIAMS-C" "DRIAMS-D"; do
+      for MODEL in "lightgbm" "mlp"; do
 
         # E. coli and K. pneu jobs
         for ANTIBIOTIC in "Ceftriaxone"; do
