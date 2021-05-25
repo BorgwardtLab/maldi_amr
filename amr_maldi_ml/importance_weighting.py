@@ -20,7 +20,7 @@ from models import load_pipeline
 from models import calculate_metrics
 
 
-def run_experiment(
+def run_iw_experiment(
     X_train, y_train,
     X_test, y_test,
     Z_train, z_train,
