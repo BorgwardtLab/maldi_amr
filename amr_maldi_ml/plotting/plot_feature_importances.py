@@ -37,12 +37,13 @@ for filename in input_files:
     print(species, np.median(np.abs(mean_feature_weights)))
     plt.close('all')
     fig, ax = plt.subplots(figsize=(20,5))
+    #sns.set(style="whitegrid")
 
     median3 = 3*np.median(np.abs(mean_feature_weights))
     if model=='lightgbm':
-        colors=['blue' if w_ > median3 else 'lightgrey' for w_ in mean_feature_weights]
+        colors=[sns.color_palette()[0] if w_ > median3 else sns.color_palette('pastel')[7] for w_ in mean_feature_weights]
     else:
-        colors=['red' if np.abs(w_) > median3 else 'lightgrey' for w_ in mean_feature_weights]
+        colors=[sns.color_palette()[1] if np.abs(w_) > median3 else sns.color_palette('pastel')[7] for w_ in mean_feature_weights]
 
     sns.barplot(
         x=[i+1 for i in range(6000)],
