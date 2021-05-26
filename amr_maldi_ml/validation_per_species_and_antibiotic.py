@@ -156,6 +156,12 @@ if __name__ == '__main__':
         required=True
     )
 
+    parser.add_argument(
+        '--scaling',
+        action='store_true',
+        help='If set, the test site will be scaled to the train site.'
+    )
+
     args = parser.parse_args()
 
     # Create the output directory for storing all results of the
@@ -234,6 +240,26 @@ if __name__ == '__main__':
     # Only write if we either are running in `force` mode, or the
     # file does not yet exist.
     if not os.path.exists(output_filename) or args.force:
+        
+        if args.scaling:
+            # If scaling is set, scale X_test to have the same mean
+            # and std as X_train.
+            mean_train = np.mean(X_train, axis=0)
+            std_train = np.std(X_train, axis=0)
+            
+            std_test = np.std(X_test, axis=0)
+
+            # adjust std in test dataset to train
+            std_factor = std_train / std_test 
+            X_test = X_test*std_factor
+
+            # adjust mean in test dataset to train
+            mean_test_ = np.mean(X_test, axis=0)
+            X_test = X_test - (mean_test_ - mean_train)
+
+            logging.info(f'Mean of first features of X_train {mean_train[:10]}')
+            logging.info(f'Mean of first features of X_test after scaling'
+                          '{np.mean(X_test, axis=0)[:10]}')
 
         n_folds = 5
 
