@@ -115,7 +115,6 @@ def run_iw_experiment(
 
     # Calculate importance weighting
     X_importance_weights = grid_search.predict_proba(X_train)[:,1]
-    print(f'X_importance_weights shape {np.shape(X_importance_weights)}')
 
     # Ignore these warnings only for the grid search process. The
     # reason is that some of the jobs will inevitably *fail* to
