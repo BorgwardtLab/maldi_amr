@@ -232,9 +232,12 @@ if __name__ == '__main__':
     output['metadata_versions_train'] = metadata_fingerprints_train
     output['metadata_versions_test'] = metadata_fingerprints_test
 
+    suffix = 'scaling' if args.scaling else ''
+
     output_filename = generate_output_filename(
         args.output,
         output,
+        suffix=suffix,
     )
 
     # Only write if we either are running in `force` mode, or the
