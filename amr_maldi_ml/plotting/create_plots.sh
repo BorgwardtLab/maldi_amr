@@ -53,8 +53,9 @@
 # ------------
 # Sensitivity-Specificity threshold
 # ------------
-python plot_specificity_sensitivity_per_threshold.py ../tables/Rejection_table_assymetric_finegrid_Escherichia_coli_Ceftriaxone_calibrated_lightgbm.csv
-python plot_specificity_sensitivity_per_threshold.py ../tables/Rejection_table_assymetric_finegrid_Staphylococcus_aureus_Oxacillin_calibrated_lightgbm.csv
+#python plot_specificity_sensitivity_per_threshold.py ../tables/Rejection_table_assymetric_finegrid_Escherichia_coli_Ceftriaxone_calibrated_lightgbm.csv
+#python plot_specificity_sensitivity_per_threshold.py ../tables/Rejection_table_assymetric_finegrid_Staphylococcus_aureus_Oxacillin_calibrated_lightgbm.csv
+python plot_specificity_sensitivity_per_threshold.py ../tables/Rejection_table_assymetric_finegrid_Klebsiella_pneumoniae_Ceftriaxone_calibrated_mlp.csv 
 
 
 # ------------
