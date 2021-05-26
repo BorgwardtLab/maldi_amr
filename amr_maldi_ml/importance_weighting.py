@@ -114,7 +114,8 @@ def run_iw_experiment(
             grid_search.fit(XZ_train, classes)
 
     # Calculate importance weighting
-    X_importance_weights = grid_search.predict_proba(X_train)
+    X_importance_weights = grid_search.predict_proba(X_train)[:,1]
+    print(f'X_importance_weights shape {np.shape(X_importance_weights)}')
 
     # Ignore these warnings only for the grid search process. The
     # reason is that some of the jobs will inevitably *fail* to
@@ -126,7 +127,7 @@ def run_iw_experiment(
 
         with joblib.parallel_backend('threading', -1):
             grid_search.fit(X_train, y_train, 
-                            sample_weight=X_importance_weights,
+                            **{f'{model}__sample_weight': X_importance_weights},
                             )
 
     # Calculate metrics for the training data fully in-line because we
