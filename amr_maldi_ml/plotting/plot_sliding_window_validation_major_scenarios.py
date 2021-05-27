@@ -71,8 +71,8 @@ if __name__ == '__main__':
 
     # Plot lineplot.
     plt.close('all')
-    sns.set(style="whitegrid")
-    fig, ax = plt.subplots(2, 1, figsize=(30,12))
+    sns.set(style="whitegrid", font_scale=1.2)
+    fig, ax = plt.subplots(2, 1, figsize=(30,15))
 
     for i, metric in enumerate(metrics):
         # Some debug output, just so all values can be seen in all their
