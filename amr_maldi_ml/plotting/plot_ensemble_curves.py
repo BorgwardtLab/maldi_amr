@@ -97,12 +97,15 @@ def plot_curves(df, outdir, metric='auroc'):
         'Escherichia coli',
         'Klebsiella pneumoniae',
         'Staphylococcus aureus',
-        'Pseudomonas aeruginosa',
     ]
 
     species_to_colour = {
         species: palette[i] for i, species in enumerate(supported_species)
     }
+    
+    model = df['model'].unique()[0]
+    assert len(df['model'].unique()) == 1, 'More than one model in df.'
+
 
     for (species, type_), curve in curves.items():
 
@@ -147,15 +150,12 @@ def plot_curves(df, outdir, metric='auroc'):
     ax.set_xlabel('Number of samples')
     ax.legend(loc='lower right')
 
-    plt.savefig(os.path.join(outdir, f'fig3_{df.antibiotic.unique()[0]}.png'))
+    plt.savefig(os.path.join(outdir, f'{model}_{df.antibiotic.unique()[0]}.png'))
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('INPUT', type=str, help='Input directory')
-    parser.add_argument('--outdir', type=str, 
-                        default='.', help='Output directory')
-
     args = parser.parse_args()
 
     # Stores data rows corresponding to individual scenarios. Each
@@ -191,4 +191,4 @@ if __name__ == '__main__':
         rows = scenarios[antibiotic]
         df = pd.DataFrame.from_records(rows)
 
-        plot_curves(df, args.outdir)
+        plot_curves(df, '../plots/ensemble_curves')
