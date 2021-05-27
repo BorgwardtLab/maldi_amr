@@ -72,6 +72,6 @@ for axis in ax:
 plt.subplots_adjust(hspace=0)
 
 # Save to file
-outfile = f'cumulative.png'
+outfile = f'all_scenarios.png'
 
 plt.savefig(os.path.join('../plots/feature_importances',outfile))
