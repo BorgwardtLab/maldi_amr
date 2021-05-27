@@ -28,7 +28,7 @@ scenario_map = {
 
 plt.close('all')
 #sns.set_style("whitegrid")
-fig, ax = plt.subplots(3, 1, figsize=(20,12))
+fig, ax = plt.subplots(3, 1, figsize=(30,18))
 
 
 # Go through eac input file and plot importances.
