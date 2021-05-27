@@ -13,30 +13,9 @@ import seaborn as sns
 
 #pd.set_option('display.max_rows', 1000)
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        '-m', '--metric',
-        type=str,
-        default='auroc',
-        help='Metric to use for plotting'
-    )
 
-    parser.add_argument(
-        '-d', '--date-column',
-        type=str,
-        default='train_to',
-        help='Date column to use for visualisation'
-    )
+    metrics = ['auroc', 'auprc']
 
-    parser.add_argument(
-        '-s', '--suffix',
-        type=str,
-        default='',
-        help='Suffix to be added to plot name'
-    )
-    args = parser.parse_args()
-
-    
     prjdir = '../../results/sliding_window_validation' 
     input_files = glob.glob(prjdir+'/lightgbm/Site_DRIAMS-A_Model_lightgbm_Species_Staphylococcus_aureus_Antibiotic_Oxacillin_*[0-9].json', recursive=True) + \
                   glob.glob(prjdir+'/lightgbm/Site_DRIAMS-A_Model_lightgbm_Species_Escherichia_coli_Antibiotic_Ceftriaxone_*[0-9].json', recursive=True) + \
@@ -62,10 +41,7 @@ if __name__ == '__main__':
 
     # Create new column that describes the whole scenario.
     df[f'scenario'] = df['species'] + ' (' + df['antibiotic'] + ')' + ' (' + df['model']  + ')'
-    df = df.sort_values([f'scenario', args.date_column])
-
-    if args.metric != 'train_sample_size':
-        df[args.metric] *= 100
+    df = df.sort_values([f'scenario', 'train_to'])
 
     # Drop unnecessary columns.
     cols_to_del = [
@@ -92,48 +68,46 @@ if __name__ == '__main__':
 
     df = df.drop(columns=cols_to_del)
 
-    # Some debug output, just so all values can be seen in all their
-    # glory.
-    print(
-        df.groupby([args.date_column, 'species', 'antibiotic']).agg(
-            {
-                'test_calibrated_'+args.metric: [np.mean, np.std]
-            }
-        )
-    )
 
     # Plot lineplot.
+    plt.close('all')
     sns.set(style="whitegrid")
-    fig, ax = plt.subplots(figsize=(15,6))
+    fig, ax = plt.subplots(2, 1, figsize=(30,12))
 
-    g = sns.lineplot(
-        x=args.date_column,
-        y='test_calibrated_'+args.metric,
-        data=df,
-        hue=f'scenario',
-    )
-    plt.xlabel('last month of 8-month training interval')
-    plt.ylabel(f'{args.metric}'.upper())
+    for i, metric in enumerate(metrics):
+        # Some debug output, just so all values can be seen in all their
+        # glory.
+        print(
+            df.groupby(['train_to', 'species', 'antibiotic']).agg(
+                {
+                    'test_calibrated_'+metric: [np.mean, np.std]
+                }
+            )
+        )
 
-    # Minor ticks every month.
-    fmt_month = mdates.MonthLocator(interval=1)
-    ax.xaxis.set_major_locator(fmt_month)
-    
-    # Format dates in xticks.
-    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+        sns.lineplot(
+            x='train_to',
+            y='test_calibrated_'+metric,
+            data=df,
+            ax=ax[i],
+            hue=f'scenario',
+        )
+        ax[i].set_xlabel('last month of 8-month training interval')
+        ax[i].set_ylabel(f'{metric}'.upper())
+        if metric == 'auroc': ax[i].axhline(0.5, color='darkgrey', linestyle='--')
 
-    if args.metric == 'auprc':
-        plt.ylim((0.0,0.4))
-    else:
-        plt.ylim((0.3,1.0))
-        plt.axhline(0.5, color='darkgrey', linestyle='--')
+        # Minor ticks every month.
+        fmt_month = mdates.MonthLocator(interval=1)
+        ax[i].xaxis.set_major_locator(fmt_month)
+        
+        # Format dates in xticks.
+        ax[i].xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
 
-    if args.suffix != '':
-        suffix = '_' + args.suffix
-    else:
-        suffix = args.suffix
+        plt.xticks(rotation=45)
 
-    plt.xticks(rotation=45)
-    plt.tight_layout()
-    plt.savefig(f'../plots/sliding_window_validation/sliding_window_validation_Metric_{args.metric}.png')
+    # Hide x labels and tick labels for all but bottom plot.
+    for axis in ax:
+        axis.label_outer()
+    plt.subplots_adjust(hspace=0)
+    plt.savefig('../plots/sliding_window_validation/sliding_window_validation.png')
     plt.show()
