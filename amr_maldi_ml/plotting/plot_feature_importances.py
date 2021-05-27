@@ -20,9 +20,20 @@ input_files = [
     prjdir+'/lightgbm/Site_DRIAMS-A_Model_lightgbm_Species_Staphylococcus_aureus_Antibiotic_Oxacillin_Seed_164-172-188-270-344-35-409-480-545-89_average.json',
     				]
 
-# Go through eac input file and plot importances.
-for filename in input_files:
+scenario_map = {
+    'Escherichia_coli': 'E-CEF',
+    'Klebsiella_pneumoniae': 'K-CEF',
+    'Staphylococcus_aureus': 'S-OXA',
+}
 
+plt.close('all')
+#sns.set_style("whitegrid")
+fig, ax = plt.subplots(3, 1, figsize=(20,12))
+
+
+# Go through eac input file and plot importances.
+for i, filename in enumerate(input_files):
+    print(i)
     with open(filename) as f:
         data = json.load(f)    
     
@@ -33,11 +44,6 @@ for filename in input_files:
     mean_feature_weights = data['mean_feature_weights']
 
     # Plot feature weights as barplot.
-    print(species, np.mean(np.abs(mean_feature_weights)))
-    print(species, np.median(np.abs(mean_feature_weights)))
-    plt.close('all')
-    fig, ax = plt.subplots(figsize=(20,5))
-    #sns.set(style="whitegrid")
 
     median3 = 3*np.median(np.abs(mean_feature_weights))
     if model=='lightgbm':
@@ -45,16 +51,27 @@ for filename in input_files:
     else:
         colors=[sns.color_palette()[1] if np.abs(w_) > median3 else sns.color_palette('pastel')[7] for w_ in mean_feature_weights]
 
+    # FIXME for debugging
+    #mean_feature_weights = mean_feature_weights[:30]
+
+    n_feat = len(mean_feature_weights)
+
     sns.barplot(
-        x=[i+1 for i in range(6000)],
+        x=[j+1 for j in range(n_feat)],
         y=mean_feature_weights,
-        ax=ax,
+        ax=ax[i],
         palette=colors,
     )     
-    ax.set_xticks([])
+    ax[i].yaxis.tick_right()
+    ax[i].set_xticks([])
+    ax[i].set_ylabel(f'{scenario_map[species]} ({model})', fontsize=15)
 
-    # Save to file
-    outfile = f'Site_{site}_Model_{model}_Species_{species}_Antibiotic_{antibiotic}.png'
-	
-    plt.tight_layout()
-    plt.savefig(os.path.join('../plots/feature_importances',outfile))
+# Hide x labels and tick labels for all but bottom plot.
+for axis in ax:
+    axis.label_outer()
+plt.subplots_adjust(hspace=0)
+
+# Save to file
+outfile = f'cumulative.png'
+
+plt.savefig(os.path.join('../plots/feature_importances',outfile))
