@@ -15,6 +15,16 @@ import pandas as pd
 from tqdm import tqdm
 
 
+# Keys that will be recognised as valid metrics in the files.
+metrics = [
+    'auroc',
+    'auprc',
+    'accuracy',
+    'test_accuracy',
+    'recall_class',
+]
+
+
 def get_files(directory):
     """Walk a directory structure and return JSON filenames.
 
@@ -47,6 +57,115 @@ def join_list(data):
         return data
     else:
         return ' '.join(data)
+
+
+def process_file(filename):
+    """Process single file and return its rows."""
+    with open(filename) as f:
+        # Ensures that we can parse normal JSON files
+        pos = 0
+
+        for line in f:
+
+            # We found *probably* the beginning of the JSON file, so
+            # we can start the parse process from here, having to do
+            # a reset.
+            if line.startswith('{'):
+                f.seek(pos)
+                break
+            else:
+                pos += len(line)
+
+            # Check whether file is empty for some reason. If so, we
+            # skip it.
+            line = f.readline()
+            if line == '':
+                continue
+
+            # Not empty, so we need to reset the file pointer
+            else:
+                f.seek(pos)
+
+        data_raw = json.load(f)
+
+    # Create one row in the table containing the relevant
+    # information for now.
+    row = {
+        'species': data_raw.get('species', 'all'),
+        'antibiotic': data_raw['antibiotic'],
+        # If no model was found, default to `lr`. This makes us
+        # compatible with older files.
+        'model': data_raw.get('model', 'lr'),
+    }
+
+    # Check whether information about the train and test site is
+    # available. If so, we can automatically stratify accordingly.
+    if 'train_site' in data_raw and 'test_site' in data_raw:
+        row.update({
+            'train_site': join_list(data_raw['train_site']),
+            'test_site': join_list(data_raw['test_site'])
+        })
+
+    # Ditto for train years.
+    if 'train_years' in data_raw and 'test_years' in data_raw:
+        row.update({
+            'train_years': ' '.join(data_raw['train_years']),
+            'test_years': ' '.join(data_raw['test_years'])
+        })
+
+    global metrics
+
+    # Check which metrics are *actually* available in the data. This
+    # accounts for experiments with specific train/test values, for
+    # example.
+    metrics_ = list(itertools.chain.from_iterable(
+            [[key for key in data_raw if metric in key] for metric
+             in metrics]
+    ))
+
+    # Remove all 'train' metrics if need be.
+    if args.no_train_metrics:
+        metrics_ = [
+            metric for metric in metrics_ if 'train' not in metric
+        ]
+
+    # No metrics founds; check whether we have folds to traverse and
+    # collect the data.
+    if len(metrics_) == 0:
+        folds = [key for key in data_raw if key.isnumeric()]
+
+        # FIXME: this could be extracted automatically, but it is
+        # easier for now. Will patch this later.
+        metrics_ = [
+            # FIXME: disabled for the time being 'test_source_accuracy',
+            'test_source_auprc',
+            'test_source_auroc',
+            # FIXME: disabled for the time being 'test_target_accuracy',
+            'test_target_auprc',
+            'test_target_auroc'
+        ]
+
+        for fold in folds:
+            for metric in metrics_:
+                name = fold.replace('test_', '')
+                name = fold.replace('source', 'src')
+                row.update({
+                    'fold': fold.replace('test_', ''),
+                    metric: data_raw[fold][metric]
+                })
+
+        metrics = metrics_
+    else:
+        metrics = sorted(metrics_)
+
+        for metric in metrics:
+            # We collate here for simplicity reasons...
+            if type(data_raw[metric]) is list:
+                data_raw[metric] = np.mean(data_raw[metric])
+
+            row[metric] = data_raw[metric] * 100.0
+
+    return row
 
 
 if __name__ == '__main__':
@@ -94,14 +213,6 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    metrics = [
-        'auroc',
-        'auprc',
-        'accuracy',
-        'test_accuracy',
-        'recall_class',
-    ]
-
     rows = []
     filenames = args.INPUT
 
@@ -118,111 +229,8 @@ if __name__ == '__main__':
         ]
 
     for filename in tqdm(filenames, desc='Loading'):
-        with open(filename) as f:
-
-            # Ensures that we can parse normal JSON files
-            pos = 0
-
-            for line in f:
-
-                # We found *probably* the beginning of the JSON file, so
-                # we can start the parse process from here, having to do
-                # a reset.
-                if line.startswith('{'):
-                    f.seek(pos)
-                    break
-                else:
-                    pos += len(line)
-
-            # Check whether file is empty for some reason. If so, we
-            # skip it.
-            line = f.readline()
-            if line == '':
-                continue
-
-            # Not empty, so we need to reset the file pointer
-            else:
-                f.seek(pos)
-
-            data_raw = json.load(f)
-
-        # Create one row in the table containing the relevant
-        # information for now.
-        row = {
-            'species': data_raw.get('species', 'all'),
-            'antibiotic': data_raw['antibiotic'],
-            # If no model was found, default to `lr`. This makes us
-            # compatible with older files.
-            'model': data_raw.get('model', 'lr'),
-        }
-
-        # Check whether information about the train and test site is
-        # available. If so, we can automatically stratify accordingly.
-        if 'train_site' in data_raw and 'test_site' in data_raw:
-            row.update({
-                'train_site': join_list(data_raw['train_site']),
-                'test_site': join_list(data_raw['test_site'])
-            })
-
-        # Ditto for train years.
-        if 'train_years' in data_raw and 'test_years' in data_raw:
-            row.update({
-                'train_years': ' '.join(data_raw['train_years']),
-                'test_years': ' '.join(data_raw['test_years'])
-            })
-
-        # Check which metrics are *actually* available in the data. This
-        # accounts for experiments with specific train/test values, for
-        # example.
-        metrics_ = list(itertools.chain.from_iterable(
-                [[key for key in data_raw if metric in key] for metric
-                 in metrics]
-        ))
-
-        # Remove all 'train' metrics if need be.
-        if args.no_train_metrics:
-            metrics_ = [
-                metric for metric in metrics_ if 'train' not in metric
-            ]
-
-        # No metrics founds; check whether we have folds to traverse and
-        # collect the data.
-        if len(metrics_) == 0:
-            folds = [key for key in data_raw if key.isnumeric()]
-
-            # FIXME: this could be extracted automatically, but it is
-            # easier for now. Will patch this later.
-            metrics_ = [
-                # FIXME: disabled for the time being 'test_source_accuracy',
-                'test_source_auprc',
-                'test_source_auroc',
-                # FIXME: disabled for the time being 'test_target_accuracy',
-                'test_target_auprc',
-                'test_target_auroc'
-            ]
-
-            for fold in folds:
-                for metric in metrics_:
-                    name = fold.replace('test_', '')
-                    name = fold.replace('source', 'src')
-                    row.update({
-                        'fold': fold.replace('test_', ''),
-                        metric: data_raw[fold][metric]
-                    })
-
-            metrics = metrics_
-        else:
-            metrics = sorted(metrics_)
-
-            for metric in metrics:
-                # We collate here for simplicity reasons...
-                if type(data_raw[metric]) is list:
-                    data_raw[metric] = np.mean(data_raw[metric])
-
-                row[metric] = data_raw[metric] * 100.0
-
-        rows.append(row)
-
+        rows.append(process_file(filename))
+       
     pd.options.display.max_rows = 999
     pd.options.display.float_format = '{:,.2f}'.format
 
