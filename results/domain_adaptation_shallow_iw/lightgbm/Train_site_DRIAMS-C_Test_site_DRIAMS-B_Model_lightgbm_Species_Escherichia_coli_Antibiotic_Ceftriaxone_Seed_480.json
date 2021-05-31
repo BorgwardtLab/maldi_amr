@@ -1,0 +1,48 @@
+{
+    "train_site": "DRIAMS-C",
+    "source_years": [
+        "2018"
+    ],
+    "test_site": "DRIAMS-B",
+    "target_years": [
+        "2018"
+    ],
+    "seed": 480,
+    "antibiotic": "Ceftriaxone",
+    "species": "Escherichia coli",
+    "model": "lightgbm",
+    "metadata_versions_source": {
+        "2018_clean.csv": "0e0d2a1ebdfeed3f39f7dae50f4000328e7da075"
+    },
+    "metadata_versions_target": {
+        "2018_clean.csv": "27380b0a9a43a1e699b4b311235211ccfd2a76f2"
+    },
+    "scoring": "roc_auc",
+    "test_size_obtained": 0.2,
+    "prevalence_train": [
+        0.8269230769230769,
+        0.17307692307692307
+    ],
+    "prevalence_test": [
+        0.8251748251748252,
+        0.17482517482517482
+    ],
+    "target_test_size_obtained": 0.20512820512820512,
+    "target_prevalence_train": [
+        0.8064516129032258,
+        0.1935483870967742
+    ],
+    "target_prevalence_test": [
+        0.8125,
+        0.1875
+    ],
+    "source_train_accuracy": 0.8269230769230769,
+    "source_train_auprc": 0.17307692307692307,
+    "source_train_auroc": 0.5,
+    "source_test_accuracy": 0.8251748251748252,
+    "source_test_auprc": 0.17482517482517482,
+    "source_test_auroc": 0.5,
+    "target_test_accuracy": 0.8125,
+    "target_test_auprc": 0.1875,
+    "target_test_auroc": 0.5
+}

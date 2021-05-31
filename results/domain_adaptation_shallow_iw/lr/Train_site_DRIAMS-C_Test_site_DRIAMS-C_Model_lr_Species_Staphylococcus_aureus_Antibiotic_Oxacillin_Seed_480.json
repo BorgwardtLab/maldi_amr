@@ -1,0 +1,48 @@
+{
+    "train_site": "DRIAMS-C",
+    "source_years": [
+        "2018"
+    ],
+    "test_site": "DRIAMS-C",
+    "target_years": [
+        "2018"
+    ],
+    "seed": 480,
+    "antibiotic": "Oxacillin",
+    "species": "Staphylococcus aureus",
+    "model": "lr",
+    "metadata_versions_source": {
+        "2018_clean.csv": "0e0d2a1ebdfeed3f39f7dae50f4000328e7da075"
+    },
+    "metadata_versions_target": {
+        "2018_clean.csv": "0e0d2a1ebdfeed3f39f7dae50f4000328e7da075"
+    },
+    "scoring": "roc_auc",
+    "test_size_obtained": 0.2005420054200542,
+    "prevalence_train": [
+        0.9440677966101695,
+        0.05593220338983051
+    ],
+    "prevalence_test": [
+        0.9459459459459459,
+        0.05405405405405406
+    ],
+    "target_test_size_obtained": 0.2005420054200542,
+    "target_prevalence_train": [
+        0.9440677966101695,
+        0.05593220338983051
+    ],
+    "target_prevalence_test": [
+        0.9459459459459459,
+        0.05405405405405406
+    ],
+    "source_train_accuracy": 0.9983050847457627,
+    "source_train_auprc": 1.0,
+    "source_train_auroc": 1.0,
+    "source_test_accuracy": 0.8716216216216216,
+    "source_test_auprc": 0.09244273274668599,
+    "source_test_auroc": 0.6392857142857142,
+    "target_test_accuracy": 0.8716216216216216,
+    "target_test_auprc": 0.09244273274668599,
+    "target_test_auroc": 0.6392857142857142
+}
