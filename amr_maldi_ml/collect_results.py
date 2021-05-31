@@ -41,6 +41,14 @@ def get_files(directory):
     return result
 
 
+def join_list(data):
+    """Join items of a list. Passes through strings."""
+    if type(data) == str:
+        return data
+    else:
+        return ' '.join(data)
+
+
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
@@ -152,8 +160,8 @@ if __name__ == '__main__':
         # available. If so, we can automatically stratify accordingly.
         if 'train_site' in data_raw and 'test_site' in data_raw:
             row.update({
-                'train_site': data_raw['train_site'],
-                'test_site': data_raw['test_site']
+                'train_site': join_list(data_raw['train_site']),
+                'test_site': join_list(data_raw['test_site'])
             })
 
         # Ditto for train years.
