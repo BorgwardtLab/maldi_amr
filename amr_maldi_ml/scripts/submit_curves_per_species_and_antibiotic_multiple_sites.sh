@@ -13,7 +13,6 @@ fi
 # Evaluates its first argument either by submitting a job, or by
 # executing the command without parallel processing.
 run() {
-  echo $1
   if [ -z "$BSUB" ]; then
     eval "$1";
   else
