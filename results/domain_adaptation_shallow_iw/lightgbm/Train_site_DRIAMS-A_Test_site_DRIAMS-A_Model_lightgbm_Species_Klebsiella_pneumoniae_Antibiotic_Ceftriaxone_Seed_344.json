@@ -1,0 +1,60 @@
+{
+    "train_site": "DRIAMS-A",
+    "source_years": [
+        "2015",
+        "2016",
+        "2017",
+        "2018"
+    ],
+    "test_site": "DRIAMS-A",
+    "target_years": [
+        "2015",
+        "2016",
+        "2017",
+        "2018"
+    ],
+    "seed": 344,
+    "antibiotic": "Ceftriaxone",
+    "species": "Klebsiella pneumoniae",
+    "model": "lightgbm",
+    "metadata_versions_source": {
+        "2015_clean.csv": "d022b7aaae8f97f37ec499a0baa1d6428d83cf53",
+        "2016_clean.csv": "b64ae1e31e21b47b929bac6d65809c2e4ef4ad41",
+        "2017_clean.csv": "7d468e674a2201d6f03a6d9506069b605b5b50ac",
+        "2018_clean.csv": "c877802ee9e754f46cebf59ec00c27dff40c1719"
+    },
+    "metadata_versions_target": {
+        "2015_clean.csv": "d022b7aaae8f97f37ec499a0baa1d6428d83cf53",
+        "2016_clean.csv": "b64ae1e31e21b47b929bac6d65809c2e4ef4ad41",
+        "2017_clean.csv": "7d468e674a2201d6f03a6d9506069b605b5b50ac",
+        "2018_clean.csv": "c877802ee9e754f46cebf59ec00c27dff40c1719"
+    },
+    "scoring": "roc_auc",
+    "test_size_obtained": 0.2048650703154694,
+    "prevalence_train": [
+        0.9134799235181644,
+        0.08652007648183556
+    ],
+    "prevalence_test": [
+        0.922077922077922,
+        0.07792207792207792
+    ],
+    "target_test_size_obtained": 0.2048650703154694,
+    "target_prevalence_train": [
+        0.9134799235181644,
+        0.08652007648183556
+    ],
+    "target_prevalence_test": [
+        0.922077922077922,
+        0.07792207792207792
+    ],
+    "source_train_accuracy": 1.0,
+    "source_train_auprc": 1.0,
+    "source_train_auroc": 1.0,
+    "source_test_accuracy": 0.9257884972170687,
+    "source_test_auprc": 0.2981566110738861,
+    "source_test_auroc": 0.6677206093705088,
+    "target_test_accuracy": 0.9257884972170687,
+    "target_test_auprc": 0.2981566110738861,
+    "target_test_auroc": 0.6677206093705088
+}

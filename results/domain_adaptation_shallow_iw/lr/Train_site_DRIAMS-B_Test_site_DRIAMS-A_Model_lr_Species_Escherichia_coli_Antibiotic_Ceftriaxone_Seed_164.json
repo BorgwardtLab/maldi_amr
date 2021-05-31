@@ -1,0 +1,54 @@
+{
+    "train_site": "DRIAMS-B",
+    "source_years": [
+        "2018"
+    ],
+    "test_site": "DRIAMS-A",
+    "target_years": [
+        "2015",
+        "2016",
+        "2017",
+        "2018"
+    ],
+    "seed": 164,
+    "antibiotic": "Ceftriaxone",
+    "species": "Escherichia coli",
+    "model": "lr",
+    "metadata_versions_source": {
+        "2018_clean.csv": "27380b0a9a43a1e699b4b311235211ccfd2a76f2"
+    },
+    "metadata_versions_target": {
+        "2015_clean.csv": "d022b7aaae8f97f37ec499a0baa1d6428d83cf53",
+        "2016_clean.csv": "b64ae1e31e21b47b929bac6d65809c2e4ef4ad41",
+        "2017_clean.csv": "7d468e674a2201d6f03a6d9506069b605b5b50ac",
+        "2018_clean.csv": "c877802ee9e754f46cebf59ec00c27dff40c1719"
+    },
+    "scoring": "roc_auc",
+    "test_size_obtained": 0.20187793427230047,
+    "prevalence_train": [
+        0.788235294117647,
+        0.21176470588235294
+    ],
+    "prevalence_test": [
+        0.7906976744186046,
+        0.20930232558139536
+    ],
+    "target_test_size_obtained": 0.20316132031613204,
+    "target_prevalence_train": [
+        0.8941073512252042,
+        0.1058926487747958
+    ],
+    "target_prevalence_test": [
+        0.9107551487414187,
+        0.08924485125858124
+    ],
+    "source_train_accuracy": 0.6294117647058823,
+    "source_train_auprc": 0.5868600602223787,
+    "source_train_auroc": 0.7873134328358209,
+    "source_test_accuracy": 0.5581395348837209,
+    "source_test_auprc": 0.5018100266466279,
+    "source_test_auroc": 0.7189542483660131,
+    "target_test_accuracy": 0.7871853546910755,
+    "target_test_auprc": 0.16662240987943122,
+    "target_test_auroc": 0.6178649658549155
+}
