@@ -148,9 +148,10 @@ def process_file(filename):
         for fold in folds:
             for metric in metrics_:
                 name = fold.replace('test_', '')
-                name = fold.replace('source', 'src')
+                name = name.replace('source', 'src')
+
                 row.update({
-                    'fold': fold.replace('test_', ''),
+                    'fold': name,
                     metric: data_raw[fold][metric]
                 })
 
