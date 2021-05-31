@@ -177,6 +177,12 @@ def generate_output_filename(
         train_site = data['train_site']
         test_site = data['test_site']
 
+        if type(train_site) != str:
+            train_site = '_'.join(train_site)
+
+        if type(test_site) != str:
+            test_site = '_'.join(test_site)
+
         filename = f'Train_site_{train_site}_' \
                    f'Test_site_{test_site}_'
 
