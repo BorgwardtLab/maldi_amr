@@ -133,7 +133,7 @@ def plot_curves(df, outdir, metric='auroc'):
 
         # Find first set of `n_samples` values that we will use to
         # quantise the remainder of the curves.
-        stop = (np.argmin(np.diff(df_['n_samples']) > 0 ))
+        stop = (np.argmin(np.diff(df_['n_samples']) > 0))
         values = df_['n_samples'].values[:stop + 1]
 
         # Will store the updated curves. This does not work inline, at
@@ -173,8 +173,6 @@ def plot_curves(df, outdir, metric='auroc'):
         curve = curve.fillna(0)
 
         curves[(species, type_)] = curve
-        print(species, type_)
-        print(curve)
 
     sns.set(style='whitegrid')
 
@@ -210,8 +208,6 @@ def plot_curves(df, outdir, metric='auroc'):
         lower = curve[metric]['mean'] - curve[metric]['std']
 
         linestyle = 'solid' if type_ == 'ensemble' else 'dashdot'
-
-        mean_n_samples = np.mean(curve[metric]['count'])
 
         ax.yaxis.set_major_formatter(FormatStrFormatter('%.02f'))
 
@@ -259,7 +255,9 @@ if __name__ == '__main__':
         ('Staphylococcus aureus', 'Oxacillin', 'lightgbm'),
     ]
 
-    input_files = glob.glob(os.path.join(args.INPUT, '**/*.json'), recursive=True)
+    input_files = glob.glob(
+        os.path.join(args.INPUT, '**/*.json'), recursive=True
+    )
 
     for filename in tqdm(sorted(input_files), desc='File'):
 
@@ -268,7 +266,7 @@ if __name__ == '__main__':
 
         # Ignore input files that are not part of the major scenarios.
         if (data['species'], data['antibiotic'], data['model']) not in \
-            major_scenarios:
+                major_scenarios:
             continue
 
         antibiotic = data['antibiotic']
