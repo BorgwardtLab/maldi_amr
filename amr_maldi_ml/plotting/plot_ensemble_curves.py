@@ -38,6 +38,58 @@ def _add_or_compare(metadata):
         assert metadata_versions == metadata
 
 
+def interpolate_at(df, x):
+    """Interpolate a data frame at certain positions.
+
+    This is an auxiliary function for interpolating an indexed data
+    frame at a certain position or at certain positions.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Input data frame; must have index that is compatible with `x`.
+
+    x : scalar or iterable
+        Index value(s) to interpolate the data frame at. Must be
+        compatible with the data type of the index.
+
+    Returns
+    -------
+    Data frame evaluated at the specified index positions.
+    """
+    # Check whether object support iteration. If yes, we can build
+    # a sequence index; if not, we have to convert the object into
+    # something iterable.
+    try:
+        _ = (a for a in x)
+        new_index = pd.Index(x)
+    except TypeError:
+        new_index = pd.Index([x])
+
+    # Ensures that the data frame is sorted correctly based on its
+    # index. We use `mergesort` in order to ensure stability. This
+    # set of options will be reused later on.
+    sort_options = {
+        'ascending': False,
+        'kind': 'mergesort',
+    }
+    df = df.sort_index(**sort_options)
+
+    # TODO: have to decide whether to keep first index reaching the
+    # desired level or last. The last has the advantage that it's a
+    # more 'pessimistic' estimate since it will correspond to lower
+    # thresholds.
+    df = df[~df.index.duplicated(keep='last')]
+
+    # Include the new index, sort again and then finally interpolate the
+    # values.
+    df = df.reindex(df.index.append(new_index).unique())
+    df = df.sort_index(**sort_options)
+    df = df.interpolate()
+
+    return df.loc[new_index]
+
+
 def plot_curves(df, outdir, metric='auroc'):
     """Plot curves that are contained in a data frame.
 
