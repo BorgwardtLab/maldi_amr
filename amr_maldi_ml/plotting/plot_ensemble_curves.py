@@ -74,6 +74,13 @@ def plot_curves(df, outdir, metric='auroc'):
     # to indicate whether we are plotting an ensemble or not.
     curves = {}
 
+    def custom_round(x, base=5):
+        return int(base * round(float(x)/base))
+
+    # FIXME round to nearest 'target' n_sample size
+    #df['n_samples'] = df['n_samples'].apply(lambda x: custom_round(x, base=100))
+    print(sorted(df['n_samples'].values))
+
     for (species, type_), df_ in df.groupby(['species', 'type']):
         curve = df_.groupby(['n_samples']).agg({
             metric: [np.mean, np.std, 'count']
@@ -85,6 +92,8 @@ def plot_curves(df, outdir, metric='auroc'):
         curve = curve.fillna(0)
 
         curves[(species, type_)] = curve
+        print(species, type_)
+        print(curve)
 
     sns.set(style='whitegrid')
 
@@ -103,9 +112,6 @@ def plot_curves(df, outdir, metric='auroc'):
         species: palette[i] for i, species in enumerate(supported_species)
     }
     
-    model = df['model'].unique()[0]
-    assert len(df['model'].unique()) == 1, 'More than one model in df.'
-
 
     for (species, type_), curve in curves.items():
 
@@ -118,7 +124,7 @@ def plot_curves(df, outdir, metric='auroc'):
         colour = species_to_colour[species]
 
         x = curve.index
-        mean = upper = curve[metric]['mean']
+        mean = curve[metric]['mean']
 
         upper = curve[metric]['mean'] + curve[metric]['std']
         lower = curve[metric]['mean'] - curve[metric]['std']
@@ -129,6 +135,7 @@ def plot_curves(df, outdir, metric='auroc'):
 
         ax.yaxis.set_major_formatter(FormatStrFormatter('%.02f'))
 
+        #print(species, type_, mean.values)
         ax.plot(
             x,
             mean,
@@ -137,20 +144,20 @@ def plot_curves(df, outdir, metric='auroc'):
             linestyle=linestyle
         )
 
-        ax.fill_between(
-            x,
-            lower,
-            upper,
-            facecolor=colour,
-            alpha=0.25,
-            linestyle=linestyle,
-        )
+        #ax.fill_between(
+        #    x,
+        #    lower,
+        #    upper,
+        #    facecolor=colour,
+        #    alpha=0.25,
+        #    linestyle=linestyle,
+        #)
 
     ax.set_ylabel(str(metric).upper())
     ax.set_xlabel('Number of samples')
     ax.legend(loc='lower right')
 
-    plt.savefig(os.path.join(outdir, f'{model}_{df.antibiotic.unique()[0]}.png'))
+    plt.savefig(os.path.join(outdir, f'{df.antibiotic.unique()[0]}.png'))
 
 
 if __name__ == '__main__':
@@ -167,11 +174,23 @@ if __name__ == '__main__':
     # have an easier time turning every scenario into a data frame.
     skip_keys = ['years', 'metadata_versions']
 
-    for filename in tqdm(sorted(glob.glob(os.path.join(args.INPUT,
-                                          '*.json'))), desc='File'):
+    major_scenarios = [
+        ('Escherichia coli', 'Ceftriaxone', 'lightgbm'),
+        ('Klebsiella pneumoniae', 'Ceftriaxone', 'mlp'),
+        ('Staphylococcus aureus', 'Oxacillin', 'lightgbm'),
+    ]
+
+    input_files = glob.glob(os.path.join(args.INPUT, '**/*.json'), recursive=True)
+
+    for filename in tqdm(sorted(input_files), desc='File'):
 
         with open(filename) as f:
             data = json.load(f)
+
+        # Ignore input files that are not part of the major scenarios.
+        if (data['species'], data['antibiotic'], data['model']) not in \
+            major_scenarios:
+            continue
 
         antibiotic = data['antibiotic']
 
@@ -190,5 +209,4 @@ if __name__ == '__main__':
 
         rows = scenarios[antibiotic]
         df = pd.DataFrame.from_records(rows)
-
-        plot_curves(df, '../plots/ensemble_curves')
+        plot_curves(df, '../plots/ensemble')
