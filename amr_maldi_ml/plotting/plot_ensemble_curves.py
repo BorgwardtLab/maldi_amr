@@ -129,12 +129,41 @@ def plot_curves(df, outdir, metric='auroc'):
     def custom_round(x, base=5):
         return int(base * round(float(x)/base))
 
-    # FIXME round to nearest 'target' n_sample size
-    #df['n_samples'] = df['n_samples'].apply(lambda x: custom_round(x, base=100))
-    print(sorted(df['n_samples'].values))
-
     for (species, type_), df_ in df.groupby(['species', 'type']):
-        curve = df_.groupby(['n_samples']).agg({
+
+        # Find first set of `n_samples` values that we will use to
+        # quantise the remainder of the curves.
+        stop = (np.argmin(np.diff(df_['n_samples']) > 0 ))
+        values = df_['n_samples'].values[:stop + 1]
+
+        # Will store the updated curves. This does not work inline, at
+        # least not trivially, because of the `groupby` operation.
+        all_curves = []
+
+        for seed, df_curve in df_.groupby('seed'):
+
+            # Get number columns and use `n_samples` to make the
+            # interpolation work later on.
+            number_columns = df_curve.select_dtypes(np.number).columns
+            numbers = df_curve[number_columns].set_index('n_samples')
+            numbers = interpolate_at(numbers, values)
+            numbers = numbers.fillna(method='ffill')
+
+            # Need to ensure that we can actually assign all columns
+            # properly.
+            numbers = numbers.reset_index()
+            numbers = numbers.rename(columns={'index': 'n_samples'})
+
+            # Set proper index again so that we can assign the values
+            # below.
+            numbers = numbers.set_index(df_curve.index)
+
+            df_curve[number_columns] = numbers[number_columns]
+            all_curves.append(df_curve)
+
+        all_curves = pd.concat(all_curves)
+
+        curve = all_curves.groupby(['n_samples']).agg({
             metric: [np.mean, np.std, 'count']
         })
 
@@ -149,7 +178,7 @@ def plot_curves(df, outdir, metric='auroc'):
 
     sns.set(style='whitegrid')
 
-    fig, ax = plt.subplots(figsize=(9,6))
+    fig, ax = plt.subplots(figsize=(9, 6))
     fig.suptitle(df.antibiotic.unique()[0].lower())
 
     palette = sns.color_palette()
@@ -163,7 +192,6 @@ def plot_curves(df, outdir, metric='auroc'):
     species_to_colour = {
         species: palette[i] for i, species in enumerate(supported_species)
     }
-    
 
     for (species, type_), curve in curves.items():
 
@@ -187,7 +215,6 @@ def plot_curves(df, outdir, metric='auroc'):
 
         ax.yaxis.set_major_formatter(FormatStrFormatter('%.02f'))
 
-        #print(species, type_, mean.values)
         ax.plot(
             x,
             mean,
@@ -196,14 +223,14 @@ def plot_curves(df, outdir, metric='auroc'):
             linestyle=linestyle
         )
 
-        #ax.fill_between(
-        #    x,
-        #    lower,
-        #    upper,
-        #    facecolor=colour,
-        #    alpha=0.25,
-        #    linestyle=linestyle,
-        #)
+        ax.fill_between(
+            x,
+            lower,
+            upper,
+            facecolor=colour,
+            alpha=0.25,
+            linestyle=linestyle,
+        )
 
     ax.set_ylabel(str(metric).upper())
     ax.set_xlabel('Number of samples')
