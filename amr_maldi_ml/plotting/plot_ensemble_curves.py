@@ -38,6 +38,58 @@ def _add_or_compare(metadata):
         assert metadata_versions == metadata
 
 
+def interpolate_at(df, x):
+    """Interpolate a data frame at certain positions.
+
+    This is an auxiliary function for interpolating an indexed data
+    frame at a certain position or at certain positions.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Input data frame; must have index that is compatible with `x`.
+
+    x : scalar or iterable
+        Index value(s) to interpolate the data frame at. Must be
+        compatible with the data type of the index.
+
+    Returns
+    -------
+    Data frame evaluated at the specified index positions.
+    """
+    # Check whether object support iteration. If yes, we can build
+    # a sequence index; if not, we have to convert the object into
+    # something iterable.
+    try:
+        _ = (a for a in x)
+        new_index = pd.Index(x)
+    except TypeError:
+        new_index = pd.Index([x])
+
+    # Ensures that the data frame is sorted correctly based on its
+    # index. We use `mergesort` in order to ensure stability. This
+    # set of options will be reused later on.
+    sort_options = {
+        'ascending': False,
+        'kind': 'mergesort',
+    }
+    df = df.sort_index(**sort_options)
+
+    # TODO: have to decide whether to keep first index reaching the
+    # desired level or last. The last has the advantage that it's a
+    # more 'pessimistic' estimate since it will correspond to lower
+    # thresholds.
+    df = df[~df.index.duplicated(keep='last')]
+
+    # Include the new index, sort again and then finally interpolate the
+    # values.
+    df = df.reindex(df.index.append(new_index).unique())
+    df = df.sort_index(**sort_options)
+    df = df.interpolate()
+
+    return df.loc[new_index]
+
+
 def plot_curves(df, outdir, metric='auroc'):
     """Plot curves that are contained in a data frame.
 
@@ -74,8 +126,44 @@ def plot_curves(df, outdir, metric='auroc'):
     # to indicate whether we are plotting an ensemble or not.
     curves = {}
 
+    def custom_round(x, base=5):
+        return int(base * round(float(x)/base))
+
     for (species, type_), df_ in df.groupby(['species', 'type']):
-        curve = df_.groupby(['n_samples']).agg({
+
+        # Find first set of `n_samples` values that we will use to
+        # quantise the remainder of the curves.
+        stop = (np.argmin(np.diff(df_['n_samples']) > 0))
+        values = df_['n_samples'].values[:stop + 1]
+
+        # Will store the updated curves. This does not work inline, at
+        # least not trivially, because of the `groupby` operation.
+        all_curves = []
+
+        for seed, df_curve in df_.groupby('seed'):
+
+            # Get number columns and use `n_samples` to make the
+            # interpolation work later on.
+            number_columns = df_curve.select_dtypes(np.number).columns
+            numbers = df_curve[number_columns].set_index('n_samples')
+            numbers = interpolate_at(numbers, values)
+            numbers = numbers.fillna(method='ffill')
+
+            # Need to ensure that we can actually assign all columns
+            # properly.
+            numbers = numbers.reset_index()
+            numbers = numbers.rename(columns={'index': 'n_samples'})
+
+            # Set proper index again so that we can assign the values
+            # below.
+            numbers = numbers.set_index(df_curve.index)
+
+            df_curve[number_columns] = numbers[number_columns]
+            all_curves.append(df_curve)
+
+        all_curves = pd.concat(all_curves)
+
+        curve = all_curves.groupby(['n_samples']).agg({
             metric: [np.mean, np.std, 'count']
         })
 
@@ -88,7 +176,7 @@ def plot_curves(df, outdir, metric='auroc'):
 
     sns.set(style='whitegrid')
 
-    fig, ax = plt.subplots(figsize=(9,6))
+    fig, ax = plt.subplots(figsize=(9, 6))
     fig.suptitle(df.antibiotic.unique()[0].lower())
 
     palette = sns.color_palette()
@@ -102,10 +190,6 @@ def plot_curves(df, outdir, metric='auroc'):
     species_to_colour = {
         species: palette[i] for i, species in enumerate(supported_species)
     }
-    
-    model = df['model'].unique()[0]
-    assert len(df['model'].unique()) == 1, 'More than one model in df.'
-
 
     for (species, type_), curve in curves.items():
 
@@ -118,14 +202,12 @@ def plot_curves(df, outdir, metric='auroc'):
         colour = species_to_colour[species]
 
         x = curve.index
-        mean = upper = curve[metric]['mean']
+        mean = curve[metric]['mean']
 
         upper = curve[metric]['mean'] + curve[metric]['std']
         lower = curve[metric]['mean'] - curve[metric]['std']
 
         linestyle = 'solid' if type_ == 'ensemble' else 'dashdot'
-
-        mean_n_samples = np.mean(curve[metric]['count'])
 
         ax.yaxis.set_major_formatter(FormatStrFormatter('%.02f'))
 
@@ -150,7 +232,7 @@ def plot_curves(df, outdir, metric='auroc'):
     ax.set_xlabel('Number of samples')
     ax.legend(loc='lower right')
 
-    plt.savefig(os.path.join(outdir, f'{model}_{df.antibiotic.unique()[0]}.png'))
+    plt.savefig(os.path.join(outdir, f'{df.antibiotic.unique()[0]}.png'))
 
 
 if __name__ == '__main__':
@@ -167,11 +249,25 @@ if __name__ == '__main__':
     # have an easier time turning every scenario into a data frame.
     skip_keys = ['years', 'metadata_versions']
 
-    for filename in tqdm(sorted(glob.glob(os.path.join(args.INPUT,
-                                          '*.json'))), desc='File'):
+    major_scenarios = [
+        ('Escherichia coli', 'Ceftriaxone', 'lightgbm'),
+        ('Klebsiella pneumoniae', 'Ceftriaxone', 'mlp'),
+        ('Staphylococcus aureus', 'Oxacillin', 'lightgbm'),
+    ]
+
+    input_files = glob.glob(
+        os.path.join(args.INPUT, '**/*.json'), recursive=True
+    )
+
+    for filename in tqdm(sorted(input_files), desc='File'):
 
         with open(filename) as f:
             data = json.load(f)
+
+        # Ignore input files that are not part of the major scenarios.
+        if (data['species'], data['antibiotic'], data['model']) not in \
+                major_scenarios:
+            continue
 
         antibiotic = data['antibiotic']
 
@@ -190,5 +286,4 @@ if __name__ == '__main__':
 
         rows = scenarios[antibiotic]
         df = pd.DataFrame.from_records(rows)
-
-        plot_curves(df, '../plots/ensemble_curves')
+        plot_curves(df, '../plots/ensemble')
