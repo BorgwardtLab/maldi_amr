@@ -241,7 +241,11 @@ if __name__ == '__main__':
     if 'train_site' in df.columns and 'test_site' in df.columns:
         group_columns += ['train_site', 'test_site']
     if 'train_years' in df.columns and 'test_years' in df.columns:
-        group_columns += ['train_years', 'test_years']
+        if df['train_years'].isna().any() or df['test_years'].isna().any():
+            print('Ignore train/test years columns for grouping as '
+                  'it contains missing values.')
+        else:
+            group_columns += ['train_years', 'test_years']
 
     aggregation_fns = []
     for agg in args.aggregate:
