@@ -11,6 +11,8 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
+from utils import scenario_map
+
 # Input files containing feature importances of major scenarios.
 prjdir = '../../results/feature_importance_values/calibrated_classifiers'
 input_files = [
@@ -19,13 +21,6 @@ input_files = [
     prjdir+'/mlp/Site_DRIAMS-A_Model_mlp_Species_Klebsiella_pneumoniae_Antibiotic_Ceftriaxone_Seed_164-172-188-270-344-35-409-480-545-89_average.json',
     prjdir+'/lightgbm/Site_DRIAMS-A_Model_lightgbm_Species_Staphylococcus_aureus_Antibiotic_Oxacillin_Seed_164-172-188-270-344-35-409-480-545-89_average.json',
     				]
-
-scenario_map = {
-    'Escherichia_coli': 'E-CEF',
-    'Klebsiella_pneumoniae': 'K-CEF',
-    'Staphylococcus_aureus': 'S-OXA',
-}
-
 plt.close('all')
 #sns.set_style("whitegrid")
 fig, ax = plt.subplots(3, 1, figsize=(30,18))

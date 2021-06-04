@@ -60,3 +60,9 @@ maldi_col_map_seaborn = {
     'Penicillin': sns.color_palette()[8],
     'Tobramycin': sns.color_palette()[9],
     }
+
+scenario_map = {
+    'Escherichia_coli': 'E-CEF',
+    'Klebsiella_pneumoniae': 'K-CEF',
+    'Staphylococcus_aureus': 'S-OXA',
+}
