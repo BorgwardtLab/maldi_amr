@@ -243,7 +243,7 @@ if __name__ == '__main__':
     if 'train_years' in df.columns and 'test_years' in df.columns:
         if df['train_years'].isna().any() or df['test_years'].isna().any():
             print('Ignore train/test years columns for grouping as '
-                  'it contains missing values.')
+                  'they contain missing values.')
         else:
             group_columns += ['train_years', 'test_years']
 
