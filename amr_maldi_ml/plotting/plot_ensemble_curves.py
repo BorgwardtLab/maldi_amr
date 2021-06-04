@@ -90,7 +90,7 @@ def interpolate_at(df, x):
     return df.loc[new_index]
 
 
-def plot_curves(df, outdir, metric='auroc'):
+def plot_curves(df, outdir, metric='auprc'):
     """Plot curves that are contained in a data frame.
 
     This function is performing the main work for a single data frame.
@@ -125,9 +125,6 @@ def plot_curves(df, outdir, metric='auroc'):
     # curve is indexed by a tuple containing its species and its type
     # to indicate whether we are plotting an ensemble or not.
     curves = {}
-
-    def custom_round(x, base=5):
-        return int(base * round(float(x)/base))
 
     for (species, type_), df_ in df.groupby(['species', 'type']):
 
@@ -232,7 +229,7 @@ def plot_curves(df, outdir, metric='auroc'):
     ax.set_xlabel('Number of samples')
     ax.legend(loc='lower right')
 
-    plt.savefig(os.path.join(outdir, f'{df.antibiotic.unique()[0]}.png'))
+    plt.savefig(os.path.join(outdir, f'{df.species.unique()[0].replace(" ","_")}_{df.antibiotic.unique()[0]}.png'))
 
 
 if __name__ == '__main__':
