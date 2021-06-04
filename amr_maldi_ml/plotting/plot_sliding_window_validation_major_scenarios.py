@@ -1,15 +1,17 @@
 """Plot sliding window validation experiment data."""
 
-import argparse
 import json
 import glob
 
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+from datetime import datetime
 
 import numpy as np
 import pandas as pd
 import seaborn as sns
+
+from utils import scenario_map
 
 #pd.set_option('display.max_rows', 1000)
 if __name__ == '__main__':
@@ -40,8 +42,10 @@ if __name__ == '__main__':
             df[column] = pd.to_datetime(df[column])
 
     # Create new column that describes the whole scenario.
-    df[f'scenario'] = df['species'] + ' (' + df['antibiotic'] + ')' + ' (' + df['model']  + ')'
-    df = df.sort_values([f'scenario', 'train_to'])
+    df['scenario'] = df['species'].str.replace(' ','_')
+    df['scenario'] = df['scenario'].apply(lambda x: scenario_map[x])
+    df['scenario'] = df['scenario'] + ' (' + df['model']  + ')'
+    df = df.sort_values(['scenario', 'train_to'])
 
     # Drop unnecessary columns.
     cols_to_del = [
@@ -94,6 +98,10 @@ if __name__ == '__main__':
         )
         ax[i].set_xlabel('last month of 8-month training interval')
         ax[i].set_ylabel(f'{metric}'.upper())
+        ax[i].set_xlim(
+            datetime.strptime('2016-08-01', '%Y-%m-%d'),
+            datetime.strptime('2018-05-01', '%Y-%m-%d'),
+            )
         if metric == 'auroc': ax[i].axhline(0.5, color='darkgrey', linestyle='--')
 
         # Minor ticks every month.
@@ -108,6 +116,6 @@ if __name__ == '__main__':
     # Hide x labels and tick labels for all but bottom plot.
     for axis in ax:
         axis.label_outer()
-    plt.subplots_adjust(hspace=0)
+    plt.subplots_adjust(hspace=0.01)
     plt.savefig('../plots/sliding_window_validation/sliding_window_validation.png')
     plt.show()
