@@ -3,6 +3,7 @@
 import os
 import argparse
 
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -33,3 +34,28 @@ if __name__ == '__main__':
 
     filename = os.path.basename(args.INPUT).replace('.csv', '')
     plt.savefig(f'../plots/sensitivity_vs_specificity/{filename}.png')
+
+    for thresh_ in np.linspace(0.0,0.9,10):
+
+        thresh_ = round(thresh_, 1)
+        print(thresh_)
+        df_ = df.loc[df['percentage rejected samples'] >= thresh_]
+        df_ = df_.loc[df_['percentage rejected samples'] < thresh_+0.1]
+
+        # plot sensitivity vs. specificity
+        plt.figure(figsize=(10,10))
+        sns.set(style="whitegrid")
+
+        plt.scatter(x=df_['specificity'], 
+                    y=df_['sensitivity'], 
+                    s=4, 
+                    cmap='tab10',
+                    c=df_['percentage rejected samples'],
+                    )
+        plt.xlabel('specificity (percentage of susceptible samples correctly identified)')
+        plt.ylabel('sensitivity (percentage of resistant samples correctly identified)')
+
+        plt.colorbar()
+
+        filename = os.path.basename(args.INPUT).replace('.csv', '')
+        plt.savefig(f'../plots/sensitivity_vs_specificity/{filename}_{thresh_}.png')
