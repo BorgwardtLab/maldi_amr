@@ -26,9 +26,13 @@ if __name__ == '__main__':
                 s=4, 
                 cmap='tab10',
                 c=df['percentage rejected samples'],
+                vmin=0,
+                vmax=100,
                 )
     plt.xlabel('specificity (percentage of susceptible samples correctly identified)')
     plt.ylabel('sensitivity (percentage of resistant samples correctly identified)')
+    plt.xlim((0.0,1.0))
+    plt.ylim((0.0,1.0))
 
     plt.colorbar()
 
