@@ -39,12 +39,13 @@ if __name__ == '__main__':
     filename = os.path.basename(args.INPUT).replace('.csv', '')
     plt.savefig(f'../plots/sensitivity_vs_specificity/{filename}.png')
 
-    for thresh_ in np.linspace(0.0,0.9,10):
+    for thresh_ in np.linspace(0,90,10):
 
-        thresh_ = round(thresh_, 1)
-        print(thresh_)
+        thresh_ = round(thresh_)
         df_ = df.loc[df['percentage rejected samples'] >= thresh_]
-        df_ = df_.loc[df_['percentage rejected samples'] < thresh_+0.1]
+        print()
+        print(thresh_)
+        df_ = df_.loc[df_['percentage rejected samples'] < thresh_+10]
 
         # plot sensitivity vs. specificity
         plt.figure(figsize=(10,10))
@@ -55,9 +56,14 @@ if __name__ == '__main__':
                     s=4, 
                     cmap='tab10',
                     c=df_['percentage rejected samples'],
+                    vmin=0,
+                    vmax=100,
                     )
         plt.xlabel('specificity (percentage of susceptible samples correctly identified)')
         plt.ylabel('sensitivity (percentage of resistant samples correctly identified)')
+        plt.xlim((0.0,1.0))
+        plt.ylim((0.0,1.0))
+        plt.title(f'{thresh_}')
 
         plt.colorbar()
 
