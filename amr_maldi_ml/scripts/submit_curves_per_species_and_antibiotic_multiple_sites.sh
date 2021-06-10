@@ -24,7 +24,7 @@ function make_jobs {
   local SEED=${1}
   local MODEL=${2}
   local TRAIN=${3}
-  local TEST="DRIAMS-B"
+  local TEST="DRIAMS-D"
 
   # S. aureus jobs
   CMD="${MAIN} --antibiotic Oxacillin --species \"Staphylococcus aureus\" --train-site $TRAIN --test-site $TEST --model $MODEL --seed $SEED"
@@ -58,8 +58,9 @@ function make_jobs {
 for SEED in 344 172 188 270 35 164 545 480 89 409; do
   for MODEL in "lr" "lightgbm" "mlp"; do
     make_jobs $SEED $MODEL "DRIAMS-A"
-    make_jobs $SEED $MODEL "DRIAMS-A DRIAMS-B"
-    make_jobs $SEED $MODEL "DRIAMS-A DRIAMS-B DRIAMS-C"
+    make_jobs $SEED $MODEL "DRIAMS-A DRIAMS-D"
+    make_jobs $SEED $MODEL "DRIAMS-A DRIAMS-C DRIAMS-D"
     make_jobs $SEED $MODEL "DRIAMS-A DRIAMS-B DRIAMS-C DRIAMS-D"
+    make_jobs $SEED $MODEL "DRIAMS-A DRIAMS-B DRIAMS-C"
   done
 done
