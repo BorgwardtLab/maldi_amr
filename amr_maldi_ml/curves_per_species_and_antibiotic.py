@@ -209,7 +209,7 @@ if __name__ == '__main__':
         help='Test site(s)'
     )
 
-    name = 'union_of_sites_validation'
+    name = 'curves_per_species_and_antibiotics_case_based_stratification'
 
     parser.add_argument(
         '-o', '--output',
