@@ -66,7 +66,8 @@ def process_file(filename):
     if 'train_site' in data_raw and 'test_site' in data_raw:
         row.update({
             'train_site': join_list(data_raw['train_site']),
-            'test_site': join_list(data_raw['test_site'])
+            # FIXME Check first if all test sites are the same
+            #'test_site': join_list(data_raw['test_site'])
         })
 
     # Ditto for train years.
@@ -138,15 +139,21 @@ if __name__ == '__main__':
         type=str,
         default='DRIAMS-B',
     )
+    parser.add_argument(
+        '-m', '--metrics',
+        type=str,
+        default='auroc,auprc',
+    )
     args = parser.parse_args()
 
-    metrics = [
-        'auroc',
-        'auprc',
-        'accuracy',
-    ]
+    metrics = args.metrics.split(',')
 
     prjdir = '../../results/union_of_sites_validation'
+
+    keep_scenarios = {
+        'DRIAMS-B': ['DRIAMS-A', 'DRIAMS-B', 'DRIAMS-A DRIAMS-B', 'DRIAMS-A DRIAMS-C DRIAMS-D', 'DRIAMS-A DRIAMS-B DRIAMS-C DRIAMS-D'],
+        'DRIAMS-C': ['DRIAMS-A', 'DRIAMS-C', 'DRIAMS-A DRIAMS-C', 'DRIAMS-A DRIAMS-B DRIAMS-D', 'DRIAMS-A DRIAMS-C DRIAMS-B DRIAMS-D'],
+    }
 
     filenames = []
     filenames.append(glob.glob(prjdir+f'/lightgbm/*Test_site_{args.target_site}*_Species_Escherichia_coli_Antibiotic_Ceftriaxone*'))
@@ -155,7 +162,8 @@ if __name__ == '__main__':
 
     for flist in filenames:
         rows = []
-        for filename in tqdm(flist, desc='Loading'):
+        #for filename in tqdm(flist, desc='Loading'):
+        for filename in flist:
             rows.append(process_file(filename))
 
         pd.options.display.max_rows = 999
@@ -165,11 +173,11 @@ if __name__ == '__main__':
 
         group_columns = [
                     'species', 'antibiotic', 'model',
-                    'train_site', 'test_site',
+                    'train_site',
+                    #'test_site',
         ]
         if df['train_years'].isna().any() or df['test_years'].isna().any():
-            print('Ignore train/test years columns for grouping as '
-                  'they contain missing values.')
+            pass
         else:
             group_columns += ['train_years', 'test_years']
 
@@ -186,19 +194,26 @@ if __name__ == '__main__':
         df = df.round(2)
 
         # combine mean and std in one column to fit the layout
-        df['accuracy'] = df[('accuracy', 'mean')].astype('str') + \
-                         ' ± ' + \
-                         df[('accuracy', 'std')].astype('str')
-        df['AUROC'] = df[('auroc', 'mean')].astype('str') + \
-                      ' ± ' + \
-                      df[('auroc', 'std')].astype('str')
-        df['AUPRC'] = df[('auprc', 'mean')].astype('str') + \
-                      ' ± ' + \
-                      df[('auprc', 'std')].astype('str')
+        if 'accuracy' in metrics:
+            df['accuracy'] = df[('accuracy', 'mean')].astype('str') + \
+                             ' ± ' + \
+                             df[('accuracy', 'std')].astype('str')
+            df.drop(columns=['accuracy'], inplace=True)
 
-        # delete columns not meant to show up in the final table
-        df.drop(columns=['auroc'], inplace=True)
-        df.drop(columns=['auprc'], inplace=True)
-        df.drop(columns=['accuracy'], inplace=True)
+        if 'auroc' in metrics:
+            df['AUROC'] = df[('auroc', 'mean')].astype('str') + \
+                          ' ± ' + \
+                          df[('auroc', 'std')].astype('str')
+            df.drop(columns=['auroc'], inplace=True)
 
+        if 'auprc' in metrics:
+            df['AUPRC'] = df[('auprc', 'mean')].astype('str') + \
+                          ' ± ' + \
+                          df[('auprc', 'std')].astype('str')
+            df.drop(columns=['auprc'], inplace=True)
+
+        print(df)
+        keep_indices = [idx for idx in df.index if idx[3] in keep_scenarios[args.target_site]] 
+        df = df.loc[keep_indices]
+        print('\n\n')
         print(df.transpose())
