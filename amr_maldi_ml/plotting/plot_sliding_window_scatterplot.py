@@ -99,6 +99,8 @@ if __name__ == '__main__':
         ax[i].set_title(metric.upper())
         ax[i].set_xlabel('sample size')
         ax[i].set_ylabel('')
+        if metric == 'auprc':
+            ax[i].yaxis.tick_right()
 
         xpos = []
         ypos = []
@@ -149,8 +151,8 @@ if __name__ == '__main__':
             )
 
     # Hide x labels and tick labels for all but bottom plot.
-    for axis in ax:
-        axis.label_outer()
+    #for axis in ax:
+    #    axis.label_outer()
     plt.subplots_adjust(wspace=0.01)
     plt.savefig('../plots/sliding_window_validation/sliding_window_scatterplot.png')
     plt.show()
