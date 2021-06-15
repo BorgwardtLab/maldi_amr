@@ -73,7 +73,7 @@ if __name__ == '__main__':
 
     # Plot lineplot.
     plt.close('all')
-    sns.set(style="whitegrid", font_scale=1.2)
+    sns.set(style="whitegrid", font_scale=1.6)
     fig, ax = plt.subplots(1, 2, figsize=(25,14))
 
     for i, metric in enumerate(metrics):
@@ -96,23 +96,11 @@ if __name__ == '__main__':
             ax=ax[i],
             hue='scenario',
         )
-        #ax[i].set_xlabel('last month of 8-month training interval')
-        #ax[i].set_ylabel(f'{metric}'.upper())
-        #ax[i].set_xlim(
-        #    datetime.strptime('2016-08-01', '%Y-%m-%d'),
-        #    datetime.strptime('2018-05-01', '%Y-%m-%d'),
-        #    )
-        #if metric == 'auroc': ax[i].axhline(0.5, color='darkgrey', linestyle='--')
-
-        ## Minor ticks every month.
-        #fmt_month = mdates.MonthLocator(interval=1)
-        #ax[i].xaxis.set_major_locator(fmt_month)
-        #
-        ## Format dates in xticks.
-        #ax[i].xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
-
-        #plt.xticks(rotation=45)
-
+        ax[i].set_title(metric.upper())
+        ax[i].set_xlabel('sample size')
+        ax[i].set_ylabel('')
+        if metric == 'auprc':
+            ax[i].yaxis.tick_right()
 
         xpos = []
         ypos = []
@@ -124,7 +112,6 @@ if __name__ == '__main__':
             df__ = df_.loc[df_['scenario'] == scenario]
 
             # check that train_to is in order
-            print([idx[0] for idx in df__.index])
             x = df__['train_sample_size']
             y = df__['test_calibrated_'+metric]
 
@@ -142,6 +129,10 @@ if __name__ == '__main__':
 
         arrows = zip(xpos, ypos, xdir, ydir) 
 
+        if metric == 'auroc':
+            ax[i].set_ylim((0.4,0.8))
+        elif metric == 'auprc':
+            ax[i].set_ylim((0.0,0.4))
 
         # plot arrow on each line
         for (x, y, x_dir, y_dir) in arrows:
@@ -156,12 +147,12 @@ if __name__ == '__main__':
                             arrowstyle='->', 
                             color='black',
                         ), 
-                    size = 20,
+                    size=20,
             )
 
     # Hide x labels and tick labels for all but bottom plot.
-    for axis in ax:
-        axis.label_outer()
+    #for axis in ax:
+    #    axis.label_outer()
     plt.subplots_adjust(wspace=0.01)
     plt.savefig('../plots/sliding_window_validation/sliding_window_scatterplot.png')
     plt.show()
