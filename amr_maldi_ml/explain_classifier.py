@@ -87,20 +87,19 @@ if __name__ == '__main__':
 
     pipeline.fit(X_train, y_train)
 
+    # We have to transform the data set, i.e. use all but the last step
+    # of the pipeline. This ensures that Shapley values can *always* be
+    # calculated (regardless of pipeline length).
+    if len(pipeline) > 1:
+        X_train = pipeline[:-1].transform(X_train)
+        X_test = pipeline[:-1].transform(X_test)
+
     explainer = shap.Explainer(
         pipeline[-1],
         X_train
     )
 
-    # We have to transform the data set, i.e. use all but the last step
-    # of the pipeline.
-    if len(pipeline) > 1:
-        shapley_values = explainer(
-            pipeline[:-1].transform(X_test)
-        )
-    # No transformation necessary! Like Gollum, we take the data raw!
-    else:
-        shapley_values = explainer(X_test)
+    shapley_values = explainer(X_test)
 
     output = {
         'site': site,
