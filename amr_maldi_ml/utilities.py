@@ -73,7 +73,7 @@ def load_stratify_split_data(
         species,
         antibiotic
     )
-   
+
     X = np.asarray([spectrum.intensities for spectrum in driams_dataset.X])
 
     logging.info('Finished vectorisation')
@@ -105,6 +105,7 @@ def generate_output_filename(
     root,
     data,
     suffix=None,
+    extension='.json',
     create_model_subdirectory=True
 ):
     """Generate output filename for dictionary.
@@ -125,6 +126,10 @@ def generate_output_filename(
         Contains a suffix that is appended to the filename before the
         extension. This is useful when describing certain experiments
         that cannot be fully described by `data`.
+
+    extension : str, optional
+        Sets filename extension. This can be useful when writing out
+        files that are not stored in JSON format.
 
     create_model_subdirectory : bool, optional
         If set creates a subdirectory within the root folder, depending
@@ -203,7 +208,7 @@ def generate_output_filename(
     if suffix:
         filename += f'_{suffix}'
 
-    filename += '.json'
+    filename += extension
 
     if create_model_subdirectory:
         os.makedirs(os.path.join(root, model), exist_ok=True)
