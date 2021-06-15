@@ -4,8 +4,8 @@
     "year": [
         "2018"
     ],
-    "positive class ratio": 0.18582046883933676,
-    "number spectra with AMR profile": 1749,
+    "positive class ratio": 0.1856082238720731,
+    "number spectra with AMR profile": 1751,
     "species": [
         "Escherichia coli",
         "Proteus mirabilis",
@@ -254,7 +254,9 @@
         "Enterococcus faecalis",
         "Enterococcus faecalis",
         "Escherichia coli",
+        "Staphylococcus aureus",
         "Serratia marcescens",
+        "Staphylococcus aureus",
         "Proteus vulgaris",
         "Staphylococcus aureus",
         "Enterococcus faecalis",
@@ -2005,7 +2007,9 @@
         0.0,
         0.0,
         0.0,
+        0.0,
         1.0,
+        0.0,
         1.0,
         0.0,
         0.0,
@@ -3520,6 +3524,6 @@
         362,
         230,
         131,
-        87
+        89
     ]
 }

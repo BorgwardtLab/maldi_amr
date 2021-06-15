@@ -4,8 +4,8 @@
     "year": [
         "2018"
     ],
-    "positive class ratio": 0.12409638554216867,
-    "number spectra with AMR profile": 2490,
+    "positive class ratio": 0.12389735364875702,
+    "number spectra with AMR profile": 2494,
     "species": [
         "Enterococcus faecalis",
         "Enterobacter cloacae",
@@ -1039,6 +1039,8 @@
         "Aeromonas caviae",
         "Enterococcus faecium",
         "Klebsiella oxytoca",
+        "Klebsiella pneumoniae",
+        "Klebsiella pneumoniae",
         "Morganella morganii",
         "Proteus mirabilis",
         "Proteus mirabilis",
@@ -2354,6 +2356,7 @@
         "Escherichia coli",
         "Enterococcus faecalis",
         "Enterococcus faecalis",
+        "Pseudomonas monteilii",
         "Citrobacter koseri",
         "Pseudomonas aeruginosa",
         "Enterococcus faecalis",
@@ -2379,6 +2382,7 @@
         "Enterobacter cloacae",
         "Enterococcus faecalis",
         "Pseudomonas aeruginosa",
+        "Pseudomonas monteilii",
         "Morganella morganii",
         "Morganella morganii",
         "Enterococcus faecalis",
@@ -3561,6 +3565,8 @@
         0.0,
         0.0,
         0.0,
+        0.0,
+        0.0,
         1.0,
         1.0,
         1.0,
@@ -4857,9 +4863,11 @@
         0.0,
         0.0,
         0.0,
+        0.0,
         1.0,
         0.0,
         1.0,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -5001,7 +5009,7 @@
         623,
         530,
         357,
-        182,
+        184,
         114
     ]
 }

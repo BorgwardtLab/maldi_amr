@@ -4,8 +4,8 @@
     "year": [
         "2018"
     ],
-    "positive class ratio": 0.017915309446254073,
-    "number spectra with AMR profile": 1842,
+    "positive class ratio": 0.017876489707475622,
+    "number spectra with AMR profile": 1846,
     "species": [
         "Enterobacter cloacae",
         "Escherichia coli",
@@ -759,6 +759,8 @@
         "Escherichia coli",
         "Aeromonas caviae",
         "Klebsiella oxytoca",
+        "Klebsiella pneumoniae",
+        "Klebsiella pneumoniae",
         "Morganella morganii",
         "Proteus mirabilis",
         "Proteus mirabilis",
@@ -1744,6 +1746,7 @@
         "Klebsiella oxytoca",
         "Enterobacter aerogenes",
         "Escherichia coli",
+        "Pseudomonas monteilii",
         "Citrobacter koseri",
         "Pseudomonas aeruginosa",
         "Citrobacter koseri",
@@ -1766,6 +1769,7 @@
         "Klebsiella oxytoca",
         "Enterobacter cloacae",
         "Pseudomonas aeruginosa",
+        "Pseudomonas monteilii",
         "Morganella morganii",
         "Morganella morganii",
         "Pseudomonas aeruginosa",
@@ -2670,6 +2674,8 @@
         0.0,
         0.0,
         0.0,
+        0.0,
+        0.0,
         1.0,
         0.0,
         0.0,
@@ -3462,6 +3468,8 @@
         0.0,
         0.0,
         1.0,
+        0.0,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -3704,7 +3712,7 @@
     "most frequent species counts": [
         624,
         357,
-        183,
+        185,
         114,
         105
     ]

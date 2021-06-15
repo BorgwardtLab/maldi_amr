@@ -4,10 +4,12 @@
     "year": [
         "2018"
     ],
-    "positive class ratio": 0.07142857142857142,
-    "number spectra with AMR profile": 98,
+    "positive class ratio": 0.07,
+    "number spectra with AMR profile": 100,
     "species": [
         "Staphylococcus saprophyticus",
+        "Staphylococcus aureus",
+        "Staphylococcus aureus",
         "Staphylococcus aureus",
         "Staphylococcus aureus",
         "Staphylococcus aureus",
@@ -147,6 +149,8 @@
         0.0,
         0.0,
         0.0,
+        0.0,
+        0.0,
         1.0,
         0.0,
         0.0,
@@ -212,7 +216,7 @@
         "Staphylococcus lugdunensis"
     ],
     "most frequent species counts": [
-        87,
+        89,
         7,
         4
     ]
