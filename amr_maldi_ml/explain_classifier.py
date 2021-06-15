@@ -37,7 +37,7 @@ if __name__ == '__main__':
         help='Input file',
     )
 
-    name = 'calibrated_classifiers'
+    name = 'explained_classifiers'
 
     parser.add_argument(
         '-o', '--output',
