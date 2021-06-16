@@ -5,7 +5,22 @@ import os
 import pickle
 import shap
 
+import numpy as np
+
 import matplotlib.pyplot as plt
+
+
+def pool(shap_values):
+    """Pool `shap.Explanation` objects."""
+    values = np.vstack([v.values for v in shap_values])
+    base_values = np.hstack([v.base_values for v in shap_values])
+    data = np.vstack([v.data for v in shap_values])
+
+    return shap.Explanation(
+        values=values,
+        base_values=base_values,
+        data=data
+    )
 
 
 def make_plots(
@@ -53,20 +68,28 @@ if __name__ == '__main__':
 
     parser.add_argument(
         'FILE',
+        nargs='+',
         type=str,
-        help='Input file`. Must contain Shapley values.',
+        help='Input file(s). Must contain Shapley values.',
     )
 
     args = parser.parse_args()
 
-    with open(args.FILE, 'rb') as f:
-        data = pickle.load(f)
-        shap_values = data['shapley_values']
+    all_shap_values = []
 
-    prefix = os.path.basename(args.FILE)
+    for filename in args.FILE:
+        with open(filename, 'rb') as f:
+            data = pickle.load(f)
+            shap_values = data['shapley_values']
+
+        all_shap_values.append(shap_values)
+
+    # TODO: could remove 'Seed' from filename and store one file per
+    # scenario (with a nicer name, but this will do as well for now)
+    prefix = os.path.basename(args.FILE[0])
     prefix = os.path.splitext(prefix)[0]
 
     make_plots(
-        shap_values,
+        pool(all_shap_values),
         prefix=prefix,
     )
