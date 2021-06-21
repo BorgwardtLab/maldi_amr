@@ -46,8 +46,8 @@
 # ------------
 # Sliding window validation
 # ------------
-#python plot_sliding_window_validation_major_scenarios.py --metric auroc
-#python plot_sliding_window_validation_major_scenarios.py --metric auprc
+python plot_sliding_window_validation_major_scenarios.py
+python plot_sliding_window_scatterplot.py
 
 
 # ------------
