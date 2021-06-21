@@ -1,7 +1,3 @@
-"""
-Collect summary results and print Table 1.
-"""
-
 import os
 import json
 import argparse
@@ -27,12 +23,6 @@ def create_table(args):
    
     id_suffix = 'strat' if site == 'DRIAMS-A' else 'clean'
 
-    extra_filters = []
-    if site == 'DRIAMS-A':
-        extra_filters.append(
-            DRIAMSBooleanExpressionFilter('workstation != HospitalHygiene')
-        )
-    
     # get list of all .json files in directory
     rows = []
 
@@ -45,7 +35,6 @@ def create_table(args):
             antibiotics=scenario[1],
             handle_missing_resistance_measurements='remove_if_all_missing',
             spectra_type='binned_6000',
-            extra_filters=extra_filters,
             id_suffix=id_suffix,
         )
         
@@ -53,7 +42,7 @@ def create_table(args):
         row = {
             'species': scenario[0],  
             'antibiotics': scenario[1],  
-            'total': len(ws_),
+            'Total': len(ws_),
         }
         
         for ws in np.unique(ws_):
@@ -66,11 +55,11 @@ def create_table(args):
     df['Stool'] = df['Stool'].astype(int)
 
     
-    for ws in ['Blood', 'DeepTissue', 'Genital',
-       'Respiratory', 'Stool', 'Urine', 'Varia']:
+    for ws in ['HospitalHygiene', 'Blood', 'DeepTissue', 'Genital',
+       'Respiratory', 'Stool', 'Urine', 'Varia', 'Total']:
     
         # calculate percentage column
-        df[ws+'_perc'] = df[ws]/df['total'] 
+        df[ws+'_perc'] = df[ws]/df['Total'] 
         df[ws+'_perc'] = df[ws+'_perc'].round(4) *100
         df[ws+'_perc'] = df[ws+'_perc'].round(1)
 
@@ -79,6 +68,7 @@ def create_table(args):
 
         # clean-up table
         df = df.drop(columns=[ws, ws+'_perc']) 
+
 
     if args.save:
         df.to_csv(f'{args.outfile}', index=False)

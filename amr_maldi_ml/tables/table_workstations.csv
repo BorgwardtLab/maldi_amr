@@ -1,4 +1,4 @@
-species,antibiotics,total,blood,deeptissue,genital,respiratory,stool,urine,varia
-Escherichia coli,Ceftriaxone,4302,1190 (27.7),1073 (24.9),24 (0.6),364 (8.5),5 (0.1),1473 (34.2),173 (4.0)
-Klebsiella pneumoniae,Ceftriaxone,2631,273 (10.4),204 (7.8),5 (0.2),268 (10.2),15 (0.6),1790 (68.0),76 (2.9)
-Staphylococcus aureus,Oxacillin,3411,708 (20.8),1356 (39.8),34 (1.0),517 (15.2),0 (0.0),187 (5.5),609 (17.8)
+species,antibiotics,hospitalhygiene,blood,deeptissue,genital,respiratory,stool,urine,varia,total
+Escherichia coli,Ceftriaxone,659 (13.3),1190 (24.0),1073 (21.6),24 (0.5),364 (7.3),5 (0.1),1473 (29.7),173 (3.5),4961 (100.0)
+Klebsiella pneumoniae,Ceftriaxone,229 (8.0),273 (9.6),204 (7.1),5 (0.2),268 (9.4),15 (0.5),1790 (62.6),76 (2.7),2860 (100.0)
+Staphylococcus aureus,Oxacillin,379 (10.0),708 (18.7),1356 (35.8),34 (0.9),517 (13.6),0 (0.0),187 (4.9),609 (16.1),3790 (100.0)
