@@ -1,0 +1,4 @@
+species,antibiotics,total,blood,deeptissue,genital,respiratory,stool,urine,varia
+Escherichia coli,Ceftriaxone,4302,1190 (27.7),1073 (24.9),24 (0.6),364 (8.5),5 (0.1),1473 (34.2),173 (4.0)
+Klebsiella pneumoniae,Ceftriaxone,2631,273 (10.4),204 (7.8),5 (0.2),268 (10.2),15 (0.6),1790 (68.0),76 (2.9)
+Staphylococcus aureus,Oxacillin,3411,708 (20.8),1356 (39.8),34 (1.0),517 (15.2),0 (0.0),187 (5.5),609 (17.8)
