@@ -96,11 +96,11 @@ if __name__ == '__main__':
             ax=ax[i],
             hue='scenario',
         )
-        ax[i].set_title(metric.upper())
         ax[i].set_xlabel('sample size')
-        ax[i].set_ylabel('')
+        ax[i].set_ylabel(metric.upper())
         if metric == 'auprc':
             ax[i].yaxis.tick_right()
+            ax[i].yaxis.set_label_position('right')
 
         xpos = []
         ypos = []
