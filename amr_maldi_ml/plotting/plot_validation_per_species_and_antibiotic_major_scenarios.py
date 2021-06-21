@@ -18,6 +18,8 @@ import seaborn as sns
 from scipy.stats import ttest_ind
 from sklearn.metrics import roc_auc_score
 
+from utils import scenario_map
+
 scenarios = [
     ('Escherichia coli', 'Ceftriaxone', 'lightgbm'),
     ('Klebsiella pneumoniae', 'Ceftriaxone', 'mlp'),
@@ -159,7 +161,7 @@ def plot_figure5(args):
         ax[i].set_yticks([i-0.3 for i in yticks])
         ax[i].set_yticklabels(ax[i].get_xticklabels())
 
-        ax[i].set_title(f'{scenarios[i][0]} ({scenarios[i][1].lower()} / {scenarios[i][2]})')
+        ax[i].set_title(f'{scenario_map[scenarios[i][0].replace(" ", "_")]} ({scenarios[i][2]})')
         ax[i].set_ylabel('training')    
         ax[i].set_xlabel('testing')
 
