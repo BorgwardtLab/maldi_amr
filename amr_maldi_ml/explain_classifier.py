@@ -94,12 +94,23 @@ if __name__ == '__main__':
         X_train = pipeline[:-1].transform(X_train)
         X_test = pipeline[:-1].transform(X_test)
 
-    explainer = shap.Explainer(
-        pipeline[-1],
-        X_train
-    )
+    if model == 'mlp':
 
-    shapley_values = explainer(X_test)
+        X_train = shap.kmeans(X_train, 50)
+
+        explainer = shap.KernelExplainer(
+            pipeline[-1].predict_proba,
+            X_train
+        )
+
+        shapley_values = explainer.shap_values(X_test)
+    else:
+        explainer = shap.Explainer(
+            pipeline[-1],
+            X_train
+        )
+
+        shapley_values = explainer(X_test)
 
     output = {
         'site': site,
