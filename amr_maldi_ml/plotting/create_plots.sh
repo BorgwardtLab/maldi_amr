@@ -16,46 +16,46 @@
 # ------------
 # Figure 4: AUC curves per species and antibiotic
 # ------------
-#for model in "lr" "lightgbm" "mlp"; do
-#  python plot_curves_per_species_and_antibiotic.py \
-#    --species "Escherichia coli" \
-#    --antibiotic \
-#      "Ciprofloxacin,Ceftriaxone,Cefepime,Piperacillin-Tazobactam,Tobramycin" \
-#    --model $model \
-#    --outfile "../plots/curves_per_species_and_antibiotic_calibrated/Ecoli_$model"
-#done
-#
-#for model in "lr" "lightgbm" "mlp"; do
-#  python plot_curves_per_species_and_antibiotic.py \
-#    --species "Staphylococcus aureus" \
-#    --antibiotic "Ciprofloxacin,Fusidic acid,Oxacillin,Penicillin" \
-#    --model $model \
-#    --outfile "../plots/curves_per_species_and_antibiotic_calibrated/Saureus_$model"
-#done
-#
-#for model in "lr" "lightgbm" "mlp"; do
-#  python plot_curves_per_species_and_antibiotic.py \
-#    --species "Klebsiella pneumoniae" \
-#    --antibiotic \
-#      "Ciprofloxacin,Ceftriaxone,Cefepime,Meropenem,Tobramycin" \
-#    --model $model \
-#    --outfile "../plots/curves_per_species_and_antibiotic_calibrated/Kpneu_$model"
-#done
+for model in "lr" "lightgbm" "mlp"; do
+  python plot_curves_per_species_and_antibiotic.py \
+    --species "Escherichia coli" \
+    --antibiotic \
+      "Ciprofloxacin,Ceftriaxone,Cefepime,Piperacillin-Tazobactam,Tobramycin" \
+    --model $model \
+    --outfile "../plots/curves_per_species_and_antibiotic_calibrated/Ecoli_$model"
+done
+
+for model in "lr" "lightgbm" "mlp"; do
+  python plot_curves_per_species_and_antibiotic.py \
+    --species "Staphylococcus aureus" \
+    --antibiotic "Ciprofloxacin,Fusidic acid,Oxacillin,Penicillin" \
+    --model $model \
+    --outfile "../plots/curves_per_species_and_antibiotic_calibrated/Saureus_$model"
+done
+
+for model in "lr" "lightgbm" "mlp"; do
+  python plot_curves_per_species_and_antibiotic.py \
+    --species "Klebsiella pneumoniae" \
+    --antibiotic \
+      "Ciprofloxacin,Ceftriaxone,Cefepime,Meropenem,Tobramycin" \
+    --model $model \
+    --outfile "../plots/curves_per_species_and_antibiotic_calibrated/Kpneu_$model"
+done
 
 
 # ------------
 # Sliding window validation
 # ------------
-python plot_sliding_window_validation_major_scenarios.py
-python plot_sliding_window_scatterplot.py
+#python plot_sliding_window_validation_major_scenarios.py
+#python plot_sliding_window_scatterplot.py
 
 
 # ------------
 # Sensitivity-Specificity threshold
 # ------------
-python plot_specificity_sensitivity_per_threshold.py ../tables/Rejection_table_assymetric_finegrid_Escherichia_coli_Ceftriaxone_calibrated_lightgbm.csv
-python plot_specificity_sensitivity_per_threshold.py ../tables/Rejection_table_assymetric_finegrid_Staphylococcus_aureus_Oxacillin_calibrated_lightgbm.csv
-python plot_specificity_sensitivity_per_threshold.py ../tables/Rejection_table_assymetric_finegrid_Klebsiella_pneumoniae_Ceftriaxone_calibrated_mlp.csv 
+#python plot_specificity_sensitivity_per_threshold.py ../tables/Rejection_table_assymetric_finegrid_Escherichia_coli_Ceftriaxone_calibrated_lightgbm.csv
+#python plot_specificity_sensitivity_per_threshold.py ../tables/Rejection_table_assymetric_finegrid_Staphylococcus_aureus_Oxacillin_calibrated_lightgbm.csv
+#python plot_specificity_sensitivity_per_threshold.py ../tables/Rejection_table_assymetric_finegrid_Klebsiella_pneumoniae_Ceftriaxone_calibrated_mlp.csv 
 
 
 # ------------

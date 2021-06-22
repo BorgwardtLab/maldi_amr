@@ -11,6 +11,7 @@ import json
 import argparse
 
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -53,6 +54,8 @@ def plot_figure4(args):
                     'antibiotic': [data['antibiotic']],
                     'site': [data['site']],
                     'seed': [data['seed']],
+                    'test_calibrated_auprc': [data['test_calibrated_auprc']],
+                    'test_calibrated_auroc': [data['test_calibrated_auroc']],
                     }),
                 ignore_index=True,
                 )
@@ -96,7 +99,9 @@ def plot_figure4(args):
         # panel1: ROC curve
         # ------------
         fpr, tpr, thresholds = roc_curve(y_test_total, y_score_total)
-        rocauc = round(roc_auc_score(y_test_total, y_score_total), 2)
+        #rocauc = round(roc_auc_score(y_test_total, y_score_total), 2)
+        rocauc = np.mean(content_ab['test_calibrated_auroc'].values)
+        rocauc = round(rocauc, 2)
 
         # add zero to string of AUROC if the value does not have 3
         # digits after comma
@@ -114,9 +119,10 @@ def plot_figure4(args):
         # ------------
         precision, recall, thresholds = precision_recall_curve(y_test_total,
                                                                y_score_total)
-        # TODO did we use weighted average in the main scripts?
-        prauc = round(average_precision_score(y_test_total, y_score_total,
-                                              average='weighted'), 2)
+        #prauc = round(average_precision_score(y_test_total, y_score_total,
+        #                                      average='weighted'), 2)
+        prauc = np.mean(content_ab['test_calibrated_auprc'].values)
+        prauc = round(prauc, 2)
 
         # add zero to string of AUPRC if the value does not have 3
         # digits after comma
