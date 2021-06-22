@@ -1,12 +1,12 @@
 ,,,accuracy,AUROC,AUPRC
 ,,,,,
 species,antibiotic,model,,,
-Escherichia coli,Ceftriaxone,lightgbm,89.86 ± 0.74,74.02 ± 1.93,29.87 ± 3.23
-Escherichia coli,Ceftriaxone,lr,81.74 ± 3.95,70.22 ± 3.36,24.13 ± 2.04
-Escherichia coli,Ceftriaxone,mlp,87.66 ± 1.2,67.52 ± 3.4,22.36 ± 3.16
-Klebsiella pneumoniae,Ceftriaxone,lightgbm,91.97 ± 1.21,66.96 ± 2.92,23.62 ± 5.0
-Klebsiella pneumoniae,Ceftriaxone,lr,89.18 ± 1.51,67.65 ± 4.15,26.18 ± 6.76
-Klebsiella pneumoniae,Ceftriaxone,mlp,91.9 ± 1.36,74.07 ± 3.94,32.92 ± 7.38
-Staphylococcus aureus,Oxacillin,lightgbm,91.02 ± 1.01,79.86 ± 3.41,48.66 ± 6.45
-Staphylococcus aureus,Oxacillin,lr,82.78 ± 6.93,74.89 ± 4.06,37.27 ± 6.87
-Staphylococcus aureus,Oxacillin,mlp,89.69 ± 1.05,78.72 ± 3.05,46.3 ± 9.93
+Escherichia coli,Ceftriaxone,lightgbm,0.9 ± 0.01,0.74 ± 0.02,0.3 ± 0.03
+Escherichia coli,Ceftriaxone,lr,0.82 ± 0.04,0.7 ± 0.03,0.24 ± 0.02
+Escherichia coli,Ceftriaxone,mlp,0.88 ± 0.01,0.68 ± 0.03,0.22 ± 0.03
+Klebsiella pneumoniae,Ceftriaxone,lightgbm,0.92 ± 0.01,0.67 ± 0.03,0.24 ± 0.05
+Klebsiella pneumoniae,Ceftriaxone,lr,0.89 ± 0.02,0.68 ± 0.04,0.26 ± 0.07
+Klebsiella pneumoniae,Ceftriaxone,mlp,0.92 ± 0.01,0.74 ± 0.04,0.33 ± 0.07
+Staphylococcus aureus,Oxacillin,lightgbm,0.91 ± 0.01,0.8 ± 0.03,0.49 ± 0.06
+Staphylococcus aureus,Oxacillin,lr,0.83 ± 0.07,0.75 ± 0.04,0.37 ± 0.07
+Staphylococcus aureus,Oxacillin,mlp,0.9 ± 0.01,0.79 ± 0.03,0.46 ± 0.1

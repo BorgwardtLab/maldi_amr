@@ -91,7 +91,7 @@ if __name__ == '__main__':
             if type(data_raw[metric]) is list:
                 data_raw[metric] = np.mean(data_raw[metric])
 
-            row[metric] = data_raw[metric] * 100.0
+            row[metric] = data_raw[metric]
 
         rows.append(row)
 
