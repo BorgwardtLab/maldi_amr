@@ -73,3 +73,10 @@ done
 #                                                                --antibiotic Oxacillin \
 #                                                                --outfile 'Staphylococcus_aureus_Oxacillin_lightgbm' \
 #                                                                -m lightgbm
+
+
+# ------------
+# Shapley value plot 
+# ------------
+python visualise_shapley_values.py ../../results/explained_classifiers/lightgbm/Site_DRIAMS-A_Model_lightgbm_Species_Escherichia_coli_Antibiotic_Ceftriaxone_Seed_*
+python visualise_shapley_values.py ../../results/explained_classifiers/lightgbm/Site_DRIAMS-A_Model_lightgbm_Species_Staphylococcus_aureus_Antibiotic_Oxacillin_Seed_*
