@@ -32,7 +32,7 @@ def make_plots(
 
     Parameters
     ----------
-    shap_values : `shap.Explanation` object
+    shap_values : `shap.Explanation` objectplot
         Shapley values to visualise. The explanation object will be
         visualised automatically by downstream methods. 
 
@@ -52,20 +52,26 @@ def make_plots(
         out_dir, prefix + '_shapley'
     )
 
-    for plot in ['bar', 'dot']:
-        shap.summary_plot(
-            shap_values,
-            plot_type=plot,
-            show=False,
-        )
-        plt.tight_layout()
-        plt.savefig(filename_prefix + f'_{plot}.png', dpi=300)
-        plt.cla()
+    shap.summary_plot(
+        shap_values,
+        feature_names=[f'{int(n)}kDa - {int(n)+3}kDa' for n in np.linspace(2000,19997,6000)],
+        color_bar_label='feature value (intensity)',
+        show=False,
+    )
+    plt.tight_layout()
+    plt.savefig(filename_prefix, dpi=300)
+    plt.cla()
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
+    parser.add_argument(
+        '-o', '--outdir',
+        type=str,
+        default='../plots/shapley',
+        help='Output directory where plots will be stored.',
+    )
     parser.add_argument(
         'FILE',
         nargs='+',
@@ -78,6 +84,7 @@ if __name__ == '__main__':
     all_shap_values = []
 
     for filename in args.FILE:
+        print(f'Reading {filename}...')
         with open(filename, 'rb') as f:
             data = pickle.load(f)
             shap_values = data['shapley_values']
@@ -92,4 +99,5 @@ if __name__ == '__main__':
     make_plots(
         pool(all_shap_values),
         prefix=prefix,
+        out_dir=args.outdir,
     )
