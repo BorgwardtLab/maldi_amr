@@ -54,7 +54,7 @@ def make_plots(
 
     shap.summary_plot(
         shap_values,
-        feature_names=[f'{int(n)}kDa - {int(n)+3}kDa' for n in np.linspace(2000,19997,6000)],
+        feature_names=[f'{int(n)}-{int(n)+3}kDa' for n in np.linspace(2000,19997,6000)],
         color_bar_label='feature value (intensity)',
         show=False,
     )
