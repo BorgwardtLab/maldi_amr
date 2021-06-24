@@ -96,7 +96,7 @@ if __name__ == '__main__':
 
     if model == 'mlp':
 
-        X_train = shap.kmeans(X_train, 50)
+        X_train = shap.kmeans(X_train, 25)
 
         explainer = shap.KernelExplainer(
             pipeline[-1].predict_proba,
