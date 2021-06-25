@@ -26,6 +26,10 @@ scenarios = [
     ('Staphylococcus aureus', 'Oxacillin', 'lightgbm'),
 ]
 
+map_models = {
+    'lightgbm': 'LightGBM',
+    'mlp': 'MLP',
+}
 
 def plot_figure5(args):
 
@@ -120,7 +124,7 @@ def plot_figure5(args):
                         )
 
     # -------------
-    # plot barplot
+    # plot heatplot
     # -------------
     print(f'plotting.. {args.outfile}')
     #assert len(values) == 16
@@ -161,7 +165,7 @@ def plot_figure5(args):
         ax[i].set_yticks([i-0.3 for i in yticks])
         ax[i].set_yticklabels(ax[i].get_xticklabels())
 
-        ax[i].set_title(f'{scenario_map[scenarios[i][0].replace(" ", "_")]} ({scenarios[i][2]})')
+        ax[i].set_title(f'{scenario_map[scenarios[i][0].replace(" ", "_")]} ({map_models[scenarios[i][2]]})')
         ax[i].set_ylabel('training')    
         ax[i].set_xlabel('testing')
 
@@ -173,6 +177,7 @@ def plot_figure5(args):
     ax[2].set_ylabel('')
     plt.subplots_adjust(wspace=0.01)
     plt.savefig(f'../plots/validation_per_species_and_antibiotic/{args.outfile}_combined.png')
+    plt.savefig(f'../plots/validation_per_species_and_antibiotic/{args.outfile}_combined.pdf')
 
 
 if __name__ == '__main__':
