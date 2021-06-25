@@ -156,6 +156,7 @@ def plot_figure4(args):
 
     plt.tight_layout()
     plt.savefig(f'./{args.outfile}.png')
+    plt.savefig(f'./{args.outfile}.pdf')
 
 
 if __name__ == '__main__':

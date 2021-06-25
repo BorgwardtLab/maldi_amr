@@ -28,6 +28,10 @@ from utils import scenario_map
 # in order to create curves.
 metadata_versions = {}
 
+map_models = {
+    'lightgbm': 'LightGBM',
+    'mlp': 'MLP',
+}
 
 def _add_or_compare(metadata):
     if not metadata_versions:
@@ -220,7 +224,7 @@ def plot_curves(df, outdir):
                 x,
                 mean,
                 c=colour,
-                label=scenario_map[species.replace(' ','_')] + f' ({model}) ({type_})',
+                label=scenario_map[species.replace(' ','_')] + f' ({map_models[model]}) ({type_})',
                 linestyle=linestyle
             )
 
