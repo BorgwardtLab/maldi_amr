@@ -14,6 +14,12 @@ import seaborn as sns
 from utils import scenario_map
 
 #pd.set_option('display.max_rows', 1000)
+
+map_models = {
+    'lightgbm': 'LightGBM',
+    'mlp': 'MLP',
+}
+
 if __name__ == '__main__':
 
     metrics = ['auroc', 'auprc']
@@ -44,6 +50,7 @@ if __name__ == '__main__':
     # Create new column that describes the whole scenario.
     df['scenario'] = df['species'].str.replace(' ','_')
     df['scenario'] = df['scenario'].apply(lambda x: scenario_map[x])
+    df['model'] = df['model'].apply(lambda x: map_models[x])
     df['scenario'] = df['scenario'] + ' (' + df['model']  + ')'
     df = df.sort_values(['scenario', 'train_to'])
 
@@ -155,4 +162,4 @@ if __name__ == '__main__':
     #    axis.label_outer()
     plt.subplots_adjust(wspace=0.01)
     plt.savefig('../plots/sliding_window_validation/sliding_window_scatterplot.png')
-    plt.show()
+    plt.savefig('../plots/sliding_window_validation/sliding_window_scatterplot.pdf')

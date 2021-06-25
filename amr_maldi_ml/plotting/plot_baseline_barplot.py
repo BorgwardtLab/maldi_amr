@@ -176,6 +176,7 @@ def plot_figure2(args):
     plt.xlim(0-0.5, n_ab-0.5)
     plt.tight_layout()
     plt.savefig(f'./{args.outfile}.png')
+    plt.savefig(f'./{args.outfile}.pdf')
 
 
 if __name__ == '__main__':

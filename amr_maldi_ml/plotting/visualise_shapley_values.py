@@ -54,12 +54,14 @@ def make_plots(
 
     shap.summary_plot(
         shap_values,
-        feature_names=[f'{int(n)}-{int(n)+3}kDa' for n in np.linspace(2000,19997,6000)],
+        feature_names=[f'{int(n)}-{int(n)+3}Da' for n in np.linspace(2000,19997,6000)],
         color_bar_label='feature value (intensity)',
         show=False,
     )
     plt.tight_layout()
-    plt.savefig(filename_prefix, dpi=300)
+    print(filename_prefix)
+    plt.savefig(filename_prefix+'.png', dpi=300)
+    plt.savefig(filename_prefix+'.pdf', dpi=300)
     plt.cla()
 
 
