@@ -11,10 +11,18 @@ import matplotlib.pyplot as plt
 
 
 def pool(shap_values):
-    """Pool `shap.Explanation` objects."""
-    values = np.vstack([v.values for v in shap_values])
-    base_values = np.hstack([v.base_values for v in shap_values])
-    data = np.vstack([v.data for v in shap_values])
+    """Pool `shap.Explanation` objects (or lists)."""
+    if isinstance(shap_values, shap.Explanation):
+        values = np.vstack([v.values for v in shap_values])
+        base_values = np.hstack([v.base_values for v in shap_values])
+        data = np.vstack([v.data for v in shap_values])
+
+    # Fall back to return Shapley values (sans feature values because
+    # they are not available).
+    else:
+        values = np.vstack(shap_values[0])
+        base_values = 0.0
+        data = np.zeros_like(values)
 
     return shap.Explanation(
         values=values,
