@@ -124,6 +124,11 @@ if __name__ == '__main__':
         'shapley_values': shapley_values,
     }
 
+    # Since the explanation of this model is subtly different than the
+    # other one, we need to include the data here as well.
+    if model == 'mlp':
+        output['data'] = X_test
+
     output_filename = generate_output_filename(
         args.output,
         output,
