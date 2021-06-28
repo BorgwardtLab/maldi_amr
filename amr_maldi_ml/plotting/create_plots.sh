@@ -73,3 +73,4 @@ python plot_validation_per_species_and_antibiotic_major_scenarios.py
 # ------------
 python visualise_shapley_values.py ../../results/explained_classifiers/lightgbm/Site_DRIAMS-A_Model_lightgbm_Species_Escherichia_coli_Antibiotic_Ceftriaxone_Seed_*
 python visualise_shapley_values.py ../../results/explained_classifiers/lightgbm/Site_DRIAMS-A_Model_lightgbm_Species_Staphylococcus_aureus_Antibiotic_Oxacillin_Seed_*
+python visualise_shapley_values.py ../../results/explained_classifiers/mlp/Site_DRIAMS-A_Model_mlp_Species_Klebsiella_pneumoniae_Antibiotic_Ceftriaxone_Seed_*
