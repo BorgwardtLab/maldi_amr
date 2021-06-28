@@ -10,19 +10,31 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def pool(shap_values):
+def pool(shap_values, feature_values=None):
     """Pool `shap.Explanation` objects (or lists)."""
     if isinstance(shap_values, shap.Explanation):
         values = np.vstack([v.values for v in shap_values])
         base_values = np.hstack([v.base_values for v in shap_values])
         data = np.vstack([v.data for v in shap_values])
 
-    # Fall back to return Shapley values (sans feature values because
+    # Fall back to return Shapley values (sans expected values because
     # they are not available).
     else:
-        values = np.vstack(shap_values[0])
+        # This requires some explanation: if we are in this branch of
+        # the code, we are dealing with `KernelExplainer` values. The
+        # `KernelExplainer` class will return a set of nested Shapley
+        # values. The outer nesting is unnecessary, but the inner one
+        # refers to either the negative class or the positive one. We
+        # are interested in what drives predictions of the *positive*
+        # class so we take element `[0][1]`.
+        values = np.vstack(shap_values[0][1])
+
+        # Luckily, this complicated procedure is not required for the
+        # data (if it is available).
+        if data is not None:
+            data = np.vstack(feature_values[0])
+
         base_values = 0.0
-        data = np.zeros_like(values)
 
     return shap.Explanation(
         values=values,
@@ -92,12 +104,16 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     all_shap_values = []
+    feature_values = []
 
     for filename in args.FILE:
         print(f'Reading {filename}...')
         with open(filename, 'rb') as f:
             data = pickle.load(f)
             shap_values = data['shapley_values']
+
+            if 'data' in data.keys():
+                feature_values.append(data['data'])
 
         all_shap_values.append(shap_values)
 
@@ -107,7 +123,7 @@ if __name__ == '__main__':
     prefix = os.path.splitext(prefix)[0]
 
     make_plots(
-        pool(all_shap_values),
+        pool(all_shap_values, feature_values),
         prefix=prefix,
         out_dir=args.outdir,
     )
