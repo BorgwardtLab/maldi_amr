@@ -31,7 +31,7 @@ def pool(shap_values, feature_values=None):
 
         # Luckily, this complicated procedure is not required for the
         # data (if it is available).
-        if data is not None:
+        if feature_values is not None:
             data = np.vstack(feature_values[0])
 
         base_values = 0.0
