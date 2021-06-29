@@ -130,7 +130,7 @@ def _run_experiment(
         'train_proportions': train_proportions,
     }
 
-    suffix = None
+    suffix = ''
 
     # Generate new suffix based on filter expression. This ensures that
     # different filters result in different filenames.
@@ -141,6 +141,8 @@ def _run_experiment(
         suffix = suffix.replace('==', '')
         suffix = suffix.replace('!=', 'no')
         suffix = suffix.replace('__', '_')
+
+    suffix += '_Train_proportions_{"_".join([str(p) for p in train_proportions])}'
 
     output_filename = generate_output_filename(
         output_path,
@@ -250,7 +252,7 @@ if __name__ == '__main__':
         help='Test site(s)'
     )
 
-    name = 'curves_per_species_and_antibiotics_case_based_stratification'
+    name = 'union_validation_proportions'
 
     parser.add_argument(
         '-o', '--output',
