@@ -69,6 +69,11 @@ def _run_experiment(
         'Number of train sites and train proportions not equal.'
 
     for i, site in enumerate(train_site):
+        # skip site if proportion is zero
+        if train_proportions[i] == 0.0:
+            sample_sizes.append(0)
+            continue   
+
         X, y, *_, meta, _ = load_stratify_split_data(
             root,
             site,
@@ -79,6 +84,9 @@ def _run_experiment(
         )
         
         idx, sample_size = _subsample(y, train_proportions[i], args.seed)
+        if sample_size == 0:
+            sample_sizes.append(0)
+            continue
         
         sample_sizes.append(sample_size)
         X_train.append(X[idx, :])
@@ -142,7 +150,7 @@ def _run_experiment(
         suffix = suffix.replace('!=', 'no')
         suffix = suffix.replace('__', '_')
 
-    suffix += '_Train_proportions_{"_".join([str(p) for p in train_proportions])}'
+    suffix += f'_Train_proportions_{"_".join([str(p) for p in train_proportions])}'
 
     output_filename = generate_output_filename(
         output_path,
