@@ -22,31 +22,32 @@ run() {
 
 function make_jobs {
   local SEED=${1}
-  local MODEL=${2}
-  local TRAIN=${3}
-  local PROPS=${4}
+  local TRAIN=${2}
+  local PROPS=${3}
   local TEST="DRIAMS-B"
 
   # S. aureus jobs
-  CMD="${MAIN} --antibiotic Oxacillin --species \"Staphylococcus aureus\" --train-site $TRAIN --test-site $TEST --model $MODEL --seed $SEED"
+  CMD="${MAIN} --antibiotic Oxacillin --species \"Staphylococcus aureus\" --train-site $TRAIN --test-site $TEST --model lightgbm --seed $SEED --train-proportions $PROPS"
   run "$CMD";
 
-  # E. coli and K. pneumoniae jobs
-  for SPECIES in 'Escherichia coli' 'Klebsiella pneumoniae'; do
-    CMD="${MAIN} --antibiotic Ceftriaxone --species \"$SPECIES\" --train-site $TRAIN --test-site $TEST --model $MODEL --seed $SEED"
-    run "$CMD";
-  done
+  CMD="${MAIN} --antibiotic Ceftriaxone --species \"Escherichia coli\" --train-site $TRAIN --test-site $TEST --model lightgbm --seed $SEED --train-proportions $PROPS"
+  run "$CMD";
+
+  CMD="${MAIN} --antibiotic Ceftriaxone --species \"Klebsiella pneumoniae\" --train-site $TRAIN --test-site $TEST --model mlp --seed $SEED --train-proportions $PROPS"
+  run "$CMD";
+
 }
 
 # The grid is kept sparse for now. This is *not* an inconsistency.
 for SEED in 344 172 188 270 35 164 545 480 89 409; do
-  for MODEL in "lr" "lightgbm" "mlp"; do
     for P1 in 0.0 0.25 0.5 0.75 1.0; do
       for P2 in 0.0 0.25 0.5 0.75 1.0; do
-        for P3 in 0.0 0.25 0.5 0.75 1.0; do
-          make_jobs $SEED $MODEL "DRIAMS-A DRIAMS-B DRIAMS-C" "$P1 $P2 $P3"
+        for P3 in 0.0 0.25 0.75 1.0; do
+    #for P1 in 0.5; do
+    #  for P2 in 0.5; do
+    #    for P3 in 0.5; do
+          make_jobs $SEED "DRIAMS-A DRIAMS-B DRIAMS-C" "$P1 $P2 $P3"
         done
       done
     done
-  done
 done
