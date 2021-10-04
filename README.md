@@ -1,6 +1,6 @@
 # Direct Antimicrobial Resistance Prediction from clinical MALDI-TOF mass spectra using Machine Learning
 
-[![N|Solid](https://ethz.ch/services/en/service/communication/corporate-design/logo/_jcr_content/par/twocolumn_1/par_left/fullwidthimage/image.imageformat.lightbox.1923118499.jpg)](https://bsse.ethz.ch/mlcb)
+[![N|Solid](https://bsse.ethz.ch/mlcb/_jcr_content/orgbox/image.imageformat.logo.1348251346.png)](https://bsse.ethz.ch/mlcb)
 
 This code accompanies the paper &ldquo;Direct Antimicrobial Resistance Prediction from clinical MALDI-TOF mass spectra using Machine Learning&rdquo;
 by Caroline Weis et al.
