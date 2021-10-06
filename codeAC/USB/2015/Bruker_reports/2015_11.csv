@@ -1,0 +1,1352 @@
+29e908c9-7f21-46bb-8ba7-43a38952bec2,( +++ ),( A ),Escherichia coli,2.5,Escherichia coli,2.45
+0693b1a3-9f4e-4ec1-b375-4437293f5e0f,( ++ ),( A ),Escherichia coli,2.28,Escherichia coli,2.17
+d3e0e23f-954e-4572-8320-4d6208e0f9bb,( +++ ),( A ),Escherichia coli,2.39,Escherichia coli,2.35
+d92edb71-df0a-40d9-9d63-9fd92e67a71a,( +++ ),( A ),Proteus mirabilis,2.38,Proteus mirabilis,2.28
+f41c243f-1fe5-4cee-86ff-673c71a6ad7f,( +++ ),( A ),Streptococcus intermedius,2.3,Streptococcus intermedius,2.25
+f5f90939-a03c-4a98-8393-8fb195eb702f,( +++ ),( B ),Klebsiella pneumoniae,2.31,Klebsiella pneumoniae,2.22
+fc10949b-484a-48a9-b742-554cb6bee632,( +++ ),( B ),Streptococcus salivarius,2.31,Streptococcus salivarius,2.22
+76984d07-5945-417e-9572-fa2370b0520b,( ++ ),( B ),Serratia marcescens,2.21,Serratia marcescens,2.18
+01cdcf54-3e85-4202-acb2-3e1ab501e1f8,( + ),( B ),Clostridium difficile,1.86,Clostridium difficile,1.83
+08797df9-06c2-450b-9fd8-1a00f4521394,( ++ ),( A ),Clostridium innocuum,2.21,Clostridium innocuum,2.21
+38dc914c-b9df-4c2e-9315-acec1faadd16,( +++ ),( A ),Clostridium difficile,2.35,Clostridium difficile,2.24
+48070542-15af-471e-904a-624827386f0a,( ++ ),( A ),Micrococcus luteus,2.14,Micrococcus luteus,2.13
+4b245733-d450-40ab-a127-b17ef6cf2df8,( +++ ),( A ),Lactobacillus rhamnosus,2.31,Lactobacillus rhamnosus,2.29
+80a94934-a38d-4ab7-af90-6a2f7cafeb91,( ++ ),( A ),Staphylococcus capitis,2.25,Staphylococcus capitis,2.19
+ac257273-d49a-49de-ac24-207beb5500dd,( ++ ),( A ),Clostridium difficile,2.17,Clostridium difficile,2.07
+bc8c0c67-f058-4374-87ff-fad09e4fbc68,( ++ ),( A ),Micrococcus luteus,2.15,Micrococcus luteus,2.14
+d568837d-194e-438a-aedc-946056723bf1,( ++ ),( A ),Staphylococcus epidermidis,2.1,Staphylococcus epidermidis,2.03
+1e372f83-8991-4ea9-84d3-9a01875d8569,( - ),( C ),not reliable identification,1.53,not reliable identification,1.48
+4e2e8096-30d1-4e35-9f72-2902c2894e72,( + ),( B ),Candida albicans,1.91,Candida albicans_(africana),1.84
+57bfee3d-dab4-4469-bb81-1e26a11cbffd,( ++ ),( B ),Candida albicans,2.07,Candida albicans,2.07
+c5d7d514-44c3-456c-8c2c-bdd61c419a9b,( ++ ),( A ),Candida albicans,2.15,Candida albicans,2.02
+20de0ae2-988c-49ff-8097-ebfa05756375,( ++ ),( B ),Burkholderia ambifaria,2.03,Burkholderia latens,2.03
+809cb3b0-3366-4baa-99f0-6f86e67d2208,( + ),( B ),Stenotrophomonas maltophilia,1.75,Stenotrophomonas maltophilia,1.71
+c48d23ba-3c32-431b-9449-b45fa1851e65,( + ),( B ),Streptococcus salivarius,1.87,Streptococcus salivarius,1.87
+13100493-5891-40c7-81d1-89734ce8ac38,( ++ ),( B ),Candida albicans_(africana),2.04,Candida albicans,2.02
+3a2a6a81-ca2a-4bae-887a-eac85c755f9d,( ++ ),( A ),Candida albicans,2.03,Candida albicans,1.99
+190c8f61-7d82-4267-9335-9a4f4c5b5a72,( + ),( B ),Burkholderia anthina,1.9,Burkholderia cepacia_Group,1.89
+143a7cf5-41f5-482c-808a-a870e1abce3f,( - ),( C ),not reliable identification,1.5,not reliable identification,1.47
+58f03eab-02f8-4831-994a-6dd80adbb602,( ++ ),( B ),Enterobacter asburiae,2.23,Enterobacter kobei,2.16
+95caef65-3276-4fbe-adbe-351666f1307e,( ++ ),( B ),Burkholderia cenocepacia,2.04,Burkholderia metallica,2
+a1b2f78d-f900-41b2-b79d-14b5b60276e9,( ++ ),( A ),Moraxella_sg_Branhamella catarrhalis,2.24,Moraxella_sg_Branhamella catarrhalis,2.16
+36ce8b78-0ae8-4c04-9ad1-c791d3215379,( +++ ),( A ),MIX!Eikenella corrodens,2.38,Eikenella corrodens,2.04
+a1d905a7-50a0-4915-8631-17256b1b3d5e,( +++ ),( A ),Moraxella_sg_Branhamella catarrhalis,2.31,Moraxella_sg_Branhamella catarrhalis,2.3
+bac51b4c-3718-43f5-ad24-3b4d92f23be9,( + ),( B ),Streptococcus salivarius,1.92,Streptococcus vestibularis,1.75
+cb9bd65b-cdd6-494d-ab52-4f0cb7d545fa,( ++ ),( B ),Burkholderia cenocepacia,2.04,Burkholderia ambifaria,2.01
+f57d572e-44e4-48a3-9747-8802d6297024,( ++ ),( A ),Streptococcus anginosus,2.04,Streptococcus anginosus,2.03
+f73c80ee-03ed-4ee1-93c5-3543d3b9b4d7,( - ),( C ),not reliable identification,1.37,not reliable identification,1.36
+04a616bf-3503-454e-a35a-daf96454e2bd,( +++ ),( A ),Morganella morganii,2.61,Morganella morganii,2.46
+1303252c-6b4b-431f-a053-efb466268c19,( +++ ),( A ),MIX!Staphylococcus epidermidis,2.39,Staphylococcus epidermidis,2.36
+3af913b1-f05a-4233-a328-a50000646cfc,( +++ ),( A ),Staphylococcus aureus,2.3,Staphylococcus aureus,2.24
+3dd9604c-2b0a-422b-a588-c18f55acac79,( ++ ),( A ),Staphylococcus aureus,2.26,Staphylococcus aureus,2.2
+454d661a-0891-48f6-9e51-db179224fa33,( ++ ),( A ),Pseudomonas citronellolis,2.1,not reliable identification,1.69
+4a03b696-a79a-4856-b654-ff200ceab7b9,( ++ ),( B ),Enterobacter cloacae,2.19,Enterobacter cloacae,2.19
+606ffcb5-9bd3-44fc-8881-72eca0be713e,( ++ ),( A ),Pseudomonas citronellolis,2.27,Pseudomonas citronellolis,1.82
+712e9375-97cf-4347-9716-296d175a8529,( ++ ),( B ),Streptococcus vestibularis,2.14,Streptococcus salivarius,2.1
+9c00a487-43f0-4636-801b-5515bcf60be9,( ++ ),( B ),Salmonella newington,2.29,Salmonella spp,2.25
+fa7e0acd-8898-4e01-bb01-d5906b98613b,( ++ ),( A ),Escherichia coli,2.22,Escherichia coli,2.2
+2af97e3a-aa32-439b-982c-063e3111ef8d,( + ),( B ),Streptococcus agalactiae,1.96,Streptococcus agalactiae,1.95
+7e837d09-a023-4841-9c6b-60e1473550da,( + ),( B ),Corynebacterium tuberculostearicum,1.81,Corynebacterium tuberculostearicum,1.8
+2c856245-66f6-44a1-b917-7329231a8508,( ++ ),( B ),Streptococcus salivarius,2.22,Streptococcus vestibularis,2.15
+b2d5056c-c0e4-4bc2-b047-099375a9a86f,( +++ ),( A ),Streptococcus intermedius,2.44,Streptococcus intermedius,2.39
+c0a1a736-1d83-42c0-8df3-a1ce330d31c9,( +++ ),( C ),MIX!Serratia marcescens,2.42,Raoultella ornithinolytica,2.39
+09200e36-ae41-4901-961f-6c62cf342741,( +++ ),( B ),MIX!Enterobacter cloacae,2.43,Enterobacter cloacae,2.39
+15b576f2-6e48-47d2-8fd8-5bf1c8a1fcc2,( +++ ),( A ),Escherichia coli,2.45,Escherichia coli,2.34
+010b3362-5ecc-44da-ae35-f21413683f61,( ++ ),( A ),Streptococcus agalactiae,2.28,Streptococcus agalactiae,2.23
+01112b11-86f7-4d1b-9d8b-e61787b5046f,( +++ ),( A ),Enterococcus faecalis,2.44,Enterococcus faecalis,2.4
+05b4ab04-624a-474a-b071-535e76dac27e,( +++ ),( B ),Proteus vulgaris,2.59,Proteus vulgaris,2.42
+10dfc346-37fd-4493-bb77-94c156fdd3d6,( +++ ),( B ),Lactobacillus gasseri,2.44,Lactobacillus gasseri,2.43
+137d7943-f8a6-47e0-ae08-a3f951b85b3b,( +++ ),( A ),Lactobacillus johnsonii,2.32,Lactobacillus johnsonii,2.03
+23807ed9-0864-4365-ad39-5258d4691364,( - ),( C ),not reliable identification,1.33,not reliable identification,1.31
+2cb630c8-ea60-4abe-a141-d20e4e3f8e18,( +++ ),( B ),Proteus vulgaris,2.4,Proteus vulgaris,2.32
+34fe20c6-d49f-4d65-b7c2-f4b813bf6008,( ++ ),( A ),Corynebacterium macginleyi,2.26,Corynebacterium macginleyi,2.25
+3565a67f-5fc0-42cf-b098-e2f7273a4cdd,( +++ ),( A ),MIX!Haemophilus influenzae,2.6,Haemophilus influenzae,2.47
+3d56a39f-332e-4fbc-8fb7-191d2966ec8e,( ++ ),( B ),Enterobacter cloacae,2.26,Enterobacter cloacae,2.18
+43656e4e-d08e-4bc4-a9f7-64d2bf56b787,( +++ ),( A ),Corynebacterium amycolatum,2.31,Corynebacterium amycolatum,2.29
+4419c7fd-4d3d-4d4f-b679-ac9d201aa7d3,( +++ ),( B ),Enterobacter cloacae,2.35,Enterobacter cloacae,2.25
+50f46375-184b-427f-b912-792922ee9416,( - ),( C ),not reliable identification,1.54,not reliable identification,1.47
+67d13d88-0f09-481c-aa67-155fe31e73f0,( +++ ),( A ),Morganella morganii,2.42,Morganella morganii,2.39
+72e5724f-2a27-4c0c-9b45-4ec36ddf6c53,( ++ ),( A ),Staphylococcus aureus,2.24,Staphylococcus aureus,2.2
+8db5606a-463c-422c-b1c5-74fbad73ed38,( +++ ),( B ),Lactobacillus gasseri,2.37,Lactobacillus gasseri,2.36
+93da7b36-c8bf-4caf-81f8-d7b5ec57818c,( ++ ),( A ),Lactobacillus jensenii,2.17,Lactobacillus jensenii,2.07
+a8e6f085-de97-418d-b4d7-5da2ae20a336,( ++ ),( A ),Gardnerella vaginalis,2.18,Gardnerella vaginalis,2.02
+a8eeb19b-f658-4cd1-b031-0657f0d70baa,( ++ ),( A ),Streptococcus anginosus,2.2,Streptococcus anginosus,2.09
+b1b4f210-9d94-4226-a8a0-7e1ba2ec8db4,( +++ ),( C ),Klebsiella oxytoca,2.42,Klebsiella oxytoca,2.35
+b2332ab0-5d4d-4908-b93e-7186910f4791,( ++ ),( A ),Escherichia coli,2.28,Escherichia coli,2.24
+b70d827e-0834-4e1f-971d-609cfef0129e,( +++ ),( B ),Lactobacillus gasseri,2.32,Lactobacillus gasseri,2.3
+bb6929f8-3429-4f0b-a0b9-d4c4914f356c,( ++ ),( A ),Serratia marcescens,2.26,Serratia marcescens,2.24
+c32e5569-0f62-4155-86ec-dc17b6bb0545,( ++ ),( A ),Aerococcus urinae,2.19,Aerococcus urinae,2.19
+d787fba1-b9ad-4b03-8bdd-2648e174c901,( ++ ),( A ),Actinotignum schaalii,2.03,Actinotignum schaalii,1.98
+da35008e-240e-417b-a02a-74650de7d205,( +++ ),( A ),Lactobacillus iners,2.33,not reliable identification,1.52
+de01fe93-3351-4821-9da0-c087273aa255,( ++ ),( A ),Bifidobacterium breve,2.08,Bifidobacterium breve,2.06
+edda4d6c-f1aa-435b-83df-9c82aa73cbd5,( ++ ),( A ),Enterococcus faecalis,2.2,Enterococcus faecalis,2.2
+f5039ac8-2134-40f5-a0cc-a869f659872a,( ++ ),( A ),Gardnerella vaginalis,2.21,Gardnerella vaginalis,2.18
+f7379994-1476-4656-9120-b34db960c17b,( ++ ),( A ),Gardnerella vaginalis,2.06,Gardnerella vaginalis,2.05
+facbe5a7-bee1-409f-ade9-4ffd7b184f7d,( + ),( B ),Alloscardovia omnicolens,1.73,not reliable identification,1.68
+fcae2ebb-1031-48d0-953a-0d45dff0de68,( +++ ),( A ),Corynebacterium propinquum,2.36,Corynebacterium propinquum,2.27
+08c03d4d-38da-4750-ba1f-9b664f533a8a,( +++ ),( A ),Escherichia coli,2.36,Escherichia coli,2.24
+08e5d6d5-7d47-44af-9b9e-30dc6b05bd2f,( ++ ),( A ),Gemella morbillorum,2.1,Gemella morbillorum,2.08
+3e1dde3e-7217-4d2e-9d92-5386130c76fb,( ++ ),( A ),Gemella morbillorum,2.21,Gemella morbillorum,2.18
+6b586667-5df1-4878-94f0-38de409b2773,( +++ ),( A ),Escherichia coli,2.47,Escherichia coli,2.36
+b03df3b3-f9f0-414e-a493-9adbbe88fc1d,( +++ ),( A ),Escherichia coli,2.49,Escherichia coli,2.34
+b3236cba-702c-402e-ab69-f2ddd658a971,( + ),( B ),Candida glabrata,1.82,Candida glabrata,1.79
+b7231655-575b-4322-9827-9d10355f341d,( ++ ),( A ),Staphylococcus hominis,2.2,Staphylococcus hominis,2.18
+cfd7a78b-1f79-45b8-aff6-1ada7cd00ee1,( +++ ),( A ),Escherichia coli,2.47,Escherichia coli,2.36
+d6225f78-44cd-4f20-bcda-973318d58aed,( ++ ),( A ),Enterococcus faecalis,2.29,Enterococcus faecalis,2.26
+e5b14e5c-d5a5-456f-94fe-42a16f835ed7,( + ),( B ),Candida glabrata,1.99,Candida glabrata,1.94
+dec29dc1-1d20-42c9-9351-9740a215d487,( - ),( C ),not reliable identification,1.15,not reliable identification,1.12
+3017e9f4-18dd-45f4-932b-6ed5664005f7,( ++ ),( B ),Citrobacter freundii,2.22,Citrobacter freundii,2.15
+560e8b07-38be-4b13-bd17-db226b448fd9,( ++ ),( A ),Pseudomonas sp,2.26,not reliable identification,1.41
+040810ab-1ed0-4ea0-8eda-beee0e11f30f,( +++ ),( A ),Streptococcus agalactiae,2.39,Streptococcus agalactiae,2.31
+04866d1b-93d0-4fe3-8084-a79a5ed9e0d1,( ++ ),( A ),Lactobacillus iners,2.16,not reliable identification,1.48
+36fe4479-5166-412d-805a-a6fa6ee7143d,( - ),( C ),no peaks found,< 0 no peaks found,< 0 ,
+4fe35893-e1d0-411a-bd3b-3edf74a330e5,( ++ ),( A ),Gardnerella vaginalis,2.11,Gardnerella vaginalis,2.07
+5016c2ca-53ce-4b22-9034-7ef10c6215ab,( +++ ),( B ),Streptococcus vestibularis,2.39,Streptococcus salivarius,2.25
+5ab6366b-f81f-4ec8-84c2-0097c33642b9,( +++ ),( B ),Streptococcus vestibularis,2.36,Streptococcus salivarius,2.2
+64621a1e-da92-45c0-b119-0a090eb21a74,( ++ ),( A ),Gardnerella vaginalis,2.21,Gardnerella vaginalis,2.18
+696a4088-0e0c-4ffa-bd1b-bc36fdae2be1,( +++ ),( A ),Gardnerella vaginalis,2.43,Gardnerella vaginalis,2.43
+7fbea64b-e4a2-4f3d-8f18-b1cb0b1c4cf2,( ++ ),( A ),Bifidobacterium breve,2.25,Bifidobacterium breve,2.07
+827afd89-6349-4858-b4a1-029eae1137d1,( ++ ),( B ),Streptococcus vestibularis,2.15,Streptococcus salivarius,2.12
+c17f25d5-d48f-4200-b3bf-72c3cc06802c,( +++ ),( B ),Streptococcus oralis,2.34,Streptococcus oralis,2.27
+f9562054-8600-4684-b453-bd12784c8db9,( ++ ),( B ),Streptococcus salivarius,2.11,Streptococcus vestibularis,2.08
+fc08c38f-c0f5-4dbc-95f8-cd7a4329740b,( ++ ),( A ),Gardnerella vaginalis,2.19,Gardnerella vaginalis,2.17
+fd0b8932-ecb1-478b-a220-3188979141dc,( +++ ),( A ),Gardnerella vaginalis,2.4,Gardnerella vaginalis,2.3
+16229ef0-4e03-4897-bdb8-483d9897c2d2,( ++ ),( A ),Candida parapsilosis,2.2,Candida parapsilosis,2.08
+1986376c-5363-45c4-ba1e-4fc58e167722,( +++ ),( A ),Pseudomonas aeruginosa,2.41,Pseudomonas aeruginosa,2.27
+31d26e51-3fb5-468a-b562-46c47d87c20f,( ++ ),( A ),Streptococcus anginosus,2.25,Streptococcus anginosus,2.21
+531879d1-62c2-4d47-bf7b-3498cd8849e1,( +++ ),( A ),Rothia terrae,2.4,Rothia terrae,2.32
+6a5d967c-2c3c-48d9-a155-3a86ad794c88,( - ),( C ),not reliable identification,1.51,not reliable identification,1.35
+73e44b16-5fe6-499a-b0d8-ae833c4c6edf,( +++ ),( A ),Streptococcus anginosus,2.41,Streptococcus anginosus,2.31
+856d795e-5b88-4d8e-bc28-5155b66ece40,( ++ ),( A ),Streptococcus anginosus,2.02,Streptococcus anginosus,1.87
+b3337ede-37c1-43e2-b37b-6d71fb5d7da4,( +++ ),( A ),Enterococcus faecalis,2.39,Enterococcus faecalis,2.35
+bb744084-ab36-4642-a52d-805c747c76ed,( ++ ),( B ),Gardnerella sp,2.22,Gardnerella vaginalis,2.03
+cf0f5d81-5c9b-4937-b3c6-6eb2e70734fd,( +++ ),( A ),Haemophilus influenzae,2.45,Haemophilus influenzae,2.34
+d182a1be-3a03-4d42-bcb3-16dbb78daf3a,( +++ ),( A ),Enterococcus faecium,2.46,Enterococcus faecium,2.2
+d711bbda-e689-49e2-b5a3-22df85630f0f,( ++ ),( A ),Lactobacillus jensenii,2.13,Lactobacillus jensenii,1.98
+ebb05b9d-013f-4000-ac8c-2b788c6b7753,( +++ ),( A ),Enterococcus faecalis,2.47,Enterococcus faecalis,2.4
+f8a5b57b-4394-483b-b841-206558d12f48,( +++ ),( A ),Staphylococcus aureus,2.42,Staphylococcus aureus,2.4
+6d6f4606-e762-4c91-bcd6-264efb3a536b,( ++ ),( A ),Staphylococcus aureus,2.23,Staphylococcus aureus,2.22
+fa4b448b-4c3e-4490-9bac-575880c77d2f,( + ),( B ),Corynebacterium tuberculostearicum,1.71,not reliable identification,1.68
+04ee61f3-67d3-4eff-b6af-8fe68ff7ed3b,( - ),( C ),not reliable identification,1.3,not reliable identification,1.27
+0897cfdf-6e5d-411c-9f4b-1a494a33e9c2,( ++ ),( A ),Propionibacterium acnes,2.04,Propionibacterium acnes,1.96
+0daaa18a-ed69-4dfc-9a0a-70890ad716d0,( ++ ),( A ),Propionibacterium acnes,2.11,Propionibacterium acnes,1.89
+1c870659-3aa0-49d1-8f7f-914d15ffc5d1,( ++ ),( A ),Propionibacterium acnes,2.09,Propionibacterium acnes,2.09
+1e9fa88b-058f-4af9-ad7e-20d8407b5515,( + ),( B ),Propionibacterium acnes,1.95,Propionibacterium acnes,1.85
+38745166-6ff1-49ef-8e0a-6d79db338b95,( ++ ),( A ),Propionibacterium acnes,2.25,Propionibacterium acnes,2.01
+5ef4024e-dc1e-42bd-9909-220d87eaf091,( ++ ),( A ),Propionibacterium sp[2],2.07,Propionibacterium sp[2],1.99
+6c65ba7f-1779-445c-bc40-d75bb769c5b2,( ++ ),( A ),Propionibacterium acnes,2.2,Propionibacterium acnes,2.14
+822f1f6d-b655-4f0e-99b3-ce2d69bfd09e,( ++ ),( A ),Finegoldia magna,2.07,Finegoldia magna,2.06
+a9cb501f-1dbc-4198-817d-881c7d28c212,( ++ ),( A ),Clostridium difficile,2.11,Clostridium difficile,2
+b510130a-090d-4329-bebc-1c50d574adaa,( ++ ),( A ),Clostridium difficile,2.16,Clostridium difficile,2.04
+b8121097-4e75-41c5-b738-363955541abf,( + ),( B ),Finegoldia magna,1.83,Finegoldia magna,1.76
+d05a17e9-c577-4db7-9d12-0748fc94670c,( ++ ),( A ),Propionibacterium acnes,2.09,Propionibacterium acnes,1.99
+02cb278e-e3d2-4100-9786-6366a60a36ae,( +++ ),( A ),Staphylococcus aureus,2.35,Staphylococcus aureus,2.32
+45cadbd1-3385-4e40-9c4a-762e81e23d60,( ++ ),( A ),Staphylococcus epidermidis,2.11,Staphylococcus epidermidis,2.09
+65b284af-8bb7-426c-9033-dd716c05316b,( ++ ),( C ),Klebsiella pneumoniae,2.2,Klebsiella pneumoniae,2.19
+94945229-059b-47a9-ab4f-33560ac3383b,( +++ ),( C ),Klebsiella pneumoniae,2.3,Klebsiella pneumoniae,2.2
+a62a79e2-e26e-4d81-ae37-b242c7ece354,( ++ ),( A ),Escherichia coli,2.19,Escherichia coli,2.19
+b175842b-c66d-4140-a37f-37fe9ba8f623,( +++ ),( A ),Staphylococcus aureus,2.38,Staphylococcus aureus,2.32
+c0689cac-afe1-4758-87e3-c9bc47f47a92,( ++ ),( A ),Escherichia coli,2.26,Escherichia coli,2.24
+d802e286-4eb2-4c30-a5b2-aafc0a872854,( ++ ),( A ),Staphylococcus epidermidis,2.04,Staphylococcus epidermidis,1.82
+e43f3afc-1ff7-499a-b953-5feabb33c9f1,( ++ ),( A ),Staphylococcus epidermidis,2.12,Staphylococcus epidermidis,2.01
+e7934f12-d781-4c7d-a7ca-36d2d0d5cddf,( ++ ),( A ),Escherichia coli,2.25,Escherichia coli,2.23
+6a0ab01e-d055-4805-b545-26b1c3c91a11,( ++ ),( A ),Rothia terrae,2.29,Rothia terrae,2.25
+ce0e3c72-4dde-4cf2-92a4-fe0117db524a,( - ),( C ),not reliable identification,1.18,not reliable identification,1.13
+0d7ff7db-6d39-4e21-9455-9ff58b5680f2,( ++ ),( A ),Clostridium difficile,2.27,Clostridium difficile,2.12
+29a59ee0-3c6d-4146-ae47-ec979deffbb3,( ++ ),( A ),Clostridium difficile,2.16,Clostridium difficile,2.14
+508da74f-4acb-46c3-9e0e-fa315bccaf7c,( ++ ),( A ),Propionibacterium acnes,2.14,Propionibacterium acnes,2.06
+782e1154-4702-4944-a70b-74c974bcef26,( +++ ),( A ),Staphylococcus saccharolyticus,2.31,Staphylococcus saccharolyticus,2.26
+8c5da8e7-c45b-4b72-9f3c-d229ff688377,( - ),( C ),not reliable identification,1.32,not reliable identification,1.14
+9ca1a7dc-974d-4e5d-8880-a2b604c6610b,( ++ ),( A ),Sutterella wadsworthensis,2.14,Sutterella wadsworthensis,2.11
+b1794351-eb6c-4628-a75b-42db396962bc,( ++ ),( A ),Propionibacterium acnes,2.24,Propionibacterium acnes,2.13
+b1ce4e8e-f870-41a9-a80f-ec0ec2451c8b,( + ),( B ),Bacteroides fragilis,1.97,Bacteroides fragilis,1.96
+cf3d8468-7879-49be-addb-f6b792c155ce,( +++ ),( A ),Sutterella wadsworthensis,2.33,Sutterella wadsworthensis,2.32
+e16c5cdd-6669-4024-a7fe-7f7abfb33901,( +++ ),( A ),Propionibacterium acnes,2.32,Propionibacterium acnes,2.31
+e37dd8bc-20ff-455f-a2b1-62c591eddd50,( ++ ),( A ),Bacteroides fragilis,2.16,Bacteroides fragilis,2.15
+e3dfb1ce-7797-4a3d-8a90-5ff99b1dba13,( ++ ),( A ),Bacteroides fragilis,2.09,Bacteroides fragilis,2.07
+b446537e-c26d-4755-9bb4-52b7b2ed867e,( + ),( B ),Staphylococcus epidermidis,1.99,Staphylococcus epidermidis,1.9
+26b311f0-3e36-47cf-a7b8-feccd82170a8,( ++ ),( A ),Escherichia coli,2.22,Escherichia coli,2.03
+44542609-ebfb-46a4-a024-9d8f32f2fa16,( - ),( C ),no peaks found,< 0 no peaks found,< 0 ,
+86b799d8-788c-42cc-9bdc-1a925f808a22,( ++ ),( B ),Streptococcus dysgalactiae,2.16,Streptococcus canis,2.14
+962da53e-bccf-4720-97a1-7f4f432ad927,( ++ ),( A ),Escherichia coli,2.29,Escherichia coli,2.18
+96d1169c-c363-4ff6-8fbe-7fd22d08d8fd,( +++ ),( A ),Escherichia coli,2.3,Escherichia coli,2.27
+1b9d22ca-5c22-4962-8dff-619fa2270551,( ++ ),( A ),Candida glabrata,2.17,Candida glabrata,1.9
+1c052bd8-efac-4b63-a619-d16f5dc33c54,( + ),( B ),Alloscardovia omnicolens,1.76,Alloscardovia omnicolens,1.75
+2a6373c9-ca08-46a8-bdac-3b409faf5dc4,( + ),( B ),Lactobacillus crispatus,1.73,not reliable identification,1.47
+2e343d25-be96-4e5f-8730-2e6741a5bdeb,( - ),( C ),not reliable identification,1.48,not reliable identification,1.42
+38d8722b-7ab5-48a2-ba70-9528f65e0e99,( +++ ),( A ),Facklamia hominis,2.53,Facklamia hominis,2.46
+394dabcb-80d2-44b4-97c2-1dc2eb0da05d,( +++ ),( A ),Enterococcus faecalis,2.5,Enterococcus faecalis,2.36
+416cdcf1-80a9-41eb-a418-8f6765377692,( ++ ),( A ),Staphylococcus saprophyticus,2.07,Staphylococcus saprophyticus,1.98
+41a0b272-d15b-4782-b7e6-c538c8868134,( +++ ),( A ),Staphylococcus haemolyticus,2.34,Staphylococcus haemolyticus,2.12
+51469643-089c-495b-bbe8-4e652a80766c,( ++ ),( A ),Staphylococcus epidermidis,2.19,Staphylococcus epidermidis,1.97
+531e7712-5c92-4e1e-8015-8e4672bf4f9b,( +++ ),( A ),Escherichia coli,2.54,Escherichia coli,2.32
+667a3ea0-6548-4916-96a7-f7851e0eec17,( +++ ),( A ),Escherichia coli,2.56,Escherichia coli,2.35
+6d10e39f-2efa-4300-bd8e-515efd66ede9,( +++ ),( A ),Lactobacillus gasseri,2.3,Lactobacillus gasseri,2.24
+6d413e66-dbff-4ebd-8b8e-8e5f0d0dc595,( ++ ),( A ),Staphylococcus epidermidis,2.29,Staphylococcus epidermidis,2.11
+6f41ee9a-8384-4675-9131-5679de83a495,( +++ ),( A ),Enterococcus faecalis,2.52,Enterococcus faecalis,2.51
+876ab87f-6707-49fa-92dd-0b804f5b035c,( ++ ),( A ),Gardnerella vaginalis,2.2,Gardnerella vaginalis,2.18
+8824ebee-9a93-4505-8181-0b7b62b17bc2,( +++ ),( A ),Gardnerella vaginalis,2.49,Gardnerella vaginalis,2.39
+98bd470b-4860-41c0-a379-e7f69c472053,( ++ ),( A ),Lactobacillus crispatus,2.12,Lactobacillus crispatus,1.83
+bd3f9098-0118-49ca-a010-f16f445a3e44,( ++ ),( A ),Aerococcus urinae,2.14,Aerococcus urinae,2.09
+bf917414-f512-4449-b713-e5272c6fc4fe,( +++ ),( A ),Corynebacterium glucuronolyticum,2.35,Corynebacterium glucuronolyticum,2.35
+c11b5d31-c811-4531-a7f0-9102403f1817,( ++ ),( A ),Lactobacillus jensenii,2.12,Lactobacillus jensenii,1.95
+ead26b8e-e0f2-4254-bb13-d222973c0463,( ++ ),( A ),Lactobacillus crispatus,2.12,Lactobacillus crispatus,1.89
+da79d717-2061-47bb-93b9-822ae0da17a9,( ++ ),( A ),Gardnerella vaginalis,2.12,Gardnerella vaginalis,2.11
+64135abd-c297-4101-84c8-d12edcbc0eef,( +++ ),( A ),Rothia terrae,2.47,Rothia terrae,2.46
+ce3ab73a-1eee-4d1c-abd9-2b534b6f11c7,( - ),( C ),not reliable identification,1.37,not reliable identification,1.36
+230bcc2c-d39c-43a2-a0c4-f95044b308bd,( ++ ),( B ),Proteus vulgaris,2.21,Proteus hauseri,2.18
+3868c2e9-bb6e-49e5-b567-6acafb729bcc,( ++ ),( B ),Citrobacter freundii,2.24,Citrobacter freundii,2.23
+5bbbdf08-1371-4094-9b51-e90a7692c0a3,( ++ ),( A ),Staphylococcus epidermidis,2.14,Staphylococcus epidermidis,2.09
+5fc16145-085f-4acb-81aa-6cb3bdd166de,( ++ ),( B ),Enterobacter cloacae,2.17,Enterobacter kobei,2.05
+8c4acc4d-4e2c-40b3-8b10-c9974bfa1864,( +++ ),( A ),Klebsiella pneumoniae,2.41,Klebsiella pneumoniae,2.31
+ee75f06e-2cb0-41ec-8ecd-d49a6fc354bd,( ++ ),( A ),Enterococcus faecium,2.22,Enterococcus faecium,2.16
+fd634658-9580-48d2-94c0-4d09993f27f1,( + ),( B ),Enterococcus avium,1.99,Enterococcus avium,1.98
+00fe0468-4f7e-4600-a20b-e818dafe1cf1,( ++ ),( A ),Staphylococcus epidermidis,2.12,Staphylococcus epidermidis,1.98
+4245ffbc-35a6-4388-b953-7d10c71ab5d9,( ++ ),( A ),Staphylococcus capitis,2.16,Staphylococcus capitis,2.15
+45bd25d6-aadd-4831-8843-65b30a208eac,( +++ ),( A ),Micrococcus luteus,2.48,Micrococcus luteus,2.39
+6d99fd57-0eb9-4b0e-bb27-ebc774fe1e2d,( +++ ),( A ),Staphylococcus capitis,2.34,Staphylococcus capitis,2.22
+733ac7cf-5516-4271-9598-53eb6e8c2406,( ++ ),( A ),Streptococcus pneumoniae,2.29,Streptococcus pneumoniae,2.29
+78344cdf-d2b4-45c3-9900-1c931db825e2,( ++ ),( A ),Staphylococcus epidermidis,2.21,Staphylococcus epidermidis,2.1
+7d3334ad-1bfb-4f09-8f8a-e2c2041e094e,( +++ ),( A ),Corynebacterium striatum,2.37,Corynebacterium striatum,2.27
+ab49b003-244d-4d4c-9d5a-99d8ca401a53,( +++ ),( B ),Streptococcus dysgalactiae,2.44,Streptococcus dysgalactiae,2.34
+1d2f0a24-579e-4ac6-8f1f-d0db700f463f,( ++ ),( A ),Pseudomonas aeruginosa,2.21,Pseudomonas aeruginosa,2.19
+837a2ef9-6df9-4b30-a9e7-891d31c1ea38,( ++ ),( A ),Haemophilus parainfluenzae,2.25,Haemophilus parainfluenzae,2.17
+686d2f06-af90-4fc8-8cdc-f757c203e380,( ++ ),( A ),Candida dubliniensis,2.16,Candida dubliniensis,1.97
+86a94ba8-9d54-41c4-a874-3d73f010baaf,( + ),( B ),Stenotrophomonas maltophilia,1.87,Stenotrophomonas maltophilia,1.85
+9e823c60-2777-474f-8e04-23e26c13e2db,( + ),( B ),Candida parapsilosis,1.98,Candida parapsilosis,1.93
+0423c466-5ebf-410c-b594-5dc792bceca3,( - ),( C ),not reliable identification,1.32,not reliable identification,1.3
+0494ccac-ca5c-4435-98eb-74eb4ff66885,( ++ ),( A ),Staphylococcus aureus,2.12,Staphylococcus aureus,2.1
+3de111ba-9731-43c1-8eae-85d3ea7acd27,( +++ ),( A ),Acinetobacter pittii,2.31,Acinetobacter pittii,2.28
+4ce632af-5351-4fb0-843a-63521dffc1d6,( +++ ),( A ),Rothia dentocariosa,2.32,Rothia dentocariosa,2.16
+5f5b400d-097b-4471-905c-35acfc2b0fc4,( ++ ),( C ),Enterobacter asburiae,2.19,Enterobacter cloacae,2.1
+7704613e-7897-40cd-9d72-cc18f5e2408b,( +++ ),( C ),MIX!Clostridium innocuum,2.52,Clostridium innocuum,2.48
+a0b20533-7883-4ad3-b031-84c795639624,( + ),( B ),Enterobacter asburiae,1.87,Enterobacter cancerogenus,1.86
+f6de1310-1969-4c07-9e63-a0fbf3fa9a86,( + ),( B ),Propionibacterium acnes,1.93,Propionibacterium acnes,1.92
+f7ffe513-3010-42d1-b5b6-572db1e02d5c,( ++ ),( A ),Propionibacterium acnes,2.25,Propionibacterium acnes,2.1
+1900b285-2324-470b-b666-0cab76e6669a,( ++ ),( A ),Staphylococcus capitis,2.11,Staphylococcus capitis,2.07
+61b8c005-1c4d-4e40-ad76-568fd6567de0,( ++ ),( A ),Staphylococcus epidermidis,2.11,Staphylococcus epidermidis,2.02
+776d7861-4e57-4bd9-9879-3ac94484452e,( ++ ),( A ),Staphylococcus capitis,2,Staphylococcus capitis,1.96
+9239da23-c88a-4509-b0bf-defcf27c4b85,( ++ ),( A ),Micrococcus luteus,2.29,Micrococcus luteus,2.24
+bcde07c4-7736-48f6-9b0a-9b0fc258930c,( +++ ),( A ),Escherichia coli,2.31,Escherichia coli,2.15
+c9b91e33-15fd-483e-8a38-0026377ab083,( - ),( C ),no peaks found,< 0 no peaks found,< 0 ,
+cad9af21-b2ad-4a4c-8451-839351b6ad88,( ++ ),( A ),Staphylococcus epidermidis,2.16,Staphylococcus epidermidis,2.09
+a0b38b7e-db85-4073-aabc-31e79820db22,( + ),( B ),Gardnerella vaginalis,1.89,Gardnerella vaginalis,1.81
+e025b071-4db5-42fc-a638-b70eeef327bc,( ++ ),( A ),Corynebacterium kroppenstedtii,2.23,Corynebacterium kroppenstedtii,1.78
+0a86c227-7b2a-4e34-b063-44b36ae74399,( ++ ),( A ),Pseudomonas aeruginosa,2.22,Pseudomonas aeruginosa,2.16
+1aee5e96-b3fb-451f-becc-55e53261212a,( +++ ),( A ),Staphylococcus aureus,2.43,Staphylococcus aureus,2.39
+3868c189-f3d3-4fa6-9c02-0f426ed3559b,( +++ ),( B ),Klebsiella pneumoniae,2.31,Klebsiella pneumoniae,2.3
+3c6687f1-f2ab-4df2-9335-bfb9ea2169c6,( +++ ),( A ),Staphylococcus haemolyticus,2.31,Staphylococcus haemolyticus,1.98
+4b90bd37-6d66-4f32-9ffd-1800e941f17d,( ++ ),( A ),Haemophilus parainfluenzae,2.05,Haemophilus parainfluenzae,2.03
+6a99e438-d89b-4d9c-99c1-9ab13453b3c4,( ++ ),( B ),Streptococcus pneumoniae,2.15,Streptococcus pneumoniae,2.14
+7e44e788-3b45-4951-80a9-6570c1ae361a,( ++ ),( A ),Staphylococcus epidermidis,2.01,Staphylococcus epidermidis,1.97
+7ed3e245-5609-4113-b9dc-22fee5b4e82f,( + ),( B ),Pseudomonas aeruginosa,1.93,Pseudomonas aeruginosa,1.85
+8549a364-66c8-4802-8f9c-c7999f6d529e,( ++ ),( A ),Pseudomonas aeruginosa,2.24,Pseudomonas aeruginosa,2.21
+867349b6-017c-4166-ad69-87b5419a1e3d,( + ),( B ),Pseudomonas aeruginosa,1.88,Pseudomonas aeruginosa,1.83
+87d14c64-396c-48c9-bb73-bc3786451ecd,( ++ ),( B ),Serratia marcescens,2.15,Serratia marcescens,2.12
+8e734acb-ad86-4dca-838f-b98e0aed315a,( +++ ),( A ),MIX!Haemophilus parainfluenzae,2.34,Haemophilus parainfluenzae,2.12
+927f39fe-a55f-4e9a-8cf8-51c946eaecba,( + ),( B ),Pseudomonas aeruginosa,1.8,Pseudomonas aeruginosa,1.79
+961891df-b2aa-43cb-ab2f-7db2b267ea32,( ++ ),( A ),Pseudomonas aeruginosa,2.22,Pseudomonas aeruginosa,2.22
+a1d9ba5f-ed6f-4365-9215-05955c1faa53,( +++ ),( A ),Pseudomonas aeruginosa,2.37,Pseudomonas aeruginosa,2.31
+a5998d20-a806-4521-82e4-ec8542e0d603,( ++ ),( B ),Streptococcus pseudopneumoniae,2.23,Streptococcus pseudopneumoniae,2.23
+bf679fe8-ad3c-485f-b97b-5f68279d8169,( +++ ),( A ),Providencia rettgeri,2.31,Providencia rettgeri,2.24
+c1be3941-3d24-4c5f-a4e6-b73888df2687,( +++ ),( B ),Serratia marcescens,2.31,Serratia marcescens,2.24
+c5b4b346-3662-4442-a473-2a57c747297a,( + ),( B ),Staphylococcus saccharolyticus,1.72,Staphylococcus saccharolyticus,1.7
+c6d33b4c-a4e2-4c82-9add-07fb2b22b5c6,( ++ ),( A ),Pseudomonas aeruginosa,2.19,Pseudomonas aeruginosa,2.17
+cafe7b96-f84f-4bc4-9aed-7d61a9d191b2,( +++ ),( B ),Klebsiella pneumoniae,2.5,Klebsiella pneumoniae,2.49
+d332b9b2-c3a2-44f9-8c71-9969cfe85821,( ++ ),( B ),Serratia marcescens,2.2,Serratia marcescens,2.17
+db209cbe-ab1a-4ba7-902b-dcf365f5cd2c,( ++ ),( B ),Neisseria subflava,2.19,Neisseria subflava,2.1
+fe230237-92ee-416b-a1a3-85da9a00c084,( ++ ),( A ),Pseudomonas aeruginosa,2.24,Pseudomonas aeruginosa,2.11
+208d853a-f208-4709-ac6b-b47bff42b8ac,( ++ ),( A ),Gemella morbillorum,2.28,Gemella morbillorum,2.15
+7853d50f-c5b7-4926-b71b-0ccfef680b9d,( + ),( B ),Enterococcus faecalis,1.91,Enterococcus faecalis,1.81
+aabe54bd-ff58-49b0-be21-bb499d1153a9,( ++ ),( A ),Gemella morbillorum,2.14,Gemella morbillorum,2.07
+e8c979df-4e4c-470d-ad92-8e7d97fec2f6,( + ),( B ),Gemella morbillorum,1.98,Gemella morbillorum,1.96
+ed3d80f0-c124-4928-b1b2-c62abdf675c6,( + ),( B ),Gemella morbillorum,1.9,Gemella morbillorum,1.88
+0f511f5f-744a-4873-a9df-e706ed846dd8,( ++ ),( A ),Parvimonas micra,2.29,Parvimonas micra,2.28
+7b708f14-ebf7-45f5-a00b-920883d8823b,( - ),( C ),not reliable identification,1.53,not reliable identification,1.52
+7e5303ab-41fe-49b4-bbda-daaa6a55914b,( ++ ),( A ),Clostridium difficile,2.27,Clostridium difficile,2.18
+8014dd63-7cad-4a66-8cbe-6d8dca9f453e,( ++ ),( A ),Prevotella disiens,2.29,Prevotella disiens,2.22
+f41981b5-dcc0-4b1a-8b66-6e838fce7a8e,( +++ ),( A ),MIX!Fusobacterium nucleatum,2.35,Fusobacterium nucleatum,1.85
+1df0589b-8bf4-42c1-b0e1-3b7b2287bea7,( - ),( C ),not reliable identification,1.49,not reliable identification,1.45
+25f7aceb-883f-49aa-a1f0-00197c983fb6,( +++ ),( A ),Staphylococcus hominis,2.3,Staphylococcus hominis,2.27
+358441a8-8f1c-4ba8-b0d4-9a4111f256e3,( +++ ),( A ),Escherichia coli,2.37,Escherichia coli,2.32
+3d11ecc8-af08-4984-89df-7bc6062d9852,( ++ ),( A ),Corynebacterium coyleae,2.18,Corynebacterium coyleae,2.18
+3e776882-fa55-46c5-b957-4a727449ca94,( ++ ),( A ),Staphylococcus hominis,2.29,Staphylococcus hominis,2.26
+42681bef-3cb4-4352-a035-ff10dce10a16,( +++ ),( A ),Escherichia coli,2.38,Escherichia coli,2.31
+435a8c9b-9425-4018-9ace-df6e886ca022,( +++ ),( B ),MIX!Aeromonas popoffii,2.38,Aeromonas sp[2],2.33
+4fdc025f-3e23-418e-893a-cfb3daf9f7ba,( +++ ),( A ),Corynebacterium striatum,2.39,Corynebacterium striatum,2.36
+5ee1d6ea-1ac5-4b04-8062-f2125b36c82b,( +++ ),( A ),Neisseria gonorrhoeae,2.39,Neisseria gonorrhoeae,2.35
+6b8668d4-4992-473d-878b-bea432b22865,( ++ ),( A ),Actinotignum schaalii,2.05,Actinotignum schaalii,2
+8f80512b-2bf8-4ee4-ae74-e1a0d2af810a,( +++ ),( A ),Corynebacterium striatum,2.38,Corynebacterium striatum,2.34
+972bc7a5-3bc3-4940-b9eb-07a903fbb92f,( ++ ),( A ),Staphylococcus capitis,2.18,Staphylococcus capitis,2.08
+aa044cfe-272c-4902-9f4a-a119174254e3,( + ),( B ),Staphylococcus epidermidis,1.92,Staphylococcus epidermidis,1.89
+adb063db-09d1-4f86-ba76-71f0a24dd7c2,( ++ ),( B ),Serratia proteamaculans,2.16,Serratia liquefaciens,2.08
+b75f07f3-3393-4c70-9c05-1ba56d4822fb,( ++ ),( B ),Streptococcus pneumoniae,2.28,Streptococcus pneumoniae,2.25
+c184165b-bcfa-420e-a133-d3629d4a2f61,( ++ ),( A ),Lactobacillus gasseri,2.15,Lactobacillus gasseri,2.14
+cef50b6c-a908-4bb7-9b45-d9cd637b3eb8,( ++ ),( A ),Streptococcus equinus,2.12,Streptococcus alactolyticus,1.95
+e2944974-79cf-4457-b042-f56a42fb717c,( +++ ),( A ),Staphylococcus aureus,2.4,Staphylococcus aureus,2.37
+ecdb5853-4b88-4056-9e22-782a17d2f6f9,( + ),( B ),Alloscardovia omnicolens,1.87,Alloscardovia omnicolens,1.77
+1a939d08-a6ad-4c61-bf12-f7eb350b00e8,( +++ ),( C ),MIX!Lelliottia amnigena,2.35,Enterobacter kobei,2.13
+6c331d0d-6021-4cf2-bb28-91945533a7ca,( ++ ),( B ),Streptococcus equinus,2.27,Streptococcus lutetiensis,2.06
+70e40325-bcba-4325-8148-dc5dc87ff254,( ++ ),( B ),Klebsiella pneumoniae,2.17,Klebsiella pneumoniae,2.15
+853a7d65-7979-4653-9717-063282fa71f8,( + ),( B ),Streptococcus equinus,1.95,Streptococcus alactolyticus,1.87
+8da32ff0-1a49-4c3c-b2fd-250ca4491375,( +++ ),( A ),Klebsiella pneumoniae,2.32,Klebsiella pneumoniae,2.18
+24323c05-9b4f-47a9-ba60-65057c1fb3ef,( + ),( B ),Corynebacterium tuberculostearicum,1.85,not reliable identification,1.66
+36596411-4381-440f-b4cd-4302ad38b46e,( +++ ),( A ),Bacteroides thetaiotaomicron,2.4,Bacteroides thetaiotaomicron,2.21
+7952a22e-af53-4219-bea7-e2cc0b44ec97,( - ),( C ),not reliable identification,1.39,not reliable identification,1.36
+2070aa2a-9299-42a4-8825-069ebf4f6e9d,( + ),( B ),Lactobacillus crispatus,1.83,Lactobacillus crispatus,1.82
+29fdc599-f928-44df-98d8-37fed893905d,( ++ ),( A ),Streptococcus anginosus,2.14,Streptococcus anginosus,2.11
+2cb7f000-a418-4fcc-91da-6858d3c5ee5c,( + ),( B ),Lactobacillus delbrueckii,1.96,Lactobacillus delbrueckii,1.93
+3a43081e-5f04-41b8-945a-1bdc67628842,( ++ ),( A ),Gardnerella vaginalis,2.28,Gardnerella vaginalis,2.26
+4a17c19e-066e-41b2-849b-536aa4a917c6,( ++ ),( A ),Streptococcus anginosus,2.23,Streptococcus anginosus,2.2
+c994bc74-a1b1-447f-bf4d-09348fa6a173,( - ),( C ),not reliable identification,1.31,not reliable identification,1.31
+2137a3c4-e685-4385-ae85-1bfcf473d762,( - ),( C ),not reliable identification,1.67,not reliable identification,1.59
+a7de8ffb-b27c-4c32-819e-b38a6d445129,( ++ ),( B ),Acinetobacter nosocomialis,2.23,Acinetobacter nosocomialis,2.21
+acb21029-2295-4e06-a2bf-3357228cbd8f,( +++ ),( A ),Micrococcus luteus,2.37,Micrococcus luteus,2.13
+08014838-3d9c-4337-a761-fd03c76e33f8,( + ),( B ),Staphylococcus epidermidis,1.94,Staphylococcus epidermidis,1.91
+5b6fa267-7207-4504-ba18-0d6a616e6802,( ++ ),( A ),Staphylococcus epidermidis,2.14,Staphylococcus epidermidis,2.08
+aab80993-d9d5-418f-83a9-054129ef1490,( - ),( C ),not reliable identification,1.48,not reliable identification,1.43
+323750b9-92eb-4779-81e4-d9a6a4731927,( - ),( C ),no peaks found,< 0 no peaks found,< 0 ,
+5c57667d-3ea3-4b99-8487-69ca4e8f9ea9,( - ),( C ),not reliable identification,1.31,not reliable identification,1.31
+bb5e183b-bd37-4991-a564-4fb2b8380831,( ++ ),( A ),Staphylococcus epidermidis,2.08,Staphylococcus epidermidis,2.07
+cac30501-0bed-42ca-b0d1-690cd49a3b4a,( ++ ),( A ),Facklamia hominis,2.26,Facklamia hominis,2.21
+e39411f5-ff74-4bd7-a50a-bd8720b9d07f,( +++ ),( B ),Klebsiella pneumoniae,2.38,Klebsiella pneumoniae,2.35
+eff8794c-58cc-4d88-af85-7852037938d4,( ++ ),( A ),Streptococcus anginosus,2.28,Streptococcus anginosus,2.23
+f3a5933d-724f-4d50-9c22-855618834706,( - ),( C ),not reliable identification,1.26,not reliable identification,1.25
+05e0c5dc-9cda-4f71-b063-70cc1e6a39cd,( ++ ),( A ),Streptococcus agalactiae,2.23,Streptococcus agalactiae,2.17
+1465ab9a-590b-4c14-9664-7ac3fdb79e4c,( +++ ),( A ),Pseudomonas aeruginosa,2.39,Pseudomonas aeruginosa,2.33
+4b01952c-b327-4688-9e8f-bf1d56ce8c9c,( +++ ),( A ),Morganella morganii,2.37,Morganella morganii,2.34
+62bc27ee-3b0e-40c3-9107-010e7e8d9600,( ++ ),( A ),Lactobacillus jensenii,2.15,Lactobacillus jensenii,2.05
+6d4551ff-5c40-4bc7-b315-69be99fee8c4,( +++ ),( A ),MIX!Enterococcus faecalis,2.42,Enterococcus faecalis,2.28
+a510353c-b587-444f-ad9c-f29b1398e8fc,( ++ ),( A ),Lactobacillus delbrueckii,2.24,Lactobacillus delbrueckii,2.18
+d8c5bea8-d962-465f-9c41-49df794cfa0a,( +++ ),( A ),Gardnerella vaginalis,2.39,Gardnerella vaginalis,2.38
+f57dfc35-9d0f-480e-8da9-bf02d303781f,( ++ ),( A ),Aerococcus urinae,2,Aerococcus urinae,1.87
+f66f3e38-a5dc-4723-ad8a-6c9dfe589382,( ++ ),( A ),Lactobacillus jensenii,2.07,Lactobacillus jensenii,2.07
+f941bc5c-b4fc-4dad-9133-0661e41d6e6f,( - ),( C ),not reliable identification,1.24,not reliable identification,1.15
+0e88d538-e4ad-43f4-9d86-c4118f9fa6cf,( +++ ),( A ),Rhizobium radiobacter,2.33,Rhizobium radiobacter,2.21
+140f91fd-1e62-444b-911d-8d1eab535dcc,( ++ ),( A ),Staphylococcus hominis,2.28,Staphylococcus hominis,2.21
+14be9db6-37cc-42ad-92a9-7cff8da3a875,( ++ ),( A ),Staphylococcus epidermidis,2.05,Staphylococcus epidermidis,2.04
+3e23ed85-65f9-4a69-90c9-d2ff9b89690f,( +++ ),( A ),Pseudomonas aeruginosa,2.39,Pseudomonas aeruginosa,2.27
+701d2461-16ca-40f9-895a-36344bf8cbb4,( +++ ),( A ),Enterococcus faecium,2.47,Enterococcus faecium,2.37
+9a2320dd-bc63-4a9d-949d-a257bdbc74cb,( +++ ),( A ),Serratia marcescens,2.32,Serratia marcescens,2.23
+afa6271b-c9f3-4c1a-b1c9-f410b1951152,( ++ ),( A ),Staphylococcus epidermidis,2.03,Staphylococcus epidermidis,2.03
+bab5dd31-2e24-4e8a-b953-4fc201398a62,( ++ ),( B ),Streptococcus salivarius,2.21,Streptococcus vestibularis,2.16
+bd66e812-b5c2-4399-b038-86d4dbe7c97a,( +++ ),( C ),Klebsiella oxytoca,2.36,Klebsiella oxytoca,2.33
+c8dda013-ca37-44d9-84d3-06fc3261daa0,( ++ ),( A ),Serratia marcescens,2.15,Serratia marcescens,2.04
+ce8c7f9a-f951-4eae-950a-5694132b8709,( ++ ),( A ),Corynebacterium kroppenstedtii,2.14,Corynebacterium kroppenstedtii,2.02
+daa5be4d-0096-40ed-af8e-e87d60c1f178,( ++ ),( A ),Staphylococcus epidermidis,2.06,Staphylococcus epidermidis,2.03
+df1d5bd2-489c-4810-9e10-cf6bf9e75821,( +++ ),( B ),Proteus vulgaris,2.36,Proteus vulgaris,2.34
+f839f199-4206-49f9-852e-67b00d9b72c2,( ++ ),( A ),Rhizobium radiobacter,2.26,Rhizobium radiobacter,2.1
+1e34ee31-36fd-4b92-b81d-03f35174d784,( ++ ),( A ),Staphylococcus epidermidis,2.08,Staphylococcus epidermidis,2.04
+20211374-1b75-461a-b6bb-04b5ff5c41f2,( + ),( B ),Streptococcus anginosus,1.85,Streptococcus anginosus,1.85
+239f43e1-1b9e-4207-9705-662007eeeb97,( ++ ),( A ),Escherichia coli,2.1,Escherichia coli,2.02
+2a5c70bd-90dc-4cf3-bbd5-f31a7fbe4dee,( +++ ),( B ),Citrobacter freundii,2.34,Citrobacter freundii,2.24
+3953a4e4-72b2-459f-b377-567880a0daf6,( - ),( C ),not reliable identification,1.59,not reliable identification,1.57
+46ea1beb-d56e-4140-8f2d-1f04c9a521c5,( +++ ),( A ),Proteus mirabilis,2.32,Proteus mirabilis,2.24
+49976440-4242-4bb3-aa33-e16baeb5bc38,( +++ ),( A ),Serratia marcescens,2.34,Serratia marcescens,2.31
+4e0cdb21-42d9-4e68-91ae-473adb4ced3b,( +++ ),( A ),Enterococcus faecium,2.53,Enterococcus faecium,2.42
+54723ddc-399a-4520-b926-6965d9d7e730,( +++ ),( B ),Klebsiella pneumoniae,2.44,Klebsiella pneumoniae,2.3
+69a362fc-3016-47f2-92fd-6b3a187d7b0c,( ++ ),( A ),Staphylococcus hominis,2.24,Staphylococcus hominis,2.22
+6d744423-8690-412b-8a72-952fced39db4,( +++ ),( A ),Pseudomonas aeruginosa,2.41,Pseudomonas aeruginosa,2.3
+6e18a225-3b9b-43c7-b2b1-c108f3dea3e5,( ++ ),( A ),Staphylococcus epidermidis,2.08,Staphylococcus epidermidis,1.91
+700d8205-1b82-482d-ab2f-0e414740c642,( +++ ),( A ),Enterococcus faecium,2.36,Enterococcus faecium,2.31
+759427ab-bf84-480e-8970-1e8a54250303,( - ),( C ),not reliable identification,1.61,not reliable identification,1.49
+7f91aa9e-24e4-4666-a5a6-b10f529da3a6,( ++ ),( A ),Staphylococcus epidermidis,2.16,Staphylococcus epidermidis,1.87
+873b72b1-cabb-4ff1-bd90-e04c34b14178,( +++ ),( A ),Enterococcus faecium,2.33,Enterococcus faecium,2.28
+8cb0cc19-a133-4041-b804-7fcd46b54a95,( - ),( C ),not reliable identification,1.39,not reliable identification,1.35
+9254489f-85a6-4f51-a7b2-5b196f2905f0,( +++ ),( A ),Enterococcus faecium,2.51,Enterococcus faecium,2.35
+aa3417a6-9845-4b70-883f-bfa10e3bf6cd,( +++ ),( A ),Enterococcus faecium,2.43,Enterococcus faecium,2.26
+c7969516-ecd1-4797-8294-b27fbac69a55,( +++ ),( A ),Streptococcus anginosus,2.3,Streptococcus anginosus,2.14
+d576d39b-5171-45c0-a622-3665ba4be752,( +++ ),( A ),Proteus mirabilis,2.36,Proteus mirabilis,2.27
+dc9f31ae-71df-4063-b603-1689fdeb1f49,( ++ ),( A ),Streptococcus anginosus,2.09,Streptococcus anginosus,2.05
+e2e01fd5-72d0-4b2a-82b8-c656358ca76f,( ++ ),( A ),Staphylococcus epidermidis,2.2,Staphylococcus epidermidis,1.99
+e923fb42-1183-4366-b7b8-c044fa600eac,( ++ ),( A ),Staphylococcus epidermidis,2.12,Staphylococcus epidermidis,2.02
+eada8110-e12b-4af2-a6e1-4e23ec7e733b,( ++ ),( A ),Staphylococcus epidermidis,2,Staphylococcus epidermidis,1.84
+ec4be27e-1bc3-4ed5-8cc7-36e01e844ea3,( ++ ),( A ),Streptococcus anginosus,2.25,Streptococcus anginosus,2.2
+ef6b313a-bd95-459d-8d75-30cbf14427cc,( + ),( B ),Staphylococcus haemolyticus,1.78,Staphylococcus haemolyticus,1.71
+f24b71a6-39e1-4243-b101-9ec944ac416f,( ++ ),( B ),Citrobacter koseri,2.29,Citrobacter koseri,2.27
+f2b46f8b-a71b-4312-9efd-0304da559689,( ++ ),( A ),Staphylococcus epidermidis,2.17,Staphylococcus epidermidis,2.02
+f501f635-c20d-45b6-85e6-3d954f9572a9,( + ),( B ),Lactobacillus jensenii,1.97,Lactobacillus jensenii,1.97
+f6b42fbd-39a9-42c3-9f1b-994978551c4c,( +++ ),( A ),Staphylococcus aureus,2.31,Staphylococcus aureus,2.22
+f6efdaa4-7818-4632-ae23-8815cd94f1da,( +++ ),( B ),Klebsiella pneumoniae,2.39,Klebsiella pneumoniae,2.38
+fb266e93-3e59-46cd-b2a5-1d5c016c1026,( ++ ),( A ),Enterococcus faecium,2.06,Enterococcus faecium,2
+ffde00d5-7810-492c-91a1-5ff5c46edcd1,( +++ ),( B ),Citrobacter freundii,2.32,Citrobacter freundii,2.22
+19af2799-53eb-46cd-89b2-59cbee7f9345,( +++ ),( A ),Escherichia coli,2.39,Escherichia coli,2.33
+90e3aa85-d3f7-4a92-9224-67c46b10ed3e,( +++ ),( A ),Escherichia coli,2.33,Escherichia coli,2.32
+958f09e9-dc39-413a-8ef3-950789d9db16,( +++ ),( A ),Escherichia coli,2.32,Escherichia coli,2.3
+aed5c652-92ec-4251-89cc-c93238304806,( - ),( C ),not reliable identification,1.34,not reliable identification,1.32
+0ed8eeea-4504-4d86-96ea-39692d7c3178,( + ),( B ),Escherichia coli,1.98,Escherichia coli,1.87
+44bbd602-741e-4e4c-a36c-5c1a70ba0d83,( - ),( C ),not reliable identification,1.18,not reliable identification,1.07
+7e865e04-d694-4082-b944-9b8d2f16f461,( +++ ),( A ),Sutterella wadsworthensis,2.4,Sutterella wadsworthensis,2.38
+ce44f533-a88a-4c58-b270-1bb169a5db26,( +++ ),( A ),MIX!Bacteroides fragilis,2.5,Bacteroides fragilis,2.41
+e7258bf7-895c-4a5f-a85c-8873f6d8c54b,( +++ ),( A ),Sutterella wadsworthensis,2.33,Sutterella wadsworthensis,2.31
+234102e3-a639-4144-bf9c-91100ecf9dfd,( - ),( C ),no peaks found,< 0 no peaks found,< 0 ,
+daddd636-1c0e-4039-81b5-807fc4f73f60,( ++ ),( A ),Staphylococcus aureus,2.22,Staphylococcus aureus,2.18
+e7559a2d-0aa4-4df5-bfdf-bc35a20d8b3c,( +++ ),( A ),Corynebacterium amycolatum,2.36,Corynebacterium amycolatum,2.15
+05572b71-3700-4871-9641-6499d11c022a,( +++ ),( A ),Streptococcus intermedius,2.39,Streptococcus intermedius,2.19
+05572b71-3700-4871-9641-6499d11c022a,( ++ ),( A ),Streptococcus intermedius,2.25,Streptococcus intermedius,2.19
+06f66505-ce22-49b7-8c40-2d1728f21aa8,( ++ ),( A ),Propionibacterium avidum,2.22,Propionibacterium avidum,2.06
+06f66505-ce22-49b7-8c40-2d1728f21aa8,( ++ ),( B ),Propionibacterium avidum,2.22,Propionibacterium avidum,2.1
+0dff411d-6dc0-49ed-92b4-5687ec5f4da1,( +++ ),( B ),Streptococcus mitis,2.3,Streptococcus mitis,2.25
+0dff411d-6dc0-49ed-92b4-5687ec5f4da1,( ++ ),( B ),Streptococcus mitis,2.13,Streptococcus mitis,2.05
+2664a7d0-f3a6-45cd-bd46-a22af88d83ff,( + ),( B ),Actinomyces odontolyticus,1.96,Actinomyces odontolyticus,1.95
+2664a7d0-f3a6-45cd-bd46-a22af88d83ff,( + ),( B ),Actinomyces odontolyticus,1.89,Actinomyces odontolyticus,1.82
+3424a513-e188-46c4-bbcd-ceff8f011c58,( ++ ),( A ),Staphylococcus epidermidis,2.11,Staphylococcus epidermidis,2.1
+3424a513-e188-46c4-bbcd-ceff8f011c58,( ++ ),( A ),MIX!Staphylococcus epidermidis,2.23,Staphylococcus epidermidis,2.11
+544c42c0-9891-497b-b4f0-777d4e476bda,( ++ ),( A ),Staphylococcus epidermidis,2.09,Staphylococcus epidermidis,2.02
+544c42c0-9891-497b-b4f0-777d4e476bda,( ++ ),( A ),Staphylococcus epidermidis,2.11,Staphylococcus epidermidis,2.09
+83538eef-ce5a-4ce9-acba-f84418147556,( ++ ),( B ),Streptococcus mitis,2.2,Streptococcus mitis,2.16
+83538eef-ce5a-4ce9-acba-f84418147556,( ++ ),( B ),Streptococcus mitis,2.18,Streptococcus mitis,2.16
+8637cd9b-9073-41af-bb8d-f2d46deeb836,( + ),( B ),Streptococcus intermedius,1.81,not reliable identification,1.67
+8637cd9b-9073-41af-bb8d-f2d46deeb836,( + ),( B ),Streptococcus intermedius,1.92,Streptococcus intermedius,1.89
+a51e93c1-e83b-49e9-b1b9-5b2534f43a41,( - ),( C ),not reliable identification,1.19,not reliable identification,1.15
+a51e93c1-e83b-49e9-b1b9-5b2534f43a41,( - ),( C ),not reliable identification,1.29,not reliable identification,1.15
+ad3e9791-fbd6-48ae-971e-a30a60887348,( - ),( C ),not reliable identification,1.61,not reliable identification,1.57
+ad3e9791-fbd6-48ae-971e-a30a60887348,( - ),( C ),not reliable identification,1.32,not reliable identification,1.27
+01983613-521d-49ac-a195-0c77d6720dd0,( ++ ),( B ),Enterobacter cloacae,2.11,Enterobacter kobei,2
+6dc7d47d-1c09-4064-9daa-60038479ddf5,( +++ ),( A ),Escherichia coli,2.55,Escherichia coli,2.38
+8670d8a3-af45-4de2-9e86-5de36b586f5d,( ++ ),( B ),Enterobacter cloacae,2.14,Enterobacter cloacae,2.07
+8c59b187-0748-4b43-a39e-990e839ecd14,( ++ ),( A ),Aeromonas veronii,2,Aeromonas jandaei,1.93
+c7d80199-552e-48ef-9dbc-428d16cfc678,( +++ ),( A ),Escherichia coli,2.44,Escherichia coli,2.33
+c87b980a-443f-4515-84cc-4bbe9e54a0cb,( +++ ),( A ),Escherichia coli,2.63,Escherichia coli,2.34
+ce4009d4-938b-4389-a816-1060843faea9,( +++ ),( A ),Escherichia coli,2.46,Escherichia coli,2.38
+d94b5db3-04d2-4e98-b993-d26eb0806aff,( ++ ),( B ),Aeromonas ichthiosmia,2.02,Aeromonas veronii,2.01
+2c300443-6071-458e-97dd-30baa0068a5e,( + ),( B ),Fusobacterium nucleatum,1.82,Fusobacterium naviforme,1.81
+2d85d944-fe89-4235-a974-76142287e059,( +++ ),( A ),Streptococcus intermedius,2.35,Streptococcus intermedius,2.29
+32f3a716-4c48-4bae-a046-9516a0e42f2e,( ++ ),( A ),Prevotella denticola,2.1,Prevotella denticola,2.09
+59b894a8-2adf-41b7-9005-55a56845f708,( ++ ),( A ),Candida glabrata,2,Candida glabrata,1.99
+5ea050f1-72cd-44a5-a2f5-af56639ff36f,( +++ ),( C ),MIX!Bacteroides thetaiotaomicron,2.61,Bacteroides thetaiotaomicron,2.56
+83f8e576-3109-4526-869e-66c9650ba22b,( - ),( C ),no peaks found,< 0 no peaks found,< 0 ,
+84d93abc-74b4-4789-8cd9-95cd83e1caf2,( +++ ),( A ),Prevotella denticola,2.35,Prevotella denticola,2.33
+8ada9a62-e753-4160-93f2-6c893380f902,( +++ ),( A ),MIX!Fusobacterium nucleatum,2.38,Fusobacterium nucleatum,1.96
+9417f797-c1d0-43f9-9c80-d37134b6882b,( ++ ),( A ),Prevotella oris,2.22,Prevotella oris,2.09
+94a2e777-6d21-497e-8f00-f89c713b5032,( + ),( B ),Eggerthella lenta,1.77,Eggerthella lenta,1.72
+a5fd96b9-2ebd-4d92-94e9-302b03ee4806,( ++ ),( A ),Clostridium innocuum,2.07,Clostridium innocuum,1.94
+a6afa793-a2d1-4c62-be2a-b8f3999e1e3c,( + ),( B ),Eggerthella lenta,1.92,Eggerthella lenta,1.88
+b631dafc-c8e8-4d71-b106-8869abc50704,( +++ ),( A ),MIX!Veillonella parvula,2.61,Veillonella parvula,2.45
+be6c2e3b-79d8-46ae-a9ea-ca74c7bf25b5,( ++ ),( A ),Candida glabrata,2.21,Candida glabrata,2.19
+c085ee1c-fa05-422a-856d-495bdb821962,( +++ ),( A ),Prevotella oris,2.37,Prevotella oris,2.21
+c835176a-0f25-4f55-92dd-9ed02bfd4f6b,( +++ ),( A ),Bacteroides thetaiotaomicron,2.39,Bacteroides thetaiotaomicron,2.27
+cabcf5b1-d36f-4411-9477-681c30dedc2c,( ++ ),( A ),Veillonella atypica,2.2,Veillonella atypica,2.15
+d5d95806-f21d-46e8-abd5-a869445196b2,( +++ ),( A ),Clostridium difficile,2.36,Clostridium difficile,2.25
+ebea6593-0b0f-4180-bb59-bb2d80a0d34f,( +++ ),( A ),Veillonella parvula,2.41,Veillonella parvula,2.33
+fc5ee4dc-0b8c-4415-ada6-da66383ad119,( +++ ),( A ),Prevotella denticola,2.39,Prevotella denticola,2.32
+07fef2d2-de42-46c0-8ef6-d8545d0c9ca9,( +++ ),( A ),Morganella morganii,2.47,Morganella morganii,2.41
+143cf799-6627-464b-b105-329e158eb089,( ++ ),( A ),Streptococcus agalactiae,2.29,Streptococcus agalactiae,2.28
+2ab66940-756b-49ba-97da-5ae6143055d6,( +++ ),( A ),Escherichia coli,2.4,Escherichia coli,2.36
+49606666-0be4-4f17-9708-493cb97699c4,( +++ ),( A ),Escherichia coli,2.43,Escherichia coli,2.28
+4face3cc-88db-43f8-8ec8-8248b59403f9,( +++ ),( A ),Streptococcus agalactiae,2.35,Streptococcus agalactiae,2.32
+58de842e-33e5-4f74-8b71-de4b98faf007,( +++ ),( A ),Staphylococcus hominis,2.31,Staphylococcus hominis,2.19
+8dbef60d-34ca-4df9-a4fa-9f2832d899e2,( +++ ),( A ),Micrococcus luteus,2.31,Micrococcus luteus,2.2
+a1390a0c-9edc-45a6-b6db-0e16b090195e,( +++ ),( A ),Enterococcus faecium,2.35,Enterococcus faecium,2.24
+aff76939-d46d-4a2c-ac27-496b303b5009,( +++ ),( A ),Escherichia coli,2.39,Escherichia coli,2.37
+b3dff205-a107-43eb-b380-d87f1c1229f2,( +++ ),( A ),Enterococcus faecium,2.42,Enterococcus faecium,2.32
+c4070fb1-c939-45f1-8623-c9d23d7bd1e6,( - ),( C ),not reliable identification,1.61,not reliable identification,1.31
+d4e3d962-daa2-4ed2-ad88-e4ddd8a35bac,( ++ ),( A ),Escherichia coli,2.28,Escherichia coli,2.27
+e9b85bf5-b71e-460f-a63e-5397174de63d,( ++ ),( A ),Streptococcus sanguinis,2.03,Streptococcus sanguinis,1.98
+f5f2ea06-9609-4eb8-bdbd-0ab0fab51955,( +++ ),( A ),Enterococcus faecium,2.48,Enterococcus faecium,2.37
+c637d01c-e095-4b95-a841-dbb7e3541846,( - ),( C ),not reliable identification,1.67,not reliable identification,1.63
+0df96321-3268-48e7-af54-cce63af296a6,( +++ ),( A ),Pseudomonas aeruginosa,2.47,Pseudomonas aeruginosa,2.45
+e7fa7191-e291-4fd8-9caf-71913fdc1d2a,( +++ ),( A ),Proteus mirabilis,2.48,Proteus mirabilis,2.44
+ede1dc5e-24f2-4ed3-b479-9f8d6b0d4fca,( +++ ),( A ),MIX!Haemophilus parainfluenzae,2.4,Haemophilus parainfluenzae,2.28
+0431b019-5c26-42ee-aaea-6bdf3413a923,( ++ ),( A ),Bacteroides fragilis,2.03,Bacteroides fragilis,2
+046c97fc-0842-417d-ab1f-9d52cb4f44ec,( + ),( B ),Corynebacterium tuberculostearicum,1.79,not reliable identification,1.69
+05fb355c-f367-4e8d-a4d9-b41f07e935e6,( +++ ),( C ),MIX!Gemella morbillorum,2.56,Gemella morbillorum,2.53
+0fc9cbbe-6be4-45fe-9743-c9df55d447d1,( +++ ),( A ),Bacteroides uniformis,2.42,Bacteroides uniformis,2.38
+48adf80a-0c42-4930-ab2f-1c02f59543b5,( ++ ),( A ),Propionibacterium acnes,2.19,Propionibacterium acnes,2.07
+4bdb551f-d268-4ba2-bddf-d4bdb90c7db2,( - ),( C ),not reliable identification,1.47,not reliable identification,1.42
+5c634a2c-a298-44cc-bc49-7e646bf3e331,( ++ ),( A ),Propionibacterium acnes,2.24,Propionibacterium acnes,2.18
+67b87aa3-6b0d-4ac9-9db2-c3c3f63e4ce5,( + ),( B ),Propionibacterium acnes,1.94,Propionibacterium acnes,1.84
+69ad3d37-ee55-47f9-9893-be6b3c25966c,( ++ ),( A ),Finegoldia magna,2.02,Finegoldia magna,1.81
+8673355d-631f-409e-88d9-b63c561a85f8,( ++ ),( A ),Propionibacterium acnes,2.06,Propionibacterium acnes,2.04
+9c3c72d1-4e92-4f79-bada-6b6b5bbee9a4,( + ),( B ),Propionibacterium acnes,1.82,Propionibacterium acnes,1.78
+cf66854d-d649-42fc-b335-c5b6deb67e35,( ++ ),( A ),Propionibacterium acnes,2.15,Propionibacterium acnes,2.11
+d53e185c-a56c-47e1-9e50-4edf602e3df9,( - ),( C ),no peaks found,< 0 no peaks found,< 0 ,
+e0e39678-094a-4124-a45b-51dea2b2d6c6,( +++ ),( A ),Actinomyces neuii,2.35,Actinomyces neuii,2.31
+e99510cf-cfe6-45bf-8e0c-ed952ee38068,( ++ ),( A ),Propionibacterium acnes,2.12,Propionibacterium acnes,2.11
+ef6834dc-140e-410c-9472-e7d153a11775,( - ),( C ),not reliable identification,1.69,not reliable identification,1.68
+f4cda40b-22a9-48ef-9753-07ee66600c6c,( ++ ),( A ),Bacteroides fragilis,2.11,Bacteroides fragilis,2.09
+c1b71291-2d16-47dd-9c93-b5aae38fdec8,( - ),( C ),not reliable identification,1.3,not reliable identification,1.14
+cb5199ed-6255-4152-9ec3-c85e7651f27b,( - ),( C ),not reliable identification,1.3,not reliable identification,1.22
+fc584638-fb04-4552-9ea4-8d19058b3245,( ++ ),( A ),Bacteroides thetaiotaomicron,2.07,Bacteroides thetaiotaomicron,2.04
+72a3ca41-f20c-4147-a846-72992b32d020,( - ),( C ),not reliable identification,1.32,not reliable identification,1.32
+49eceea6-f184-4ed2-9cf6-e6d411c47f85,( +++ ),( A ),Staphylococcus aureus,2.37,Staphylococcus aureus,2.31
+6cfaa44d-5fc9-44df-afca-84b098b460ea,( ++ ),( A ),Staphylococcus capitis,2.05,Staphylococcus capitis,2.03
+7c53e83e-8693-49e1-9580-a8399e58f5b4,( + ),( B ),Staphylococcus epidermidis,1.99,Staphylococcus epidermidis,1.9
+dc1ee928-593b-471e-bf72-4a379bf53907,( - ),( C ),not reliable identification,1.33,not reliable identification,1.27
+3a4c9a6f-ef66-4c25-90c9-4531e3849664,( +++ ),( B ),Streptococcus canis,2.38,Streptococcus canis,2.33
+5617a041-065f-4759-a21d-a95139d065e5,( + ),( B ),Corynebacterium tuberculostearicum,1.88,Corynebacterium tuberculostearicum,1.71
+6aa5e64a-f2d7-492d-8f3c-61dc653022af,( ++ ),( A ),Enterococcus faecalis,2.28,Enterococcus faecalis,2.19
+6e275f20-1eb8-4134-8297-ceb0958242f8,( + ),( B ),Streptococcus agalactiae,1.98,Streptococcus agalactiae,1.97
+73921d14-c328-4e4e-a623-12dbd10645cf,( +++ ),( A ),Neisseria gonorrhoeae,2.36,Neisseria gonorrhoeae,2.34
+b37be0e0-80a2-4f4b-8f45-03e5e1caf31c,( ++ ),( A ),Streptococcus salivarius,2.05,Streptococcus salivarius,2
+d2e0aa4b-1d86-4868-b1eb-8d0b9c2d9c82,( ++ ),( B ),Streptococcus vestibularis,2.21,Streptococcus salivarius,2.16
+e0bb56cd-f0e0-431f-b729-2ad3c1b3c7b3,( +++ ),( A ),Enterococcus faecalis,2.39,Enterococcus faecalis,2.34
+13180037-06bb-4e5c-b238-be95388c2ad2,( ++ ),( A ),Streptococcus constellatus,2.15,Streptococcus constellatus,1.79
+14dd7acf-97ea-49b4-9e84-76e42241b51d,( +++ ),( C ),Klebsiella oxytoca,2.33,Klebsiella oxytoca,2.32
+1c132a6e-eed0-487c-9531-c72a9f38118f,( +++ ),( A ),Streptococcus intermedius,2.39,Streptococcus intermedius,2.37
+2929370b-83d1-4deb-8202-5c1f6f6f2bb0,( ++ ),( A ),Staphylococcus epidermidis,2.08,Staphylococcus epidermidis,2.06
+292f1f73-f7d1-47f4-931c-2e24635c8a99,( ++ ),( A ),Escherichia coli,2.29,Escherichia coli,2.2
+2dc6577f-2506-4c2c-b9a7-b0b5e3e0a7d0,( +++ ),( A ),Enterococcus faecalis,2.5,Enterococcus faecalis,2.43
+3c352dc8-7874-497f-ae1e-34678c104f8d,( ++ ),( A ),Escherichia coli,2.26,Escherichia coli,2.21
+462d93f0-3b50-4081-baff-f7ab5ef55e11,( ++ ),( A ),Actinomyces turicensis,2.11,Actinomyces turicensis,2.06
+4aae3579-00cf-4c02-926a-78db0161ca00,( - ),( C ),not reliable identification,1.47,not reliable identification,1.27
+6f0372d2-0ea2-43df-9a43-dad72774d6b9,( ++ ),( A ),Staphylococcus epidermidis,2.15,Staphylococcus epidermidis,2.06
+719dde4c-bc25-4054-992a-a911b2b858c5,( + ),( B ),Streptococcus parasanguinis,1.97,Streptococcus parasanguinis,1.96
+7334d043-777c-4fe2-8f2d-0d4180b35872,( +++ ),( A ),Escherichia coli,2.38,Escherichia coli,2.24
+b0c96569-5077-4374-88d5-fe5ee7d25027,( ++ ),( A ),Gemella morbillorum,2,Gemella morbillorum,1.95
+bb5a0918-c35f-4ba4-aa06-ac77891115b7,( ++ ),( B ),Enterobacter cloacae,2.24,Enterobacter cloacae,2.18
+c05eb112-c5fa-4c2a-8f2b-0a601365f1c9,( + ),( B ),Streptococcus vestibularis,1.94,Streptococcus vestibularis,1.9
+c6e7d6ce-1924-4e3b-ae85-10bae426e599,( ++ ),( B ),Streptococcus salivarius,2.18,Streptococcus salivarius,2.15
+c6f8197c-1acd-42c9-bcf4-aaadbed4446c,( +++ ),( A ),Streptococcus sanguinis,2.41,Streptococcus sanguinis,2.33
+e57e93e3-1037-435a-8eae-3cd86b49c76b,( ++ ),( A ),Candida albicans,2.06,Candida albicans,2
+f25aa877-4747-4ae6-9db8-e4cd272c5622,( ++ ),( A ),Streptococcus constellatus,2.09,Streptococcus constellatus,2.09
+f8946a44-7214-4fce-8f60-5a7ced348836,( ++ ),( A ),Streptococcus parasanguinis,2.14,Streptococcus parasanguinis,1.97
+f8fa1de4-0ef6-4c75-8adb-26f25dbd1dc2,( +++ ),( A ),Escherichia coli,2.32,Escherichia coli,2.32
+fc9dac94-5261-4ac4-abe0-76a70f104382,( +++ ),( A ),Escherichia coli,2.37,Escherichia coli,2.25
+094a9bb8-1f64-410b-a9d2-6843b07cd769,( - ),( C ),not reliable identification,1.5,not reliable identification,1.42
+12a538b9-2a38-43b9-b596-881b7e095876,( ++ ),( A ),Staphylococcus epidermidis,2.06,Staphylococcus epidermidis,1.9
+1168929d-9b0c-4aee-bc40-d940e3f4fc86,( ++ ),( A ),Propionibacterium acnes,2.22,Propionibacterium acnes,2.15
+13d79db4-87af-4ec7-a1ea-5a8f0d6df813,( - ),( C ),not reliable identification,1.45,not reliable identification,1.22
+27615917-202d-4c85-9c1e-f28b482f44f6,( - ),( C ),not reliable identification,1.19,not reliable identification,1.18
+27d2d63e-6ad3-4181-9456-5a2ff09c95fc,( ++ ),( A ),Finegoldia magna,2.19,Finegoldia magna,2.13
+2d193d98-482c-4dcb-8723-5e9fa1da1904,( +++ ),( A ),Parvimonas micra,2.4,Parvimonas micra,2.38
+3a55ee16-7b83-4754-8055-50077f8f4203,( ++ ),( A ),Anaerococcus vaginalis,2.16,Anaerococcus vaginalis,2.13
+3e98ed6e-c9c6-449b-bec6-bc794d39408e,( +++ ),( A ),Bacteroides fragilis,2.47,Bacteroides fragilis,2.44
+40bc9444-233a-4c61-b8dd-ba2ddbf6ee64,( ++ ),( A ),Eggerthella lenta,2.08,Eggerthella lenta,1.96
+47d22caa-6ebf-4972-ac34-ea546bd414f7,( ++ ),( A ),Bifidobacterium longum,2.13,Bifidobacterium longum,1.93
+61c27243-5788-41d8-bbc0-0e41f9e10158,( ++ ),( C ),Klebsiella oxytoca,2.26,Klebsiella oxytoca,2.19
+6479dae8-2600-4e6e-9208-cc2eb405309a,( + ),( B ),Porphyromonas somerae,1.91,Porphyromonas somerae,1.85
+65f19f85-c1ad-4117-8e30-cfc6dbcc1ed2,( +++ ),( A ),Bacteroides fragilis,2.45,Bacteroides fragilis,2.4
+6760eddd-b90e-41bc-9c68-7cfba38c13e7,( ++ ),( A ),Propionibacterium acnes,2.21,Propionibacterium acnes,2.19
+6edbe7c4-b595-4ed0-928c-e80f4c779d2a,( ++ ),( A ),Finegoldia magna,2.05,Finegoldia magna,1.99
+707fddae-4a7b-4cd5-9c83-a8c36b95acc8,( + ),( B ),Peptoniphilus harei,1.84,Peptoniphilus harei,1.7
+7a3c7948-8aeb-4f6c-858a-46f9ad756b2b,( +++ ),( A ),Peptoniphilus coxii,2.39,Peptoniphilus coxii,2.3
+8c2ad3f2-6f47-48ba-b7ce-ccc9e20e4a6b,( +++ ),( A ),Bacteroides fragilis,2.45,Bacteroides fragilis,2.43
+8de849fe-10ae-43ff-81be-f23dba36e1e8,( ++ ),( A ),Finegoldia magna,2.11,Finegoldia magna,2.07
+b104c7b5-f377-486d-b414-4c05906ef7cc,( + ),( B ),Finegoldia magna,1.98,Finegoldia magna,1.98
+b89f77e0-ca21-49dc-a1b0-073b88b68361,( ++ ),( A ),Finegoldia magna,2.07,Finegoldia magna,1.99
+c06ca792-fc63-45d7-aa22-d98106dcb875,( ++ ),( A ),Lactobacillus iners,2.07,not reliable identification,1.38
+e2c6ef10-d0c3-45ea-af5a-b5391f865797,( ++ ),( A ),Staphylococcus capitis,2.16,Staphylococcus capitis,2.04
+e3853cd5-c49f-4f79-83b1-50e2a5a543a2,( +++ ),( A ),Bacteroides fragilis,2.43,Bacteroides fragilis,2.41
+e909f76e-e6b1-45e4-a13a-cb9412ba9dd4,( - ),( C ),not reliable identification,1.24,not reliable identification,1.23
+03de7b90-d7e1-447d-b76d-121daa6ec7d5,( ++ ),( A ),Staphylococcus epidermidis,2.07,Staphylococcus epidermidis,1.83
+838fae2b-489f-4eea-b25a-50cec5187b17,( + ),( B ),Staphylococcus epidermidis,1.88,not reliable identification,1.61
+baeaf183-e717-406c-a4bb-a4a90cbb2146,( + ),( B ),Staphylococcus epidermidis,1.98,Staphylococcus epidermidis,1.82
+fa4e7910-64d3-44e9-889e-3118efb99ff5,( + ),( B ),Corynebacterium mucifaciens,1.87,Corynebacterium mucifaciens,1.87
+19c26560-5350-42b8-8925-1b3f7ae3738f,( ++ ),( A ),Staphylococcus epidermidis,2.04,Staphylococcus epidermidis,1.91
+27e88d6f-d7d4-48cf-9e1a-938913f0bf76,( +++ ),( A ),Gardnerella vaginalis,2.31,Gardnerella vaginalis,2.28
+2982253e-9452-4a48-9cda-555c0cf3bc66,( +++ ),( A ),MIX!Aggregatibacter actinomycetemcomitans,2.37,Aggregatibacter actinomycetemcomitans,1.98
+2d6ab1ad-b52f-4a4c-8501-80a415c788fc,( ++ ),( A ),Streptococcus parasanguinis,2.02,Streptococcus parasanguinis,1.87
+2fb1e210-4f8f-40d6-9a52-9df77d307208,( + ),( B ),Acinetobacter parvus,1.94,not reliable identification,1.57
+33b8a521-706a-4580-8fa2-dad4c0c41936,( +++ ),( A ),Enterococcus faecalis,2.3,Enterococcus faecalis,2.24
+5be78ec3-0060-4693-a040-184bad4e2080,( ++ ),( A ),Corynebacterium tuberculostearicum,2.05,Corynebacterium tuberculostearicum,1.97
+5cf9db61-84d7-4c73-8a0b-8c87d98430ff,( + ),( B ),Streptococcus pneumoniae,1.98,Streptococcus pneumoniae,1.95
+6a5e61d4-bbfb-4993-83a6-d49f40d1e5cb,( +++ ),( A ),Enterococcus faecium,2.43,Enterococcus faecium,2.38
+7f23733b-f84c-4731-b466-59e3f2f9114f,( +++ ),( A ),Streptococcus parasanguinis,2.38,Streptococcus parasanguinis,2.3
+84832aef-6589-4785-a65b-da7f2a4a45f3,( +++ ),( A ),Streptococcus parasanguinis,2.35,Streptococcus parasanguinis,2.35
+8c679597-9b13-45d6-9d6f-d5cf2aaf19fb,( - ),( C ),not reliable identification,1.68,not reliable identification,1.65
+94ef51a5-cc34-4cf1-93e9-6a56290402a8,( +++ ),( A ),Streptococcus intermedius,2.31,Streptococcus intermedius,2.27
+a3f220c1-13ac-40ee-a9da-d18db9188c30,( ++ ),( A ),Lactobacillus gasseri,2.29,Lactobacillus gasseri,2.24
+bd71c7d1-47a7-423f-a8ba-e3fb70e0b861,( ++ ),( A ),Gardnerella vaginalis,2.15,Gardnerella vaginalis,2.08
+c17cdc2c-d167-4963-bfd9-b2efb9f0814a,( +++ ),( A ),Enterococcus faecium,2.3,Enterococcus faecium,2.26
+cd2becb7-f7d4-42be-ae3a-be86b7fc8794,( +++ ),( A ),Enterococcus faecalis,2.4,Enterococcus faecalis,2.33
+d1061ed5-61e0-4efb-a484-d398abc6dc4b,( + ),( B ),Klebsiella pneumoniae,1.98,Klebsiella pneumoniae,1.79
+f091f5e4-83ff-423d-8de1-3bb5299fd433,( + ),( B ),Actinomyces turicensis,1.88,Actinomyces turicensis,1.75
+fdd3fb57-ee2f-463f-8cb1-7dcb32b76b26,( ++ ),( A ),Streptococcus anginosus,2.29,Streptococcus anginosus,2.23
+1e153851-5c1c-475f-a635-7132fa76f6f7,( ++ ),( A ),Eggerthella lenta,2.08,Eggerthella lenta,2.07
+248db2a5-5fc8-451d-b23f-becafcad5635,( ++ ),( A ),Streptococcus parasanguinis,2.28,Streptococcus parasanguinis,2.23
+2ede4cf2-8c95-466c-926e-58da3854a7bf,( ++ ),( A ),Sutterella wadsworthensis,2.28,Sutterella wadsworthensis,2.27
+3d11a6c3-aa33-4b69-9e7c-b83d31f1e0ce,( + ),( B ),Eggerthella lenta,1.85,not reliable identification,1.62
+53b64742-a616-42e8-b9b9-a7a072bfa5ff,( ++ ),( C ),Klebsiella pneumoniae,2.13,Klebsiella pneumoniae,2.06
+53bc1e66-5e3d-43b3-ac95-348fc7e45e04,( ++ ),( A ),Clostridium difficile,2.27,Clostridium difficile,2.1
+6114bbdd-7be5-4dcc-b567-4239efd162b5,( +++ ),( A ),Gardnerella vaginalis,2.35,Gardnerella vaginalis,2.34
+77e5ce7a-ad48-416a-ac01-5b4897c13a63,( ++ ),( A ),Escherichia coli,2.22,Escherichia coli,2.18
+99b36195-3059-420b-9837-b1d050e7b92e,( +++ ),( A ),Gardnerella vaginalis,2.43,Gardnerella vaginalis,2.3
+b9570d88-b17a-4943-af82-09c0a70216d9,( + ),( B ),Finegoldia magna,1.9,Finegoldia magna,1.84
+c6fd683e-dfb5-44fa-878f-11bb5e647779,( + ),( B ),Lactobacillus fermentum,1.93,Lactobacillus fermentum,1.88
+ca875c3c-ca9b-4784-a1de-6bee91cdc253,( ++ ),( A ),Staphylococcus epidermidis,2.07,Staphylococcus epidermidis,2.06
+d32de63b-0909-4cf6-a177-8f83fbb3b18b,( +++ ),( A ),Proteus mirabilis,2.5,Proteus mirabilis,2.45
+d6fea32f-e3d9-4b6c-8295-8b92e5d2e4a1,( +++ ),( C ),MIX!Staphylococcus lugdunensis,2.43,Staphylococcus lugdunensis,2.2
+e6394b5d-7959-4c31-8aca-667dd3f1ca1c,( ++ ),( A ),Prevotella amnii,2.14,Prevotella amnii,2.1
+ea7dcaea-f735-4d13-be30-f2e7cf8d5e58,( + ),( B ),Clostridium perfringens,1.84,Clostridium perfringens,1.83
+f01e63d9-85da-41c6-a81a-e79695388c4c,( - ),( C ),not reliable identification,1.63,not reliable identification,1.56
+f1ad9c8a-9b4f-4d83-83d5-2d89b291daaf,( +++ ),( A ),Sutterella wadsworthensis,2.37,Sutterella wadsworthensis,2.35
+f434de21-eea9-4683-ba42-82522aa604c9,( + ),( B ),Lactobacillus fermentum,1.93,Lactobacillus fermentum,1.89
+ffe60670-b517-4caf-8793-732d54f1b3a3,( ++ ),( A ),Lactobacillus fermentum,2.01,Lactobacillus fermentum,1.99
+3a171c8b-6cd7-4c31-96ef-cc8bca3d1df9,( + ),( B ),Staphylococcus capitis,1.87,Staphylococcus capitis,1.82
+c2722903-9b88-4da2-8a0e-b941bee64c48,( + ),( B ),Escherichia coli,1.91,Escherichia coli,1.82
+21b3536d-bce4-42cb-8fec-3ef1cfc32717,( +++ ),( A ),Morganella morganii,2.47,Morganella morganii,2.34
+31550a13-f9d8-4d39-a1f4-ad38706d291f,( +++ ),( A ),Morganella morganii,2.41,Morganella morganii,2.34
+392c56a0-1daf-405c-9c87-13a1af20b380,( ++ ),( B ),Enterobacter asburiae,2.21,Enterobacter kobei,2.15
+9691d07e-1e67-4c78-a49e-aa7c8f766536,( ++ ),( A ),Pseudomonas aeruginosa,2.26,Pseudomonas aeruginosa,2.26
+9ce2ca50-f0d4-4ebe-a2d7-7c25341fe920,( ++ ),( A ),Corynebacterium striatum,2.25,Corynebacterium striatum,2.17
+b8404268-0aed-4516-9538-2d4d08c431e7,( ++ ),( B ),Citrobacter freundii,2.27,Citrobacter freundii,2.27
+d329ab17-a711-484d-baa5-c816714ac34b,( +++ ),( C ),Enterobacter aerogenes,2.34,Enterobacter aerogenes,2.28
+de20b3b4-8b3d-484a-9fcc-1daaf2dba9b0,( ++ ),( A ),Escherichia coli,2.14,Escherichia coli,1.9
+e4e39682-3dea-4dcf-a992-d3374fa71d09,( ++ ),( A ),Providencia rettgeri,2.19,Providencia rettgeri,2.15
+4682c6ff-08d0-4733-8748-d2608ed7eb13,( ++ ),( A ),Corynebacterium amycolatum,2.25,Corynebacterium amycolatum,2.14
+699a29a2-80af-434f-bec9-fe4f8223c717,( ++ ),( B ),Escherichia coli,2.19,Escherichia coli,2.19
+a126f014-0b29-486c-96df-be55564469e0,( +++ ),( A ),Escherichia coli,2.32,Escherichia coli,2.26
+05388d1e-ef64-4b03-9178-5467e7b5c50d,( +++ ),( A ),Sutterella wadsworthensis,2.4,Sutterella wadsworthensis,2.37
+432242ae-848c-4659-8a6a-06538325e9e1,( ++ ),( A ),Finegoldia magna,2.07,Finegoldia magna,1.91
+494b8c95-1837-4d8e-ab1b-08dbb836f2cd,( ++ ),( A ),Clostridium perfringens,2.04,Clostridium perfringens,1.98
+8ec31ac6-b140-422f-acf0-2c3e58fa6ba5,( - ),( C ),not reliable identification,1.62,not reliable identification,1.53
+d51b36e4-05e4-45b0-9dc7-5a810e153be0,( +++ ),( A ),Sutterella wadsworthensis,2.48,Sutterella wadsworthensis,2.4
+06826716-9e5a-47ea-ade7-004c27c1a214,( ++ ),( A ),Staphylococcus capitis,2.1,Staphylococcus capitis,2.07
+5e05c3b1-47c4-488a-a801-e25a5a1ccbb4,( + ),( B ),Staphylococcus capitis,1.97,Staphylococcus capitis,1.89
+b316e5e8-b700-4000-8131-343faa2b5a13,( +++ ),( A ),Staphylococcus hominis,2.37,Staphylococcus hominis,2.36
+0c71a2e1-4b62-4707-90b5-b64439eb2a34,( ++ ),( A ),Gardnerella vaginalis,2,Gardnerella sp,1.76
+69dbda1f-692b-4fcd-9cd1-4bffc3775889,( ++ ),( A ),Streptococcus intermedius,2.13,Streptococcus intermedius,2.12
+7f3c23ec-e6e4-4b3c-a365-3b1a76a3e20d,( ++ ),( A ),Streptococcus constellatus,2.01,Streptococcus constellatus,1.95
+8d8d3e16-0026-41b8-a9ac-2387bc5858f4,( + ),( B ),Lactobacillus salivarius,1.91,not reliable identification,1.46
+ab3dbc9b-6a8f-4252-87e5-edfbcd18ae45,( + ),( B ),Gardnerella vaginalis,1.94,Gardnerella vaginalis,1.92
+affaf580-8d5c-42c9-868a-66f498bef222,( - ),( C ),not reliable identification,1.58,not reliable identification,1.37
+beb1bf5f-b395-4779-8730-7274091baedd,( ++ ),( A ),Gardnerella vaginalis,2.2,Gardnerella vaginalis,2.19
+def00f20-5f1f-4bf3-91a8-8267bab541f6,( ++ ),( A ),Streptococcus intermedius,2.02,Streptococcus intermedius,1.97
+1c355203-3186-48bd-bc0f-a502bdc96bf4,( ++ ),( A ),Gardnerella vaginalis,2.04,Gardnerella vaginalis,1.94
+30dfb7f0-209a-4b37-a485-c11ddf2f2604,( ++ ),( A ),Gardnerella vaginalis,2.26,Gardnerella vaginalis,2.25
+cd8fefde-13a5-458f-b361-430cdb3cae7c,( ++ ),( A ),Escherichia coli,2.28,Escherichia coli,2.23
+026089df-3efb-4349-9b8a-b2b87ef21187,( +++ ),( A ),Lactobacillus gasseri,2.33,Lactobacillus gasseri,2.33
+0c5f19ec-82d3-4ea7-8d35-195b1c39790f,( ++ ),( A ),Staphylococcus epidermidis,2.17,Staphylococcus epidermidis,2.01
+0e924727-c5c5-4e5f-8a65-f4355636bfd2,( ++ ),( B ),Streptococcus dysgalactiae,2.27,Streptococcus dysgalactiae,2.24
+163de485-6053-4c04-870d-d242de483ab8,( ++ ),( B ),Streptococcus oralis,2.21,Streptococcus oralis,2.19
+1c12047a-d455-404e-8885-b5a94c1e10c0,( - ),( C ),not reliable identification,1.34,not reliable identification,1.33
+1ef23f8d-3105-4a77-91ab-7bff93b060f4,( +++ ),( A ),Staphylococcus aureus,2.3,Staphylococcus aureus,2.27
+22d75b5a-f042-4ecd-b352-714847daf793,( + ),( B ),Corynebacterium mucifaciens,1.97,Corynebacterium ureicelerivorans,1.88
+23e764a9-bfad-4c83-997f-48eb9c85163c,( ++ ),( A ),Actinomyces turicensis,2.03,Actinomyces turicensis,1.87
+2cb8fa27-f1ca-4eee-9cee-742aa18b2bab,( +++ ),( A ),Proteus mirabilis,2.43,Proteus mirabilis,2.39
+34dd1b39-4493-4fcf-90ac-8b4ba43e6a53,( ++ ),( A ),Streptococcus salivarius,2.08,Streptococcus salivarius,2.08
+368142b8-ca33-4fc6-9bc5-246ec112f04d,( + ),( B ),Actinomyces odontolyticus,1.79,not reliable identification,1.69
+3ede29db-1e7e-4e8c-bc20-10f6bc035677,( +++ ),( A ),Staphylococcus aureus,2.4,Staphylococcus aureus,2.33
+46e54baf-b83c-4df5-aa63-e1fec5c10d81,( +++ ),( A ),Pseudomonas aeruginosa,2.48,Pseudomonas aeruginosa,2.44
+473a4467-8ba8-498a-b150-fbffb5cc1c6e,( ++ ),( A ),Staphylococcus epidermidis,2.21,Staphylococcus epidermidis,2.02
+4ef8be0b-5525-48b3-89f7-4ac2bc990b6b,( - ),( C ),not reliable identification,1.68,not reliable identification,1.62
+60d08c56-70af-45f5-ac9e-8e8ee677c76c,( ++ ),( B ),Enterobacter cloacae,2.28,Enterobacter cloacae,2.15
+61b7f070-16a6-4c7e-bd47-bae7f0bb25db,( +++ ),( B ),Lactobacillus gasseri,2.47,Lactobacillus gasseri,2.43
+66928b74-7f5b-4363-a15a-c637b2b94867,( ++ ),( A ),Enterobacter cloacae,2.29,Enterobacter cloacae,2.06
+6c0b9e95-e51d-4550-b440-cc2ac9f45562,( +++ ),( A ),Streptococcus agalactiae,2.35,Streptococcus agalactiae,2.34
+72692902-7c97-41f1-b5b3-80b0d2725b83,( +++ ),( B ),Enterobacter cloacae,2.4,Enterobacter cloacae,2.2
+7b59ca00-6f02-43e9-8a00-9a9d51ced679,( + ),( B ),Candida dubliniensis,1.98,Candida dubliniensis,1.83
+88761ab6-3e4d-47ac-8d49-bdd5e7b1c33a,( +++ ),( B ),Enterobacter cloacae,2.34,Enterobacter cloacae,2.22
+950d61dd-dd9c-4dd5-9c3d-2073da61be50,( ++ ),( A ),Streptococcus constellatus,2.26,Streptococcus constellatus,2.23
+ab2dc5b1-4ca4-421f-9432-af622a8e1926,( ++ ),( B ),Streptococcus oralis,2.25,Streptococcus oralis,2.22
+adae892a-26c3-4a33-a998-4e5733d0befc,( ++ ),( A ),Staphylococcus equorum,2.2,Staphylococcus equorum,1.86
+ae2a1d88-9655-4e11-8aeb-8df58fdf028a,( +++ ),( B ),MIX!Enterobacter cloacae,2.46,Enterobacter cloacae,2.36
+b6f99031-bfac-4ad0-976e-e353eb3d8678,( +++ ),( A ),Streptococcus intermedius,2.42,Streptococcus intermedius,2.38
+bda551bb-916c-4612-8d5f-58b1c0bd68f0,( ++ ),( A ),Lactobacillus gasseri,2.26,Lactobacillus gasseri,2.23
+bddc345e-e8a8-44c0-a0e7-667dd8a53e49,( ++ ),( A ),Acinetobacter parvus,2.14,not reliable identification,1.69
+c31085a8-0f09-48de-8926-881047d8e07b,( +++ ),( A ),Streptococcus intermedius,2.38,Streptococcus intermedius,2.38
+cb0a9517-372d-4a5f-b54a-58945d0ce390,( ++ ),( A ),Acinetobacter parvus,2.09,Acinetobacter haemolyticus,1.72
+dea3c4c7-7b4a-4636-8c4c-edb8a986eb0f,( ++ ),( A ),Staphylococcus epidermidis,2.15,Staphylococcus epidermidis,2.03
+e57cd887-041f-46b1-b92b-6c6f66b2362d,( ++ ),( A ),Staphylococcus hominis,2.18,Staphylococcus hominis,2.14
+ecfeda81-3d32-43a8-9b25-38f2b9e984f5,( +++ ),( A ),Streptococcus intermedius,2.53,Streptococcus intermedius,2.5
+f5db9711-dcc5-4288-9f87-6e68dcc1291d,( +++ ),( A ),Staphylococcus aureus,2.45,Staphylococcus aureus,2.42
+fa2557b2-6fa1-4d94-9ca6-3f5fc9964d2e,( +++ ),( A ),MIX!Haemophilus parainfluenzae,2.52,Haemophilus parainfluenzae,2.52
+12d0534d-a6a8-4a7c-aad4-6627c31a9065,( ++ ),( A ),Streptococcus vestibularis,2.09,Streptococcus vestibularis,2.04
+7004201c-9852-4d76-837b-97c8e7007964,( ++ ),( A ),Streptococcus parasanguinis,2.25,Streptococcus parasanguinis,2.22
+70ae94d8-babd-40ec-878f-ac442879ece8,( - ),( C ),not reliable identification,1.42,not reliable identification,1.36
+9c585427-15f1-4628-9cda-e9f3a5df89f5,( ++ ),( A ),Actinomyces turicensis,2.2,Actinomyces turicensis,2.04
+e0e73253-9af4-45c2-b060-2ca95ee8ef87,( ++ ),( A ),Streptococcus parasanguinis,2.21,Streptococcus parasanguinis,2.05
+ed25d213-a11e-4993-80c8-6d1523824a42,( ++ ),( A ),Gemella morbillorum,2.2,Gemella morbillorum,2.13
+64e79d27-49e1-409a-b238-6fa5a5cfd3dd,( + ),( B ),Staphylococcus haemolyticus,1.78,Staphylococcus capitis,1.76
+6ff79218-942a-4cfd-861c-23baeddfe09f,( - ),( C ),not reliable identification,1.35,not reliable identification,1.28
+939c6514-3b41-4f85-8980-c43dbdab640d,( + ),( B ),Streptococcus anginosus,1.79,Streptococcus anginosus,1.76
+b67f3b8c-a9a1-4ce6-a3b4-4f3fc43aca6f,( - ),( C ),not reliable identification,1.4,not reliable identification,1.4
+e99c6726-94a3-45f7-8598-1fdcd2ee089f,( - ),( C ),not reliable identification,1.62,not reliable identification,1.6
+008449aa-c96b-43bf-b1e5-7ecefbe7d2fc,( + ),( B ),Streptococcus mitis,1.99,Streptococcus oralis,1.98
+3206df72-2c2e-45c0-a40b-af575636e7ba,( + ),( B ),Streptococcus parasanguinis,1.88,Streptococcus parasanguinis,1.83
+3234e600-11fc-4a87-bc3b-afb589ca926b,( - ),( C ),not reliable identification,1.67,not reliable identification,1.64
+4e66f09d-411e-4444-b08c-939217072cab,( + ),( C ),Klebsiella pneumoniae,1.97,Klebsiella pneumoniae,1.88
+a7e06c2a-afb0-47af-8d9a-bac3aa3d3e88,( +++ ),( A ),Streptococcus parasanguinis,2.52,Streptococcus parasanguinis,2.4
+b6e5e9c3-2cc1-431d-94b6-2db50a7bb724,( ++ ),( A ),Actinomyces turicensis,2.27,Actinomyces turicensis,2.17
+67e31593-9f8f-47ab-a905-0f1f25aa418e,( +++ ),( A ),MIX!Proteus mirabilis,2.48,Proteus mirabilis,2.46
+98565c11-4cc0-4080-a2c5-6498f7feb7a9,( ++ ),( A ),Staphylococcus haemolyticus,2.12,Staphylococcus haemolyticus,1.88
+add328d4-a7a1-4123-9feb-d8861f5a7211,( ++ ),( A ),Staphylococcus capitis,2.11,Staphylococcus capitis,2
+c8f86272-85de-4547-8a5a-0e0d0c1105bd,( ++ ),( A ),Staphylococcus aureus,2.25,Staphylococcus aureus,2.24
+db412f15-4e9e-40e0-9554-4b66f4ac8e65,( +++ ),( A ),Proteus mirabilis,2.45,Proteus mirabilis,2.43
+e5053263-0450-48e6-b3cc-e3c32c4d6d51,( +++ ),( B ),Ochrobactrum anthropi,2.47,Ochrobactrum anthropi,2.43
+fea05ccf-a065-4e56-8cf0-fde7abd138da,( +++ ),( A ),Staphylococcus aureus,2.35,Staphylococcus aureus,2.32
+1b0c86b1-b391-4abe-971a-3feb1e5c83ce,( +++ ),( B ),MIX!Neisseria subflava,2.44,Neisseria subflava,2.25
+3ed32af0-60c4-4ce7-8a10-cb661cea23cf,( - ),( C ),not reliable identification,1.45,not reliable identification,1.35
+4c426e33-01da-48c7-bec6-432f863efbd3,( ++ ),( A ),Pseudomonas aeruginosa,2.06,Pseudomonas aeruginosa,2.05
+89df864d-a7ab-4a09-89d4-060ff01f867a,( +++ ),( A ),Pseudomonas aeruginosa,2.33,Pseudomonas aeruginosa,2.33
+b93c3ae1-b1e5-47a3-9034-77022ac06632,( ++ ),( A ),Pseudomonas aeruginosa,2.23,Pseudomonas aeruginosa,2.22
+ca3de384-30a9-4f75-81bb-76a8b0935b7f,( - ),( C ),not reliable identification,1.68,not reliable identification,1.55
+d2f5c24d-ce64-48c9-bb20-bbdb6d883429,( ++ ),( A ),Pseudomonas aeruginosa,2.21,Pseudomonas aeruginosa,2.2
+e52f2235-5a5f-498d-a8ca-df84a0c2b8da,( - ),( C ),not reliable identification,1.54,not reliable identification,1.25
+eea6b4d6-fa8a-4d9d-b1d1-9462689972b8,( ++ ),( A ),Haemophilus influenzae,2.25,Haemophilus influenzae,2.24
+1a98c910-11e1-4708-9368-82921b2745cf,( ++ ),( A ),Staphylococcus aureus,2.27,Staphylococcus aureus,2.26
+2fec7285-8ad2-4346-9537-b7ee7ba2bf78,( +++ ),( A ),Enterococcus faecalis,2.37,Enterococcus faecalis,2.35
+398f0375-8594-4f52-88be-a1f914e39ac4,( ++ ),( A ),Staphylococcus hominis,2.21,Staphylococcus hominis,2.15
+4e8134fe-e1ca-4e2b-97ec-465c10aa014d,( ++ ),( A ),Pseudomonas citronellolis,2.29,Pseudomonas citronellolis,2.09
+6eabbded-7b09-4874-8f1f-360a809a05ba,( +++ ),( A ),Pseudomonas aeruginosa,2.39,Pseudomonas aeruginosa,2.35
+9094620a-dcda-42f5-aebe-9bddcd938d44,( +++ ),( A ),Escherichia coli,2.45,Escherichia coli,2.42
+ad6c91c4-b924-4253-bde2-2522446d62de,( + ),( B ),Staphylococcus pasteuri,1.83,Staphylococcus warneri,1.72
+b03bfcc5-727a-4b13-b6c7-dd82ceac30f5,( +++ ),( A ),Escherichia coli,2.41,Escherichia coli,2.41
+cb727d3f-af70-4a0b-a347-f6721a0c3abe,( ++ ),( A ),Pseudomonas aeruginosa,2.29,Pseudomonas aeruginosa,2.27
+ff2b89a2-9288-4f0d-9a55-1df630aae4ec,( +++ ),( A ),Enterococcus faecalis,2.47,Enterococcus faecalis,2.36
+06f91733-1e00-4e10-8ef9-945e8f7f4093,( - ),( C ),not reliable identification,1.69,not reliable identification,1.59
+2b1d1e76-eac9-43ce-ac53-80cbee29b1a7,( ++ ),( A ),Staphylococcus xylosus,2.1,Staphylococcus xylosus,2.02
+43ba1ee1-fbd0-4472-bc11-019a8a0319e5,( - ),( C ),not reliable identification,1.53,not reliable identification,1.4
+570e9ab0-471b-49da-a0d3-b7f63c402598,( - ),( C ),not reliable identification,1.42,not reliable identification,1.37
+67acdb3e-14fc-46c5-a8fa-df43f9a3bf62,( ++ ),( A ),Enterobacter cloacae,2.17,Enterobacter cloacae,2.13
+8738e7ad-1032-49dc-ad11-41561d091869,( ++ ),( A ),Staphylococcus xylosus,2.11,Staphylococcus xylosus,2.06
+a2da3803-532f-4413-aab6-e600e1731dce,( - ),( C ),no peaks found,< 0 no peaks found,< 0 ,
+a4b010e3-68e7-4281-a5d3-010911a002c1,( - ),( C ),not reliable identification,1.43,not reliable identification,1.42
+ad20731d-0a20-42ba-8d25-97f1d66a380d,( - ),( C ),not reliable identification,1.66,not reliable identification,1.62
+d0ba2604-e67a-4f37-82d1-65fe510a8bc1,( ++ ),( A ),Microbacterium oxydans,2.19,Microbacterium maritypicum,1.95
+e0c4798b-f8a2-49a1-9e35-a418b3e41484,( - ),( C ),not reliable identification,1.29,not reliable identification,1.23
+e4f6bf62-1ca3-4b7b-b793-52b861b638d0,( - ),( C ),not reliable identification,1.46,not reliable identification,1.42
+f09d98cf-ab77-4081-bc88-93188c40ff17,( + ),( B ),Brevibacterium casei,1.93,Brevibacterium casei,1.74
+fe5824eb-71e4-4bee-9fd4-0e3e2a35b41a,( + ),( B ),Microbacterium aurum,1.71,not reliable identification,1.61
+26222e68-b0d4-428c-81d8-3ea8223d0e00,( - ),( C ),not reliable identification,1.67,not reliable identification,1.5
+8b1d9ad9-40d5-4531-b3db-e6964e8cb7d9,( - ),( C ),not reliable identification,1.59,not reliable identification,1.55
+9f1aa6ff-c297-4104-b1f1-49bd607a3114,( ++ ),( A ),Corynebacterium mucifaciens,2.05,Corynebacterium mucifaciens,2.02
+d8433a81-01de-4b47-895a-c1a5171b8059,( + ),( B ),Actinomyces odontolyticus,1.7,not reliable identification,1.68
+ecb0c87b-e164-4d57-bb2f-0b5c81ae4cde,( + ),( B ),Actinomyces turicensis,1.89,Actinomyces turicensis,1.87
+fe949162-ee07-47fd-94fc-bcb7ce4c10cb,( ++ ),( A ),Candida dubliniensis,2.05,Candida dubliniensis,1.86
+25afb076-bb8c-4231-bafb-ad296e5292d8,( ++ ),( A ),Staphylococcus capitis,2.22,Staphylococcus capitis,2.19
+4b0989c5-324a-489e-bd0a-6d0847638164,( - ),( C ),no peaks found,< 0 no peaks found,< 0 ,
+5459364f-ab7e-400e-92ff-a77c02a222c8,( ++ ),( A ),Corynebacterium amycolatum,2.15,Corynebacterium amycolatum,2.03
+5730f4ec-70df-4fc2-bc9b-c381447fde4a,( ++ ),( A ),Staphylococcus epidermidis,2.12,Staphylococcus epidermidis,2.05
+8e29c9a9-cc4e-4b9f-a540-3fa35470e86d,( - ),( C ),not reliable identification,1.53,not reliable identification,1.35
+92d6113c-df61-4e74-9724-eeda25fc5996,( +++ ),( A ),Staphylococcus capitis,2.3,Staphylococcus capitis,2.29
+d3d7352e-e3b4-4bca-ba93-5f262d184641,( +++ ),( A ),Staphylococcus aureus,2.3,Staphylococcus aureus,2.22
+7f7a32aa-1d44-4d2b-8d25-d1e073f7ff23,( ++ ),( A ),Staphylococcus epidermidis,2.03,Staphylococcus epidermidis,1.83
+987d9542-37b2-4ac9-b3dd-460f65aa091c,( ++ ),( A ),Streptococcus pneumoniae,2.04,Streptococcus pneumoniae,1.97
+e99bfa90-39f9-4153-a19b-32a9d3375c8c,( + ),( B ),Brevibacterium paucivorans,1.76,not reliable identification,1.52
+cbc421ac-b43a-47b2-abe0-b143d0ff98b6,( +++ ),( A ),Staphylococcus aureus,2.38,Staphylococcus aureus,2.33
+ead782f9-778a-4331-9b21-9c9bba3030a6,( ++ ),( B ),Pseudomonas putida,2.04,Pseudomonas monteilii,2.03
+eda5c36a-4285-4d2e-969d-f4f0820691ac,( ++ ),( A ),Corynebacterium tuberculostearicum,2.17,Corynebacterium tuberculostearicum,2.03
+f30ceaad-19fd-463f-ac75-80fcedd2febe,( +++ ),( A ),Staphylococcus aureus,2.35,Staphylococcus aureus,2.34
+f591803f-40e5-4b5f-a2d9-be7905351c61,( ++ ),( A ),Staphylococcus epidermidis,2.13,Staphylococcus epidermidis,2.11
+feb19888-90ab-4fd6-bd69-22f8c97d6897,( ++ ),( B ),Bacillus cereus,2.19,Bacillus mycoides,2.04
+2fe8c4cb-0406-468f-a140-c684dc8479db,( + ),( B ),Saccharomyces cerevisiae,1.89,Saccharomyces cerevisiae,1.82
+3c0fe8ed-181a-492d-aa15-d39003298193,( ++ ),( A ),Lactobacillus salivarius,2.18,Lactobacillus salivarius,1.79
+5e26a80d-ec76-45b7-a150-d620d3d51052,( +++ ),( A ),Lactobacillus salivarius,2.3,Lactobacillus salivarius,1.89
+61e262e6-13ab-4a91-9a4d-6e9a03271572,( +++ ),( A ),Escherichia coli,2.39,Escherichia coli,2.31
+6f157c84-cf3c-421c-b8bd-607cd3c7e1d2,( ++ ),( A ),Serratia marcescens,2.24,Serratia marcescens,2.23
+771277e2-a02f-418f-b4bb-4735cbcd4f5c,( ++ ),( A ),Lactobacillus salivarius,2.22,Lactobacillus salivarius,2.02
+bcd18d45-0fc2-49cc-a23c-b80be68d7fd5,( +++ ),( A ),Morganella morganii,2.5,Morganella morganii,2.48
+e001212f-a44f-4c37-9622-dfcad18f99d2,( + ),( B ),Lactobacillus fermentum,1.96,Lactobacillus fermentum,1.89
+e7a5bf32-fd45-45c4-8378-533a7faae45e,( ++ ),( A ),Serratia marcescens,2.16,Serratia marcescens,2.09
+05cd60ab-68bb-4ef3-aa0b-a214c4f66fea,( + ),( B ),Candida albicans,1.92,Candida albicans,1.79
+1137a685-c217-419f-ac86-4b2336d346db,( +++ ),( A ),Pseudomonas aeruginosa,2.47,Pseudomonas aeruginosa,2.32
+14581441-ab73-4a6d-9940-d7f0c0638232,( +++ ),( A ),Escherichia coli,2.41,Escherichia coli,2.4
+225feb99-061a-43f1-ae10-4fe695911ced,( +++ ),( A ),Pseudomonas aeruginosa,2.38,Pseudomonas aeruginosa,2.27
+2319a151-0d16-468c-8c71-c683f35d68fb,( ++ ),( A ),Streptococcus salivarius,2.17,Streptococcus salivarius,2.06
+311681ed-a08a-44e1-bae0-3ad170188ee2,( +++ ),( A ),Staphylococcus lugdunensis,2.49,Staphylococcus lugdunensis,2.37
+327d3d85-04e9-4801-92c4-436bb77ab295,( ++ ),( A ),Staphylococcus lugdunensis,2.22,Staphylococcus lugdunensis,2.16
+337763e2-a4a7-481f-a7f5-4f32465913f2,( ++ ),( A ),Streptococcus anginosus,2.15,Streptococcus anginosus,2.11
+35706615-80c7-4bd2-9b5b-b598539b3b3c,( ++ ),( A ),Morganella morganii,2.18,Morganella morganii,2.16
+4a298951-bfa2-4ab1-b8f6-183faadd887a,( +++ ),( A ),Escherichia coli,2.53,Escherichia coli,2.5
+6399b1f0-0789-41fe-bbac-bc0a951fa165,( +++ ),( A ),Pseudomonas aeruginosa,2.39,Pseudomonas aeruginosa,2.28
+65950cd8-e301-465a-aaf7-828516f613db,( +++ ),( B ),MIX!Citrobacter freundii,2.45,Citrobacter freundii,2.44
+6a2fc67e-c434-40da-b241-fca9d60364f5,( ++ ),( A ),Providencia rettgeri,2.29,Providencia rettgeri,2.26
+73c48334-ca78-4729-91d7-336ad438ca6e,( +++ ),( A ),Proteus mirabilis,2.42,Proteus mirabilis,2.3
+7a567892-e5ea-4a81-a971-4ff1ff3c150e,( +++ ),( C ),Klebsiella oxytoca,2.31,Klebsiella oxytoca,2.15
+80257fdf-672a-4217-8d4f-ae0418987289,( ++ ),( A ),Staphylococcus epidermidis,2.12,Staphylococcus epidermidis,2.07
+817ce3fc-30c3-44ba-ac59-d1ef7359d80c,( ++ ),( B ),Citrobacter freundii,2.29,Citrobacter freundii,2.28
+822a14f8-b105-4a08-a368-2b1db09ff751,( ++ ),( B ),Enterobacter cloacae,2.12,Enterobacter asburiae,2.07
+8ad23964-ef4b-4bbd-806d-a232817b92e8,( +++ ),( A ),Escherichia coli,2.57,Escherichia coli,2.42
+86be5142-59e8-4ab5-88ae-c8d644d8d823,( +++ ),( B ),Streptococcus canis,2.3,Streptococcus dysgalactiae,2.21
+8ae979ac-e4d0-412a-8285-b5968966a616,( ++ ),( A ),Staphylococcus caprae,2.1,Staphylococcus caprae,2.06
+8b903cff-b542-419b-ae8e-c41da1327a54,( ++ ),( A ),Lactobacillus crispatus,2.16,Lactobacillus crispatus,1.86
+926b3304-04bc-499c-9b7d-b4d574cc3e6c,( ++ ),( A ),Corynebacterium striatum,2.29,Corynebacterium striatum,2.27
+98b5598f-9815-4b0e-a612-7371315bed67,( - ),( C ),not reliable identification,1.69,not reliable identification,1.62
+a70cde95-fd51-435d-a4c8-a367d078e0a3,( +++ ),( A ),Proteus mirabilis,2.5,Proteus mirabilis,2.32
+ac6b98dd-324d-4c99-b4c3-4978de556e02,( ++ ),( A ),Staphylococcus epidermidis,2.08,Staphylococcus epidermidis,2.02
+bb19df09-1d82-459b-85ba-4d9256932d79,( +++ ),( A ),Escherichia coli,2.41,Escherichia coli,2.4
+bcb11341-2778-4d24-b1ad-b7e4bee5fe87,( +++ ),( A ),Enterococcus faecium,2.45,Enterococcus faecium,2.43
+c75a5b36-c300-41e0-ad14-0b1bf0943daf,( ++ ),( A ),Staphylococcus epidermidis,2.19,Staphylococcus epidermidis,2.08
+cfcd3ac1-bfe8-4ce2-9b85-fb5dd758fb8a,( ++ ),( A ),Lactobacillus iners,2.23,not reliable identification,1.5
+f1431e4c-2917-49cd-89b5-748b60e00f1d,( ++ ),( A ),Escherichia coli,2.25,Escherichia coli,2.18
+f90f2557-c0a9-49bb-b2d8-9fc74e3ace4a,( +++ ),( A ),Pseudomonas aeruginosa,2.48,Pseudomonas aeruginosa,2.37
+0134b51d-05d2-45b9-96ab-a8b735613b91,( ++ ),( A ),Proteus vulgaris,2.28,Proteus vulgaris,2.2
+2b9f12f0-4ffd-4c63-a8a8-5900a5741f49,( +++ ),( A ),Proteus vulgaris,2.43,Proteus vulgaris,2.43
+46becfef-6d7f-4c61-a0dd-eeaa3e098db6,( ++ ),( A ),Staphylococcus epidermidis,2.14,Staphylococcus epidermidis,2.1
+b018055d-db50-4be2-92f1-5b622d5eac0b,( ++ ),( A ),Neisseria gonorrhoeae,2.23,Neisseria gonorrhoeae,2.21
+ee8f3959-bdab-486f-bbf9-4bc43e0306ca,( +++ ),( A ),MIX!Neisseria gonorrhoeae,2.54,Neisseria gonorrhoeae,2.38
+f1eaac83-1712-4c96-a27b-79266b166624,( ++ ),( A ),Staphylococcus epidermidis,2.18,Staphylococcus epidermidis,2.08
+8d4b28c1-c6d0-4574-8220-b0de4b7ebd89,( ++ ),( B ),Enterococcus avium,2.29,Enterococcus avium,2.27
+19bcf973-139b-490b-a013-dd5926a5214a,( +++ ),( A ),Morganella morganii,2.46,Morganella morganii,2.4
+26a6a0ac-6ad4-434a-a1b7-066ddbc839a3,( ++ ),( B ),Citrobacter freundii,2.27,Citrobacter freundii,2.2
+31e49822-a6f7-4b8c-9395-7ccdee3660e9,( ++ ),( C ),Klebsiella oxytoca,2.23,Klebsiella oxytoca,2.12
+326a168c-5630-4de2-bdaa-c39346ce06c5,( ++ ),( A ),Escherichia coli,2.22,Escherichia coli,2.15
+383526cb-8f8b-406c-90dc-6ce2a24276eb,( ++ ),( B ),Citrobacter freundii,2.27,Citrobacter freundii,2.13
+45f443ee-c8d0-445e-a70f-309d62067643,( + ),( B ),Candida glabrata,1.72,not reliable identification,1.68
+4d594a44-42ec-40a0-9c1e-c76b20d932f1,( ++ ),( A ),Escherichia coli,2.26,Escherichia coli,2.25
+4dfb09be-a132-4c96-aa7f-a5fcaa442e35,( + ),( B ),Candida albicans,1.88,Candida albicans,1.73
+5002f26d-b8c3-46a8-8eb4-711fab0607b1,( ++ ),( A ),Actinomyces turicensis,2.22,Actinomyces turicensis,2.12
+5a70adfb-3daf-4e65-8a65-9ba8f61eb1db,( +++ ),( B ),Citrobacter freundii,2.3,Citrobacter freundii,2.29
+69820a04-a886-4a19-8360-cc431f19cd28,( - ),( C ),not reliable identification,1.46,not reliable identification,1.41
+860354f9-520a-40bc-b772-d370a756dff6,( - ),( C ),not reliable identification,1.67,not reliable identification,1.67
+88f9c643-6748-4a1a-8bb1-75458614d47b,( + ),( B ),Candida albicans,1.77,Candida albicans,1.75
+8da41ecf-bd72-48f5-afe3-cebdf4c6c740,( +++ ),( A ),Morganella morganii,2.54,Morganella morganii,2.47
+91306dc8-13c6-4124-80ec-926692bdeb3d,( +++ ),( A ),Escherichia coli,2.31,Escherichia coli,2.29
+91ee4052-4a23-4a93-8ba4-4e385c47c8e0,( ++ ),( A ),Streptococcus agalactiae,2.26,Streptococcus agalactiae,2.2
+a725bce9-bb26-4570-853f-41483d0f99b0,( ++ ),( A ),Actinomyces turicensis,2.01,Actinomyces turicensis,1.78
+b6bb9b8e-59a6-4bc5-a6af-d27b6c554f59,( + ),( B ),Candida albicans,1.85,Candida albicans,1.83
+bc81ba07-0c01-49ed-94d2-8c2589261c74,( +++ ),( A ),Enterococcus faecium,2.41,Enterococcus faecium,2.35
+c3b099ea-78be-4535-9a90-b74f99408268,( +++ ),( B ),Citrobacter freundii,2.43,Citrobacter freundii,2.31
+c4b36d3d-08c5-4392-89dd-4bcc83e89105,( +++ ),( A ),Escherichia coli,2.32,Escherichia coli,2.3
+d47520a2-d129-4d5b-852a-c83f052d8d18,( +++ ),( A ),Escherichia coli,2.33,Escherichia coli,2.31
+f3881977-4d25-4a4d-abb6-094f17e94de2,( +++ ),( A ),Streptococcus pyogenes,2.32,Streptococcus pyogenes,2.24
+17438213-b9de-498d-af98-0c02f8cee439,( ++ ),( A ),Staphylococcus epidermidis,2.07,Staphylococcus epidermidis,1.99
+17d80eb9-7883-4c21-aa66-88cb60ec0fae,( ++ ),( A ),Staphylococcus hominis,2.25,Staphylococcus hominis,2.25
+27854e56-a8ce-4127-9390-9b9df5fde210,( ++ ),( A ),Staphylococcus hominis,2.28,Staphylococcus hominis,2.25
+371bd46f-06a0-49bd-a142-5ce8c56361b4,( ++ ),( A ),Staphylococcus epidermidis,2.03,Staphylococcus epidermidis,2.03
+4398e37f-b4ca-4d3b-b6f9-9c3303b4c893,( ++ ),( A ),Staphylococcus epidermidis,2.06,Staphylococcus epidermidis,2.05
+489e6498-2c0f-43c2-a75d-7c79d407425f,( + ),( B ),Streptococcus pneumoniae,1.96,Streptococcus pneumoniae,1.89
+662aa0dd-30d8-455c-bcbb-e86a47fc9a55,( ++ ),( A ),Staphylococcus hominis,2.2,Staphylococcus hominis,2.17
+9a07325c-45f4-4146-ae3f-13d06446e276,( ++ ),( A ),Staphylococcus hominis,2.13,Staphylococcus hominis,2.06
+b3bf5d72-6ca9-4217-a4de-18c0ffe17f41,( ++ ),( A ),Staphylococcus epidermidis,2.14,Staphylococcus epidermidis,2.1
+bde24062-3bb8-4149-a2f1-a0d39bfeec5a,( ++ ),( A ),Staphylococcus epidermidis,2,Staphylococcus epidermidis,1.97
+10cabacc-10a9-43cb-b88d-8adaa9115bc6,( - ),( C ),not reliable identification,1.68,not reliable identification,1.65
+2da502d9-0457-4a11-baa3-8cf132af495b,( - ),( C ),not reliable identification,1.39,not reliable identification,1.32
+5723d123-f3a6-47ec-9074-c71c00f276a2,( - ),( C ),not reliable identification,1.36,not reliable identification,1.36
+73a61c98-ccd4-4385-ae3a-e035ec9c5c12,( ++ ),( A ),Prevotella loescheii,2.29,Prevotella loescheii,2.28
+b4cf1d5a-e17b-4d6a-9906-f17fd0f6c9c4,( - ),( C ),not reliable identification,1.41,not reliable identification,1.38
+c0a574a8-d289-458d-b7e1-627e1cd60b03,( - ),( C ),not reliable identification,1.17,not reliable identification,1.13
+c9e84c8a-9adb-49cb-8069-5845b5e1e19c,( ++ ),( A ),Propionibacterium acnes,2.05,Propionibacterium acnes,2.01
+ccd91200-2f54-4718-a219-8e16d490eb20,( - ),( C ),not reliable identification,1.24,not reliable identification,1.08
+d2f73a97-dd96-4d8c-b626-3e3a4ade1de8,( - ),( C ),not reliable identification,1.37,not reliable identification,1.27
+d54823aa-f578-43ef-bb61-0c14d7ad67cb,( ++ ),( A ),Bacteroides cellulosilyticus,2.27,Bacteroides cellulosilyticus,2.26
+d7261c1d-8147-4e3c-bcf9-0189b7f89b01,( - ),( C ),not reliable identification,1.13,not reliable identification,1.12
+e65d8673-9830-45ae-b377-f3ccdb2d9ae7,( - ),( C ),not reliable identification,1.3,not reliable identification,1.14
+009c37b7-f8db-4504-a891-e4cad18d56d8,( ++ ),( A ),Candida glabrata,2.28,Candida glabrata,2.05
+0974def5-1b52-4d6c-859a-655bfdf7eea5,( + ),( B ),Eikenella corrodens,1.87,Eikenella corrodens,1.83
+09c06bd4-eec9-4b97-9cf3-042bc5a60325,( ++ ),( A ),Staphylococcus epidermidis,2.09,Staphylococcus epidermidis,2.08
+19800c41-7d79-47c3-b626-28f00f8efe2f,( ++ ),( A ),Escherichia coli,2.22,Escherichia coli,2.21
+2c32e91c-d4c0-4a9a-afed-707dee55a317,( ++ ),( A ),Pediococcus acidilactici,2.11,Pediococcus acidilactici,1.98
+3780ab52-d67e-45f5-b5f4-3b4030078143,( ++ ),( A ),Streptococcus oralis,2.01,Streptococcus mitis,1.99
+49bfd9ee-b77f-4020-881d-8aba43df91bd,( ++ ),( B ),Streptococcus salivarius,2.08,Streptococcus salivarius,2.06
+578a9694-75e8-4b4f-a8f3-6cccaa44a134,( +++ ),( A ),Enterococcus faecium,2.33,Enterococcus faecium,2.25
+624cfca8-3b89-47df-a2a2-ef88c7f191a2,( ++ ),( A ),Streptococcus anginosus,2.15,Streptococcus anginosus,2.07
+6a857668-7fc1-41a3-bc0e-25e62f88a050,( ++ ),( A ),Gemella bergeri,2.2,Gemella cuniculi,1.71
+7525774f-66f5-4725-abd0-b515af331324,( + ),( B ),Streptococcus mitis,1.96,Streptococcus oralis,1.95
+90042df0-949d-47e0-950b-879b4dd799ad,( + ),( B ),Klebsiella oxytoca,1.93,Klebsiella oxytoca,1.92
+97b66833-3090-49e0-8c67-5a3895a1d8ce,( +++ ),( A ),Enterococcus durans,2.41,Enterococcus durans,2.37
+9c86baae-8963-43e9-830f-b4c69bf06461,( ++ ),( A ),Staphylococcus epidermidis,2.17,Staphylococcus epidermidis,1.93
+9cac26fc-a911-4882-9aa7-0f365d7a7fbd,( ++ ),( A ),Stenotrophomonas maltophilia,2.14,Stenotrophomonas maltophilia,2.12
+ab51a532-ffad-46a6-b713-089d9c5e6a30,( +++ ),( A ),MIX!Neisseria macacae,2.4,Neisseria macacae,2.39
+ae379d29-6392-4ac3-9ba9-15970fd8d3b9,( +++ ),( A ),Enterococcus faecium,2.46,Enterococcus faecium,2.29
+afbd41ff-1bdb-4569-bb26-e4cf293f6bc6,( ++ ),( A ),Stenotrophomonas maltophilia,2.07,Stenotrophomonas maltophilia,2.02
+b2e4f7dc-a540-4a6c-8158-8ca8e395b32d,( ++ ),( A ),Streptococcus anginosus,2.26,Streptococcus anginosus,2.22
+b5f8b701-50d8-49b2-8833-60e133744cbb,( ++ ),( A ),Candida glabrata,2.01,Candida glabrata,1.92
+bcc9e263-9aea-4f65-a0cb-3fc57d2449b0,( ++ ),( A ),Candida albicans,2.08,Candida albicans_(africana),1.95
+c1fe6000-9708-44d6-9535-24bc6149b2ac,( ++ ),( A ),Proteus mirabilis,2.1,Proteus mirabilis,2.08
+c8628808-cd45-4129-953f-8b98bd8b9f9e,( ++ ),( A ),Staphylococcus epidermidis,2.1,Staphylococcus epidermidis,2.04
+c97de45b-24da-44b9-939a-aad2ded8ba68,( ++ ),( A ),Candida glabrata,2.18,Candida glabrata,2.03
+d27aa3bd-fe6c-41e9-8aa5-29dbb41d2868,( + ),( B ),Pseudomonas aeruginosa,1.98,Pseudomonas aeruginosa,1.97
+e1bbc92d-4633-4fd9-9d54-cbec91db78bd,( ++ ),( A ),Candida glabrata,2.27,Candida glabrata,2.1
+e804eca6-9291-49aa-aadb-eb9f328c6c2c,( ++ ),( B ),Streptococcus oralis,2.21,Streptococcus oralis,2.2
+e9c5a674-88da-495f-8ffb-bed9a0fbd815,( ++ ),( A ),Staphylococcus lugdunensis,2.07,Staphylococcus lugdunensis,1.88
+f3e6d3c2-09cc-4f1c-8ef1-f45fc95d43d3,( ++ ),( A ),Staphylococcus epidermidis,2.04,Staphylococcus epidermidis,1.98
+fdbc7eb5-0c6b-4ee3-8d93-cf0eee8a4b6b,( ++ ),( A ),Stenotrophomonas maltophilia,2.08,Stenotrophomonas maltophilia,1.98
+fdf4b2bc-3c4f-4dec-987f-bdb9a140daa9,( + ),( B ),Eikenella corrodens,1.77,Eikenella corrodens,1.72
+04ec3565-9603-489c-8049-459194e8088b,( +++ ),( A ),Staphylococcus epidermidis,2.31,Staphylococcus epidermidis,2.19
+083b2907-1b20-408c-8b77-81a515442f1d,( ++ ),( A ),Staphylococcus hominis,2.26,Staphylococcus hominis,2.24
+08fae12c-9d16-4447-bcdc-408113132b02,( ++ ),( B ),Candida albicans,2.18,Candida albicans_(africana),2.05
+1606c1da-94a4-4300-8bbb-bb77be726c9a,( ++ ),( A ),Staphylococcus lugdunensis,2.2,Staphylococcus lugdunensis,2.17
+1d932229-cf15-4cd8-a26a-aa91b6d1b7c8,( ++ ),( A ),Staphylococcus lugdunensis,2.14,Staphylococcus lugdunensis,2.1
+1fe3e796-2d52-438e-81aa-a3118931e216,( ++ ),( B ),Streptococcus mitis,2.18,Streptococcus pneumoniae,2.13
+216c18a3-6b83-4456-ad64-a98df4d30ff8,( ++ ),( A ),Staphylococcus hominis,2.23,Staphylococcus hominis,2.21
+2f55e203-5349-413f-8170-087d201839bd,( ++ ),( A ),Staphylococcus epidermidis,2.1,Staphylococcus epidermidis,2.1
+30c1fece-fa56-4f9a-a509-3349fcbb8345,( + ),( B ),Propionibacterium acnes,1.94,Propionibacterium acnes,1.91
+34fd7aac-b7dc-450e-8663-3cbe06389d58,( ++ ),( A ),Staphylococcus epidermidis,2.1,Staphylococcus epidermidis,2.05
+35950125-040c-4a74-ab67-19c470799857,( ++ ),( A ),Staphylococcus epidermidis,2.22,Staphylococcus epidermidis,2.11
+397c0fb6-7e93-4d47-82b2-76376352a2d1,( ++ ),( A ),Candida glabrata,2.1,Candida glabrata,2.09
+3fcce87a-e04e-4ead-993f-536ce6498c70,( +++ ),( A ),Escherichia coli,2.44,Escherichia coli,2.35
+4db06c38-a2f4-4156-b723-907b144511d5,( ++ ),( A ),Staphylococcus epidermidis,2.16,Staphylococcus epidermidis,2.05
+51623923-a37b-4b90-bab3-75d8b1a37d6e,( +++ ),( A ),MIX!Corynebacterium tuberculostearicum,2.48,Corynebacterium tuberculostearicum,2.48
+60a6120a-301d-474b-850d-fb048f5ce179,( ++ ),( A ),Corynebacterium amycolatum,2.17,Corynebacterium amycolatum,2.03
+68f421c3-86eb-4020-ae78-5a6a8ca89168,( + ),( B ),Aggregatibacter actinomycetemcomitans,1.87,Aggregatibacter actinomycetemcomitans,1.86
+89c59345-31c3-4f32-9f8e-21020304ff6e,( - ),( C ),not reliable identification,1.48,not reliable identification,1.35
+96852f36-cd40-49da-8ff5-1f3e3eab6af6,( +++ ),( B ),Corynebacterium simulans,2.46,Corynebacterium simulans,2.28
+99cafc3c-c428-4fb8-8af2-eb638382bc04,( +++ ),( A ),Enterococcus faecium,2.57,Enterococcus faecium,2.43
+9fc3d12f-033c-4a98-bb97-29b9364e4419,( +++ ),( A ),Enterococcus faecium,2.52,Enterococcus faecium,2.5
+a8a87fb1-8ab1-4124-8a38-0cf76cb6988d,( +++ ),( A ),Escherichia coli,2.37,Escherichia coli,2.36
+b45a1bab-930c-438e-b51c-772803dfa555,( ++ ),( A ),Staphylococcus haemolyticus,2.15,Staphylococcus haemolyticus,2.14
+b7100430-c21e-485f-973c-277769798357,( ++ ),( A ),Staphylococcus epidermidis,2.14,Staphylococcus epidermidis,2.05
+cd93bca0-c261-4e27-b71b-5cfbe2a2ed7b,( + ),( B ),Candida albicans,1.96,Candida albicans,1.95
+d6266b47-fcaa-49d9-bcb6-63f0007b025b,( +++ ),( A ),Staphylococcus lugdunensis,2.39,Staphylococcus lugdunensis,2.33
+dbfc00b4-74f6-4493-970a-c05601368fc2,( +++ ),( A ),Enterococcus faecalis,2.49,Enterococcus faecalis,2.37
+dd482449-1775-4d69-829c-d888abacb8f7,( +++ ),( C ),Enterobacter aerogenes,2.36,Enterobacter aerogenes,2.27
+e1121e62-876e-4630-9443-4d1c07298d0b,( ++ ),( A ),Staphylococcus epidermidis,2.22,Staphylococcus epidermidis,2.05
+e3677ce7-1d51-4833-9826-1f3696af54e0,( ++ ),( A ),Staphylococcus epidermidis,2.01,Staphylococcus epidermidis,1.82
+ed313044-ca96-4c49-b415-1316e801a628,( ++ ),( A ),Staphylococcus capitis,2.07,Staphylococcus capitis,2.02
+f1cae571-e9b7-4bb8-8afe-0614a2a99e05,( ++ ),( A ),Staphylococcus epidermidis,2.07,Staphylococcus epidermidis,2.02
+f5e011c5-3cf4-49fe-a283-aab7314a202b,( ++ ),( A ),Streptococcus constellatus,2.16,Streptococcus constellatus,2.12
+fb6d95d0-efca-4268-9036-72b879a2aa84,( ++ ),( A ),Morganella morganii,2.19,Morganella morganii,2.17
+523670f0-0e1d-49dd-9132-d0927461fccf,( - ),( C ),no peaks found,< 0 no peaks found,< 0 ,
+8a7a825b-a335-42f1-997a-9cd64318bfc9,( - ),( C ),not reliable identification,1.38,not reliable identification,1.29
+b8187e35-3432-4ec6-b14e-ac9688ea60c6,( ++ ),( A ),Bacteroides thetaiotaomicron,2.22,Bacteroides thetaiotaomicron,2.17
+0ae5f47a-bfb5-47d5-82aa-356cea858427,( +++ ),( A ),Rhizobium radiobacter,2.34,Rhizobium radiobacter,2.29
+1e0fe2f0-0abb-458c-a0e3-d6a747469926,( - ),( C ),not reliable identification,1.5,not reliable identification,1.39
+2599a0df-71a5-409a-a504-e87225371eb6,( + ),( B ),Streptococcus sanguinis,1.96,Streptococcus sanguinis,1.87
+276031c0-86c2-4195-8dbd-47e57f9bcf74,( ++ ),( C ),Moraxella_sg_Moraxella osloensis,2.13,Moraxella_sg_Moraxella osloensis,1.76
+32ad6b6f-c08f-4a01-b820-09bb606c956c,( - ),( C ),not reliable identification,1.45,not reliable identification,1.35
+36b0d04f-8b73-4ceb-8d91-c6cac41ab4a2,( ++ ),( A ),Acinetobacter parvus,2.26,Acinetobacter junii,1.82
+40a688d4-ebd8-48a5-a4e3-f9b04b59095c,( - ),( C ),not reliable identification,1.55,not reliable identification,1.44
+4308e5cd-bd6b-4e2d-a2b9-51be739db1d3,( +++ ),( A ),MIX!Streptococcus salivarius,2.3,Streptococcus salivarius,2.06
+4bd00510-343e-493b-9f90-263452f76d32,( +++ ),( A ),Acinetobacter ursingii,2.44,Acinetobacter ursingii,2.36
+5163682c-abdd-4582-91a9-8816e13b88da,( +++ ),( A ),MIX!Neisseria subflava,2.36,Neisseria subflava,2.36
+534adec4-636f-4928-96eb-9201bf448158,( - ),( C ),not reliable identification,1.43,not reliable identification,1.39
+5814a649-29b7-42ec-840f-0f2b9084633c,( ++ ),( A ),Brevibacterium casei,2.15,Brevibacterium casei,2.15
+686f1cd8-d3ef-407d-8821-339e57e0e070,( +++ ),( A ),MIX!Neisseria macacae,2.41,Neisseria macacae,2.41
+6fbf73fc-053e-4a97-99f7-8856f1c1c6f7,( +++ ),( A ),MIX!Neisseria mucosa,2.3,Neisseria mucosa,2.28
+7177fc31-5300-47dc-97d3-632459bcd484,( ++ ),( A ),Streptococcus sanguinis,2.22,Streptococcus sanguinis,2.18
+854d323d-84a5-41cf-9a55-b37ab83812cd,( +++ ),( A ),Acinetobacter lwoffii,2.39,Acinetobacter lwoffii,2.15
+8a412a23-f237-4381-a2c5-e3b447860020,( - ),( C ),not reliable identification,1.37,not reliable identification,1.32
+8dc5331f-f3f7-469b-9d2b-cd6f1c9d4186,( + ),( B ),Streptococcus parasanguinis,1.82,Streptococcus parasanguinis,1.75
+8fd2c54b-a0e3-4d1c-b1fd-0159f97eb9ff,( + ),( B ),Acinetobacter haemolyticus,1.99,Acinetobacter haemolyticus,1.99
+94c6766b-65af-4e17-9633-64a2602fcf9a,( + ),( B ),Aerococcus viridans,1.76,Aerococcus viridans,1.74
+9875afa8-7f47-4d50-b854-fbd5a79fd253,( ++ ),( A ),Candida parapsilosis,2.07,Candida parapsilosis,1.98
+9b17d446-fbc5-4a0e-bb63-a26df7e03004,( - ),( C ),not reliable identification,1.37,not reliable identification,1.32
+9b6153ff-a838-4916-a874-65ca78e35587,( +++ ),( B ),Acinetobacter nosocomialis,2.35,Acinetobacter nosocomialis,2.28
+a3998442-e64d-4486-ba03-e17b22a23422,( ++ ),( B ),Klebsiella pneumoniae,2.16,Klebsiella variicola,2.13
+be00e169-5578-4620-9df6-1f28d1e5fd17,( ++ ),( A ),Rothia mucilaginosa,2.24,Rothia mucilaginosa,2.16
+c5835160-73e4-415a-9d31-9210360b6748,( ++ ),( A ),Acinetobacter lwoffii,2.16,Acinetobacter lwoffii,1.96
+c69a6de4-88ad-4103-86de-a3c5630679c0,( - ),( C ),not reliable identification,1.43,not reliable identification,1.34
+ca04dcc8-837f-4ebc-bb1b-64bd563a6d70,( + ),( B ),Neisseria elongata,1.82,Neisseria elongata,1.75
+cbd0b649-8494-4c6d-8864-b77cadfbc40f,( + ),( B ),Streptococcus parasanguinis,1.91,Streptococcus parasanguinis,1.84
+f080e11a-4899-49ac-bfd7-1dfeadeaef9b,( +++ ),( B ),MIX!Neisseria flavescens,2.33,Neisseria flavescens,2.13
+f836960f-f3cf-449b-a7cc-9c14d1993417,( ++ ),( A ),Pantoea agglomerans,2.21,Pantoea agglomerans,2.16
+88dc0cb3-1a2b-43f2-9513-48ae863ee614,( - ),( C ),not reliable identification,1.43,not reliable identification,1.37
+014f7a4f-1938-4292-a408-0c4bcf62b477,( ++ ),( A ),Staphylococcus aureus,2.24,Staphylococcus aureus,2.21
+b1589482-6c3d-48ab-ae98-cc101cd9ab53,( + ),( B ),Stenotrophomonas maltophilia,1.88,Stenotrophomonas maltophilia,1.78
+dba26759-0406-4c11-9325-fa7ce9399010,( ++ ),( A ),Saccharomyces cerevisiae,2.02,Saccharomyces cerevisiae,2.02
+eaaff6de-5d5f-4af0-bfb0-450a86a4c6c7,( + ),( B ),Stenotrophomonas maltophilia,1.81,Stenotrophomonas maltophilia,1.78
+1dc9d40a-81dd-4bff-ae6e-e3dafc1b6900,( +++ ),( A ),Serratia marcescens,2.35,Serratia marcescens,2.24
+21961971-a524-484e-b7b0-dd98182fc4c7,( + ),( B ),Candida parapsilosis,1.78,Candida parapsilosis,1.76
+411be6b8-405e-4e96-96b6-8f2b448a5fc3,( ++ ),( A ),Pseudomonas aeruginosa,2.01,Pseudomonas aeruginosa,1.98
+4f33cb12-97b3-4074-b681-5396691d4996,( ++ ),( A ),Streptococcus constellatus,2.23,Streptococcus constellatus,2.17
+5b95c43c-9345-4966-bf1c-30b2debc6cee,( + ),( B ),Stenotrophomonas maltophilia,1.91,Stenotrophomonas maltophilia,1.85
+9d3921e1-4bc0-4bf2-b94c-cc5e17e396fe,( + ),( B ),Candida dubliniensis,1.93,Candida dubliniensis,1.74
+aaf1ecf2-5edf-4ef2-8a40-6c6906884b9d,( ++ ),( B ),Neisseria subflava,2.17,Neisseria subflava,2.15
+f5c81a12-6bae-42ac-a7a6-e26afbc178c8,( ++ ),( A ),Stenotrophomonas maltophilia,2.25,Stenotrophomonas maltophilia,2.13
+fda6e8ea-9847-47f2-be30-8d79029632e8,( ++ ),( A ),Streptococcus anginosus,2.08,Streptococcus anginosus,2.05
+1ae83ae6-5421-4b69-915d-bf1e17562435,( - ),( C ),not reliable identification,1.55,not reliable identification,1.51
+d38fb1e7-0fd6-40cf-b5e7-069222e85dbb,( - ),( C ),not reliable identification,1.63,not reliable identification,1.27
+ea29b412-be56-4a30-b047-b5e3ce2101f9,( ++ ),( A ),Alloscardovia omnicolens,2.11,Alloscardovia omnicolens,2.08
+1c206bd1-77db-4dc4-bdbd-c5470c818acc,( + ),( B ),Candida albicans,1.72,not reliable identification,1.54
+207c826b-c390-4722-abe7-07c7f866cfde,( ++ ),( A ),Candida albicans,2.14,Candida albicans,2.13
+2b459558-d4ad-4680-9df6-b190e7bb8286,( ++ ),( A ),Candida albicans,2.05,Candida albicans,2.04
+2bd58f1d-0633-4117-8204-3aa72f6fd458,( - ),( C ),not reliable identification,1.49,not reliable identification,1.48
+424b4c67-0eba-4f4d-ae3e-21f99a54d3fa,( ++ ),( A ),Candida albicans,2.14,Candida albicans,2
+4ead65a5-2d1d-4ea2-9b5d-0fea92d40dd0,( - ),( C ),not reliable identification,1.58,not reliable identification,1.31
+51873238-04c4-45c9-9565-fc69af4f4bb1,( - ),( C ),not reliable identification,1.49,not reliable identification,1.48
+741ada26-a14d-4f33-a6f9-db8aa7768549,( + ),( B ),Candida albicans_(africana),1.9,Candida albicans,1.83
+750780b7-95b1-42c5-a870-6b47bc645bb2,( - ),( C ),no peaks found,< 0 no peaks found,< 0 ,
+899ea74f-5fce-4fb5-b47c-7458e7272d87,( - ),( C ),not reliable identification,1.27,not reliable identification,1.25
+8dd9de2c-cdb3-41d3-b7b1-cb0ef44115ff,( +++ ),( A ),Escherichia coli,2.3,Escherichia coli,2.21
+8f88f5ff-ff8c-4a8a-acb7-72c44f5370bb,( ++ ),( A ),Enterobacter cloacae,2.23,Enterobacter cloacae,2.19
+9aa6aa96-6ffc-4a53-8339-4e2f77328501,( ++ ),( B ),Candida albicans,2.13,Candida albicans_(africana),2.07
+9e49e68b-118e-4db7-858e-87e6b75e2ad2,( +++ ),( A ),Morganella morganii,2.3,Morganella morganii,2.25
+a17fed46-d0c4-4d0f-8d04-6463a16a2808,( + ),( B ),Streptococcus mitis,1.74,Streptococcus oralis,1.7
+ba7498d3-5702-4566-bd18-e95050a9e104,( - ),( C ),not reliable identification,1.29,not reliable identification,1.25
+c95355e4-2b8d-4499-a930-880c3dfe3423,( ++ ),( B ),Enterobacter cloacae,2.28,Enterobacter cloacae,2.28
+da0f2ed8-b9d4-4f28-a488-fa7083e51b63,( ++ ),( A ),Candida albicans,2.12,Candida albicans,2.08
+de8898c4-b5f3-4c9e-b0a8-5c2762feb918,( ++ ),( B ),Candida albicans,2.28,Candida albicans,2.2
+0c3e5805-3d62-4822-95e6-7c398e9df0fb,( ++ ),( A ),MIX!Stenotrophomonas maltophilia,2.07,Stenotrophomonas maltophilia,1.99
+166f85df-8948-4acc-afa7-c5b4cf5bd4f3,( +++ ),( B ),Klebsiella pneumoniae,2.44,Klebsiella pneumoniae,2.37
+3293ad31-256d-4a4e-b604-61a5acc2e97e,( +++ ),( A ),Enterococcus faecium,2.45,Enterococcus faecium,2.37
+43fac56d-2673-4b1a-8e15-effb902a527b,( + ),( B ),Candida albicans,1.95,Candida albicans,1.94
+51c5acff-adec-4d6d-a07a-ff1792f4ae92,( +++ ),( A ),MIX!Streptococcus parasanguinis,2.32,Streptococcus parasanguinis,1.96
+56b7c5df-c26c-42ec-a2af-7c45c7ad652f,( - ),( C ),not reliable identification,1.27,not reliable identification,1.26
+58a4ff84-e467-4f3d-8c53-e1a7138e5392,( ++ ),( A ),Staphylococcus epidermidis,2.13,Staphylococcus epidermidis,1.89
+670fcd20-2ba9-4f6e-acea-fc5be79268bf,( ++ ),( A ),Staphylococcus epidermidis,2.1,Staphylococcus epidermidis,2.03
+7322c98d-37dd-4ae7-a28d-e736c9236c61,( +++ ),( A ),MIX!Bacillus cereus,2.47,Bacillus cereus,2.39
+8bf0e2db-f422-4307-b0cc-525c2451dac5,( ++ ),( A ),Staphylococcus epidermidis,2.08,Staphylococcus epidermidis,1.95
+93a9538b-4aab-40d9-9a5f-1acd66ca3efe,( ++ ),( A ),Corynebacterium striatum,2.25,Corynebacterium striatum,2.23
+95bbdfb7-def3-45be-94d4-bcc93192f187,( + ),( B ),Streptococcus vestibularis,1.89,Streptococcus vestibularis,1.83
+9f4687d0-d2bc-4135-a2b8-5cfa29f08975,( +++ ),( B ),Streptococcus oralis,2.3,Streptococcus oralis,2.28
+a342a9b6-17e2-4f72-b9c0-92aac031c7f4,( ++ ),( A ),Staphylococcus epidermidis,2.09,Staphylococcus epidermidis,1.97
+a571564a-8e64-4dce-bce9-9728dcdcb393,( + ),( B ),Actinotignum sanguinis,1.88,Actinotignum sanguinis,1.81
+ac6f2f41-f3c3-4f98-8270-568e9b283120,( + ),( B ),Staphylococcus epidermidis,1.99,Staphylococcus epidermidis,1.75
+ac7cbb4a-aec1-4689-9df1-d72e555d0107,( +++ ),( A ),Enterococcus faecium,2.56,Enterococcus faecium,2.49
+b16a3e49-905b-4d57-9154-921149967693,( ++ ),( A ),Staphylococcus epidermidis,2.08,Staphylococcus epidermidis,2.02
+b2fc2fa0-bcfc-4853-aeb2-cbade3884f3c,( ++ ),( A ),Staphylococcus epidermidis,2.08,Staphylococcus epidermidis,1.94
+b4915ec3-80a8-43ca-852e-434937318fc7,( +++ ),( C ),MIX!Lactobacillus iners,2.41,Lactobacillus iners,2.35
+b70f6c37-4ee8-449a-9895-6b48cc793917,( ++ ),( A ),Staphylococcus epidermidis,2.16,Staphylococcus epidermidis,1.91
+c41d4d29-1348-45d2-bb2c-d171ca8d3dab,( ++ ),( B ),Streptococcus mitis,2.14,Streptococcus oralis,2.06
+c69dc1d7-6dc1-4775-8b3e-c79de9968a58,( +++ ),( A ),Streptococcus intermedius,2.43,Streptococcus intermedius,2.3
+caea539e-b6d1-4c92-94b9-d60e2629df9c,( ++ ),( A ),Lactobacillus gasseri,2.25,Lactobacillus gasseri,2.2
+ce579d1a-4538-4048-84e5-cde0d5f050d4,( ++ ),( A ),Staphylococcus epidermidis,2.17,Staphylococcus epidermidis,1.95
+d63a818b-92f3-4a50-a5c5-378a6559e295,( - ),( C ),not reliable identification,1.3,not reliable identification,1.28
+daea7d4d-f1ff-43e4-8efa-de7f1369fd3b,( +++ ),( B ),Citrobacter koseri,2.37,Citrobacter koseri,2.33
+e81feca7-b38d-4dda-9d71-d303a8b38314,( +++ ),( A ),Enterococcus hirae,2.36,Enterococcus hirae,2.34
+fb485c72-aaeb-4dac-9e3b-3fee07a382ab,( - ),( C ),not reliable identification,1.46,not reliable identification,1.45
+4ff9cd60-39eb-4781-be18-7e9429ec4cf1,( - ),( C ),no peaks found,< 0 no peaks found,< 0 ,
+a376ecfe-14d2-4e40-b337-9572b7c932ed,( - ),( C ),not reliable identification,1.35,not reliable identification,1.34
+473152d2-585c-43bd-bc27-e573db9f7872,( + ),( B ),Staphylococcus warneri,1.93,Staphylococcus pasteuri,1.86
+2cc53480-4abe-41cc-ba27-a0fa83f233ba,( ++ ),( B ),Enterobacter asburiae,2.19,Enterobacter cloacae,2.1
+4088038e-fa52-46d2-be58-c295937f4ac2,( ++ ),( C ),Klebsiella oxytoca,2.25,Klebsiella oxytoca,2.22
+4fdfeb05-6ed7-4fba-9084-a002cfc12f34,( +++ ),( A ),Rothia terrae,2.41,Rothia terrae,2.4
+82c64193-eea3-49ef-ba54-c16b24cba61e,( ++ ),( A ),Haemophilus influenzae,2.15,Haemophilus influenzae,2.06
+b135d6ff-5178-4ebf-acd5-4bbba58a7677,( ++ ),( A ),Neisseria cinerea,2.29,Neisseria cinerea,2.2
+da0235fe-9540-477f-9e69-1f232c583f10,( ++ ),( A ),Haemophilus influenzae,2.12,Haemophilus influenzae,2.09
+db68dd63-fc19-43fa-a528-21ecd0823a95,( + ),( B ),Serratia marcescens,1.92,Serratia marcescens,1.88
+ed6e9749-5b3b-4ac4-8fa9-c6647cdf8774,( +++ ),( A ),MIX!Haemophilus influenzae,2.58,Haemophilus influenzae,2.31
+00ecc5c4-ff7e-4ff5-8a0d-9355ca0397b1,( +++ ),( A ),Clostridium sordellii,2.38,Clostridium sordellii,2.36
+18bd7122-e323-4ac7-b14b-16e42a1c37b5,( ++ ),( A ),Candida glabrata,2.27,Candida glabrata,2.18
+1a9ab448-5d8b-43fe-bd8a-43d4a7b2fa25,( +++ ),( A ),Parvimonas micra,2.4,Parvimonas micra,2.38
+20bd2323-bf0f-45ca-9511-62eed32f9747,( ++ ),( A ),Prevotella loescheii,2.29,Prevotella loescheii,2.27
+297e46d9-b0f3-4304-afab-feb2252b7a67,( + ),( B ),Fusobacterium nucleatum,1.9,Fusobacterium naviforme,1.85
+2b583358-ef8b-4af0-b035-0d6f00e1f851,( ++ ),( A ),Bacteroides cellulosilyticus,2.07,Bacteroides cellulosilyticus,2.01
+303e6b08-5f5a-4c39-b125-4d74fcd06eba,( - ),( C ),not reliable identification,1.25,not reliable identification,1.09
+31d8c3e2-1c4e-4aef-83ab-998e96b3980b,( ++ ),( B ),Serratia marcescens,2.12,Serratia marcescens,2.09
+4beffe5c-7496-472a-99fd-70560ccdef93,( - ),( C ),not reliable identification,1.45,not reliable identification,1.45
+4f252921-441e-4cc8-a10a-48da944ad1d1,( ++ ),( A ),Propionibacterium avidum,2.13,Propionibacterium sp[2],1.86
+5c24fdf0-e580-4a26-8aaf-2442f9e904f4,( ++ ),( A ),Propionibacterium avidum,2.02,Propionibacterium sp[2],1.87
+5f91c9cf-146f-4ce5-9141-b1e2c5638ca0,( - ),( C ),not reliable identification,1.21,not reliable identification,1.17
+687a1d13-f197-4c5a-88c1-27837e4b2be6,( ++ ),( A ),Clostridium butyricum,2.22,Clostridium butyricum,2.21
+7998f2b3-acca-48ee-9b69-c659cf64527b,( ++ ),( A ),Bacteroides fragilis,2.27,Bacteroides fragilis,2.26
+820dc2a0-183a-47b0-8415-ca6c161ab9eb,( ++ ),( B ),Fusobacterium nucleatum,2.06,Fusobacterium naviforme,2
+947bf4e8-fbeb-424f-b36d-bd1db7a8b08d,( ++ ),( A ),Prevotella bivia,2.23,Prevotella bivia,2.19
+a8bce868-a230-4f9a-9b86-e8c7247cdb3b,( + ),( B ),Propionibacterium acnes,1.98,Propionibacterium acnes,1.86
+a901cc49-c103-4c5d-b8df-7d4ecf2a085a,( - ),( C ),not reliable identification,1.68,not reliable identification,1.65
+b10db6db-2104-4690-952a-cc84d1e97dc9,( +++ ),( A ),Veillonella parvula,2.33,Veillonella parvula,2.19
+b75e3431-502d-48fe-b4e4-8837588b5358,( +++ ),( A ),Bacteroides fragilis,2.47,Bacteroides fragilis,2.45
+bcb1eb85-6485-4221-bd3e-f59c677a9419,( - ),( C ),not reliable identification,1.53,not reliable identification,1.4
+bf07a8ff-c7e2-4316-b59a-d21d39dfb8d9,( - ),( C ),not reliable identification,1.28,not reliable identification,1.23
+c0450052-616e-45af-93a3-51aed24f2930,( - ),( C ),not reliable identification,1.45,not reliable identification,1.39
+c2cdb748-a9cf-463f-9d34-3d9e7795dbbd,( ++ ),( A ),Propionibacterium acnes,2.26,Propionibacterium acnes,2.22
+cd99cb24-216f-41e6-be3f-b47bf1d4dc3b,( - ),( C ),not reliable identification,1.23,not reliable identification,1.18
+cfb1232a-9d71-4465-bd69-0b1c44e38b73,( ++ ),( A ),Propionibacterium acnes,2.23,Propionibacterium acnes,2.09
+db65c0bd-83ff-4474-9a86-67021156dd7f,( ++ ),( A ),Propionibacterium acnes,2.14,Propionibacterium acnes,2.07
+e57f2b6b-9896-40d4-8ca7-be5d742c6a9c,( ++ ),( A ),Serratia marcescens,2.18,Serratia marcescens,2.12
+edf3d7ba-8be3-41ad-b7c0-da2be4f4c784,( - ),( C ),not reliable identification,1.29,not reliable identification,1.26
+f9be745c-5812-4589-a209-94fa8a85d836,( ++ ),( A ),Candida glabrata,2.07,Candida glabrata,1.94
+1478e21b-d37f-4215-9352-02694fae3ba8,( + ),( B ),Gardnerella vaginalis,1.94,Gardnerella vaginalis,1.83
+4fd6cd15-89f7-4acc-88c4-993d1d2ccc20,( ++ ),( A ),Bifidobacterium breve,2.23,Bifidobacterium breve,2.18
+b014ca96-db4d-4a68-a154-05325ef6b05d,( +++ ),( A ),Corynebacterium kroppenstedtii,2.32,Corynebacterium kroppenstedtii,1.99
+faabba5a-6f5b-4ba8-a1d3-3e83e970aa44,( ++ ),( A ),Gardnerella vaginalis,2.03,Gardnerella vaginalis,1.92
+0f98ec70-c56c-4ae0-9247-f526abf142a6,( - ),( C ),no peaks found,< 0 no peaks found,< 0 ,
+3280b403-d016-4517-97bb-c2ed02c244b6,( - ),( C ),not reliable identification,1.36,not reliable identification,1.35
+37e14a5a-259e-4783-a32d-f7b58b7f1b70,( ++ ),( A ),Campylobacter jejuni,2.07,Campylobacter jejuni,2
+4f5cbb28-19d9-43f6-af60-602a2d9896f9,( ++ ),( A ),Escherichia coli,2.25,Escherichia coli,2.25
+64253f72-a20b-4fda-a255-21affb0ef6b6,( - ),( C ),not reliable identification,1.42,not reliable identification,1.4
+75919f1e-5f4f-4b73-a29a-830da2651ead,( - ),( C ),not reliable identification,1.32,not reliable identification,1.3
+8c8b16a8-77ee-4953-b53f-e27831d56407,( - ),( C ),not reliable identification,1.63,not reliable identification,1.58
+a21d2ebb-6407-4955-abdb-6dbc33c1b733,( + ),( B ),Streptococcus anginosus,1.71,not reliable identification,1.57
+a4bc9a28-d536-4486-9c4e-259f79ea5c0f,( +++ ),( A ),Corynebacterium simulans,2.48,Corynebacterium simulans,2.37
+a9c91e39-a92e-4a11-b45a-b80363753834,( ++ ),( A ),Campylobacter jejuni,2.15,Campylobacter jejuni,2.08
+abdf10c0-1ca8-4cbd-a32f-7b4f1aad9e20,( + ),( B ),Candida parapsilosis,1.93,Candida parapsilosis,1.91
+afc790cc-7855-419f-a104-d78f01b4e278,( +++ ),( A ),Enterococcus durans,2.35,Enterococcus durans,2.28
+b033ecd8-74ba-4112-9fce-c31729bc2a2c,( +++ ),( A ),Enterococcus faecium,2.3,Enterococcus faecium,2.09
+de0b0356-1b26-4e5c-88a6-8508ec5ba0a1,( - ),( C ),not reliable identification,1.47,not reliable identification,1.42
+e1331998-fc3c-4877-af45-60357815ba0e,( +++ ),( A ),Proteus mirabilis,2.44,Proteus mirabilis,2.42
+12d33012-3284-49ad-8ec0-4ad1bad279d0,( ++ ),( A ),Staphylococcus epidermidis,2.09,Staphylococcus epidermidis,2.09
+1f1022d2-d775-488e-9be1-d19135ab62d0,( ++ ),( A ),Staphylococcus capitis,2.19,Staphylococcus capitis,2.15
+2ba6e5ba-19ef-4594-8eb8-5c879df8404c,( + ),( B ),Staphylococcus epidermidis,1.8,Staphylococcus epidermidis,1.75
+35c12b6e-6911-4a9e-ba7f-8243fa770501,( +++ ),( A ),MIX!Staphylococcus capitis,2.32,Staphylococcus capitis,2.13
+4393b565-2469-4c02-ac92-b43b17acad93,( ++ ),( A ),Staphylococcus epidermidis,2.19,Staphylococcus epidermidis,2.19
+450abf51-6f94-4ff0-b186-61395932b9da,( +++ ),( A ),Staphylococcus capitis,2.39,Staphylococcus capitis,2.2
+73e84c1d-5739-45fa-91d1-b22ee58bfbf2,( +++ ),( A ),Streptococcus anginosus,2.35,Streptococcus anginosus,2.24
+7de7e6c8-ed68-4c6f-b084-b57fddc3662d,( +++ ),( A ),Staphylococcus hominis,2.3,Staphylococcus hominis,2.19
+95a4fb5f-cc46-4d86-86d4-6621b7f22323,( + ),( B ),Corynebacterium mucifaciens,1.87,not reliable identification,1.67
+c2b5b23e-7d3e-4a53-9d74-fe00a457cc52,( ++ ),( A ),Staphylococcus epidermidis,2.13,Staphylococcus epidermidis,1.97
+d19fa1b0-e642-4463-ae71-0753ab927f4e,( + ),( B ),Staphylococcus epidermidis,1.99,Staphylococcus epidermidis,1.86
+eefa9670-bc92-4868-a5d0-8733f8b01047,( + ),( B ),Staphylococcus epidermidis,1.91,Staphylococcus epidermidis,1.83
+3c964003-5946-41eb-9267-a4729b3b5e96,( + ),( B ),Stenotrophomonas maltophilia,1.86,Stenotrophomonas maltophilia,1.78
+7c770e0e-c44f-414e-b3cc-d15943e21981,( + ),( B ),Stenotrophomonas maltophilia,1.96,Stenotrophomonas maltophilia,1.93
+164f12f6-91f7-462d-84a5-5a7b69d13aa8,( + ),( B ),Eikenella corrodens,1.87,Eikenella corrodens,1.82
+56a5bf2a-f5e6-4f6b-8c46-8969b9da9b84,( ++ ),( A ),Bifidobacterium longum,2,Bifidobacterium longum,1.82
+b32246cc-cfde-4d26-8cf6-cfc9ffcedd22,( - ),( C ),no peaks found,< 0 no peaks found,< 0 ,
+d48249e5-6fe6-4204-bd32-b88bc4c9b489,( - ),( C ),not reliable identification,1.23,not reliable identification,1.09
+eaa9c502-9f1c-4e11-bd1a-21bb215f2037,( +++ ),( A ),MIX!Corynebacterium tuberculostearicum,2.48,Corynebacterium tuberculostearicum,2.17
+f4d53013-1fcd-44ed-b54f-3739e0634db0,( + ),( B ),Bifidobacterium longum,1.76,not reliable identification,1.67
+82cd875f-e6ed-4274-89e0-acde7ad32622,( + ),( B ),Eikenella corrodens,1.74,Eikenella corrodens,1.73
+0e683279-1ac5-47ed-bb41-2c40a925376b,( ++ ),( A ),Lactobacillus fermentum,2.02,Lactobacillus fermentum,1.91
+94edefa5-444a-4945-b57b-7e3a5c518564,( + ),( B ),Saccharomyces cerevisiae,1.75,not reliable identification,1.68
+410bd48c-f07b-4404-9957-9d3aab534acf,( ++ ),( A ),Staphylococcus hominis,2.08,Staphylococcus hominis,2.06
+6254fba8-cd3d-4552-bc04-5468a2565f7a,( ++ ),( B ),Serratia marcescens,2.23,Serratia marcescens,2.19
+6186c8df-5322-4379-a4f2-e85ab1e6eba1,( + ),( B ),Staphylococcus capitis,1.93,Staphylococcus capitis,1.92
+78982e3b-4721-4764-bab0-3fa2210f8a82,( + ),( B ),Staphylococcus capitis,1.99,Staphylococcus capitis,1.94
+ff1c3c76-a3aa-4abb-90bd-b982057d1d2d,( +++ ),( A ),Staphylococcus lugdunensis,2.3,Staphylococcus lugdunensis,2.26
+18db6426-475c-4a4f-9cb7-112417c815d2,( +++ ),( A ),MIX!Fusobacterium nucleatum,2.38,Fusobacterium nucleatum,1.9
+8b6d3723-3cfe-49c3-924e-3495b764f5d2,( + ),( B ),Eubacterium brachy,1.8,not reliable identification,1.57
+f3795f25-2b11-4605-87df-ea5beb9ca807,( +++ ),( A ),Alloscardovia omnicolens,2.45,Alloscardovia omnicolens,2.4
+25839995-9901-4219-9891-3f25fd65c0d5,( + ),( B ),Actinomyces odontolyticus,1.82,Actinomyces odontolyticus,1.79
+9b81fb28-8eb7-4aea-bffd-e4ca7140c04b,( +++ ),( A ),Escherichia coli,2.42,Escherichia coli,2.33
+d8727ad4-5277-42b8-841f-a07c16cddab7,( - ),( C ),no peaks found,< 0 no peaks found,< 0 ,
+dfe815d6-c65a-407f-b387-61db3c4edba8,( ++ ),( A ),Streptococcus intermedius,2.08,Streptococcus intermedius,1.97
+f4c1f4e2-d4c1-4183-b009-0f855407f7ea,( + ),( B ),Staphylococcus epidermidis,1.78,Staphylococcus epidermidis,1.75
+09dea13b-ce08-4909-b89b-ed95741b3671,( +++ ),( A ),Moraxella_sg_Branhamella catarrhalis,2.45,Moraxella_sg_Branhamella catarrhalis,2.34
+134662b7-4a68-470f-82bb-554030eb5a57,( +++ ),( A ),Serratia marcescens,2.3,Serratia marcescens,2.14
+4aaa780d-6ef1-4635-9ac6-0bfe033a81d0,( +++ ),( B ),Serratia marcescens,2.39,Serratia marcescens,2.36
+738915de-6090-424b-9c8f-e4b43578b776,( - ),( C ),not reliable identification,1.38,not reliable identification,1.37
+78ff1049-5fd2-4301-a57a-5cbcc76fadee,( ++ ),( A ),Pseudomonas sp,2.18,not reliable identification,1.5
+7aedb120-d4c1-4955-9c25-8b29c8bb96ce,( ++ ),( A ),Pseudomonas sp,2,not reliable identification,1.37
+84960111-7ac5-406f-9e94-6e4443355c7c,( - ),( C ),not reliable identification,1.35,not reliable identification,1.32
+8e6d2b94-fe88-410e-90e3-19e34eeeb944,( +++ ),( A ),MIX!Neisseria macacae,2.42,Neisseria macacae,2.37
+9761b16a-926a-4ca2-9b6d-905f27f559e6,( +++ ),( A ),Serratia marcescens,2.35,Serratia marcescens,2.16
+a23b0eeb-b7dd-436c-bb0c-ae0bb6796db3,( +++ ),( A ),Staphylococcus aureus,2.37,Staphylococcus aureus,2.33
+bc2e4347-b88d-458d-95d6-a343be96b0b5,( ++ ),( A ),Serratia marcescens,2.13,Serratia marcescens,2.12
+d09a3360-7512-4f36-be0c-608fac01cf16,( ++ ),( A ),Pseudomonas aeruginosa,2.25,Pseudomonas aeruginosa,2.23
+da8b0bce-a908-452a-ace4-ca245536625f,( +++ ),( B ),Klebsiella pneumoniae,2.34,Klebsiella pneumoniae,2.23
+de336736-0b45-42ab-9d18-fd6e0488a5a3,( +++ ),( B ),Serratia marcescens,2.43,Serratia marcescens,2.39
+fefeb436-7762-4dea-b568-8c20afdbfbd9,( +++ ),( A ),Enterococcus faecalis,2.43,Enterococcus faecalis,2.43
+000d2b4a-ca7f-41c6-a9a2-968874ee9ce4,( +++ ),( A ),Escherichia coli,2.36,Escherichia coli,2.31
+029f0abf-1664-424f-88cb-11c9c8af2b11,( +++ ),( A ),Staphylococcus aureus,2.4,Staphylococcus aureus,2.36
+065cc66a-f42e-4912-ae95-df0759ddc8e8,( ++ ),( A ),Proteus mirabilis,2.21,Proteus mirabilis,2.15
+1742a4bb-cbc7-4f7c-a8dd-4ffe99507198,( +++ ),( A ),Lactobacillus iners,2.3,not reliable identification,1.39
+19b9fb12-3838-4085-a888-a8ef2da53e3a,( ++ ),( A ),Staphylococcus epidermidis,2.03,Staphylococcus epidermidis,1.9
+1e9d1f9f-05b6-4454-94de-ecea5dc0a092,( +++ ),( C ),Klebsiella oxytoca,2.41,Klebsiella oxytoca,2.27
+20276722-04b3-4753-bc68-70af328d12df,( ++ ),( B ),Propionibacterium sp[2],2.14,Propionibacterium avidum,2.14
+23f9498b-586d-4b8d-945e-e60d67f40e0a,( ++ ),( A ),Staphylococcus haemolyticus,2.22,Staphylococcus haemolyticus,2.05
+247cf1d1-6ea3-44eb-9fc5-95e3bd570ef0,( +++ ),( B ),Enterobacter cloacae,2.32,Enterobacter cloacae,2.21
+2c117cab-c624-4c7e-a9dd-122b1ebe76ca,( ++ ),( B ),Enterobacter cloacae,2.22,Enterobacter cloacae,2.16
+2c7d30be-5fb1-44dc-85a8-48ab3fd71a3e,( +++ ),( A ),Escherichia coli,2.33,Escherichia coli,2.25
+3956e762-baf8-4c72-ab04-e709f3c3133b,( ++ ),( A ),Corynebacterium tuberculostearicum,2.06,Corynebacterium tuberculostearicum,1.9
+39d2a5ab-4ac9-4b7c-8c8e-ca6de867a17d,( ++ ),( A ),Streptococcus anginosus,2.28,Streptococcus anginosus,2.2
+42936711-f3b0-45c3-b7a9-ba9394dd96a2,( ++ ),( A ),Escherichia coli,2.21,Escherichia coli,2.18
+4366af99-6ecd-4fa9-80dc-7bf4957fb5e8,( ++ ),( A ),Dermabacter hominis,2.27,Dermabacter hominis,2.21
+4498c70d-c076-4c0b-a069-d864ebb20c8c,( ++ ),( A ),Enterococcus faecalis,2.21,Enterococcus faecalis,2.21
+5054d766-63ea-455c-bd4f-171de77268eb,( - ),( C ),not reliable identification,1.43,not reliable identification,1.36
+50c4db16-c898-44c3-94f4-ab2b245f2412,( +++ ),( A ),Escherichia coli,2.41,Escherichia coli,2.32
+50cd36c9-9da4-471c-96a7-2b6697dfea89,( +++ ),( B ),Enterobacter cloacae,2.38,Enterobacter cloacae,2.32
+519e0c2a-5fbe-4704-8b3a-6a19e9146116,( ++ ),( A ),Enterococcus faecalis,2.25,Enterococcus faecalis,2.24
+54cee48f-e449-4036-8d97-d3410093a356,( +++ ),( A ),Morganella morganii,2.4,Morganella morganii,2.33
+5e7a6ce7-2906-40e2-9229-8f46abc47ee7,( +++ ),( A ),Enterococcus faecium,2.55,Enterococcus faecium,2.45
+5efd0bd6-0fc5-43cb-b9f1-0f8414f2fa9b,( ++ ),( A ),Enterococcus avium,2.24,Enterococcus avium,2.23
+60eb5390-e050-46a7-b816-026fa17fe3fa,( - ),( C ),no peaks found,< 0 no peaks found,< 0 ,
+629dd167-3902-4281-ba63-cec6f8e9d624,( ++ ),( A ),Streptococcus anginosus,2,Streptococcus anginosus,1.97
+700aa437-46f3-4c76-a532-34395845271a,( ++ ),( B ),Enterococcus avium,2.28,Enterococcus avium,2.27
+805a640c-c1be-496a-9ace-08868d042601,( +++ ),( A ),Enterococcus faecalis,2.3,Enterococcus faecalis,2.23
+88e8ef24-02e2-457e-b3eb-a0d7552329d6,( +++ ),( A ),Enterococcus faecium,2.37,Enterococcus faecium,2.25
+969895bf-d406-4846-b199-02f254d133a7,( +++ ),( A ),Enterococcus faecalis,2.45,Enterococcus faecalis,2.4
+97a2bd8d-f471-4a9a-baad-ec57dc4f7de3,( ++ ),( A ),Escherichia coli,2.24,Escherichia coli,2.13
+9b05c32d-23bf-4b98-b9a4-51c092721ff1,( ++ ),( A ),Staphylococcus epidermidis,2.1,Staphylococcus epidermidis,2.07
+a320ab5c-105b-4725-a66d-50f3daf6813b,( +++ ),( A ),Micrococcus luteus,2.38,Micrococcus luteus,2.18
+a694068c-e854-4ef1-a53f-3e57ec631f93,( +++ ),( A ),Enterococcus faecalis,2.37,Enterococcus faecalis,2.3
+b5d90eb0-b8b3-48f0-a646-99ee0b0bd662,( + ),( B ),Bifidobacterium longum,1.81,not reliable identification,1.66
+b91cb23e-a5e2-4b69-99bf-b061ea75f7a3,( +++ ),( A ),Morganella morganii,2.47,Morganella morganii,2.44
+c0c6f66f-aa5a-4dca-b16f-98214fe0c7ff,( ++ ),( A ),Staphylococcus lugdunensis,2.15,Staphylococcus lugdunensis,1.98
+c146981f-e878-4573-8e30-de0dfd737f5c,( +++ ),( A ),Providencia rettgeri,2.31,Providencia rettgeri,2.26
+c8be7403-fccb-4395-9307-83d3f9c1c589,( +++ ),( A ),Escherichia coli,2.33,Escherichia coli,2.2
+cbf9338d-0305-4ff4-94b4-2a849297b83d,( ++ ),( B ),Enterobacter cloacae,2.26,Enterobacter cloacae,2.13
+cee1ac02-b3fd-46bd-8216-709ce6e30de8,( ++ ),( A ),Staphylococcus hominis,2.11,Staphylococcus hominis,1.96
+d2df8c40-a056-4fb2-afcb-df8c007a364d,( +++ ),( A ),Enterococcus faecium,2.34,Enterococcus faecium,2.24
+d81cbe9c-c637-4f0a-adde-91b17b436de4,( +++ ),( A ),Enterococcus faecium,2.48,Enterococcus faecium,2.42
+dc71fd00-3166-44ee-b16e-c8311f75b17f,( ++ ),( A ),Enterococcus avium,2.25,Enterococcus avium,2.11
+e0329d26-3f7a-4ca3-b01e-ffb1f8d8ed0f,( +++ ),( A ),Dermabacter hominis,2.42,Dermabacter hominis,2.38
+e0478f87-617a-4e8c-a236-8941230e6f01,( +++ ),( A ),Enterococcus faecium,2.45,Enterococcus faecium,2.39
+e1450b38-1825-430e-8182-1e2f34f78537,( +++ ),( A ),MIX!Enterococcus avium,2.5,Enterococcus avium,2.26
+e1a7bf6d-a00b-47aa-815b-7e239450e874,( +++ ),( C ),Klebsiella oxytoca,2.38,Klebsiella oxytoca,2.27
+e1d45fcb-72a9-46dc-a23d-15c4d4ae23b3,( ++ ),( A ),Actinotignum schaalii,2.11,Actinotignum schaalii,2.01
+e98df868-acaf-4685-a3f0-a370bb105975,( +++ ),( A ),Enterococcus faecalis,2.4,Enterococcus faecalis,2.38
+f031b555-7d28-4053-9da1-b4610c6e1381,( + ),( B ),Eikenella corrodens,1.95,Eikenella corrodens,1.88
+f4936ad3-0873-4967-800c-64fdd61b954d,( +++ ),( A ),Staphylococcus aureus,2.57,Staphylococcus aureus,2.46
+f533a3f8-bc3c-47a0-90ef-10d54aa7b196,( +++ ),( B ),Corynebacterium simulans,2.36,Corynebacterium simulans,2.35
+fc4e2ad4-d50b-4a49-afb6-afeb61484db0,( ++ ),( B ),Enterobacter cloacae,2.19,Enterobacter asburiae,2.14
+fd93ccc9-b847-4aa0-80c5-3a63073b2622,( +++ ),( B ),Klebsiella pneumoniae,2.46,Klebsiella pneumoniae,2.43
+ff565beb-e200-4218-ad21-9a467f2d6510,( + ),( B ),Bifidobacterium longum,1.71,not reliable identification,1.52
+01d3dd54-1e2c-4b56-bd01-dea3b0438b97,( +++ ),( A ),Dermabacter hominis,2.41,Dermabacter hominis,2.39
+552adfd0-df4a-4d23-b63c-86fd655a98d4,( +++ ),( B ),Klebsiella variicola,2.3,Klebsiella variicola,2.26
+6fc76ff2-c46c-4b5b-90ff-1bc9c89d051e,( ++ ),( B ),Proteus vulgaris,2.25,Proteus vulgaris,2.21
+7adc93bf-0451-494c-8345-b32460d547aa,( +++ ),( B ),MIX!Enterobacter cloacae,2.43,Enterobacter cloacae,2.25
+8e54d880-4295-4ca7-9ef2-38c58c0f2c3b,( ++ ),( A ),Staphylococcus epidermidis,2.13,Staphylococcus epidermidis,2.05
+9255e45c-63ae-4367-96b3-0337e17cfddf,( +++ ),( A ),Enterococcus faecalis,2.4,Enterococcus faecalis,2.35
+9265109e-114a-4e94-a0e1-585b9054df85,( ++ ),( A ),Gardnerella vaginalis,2.27,Gardnerella vaginalis,2.23
+b5ea1f22-82cf-403e-85b9-4ec5c13336a4,( ++ ),( B ),Streptococcus dysgalactiae,2.18,Streptococcus canis,2.13
+c44cf81e-17e5-4b0a-88cb-875cdc58a7c4,( ++ ),( A ),Staphylococcus lugdunensis,2.27,Staphylococcus lugdunensis,2.25
+dec7633e-33dd-4aa4-ba2e-5b3a5b51b18a,( +++ ),( A ),Proteus mirabilis,2.48,Proteus mirabilis,2.26
+0817604d-b5dd-408c-a512-0323d7cfd41c,( ++ ),( A ),Streptococcus intermedius,2.2,Streptococcus intermedius,2.12
+4525b0bf-dae3-4234-9601-ea124b680823,( - ),( C ),not reliable identification,1.69,not reliable identification,1.59
+4c91f923-df25-4929-8aa0-ed8e303c3780,( - ),( C ),not reliable identification,1.12,not reliable identification,1.1
+e149b92e-46b6-4c0b-9296-c1c13464b355,( + ),( B ),Actinomyces odontolyticus,1.75,Actinomyces odontolyticus,1.72
+036a5c2c-c781-4ea6-9fd3-0ab5b45dd582,( +++ ),( A ),Neisseria gonorrhoeae,2.39,Neisseria gonorrhoeae,2.39
+2f32d285-0368-45af-8cc5-b4f84a72c6a1,( ++ ),( B ),Citrobacter freundii,2.2,Citrobacter freundii,2.2
+4e060a82-70f9-45c0-a51c-7883ea76fc40,( ++ ),( A ),Serratia marcescens,2.22,Serratia marcescens,2.19
+5fef3b16-88ea-47af-a37c-9d9d6bdbb12d,( +++ ),( A ),Neisseria gonorrhoeae,2.35,Neisseria gonorrhoeae,2.3
+8dd173c3-5580-41db-aba6-3ebba041ec1d,( +++ ),( A ),Proteus mirabilis,2.39,Proteus mirabilis,2.38
+97567a66-919b-4481-886b-0ea2eba91659,( +++ ),( A ),Providencia rettgeri,2.34,Providencia rettgeri,2.33
+c25793fc-3a6f-45e9-b718-921a592d1a9c,( +++ ),( A ),Pseudomonas aeruginosa,2.35,Pseudomonas aeruginosa,2.28
+c5af1150-8998-4f7b-baae-d1b17d28a28f,( +++ ),( A ),Proteus mirabilis,2.45,Proteus mirabilis,2.43
+d928d482-ea38-425f-99e1-a194e428bab0,( +++ ),( A ),Pseudomonas aeruginosa,2.33,Pseudomonas aeruginosa,2.25
+dc685640-ddef-4fcd-bd98-896d29f64d92,( ++ ),( A ),Pseudomonas aeruginosa,2.19,Pseudomonas aeruginosa,2.16
+f0c690ee-65c6-4956-bc06-78fa7e9e8747,( +++ ),( A ),Proteus mirabilis,2.42,Proteus mirabilis,2.33
+29f16a1b-aa59-4197-b47c-86e6e7e64bb2,( ++ ),( A ),Eggerthella lenta,2.02,Eggerthella lenta,1.98
+4f303490-0cb1-4684-bbce-98aeccdce2c6,( - ),( C ),not reliable identification,1.38,not reliable identification,1.33
+69eb86d1-7742-41b9-a2b5-eb92dac8b8cb,( ++ ),( B ),Fusobacterium nucleatum,2.1,Fusobacterium naviforme,2.05
+79afc569-c9aa-4aa1-a591-3497a06ea0f2,( - ),( C ),not reliable identification,1.49,not reliable identification,1.43
+9a802723-8e86-4880-8af4-7378fa6d08bf,( ++ ),( A ),Clostridium innocuum,2.01,Clostridium innocuum,1.97
+aa164c1f-06be-4518-9ed7-f1ddf55dc3de,( +++ ),( C ),MIX!Bacteroides thetaiotaomicron,2.57,Bacteroides thetaiotaomicron,2.52
+f6fa30a9-f88c-4d9c-abb4-4df343013b5f,( + ),( B ),Fusobacterium nucleatum,1.85,Fusobacterium naviforme,1.8
+d6ba460f-dbab-479f-b0d6-a0cc05118362,( - ),( C ),not reliable identification,1.34,not reliable identification,1.28
+eca023cb-3514-45b8-8563-738c43e49d47,( + ),( B ),Actinomyces odontolyticus,1.8,not reliable identification,1.66
+fc03f15f-3f0c-4f2d-9085-b63fb40a8f60,( + ),( B ),Staphylococcus epidermidis,1.71,not reliable identification,1.67
+1473b662-2007-4b36-a7aa-54b91745297c,( - ),( C ),not reliable identification,1.39,not reliable identification,1.38
+d1e711c7-91ac-4325-985f-c0a9db727385,( + ),( B ),Brevibacterium paucivorans,1.89,not reliable identification,1.66
+e209c468-1ad2-41d4-ab82-f8fae1f9588d,( + ),( B ),Actinomyces turicensis,1.89,Actinomyces turicensis,1.71
+17dedc2c-6700-4e0a-be03-11370396b7b5,( +++ ),( A ),Streptococcus agalactiae,2.32,Streptococcus agalactiae,2.29
+20ee7da6-b73e-454c-8318-9191d0e849e2,( ++ ),( A ),Streptococcus agalactiae,2.15,Streptococcus agalactiae,2.11
+36764978-26ee-4ec7-a254-605b6a230a9d,( ++ ),( A ),Streptococcus constellatus,2.13,Streptococcus constellatus,1.98
+69e42b47-c7b4-446a-95b5-b4d854d53a80,( ++ ),( A ),Enterococcus faecalis,2.28,Enterococcus faecalis,2.25
+90e5846b-bb9d-4b4a-b62f-6ee734919948,( ++ ),( A ),Staphylococcus epidermidis,2.09,Staphylococcus epidermidis,2.07
+e6ab6279-2932-4fde-8f32-14f170071d68,( ++ ),( A ),Aerococcus urinae,2.19,Aerococcus urinae,2.13
+f03bd9e5-bb8d-4c12-9dae-a3463f470929,( ++ ),( A ),Lactobacillus crispatus,2.02,Lactobacillus crispatus,1.85
+f521453f-4bb6-43e8-b98f-78b57e4af352,( +++ ),( A ),Gardnerella vaginalis,2.33,Gardnerella vaginalis,2.27
+f6ea9aed-4146-4da6-b034-3cbb4d97e17b,( ++ ),( A ),Lactobacillus gasseri,2.17,Lactobacillus gasseri,2.07
+3b8a6255-f4b3-4e06-ab2b-babf9672a6b0,( ++ ),( A ),Aerococcus urinae,2.08,Aerococcus urinae,2.03
+43d36e17-0a4e-4b83-9e69-679d8fd369f2,( ++ ),( A ),Staphylococcus epidermidis,2.09,Staphylococcus epidermidis,2.08
+7b1bce2c-a397-4dfd-8207-a31c62c44b8b,( ++ ),( A ),Staphylococcus haemolyticus,2.15,Staphylococcus haemolyticus,1.92
+7c0d69ba-c9fd-4f04-ba47-6868180b2870,( ++ ),( A ),Staphylococcus epidermidis,2.08,Staphylococcus epidermidis,1.97
+98820334-0b97-41f3-b6a7-dde8276ae1be,( ++ ),( A ),Staphylococcus hominis,2.26,Staphylococcus hominis,2.22
+b5086ba7-dc01-48d5-b3bd-087471956d87,( ++ ),( A ),Staphylococcus capitis,2.19,Staphylococcus capitis,2.12
+ccd8f525-5e8c-4ee4-b85c-202626115276,( ++ ),( A ),Staphylococcus epidermidis,2.06,Staphylococcus epidermidis,2.06
+f95886d7-b142-4dc4-b2de-8481bcd76540,( ++ ),( B ),Streptococcus oralis,2.21,Streptococcus oralis,2.19
+16e2da70-7771-42f6-87e2-3521d4337e85,( ++ ),( A ),Staphylococcus warneri,2.04,Staphylococcus warneri,1.9
+5c6dc86b-cb9e-4a65-b60c-301305a5261f,( ++ ),( A ),Staphylococcus hominis,2.27,Staphylococcus hominis,2.26
+5cfaf441-1af2-4e13-82f4-744ee11b2a35,( ++ ),( A ),Staphylococcus epidermidis,2.09,Staphylococcus epidermidis,2.03
+7f096e60-a0f2-49db-8696-b34045d5dc5f,( ++ ),( A ),Staphylococcus warneri,2.04,Staphylococcus warneri,1.9
+035b05d7-76d7-4bdd-802c-1e4fd95bf867,( ++ ),( A ),Staphylococcus epidermidis,2.22,Staphylococcus epidermidis,2.16
+0ed485d1-0fb7-4f91-a4c5-f9b3e4526f00,( ++ ),( A ),Stenotrophomonas maltophilia,2.05,Stenotrophomonas maltophilia,1.84
+159416d8-0709-4e64-b1b0-4482ae302cf7,( + ),( B ),Stenotrophomonas maltophilia,1.98,Stenotrophomonas maltophilia,1.87
+1aa4e7ff-32d3-49af-a710-847249da3ac7,( + ),( B ),Candida albicans,1.81,Candida albicans,1.8
+298b595f-9f3e-417d-88af-5f013037b3dd,( ++ ),( A ),Stenotrophomonas maltophilia,2.28,Stenotrophomonas maltophilia,2.24
+2e63fe3a-3251-483b-be48-4d154c0c26b6,( ++ ),( A ),Streptococcus oralis,2.05,Streptococcus oralis,2.02
+350ef0ef-96db-42b1-af52-4ed08c6e0680,( ++ ),( A ),Staphylococcus epidermidis,2.11,Staphylococcus epidermidis,2.1
+428793b8-4072-4cd3-9e39-481525b0a50a,( +++ ),( A ),Enterococcus faecium,2.44,Enterococcus faecium,2.4
+470cc3d0-de8e-4a3a-827e-f6b1745cdef7,( ++ ),( A ),Pseudomonas aeruginosa,2.18,Pseudomonas aeruginosa,2.1
+48cce4a6-dac6-45ab-af4f-c19e1b500c06,( +++ ),( A ),MIX!Streptococcus agalactiae,2.56,Streptococcus agalactiae,2.35
+4deabd49-b958-49fa-8ec4-82cde800e0a9,( ++ ),( A ),Candida glabrata,2.01,Candida glabrata,1.83
+59de4d1f-43dd-4567-9d85-11dd565b74bc,( +++ ),( B ),Citrobacter freundii,2.41,Citrobacter freundii,2.4
+64cb2e76-f540-4075-ad4d-21ffd45230a8,( +++ ),( B ),Klebsiella pneumoniae,2.47,Klebsiella pneumoniae,2.44
+660513f5-64db-49dc-80aa-46138b4ef834,( ++ ),( B ),Neisseria subflava,2.24,Neisseria subflava,2.12
+77a5b16e-f6e4-4fde-a787-b146d518bbc3,( ++ ),( A ),Staphylococcus epidermidis,2.08,Staphylococcus epidermidis,2.06
+836d20d7-87ea-47ae-8c1d-6953982fa593,( ++ ),( A ),Streptococcus oralis,2.13,Streptococcus oralis,2.11
+87e1c02c-3a1c-49e9-ba79-64d909c0eeb7,( +++ ),( A ),Rothia terrae,2.3,Rothia terrae,2.3
+9daa9818-22be-4c08-8dff-1f64b8b42768,( + ),( B ),Enterobacter cloacae,1.91,Enterobacter asburiae,1.83
+a07199d7-6e34-4c0f-8248-412f0e2e4bf1,( + ),( B ),Streptococcus gordonii,1.94,Streptococcus gordonii,1.85
+a27839b9-80b8-44ec-93e3-ef037b879988,( +++ ),( A ),Klebsiella variicola,2.42,Klebsiella variicola,2.38
+a5c97ada-bfef-4c93-b058-60a3b35ca6ff,( +++ ),( B ),Enterobacter cloacae,2.31,Enterobacter cloacae,2.18
+a68471cf-3a39-4226-8afc-215925dd96f6,( +++ ),( A ),Escherichia coli,2.3,Escherichia coli,2.28
+bba21897-afea-420e-a588-c9f09fdd0fbe,( ++ ),( A ),Staphylococcus epidermidis,2.12,Staphylococcus epidermidis,1.91
+c6d4cdfd-dc4b-4c8d-b402-64fe1cc8d81f,( + ),( B ),Streptococcus anginosus,1.78,not reliable identification,1.68
+c99a0086-a401-4bc3-96f5-af25a42ba142,( +++ ),( B ),MIX!Neisseria subflava,2.58,Neisseria subflava,2.32
+0de8c22c-4845-4e8a-9ec4-3c573b31e357,( ++ ),( B ),Streptococcus equinus,2.11,Streptococcus lutetiensis,2
+30c50f0e-0b61-496a-b4c0-882e871b4ff3,( +++ ),( A ),Pseudomonas aeruginosa,2.37,Pseudomonas aeruginosa,2.26
+44538775-2b00-4dcb-b18b-b69d2f819d39,( +++ ),( A ),Streptococcus agalactiae,2.39,Streptococcus agalactiae,2.27
+68694fa3-8b31-4450-85d4-f87ea71169eb,( +++ ),( A ),Pseudomonas aeruginosa,2.37,Pseudomonas aeruginosa,2.26
+6c90db1d-92af-4614-a9c3-7ad313dbfbc4,( ++ ),( A ),Streptococcus agalactiae,2.23,Streptococcus agalactiae,2.19
+a29d1887-29af-4950-a52b-cbfd6d2aace6,( +++ ),( B ),Streptococcus vestibularis,2.4,Streptococcus salivarius,2.21
+bfa79599-decb-4e55-aaca-18e3093baaa7,( +++ ),( A ),Streptococcus agalactiae,2.33,Streptococcus agalactiae,2.24
+cc83118e-c26c-4c71-9c52-e77a3a2af8b5,( ++ ),( A ),Streptococcus agalactiae,2.26,Streptococcus agalactiae,2.23
+dc215e53-cf41-45e6-ae79-35f1a61a39b9,( +++ ),( B ),Streptococcus vestibularis,2.32,Streptococcus salivarius,2.3
+e4ab25fa-3065-4b76-9461-f67d431e4f03,( +++ ),( A ),Streptococcus agalactiae,2.31,Streptococcus agalactiae,2.27
+5d58150f-7086-431f-9b65-0684ef8beaeb,( + ),( B ),Aggregatibacter actinomycetemcomitans,1.93,Aggregatibacter actinomycetemcomitans,1.93
+a3798c0d-c2a7-4454-9969-2b2e2c0ea8e3,( ++ ),( A ),Propionibacterium acnes,2.22,Propionibacterium acnes,2.06
+dba424d8-3751-4e07-ac08-f2a08bb07d3f,( - ),( C ),not reliable identification,1.68,not reliable identification,1.56
+3ea47841-0bf8-459d-bc24-e0b4e1b5884d,( + ),( B ),Streptococcus mitis,1.91,Streptococcus mitis,1.85
+7cbf6c31-4125-4d37-982d-8564b5a04839,( - ),( C ),not reliable identification,1.55,not reliable identification,1.49
+61d1e601-2042-4370-9537-ccfd37619b39,( +++ ),( B ),MIX!Neisseria subflava,2.51,Neisseria subflava,2.32
+6d3c1325-906c-4c85-8bdd-0b84af3b8870,( - ),( C ),not reliable identification,1.36,not reliable identification,1.35
+8c8d6154-fae6-4ded-a232-99c66b7fb570,( ++ ),( A ),Lactobacillus reuteri,2.15,Lactobacillus reuteri,2.13
+8f3e042d-1d83-46d5-b6fb-45e7dedce2b0,( - ),( C ),not reliable identification,1.29,not reliable identification,1.23
+91e1ae0b-9eac-44d9-b1c0-d9190a215a91,( ++ ),( A ),Clostridium difficile,2.08,Clostridium difficile,1.93
+acd7ac3f-7ab6-4858-aa4b-0d0e1d1cad0e,( ++ ),( A ),Micrococcus luteus,2.18,Micrococcus luteus,2.16
+bfa8aacd-5f3c-4135-8b15-7839ea018297,( - ),( C ),not reliable identification,1.69,not reliable identification,1.58
+c30d862e-5124-4efa-b529-6f2c2cc1ef63,( + ),( B ),Candida parapsilosis,1.87,Candida parapsilosis,1.82
+efb879e1-8cbc-45dc-8633-ef135e0c0451,( ++ ),( A ),Flavonifractor plautii,2.15,Flavonifractor plautii,2.08
+f668d8e8-bb18-415f-8a09-e910f640acbe,( - ),( C ),not reliable identification,1.58,not reliable identification,1.46
+919b6d55-735c-4dc1-a91b-2a8cd3ca2950,( ++ ),( A ),Gardnerella vaginalis,2.01,Gardnerella sp,1.88
+b3a915b0-126a-4faf-817f-6dba6744e663,( ++ ),( A ),Staphylococcus epidermidis,2.17,Staphylococcus epidermidis,1.98
+425a17fd-96ec-4fe0-804c-9a6aa4637815,( +++ ),( A ),Rothia terrae,2.39,Rothia terrae,2.35
+c23ebc7d-3787-4b48-83ac-2b8acdb519a0,( +++ ),( A ),MIX!Neisseria cinerea,2.58,Neisseria cinerea,2.55
+d74d0bff-8b44-431d-a559-ff3add38334a,( ++ ),( A ),Serratia marcescens,2.03,Serratia marcescens,1.99
+05eaef41-e4a3-407d-ac55-35f4536187ab,( +++ ),( B ),Citrobacter freundii,2.32,Citrobacter freundii,2.26
+09f45519-7188-4e84-9eea-6650f1ef66c6,( +++ ),( A ),Escherichia coli,2.42,Escherichia coli,2.37
+929eeb96-b5eb-4c02-b6c5-c8fd1dd22502,( +++ ),( A ),Pseudomonas aeruginosa,2.47,Pseudomonas aeruginosa,2.44
+b0700964-3da0-4449-abe2-b1eccf6c5c01,( +++ ),( A ),Staphylococcus aureus,2.31,Staphylococcus aureus,2.31
+babe4a61-5055-441a-8ea1-7a6f6cd5a407,( +++ ),( B ),Enterobacter cloacae,2.39,Enterobacter cloacae,2.22
+c20927f4-ec66-400b-907e-cbd71e5bd84f,( +++ ),( A ),Pseudomonas aeruginosa,2.45,Pseudomonas aeruginosa,2.37
+cb0ac3a7-6543-4660-800f-f51b4ffd177d,( +++ ),( A ),Escherichia coli,2.38,Escherichia coli,2.37
+cee90605-3d2a-4f7c-bce0-84430c137c54,( ++ ),( B ),Citrobacter freundii,2.2,Citrobacter freundii,2.19
+d1154b52-c698-4358-ba1e-803a74dcca85,( +++ ),( A ),Staphylococcus aureus,2.34,Staphylococcus aureus,2.23
+f2d65269-790a-430e-b4dd-2b8b64b5c2b0,( +++ ),( C ),Klebsiella oxytoca,2.31,Klebsiella oxytoca,2.25
+424337ff-f93a-48d1-a173-1105d0d3e6cd,( ++ ),( A ),Staphylococcus lugdunensis,2.18,Staphylococcus lugdunensis,2.05
+52c06a0c-e783-492a-8547-01d7ec6d1214,( +++ ),( A ),Citrobacter koseri,2.41,Citrobacter koseri,2.4
+55f6c6dd-1514-454d-8a4a-4ba2a140d4ea,( ++ ),( A ),Staphylococcus epidermidis,2.09,Staphylococcus epidermidis,1.98
+60a54ea1-5c58-4950-aa34-e3f59a6aac16,( ++ ),( A ),Haemophilus parainfluenzae,2.21,Haemophilus parainfluenzae,2.18
+67922c1b-4f2a-4a94-b373-c5531e47bb57,( - ),( C ),not reliable identification,1.46,not reliable identification,1.42
+75756e67-f80c-49d0-b305-1a94a4c90cf0,( + ),( B ),Staphylococcus epidermidis,1.83,Staphylococcus epidermidis,1.74
+80263b07-989f-4a8d-bbc1-67e2c098cb88,( ++ ),( A ),Escherichia coli,2.26,Escherichia coli,2.09
+92b0897a-3431-4410-8c94-aa96582b8718,( ++ ),( A ),Streptococcus constellatus,2.21,Streptococcus constellatus,2.03
+92b75676-79f5-42c6-93b5-7056ad1c0e7c,( ++ ),( A ),Staphylococcus epidermidis,2.08,Staphylococcus epidermidis,2
+aa552b12-a3f3-46d3-b0cf-b210d8003a67,( ++ ),( A ),Staphylococcus epidermidis,2.18,Staphylococcus epidermidis,2.13
+cd6f73c8-e056-42ca-a80f-9e6843043075,( + ),( B ),Staphylococcus epidermidis,1.92,Staphylococcus epidermidis,1.85
+d0ae7a71-4ee6-467d-9010-57a3b9ec357a,( ++ ),( A ),Staphylococcus epidermidis,2.17,Staphylococcus epidermidis,2.14
+0204f85e-056d-451a-b23d-9ca34ac3babc,( +++ ),( A ),Enterobacter cloacae,2.38,Enterobacter cloacae,2.34
+0d9c0dc5-5f5b-487f-9547-8b0a5a28f8b7,( +++ ),( C ),Klebsiella oxytoca,2.38,Klebsiella oxytoca,2.21
+13445a8d-6fc7-4fd4-bcd6-4bb6da8b0ff4,( ++ ),( A ),Candida albicans,2.12,Candida albicans,2.08
+17ce9832-5568-47b9-88f7-6a95d46077b5,( ++ ),( A ),Serratia marcescens,2.21,Serratia marcescens,2.21
+57b430d7-a9a7-4153-bf5c-07c39347614b,( +++ ),( C ),MIX!Facklamia hominis,2.66,Facklamia hominis,2.59
+613ce138-a67d-42e2-b11e-373386b508a5,( +++ ),( C ),Enterobacter aerogenes,2.36,Enterobacter aerogenes,2.29
+6c1ac752-703e-442a-ab1b-34642758f8c4,( ++ ),( A ),Candida albicans,2.08,Candida albicans,2.06
+8d2253c9-a7a0-4bb7-a599-e38d3e9e9957,( ++ ),( A ),Candida glabrata,2.08,Candida glabrata,2
+9eabb147-fe0f-4a06-93eb-250e6e9d1ed3,( +++ ),( A ),Acinetobacter ursingii,2.36,Acinetobacter ursingii,2.36
+a80a6d94-7877-491b-83fe-15f390cdd173,( ++ ),( A ),Haemophilus haemolyticus,2.01,Haemophilus haemolyticus,2
+aacf020d-e324-4fd8-aacb-e2540f1efc85,( ++ ),( A ),Lactobacillus crispatus,2.12,Lactobacillus crispatus,1.87
+b6597471-7e05-410a-9a7c-4a433f127a7d,( ++ ),( A ),Streptococcus constellatus,2.19,Streptococcus constellatus,2.1
+bbd54a03-9326-4276-b01c-853bf2fffcf4,( ++ ),( A ),Gardnerella vaginalis,2.26,Gardnerella vaginalis,2.21
+bdbca55d-2df7-4a66-a3e4-44528d5fdeee,( + ),( B ),Candida glabrata,1.96,Candida glabrata,1.96
+bf153027-9908-4f34-940c-c65c8cf9a6bb,( +++ ),( A ),Enterococcus faecalis,2.32,Enterococcus faecalis,2.27
+f4d60e35-6065-45c5-a8dd-72ace3582e67,( +++ ),( B ),MIX!Neisseria macacae,2.42,Neisseria macacae,2.14
+03a66094-0724-4d91-9449-e1badfb41078,( - ),( C ),not reliable identification,1.48,not reliable identification,1.46
+0786987a-7af8-4818-bf6d-3be575f6373a,( ++ ),( A ),Brevibacillus parabrevis,2.22,Brevibacillus parabrevis,2.03
+2ad1a309-9939-4fdb-8366-f893ddb4c20c,( +++ ),( A ),MIX!Stenotrophomonas maltophilia,2.42,Stenotrophomonas maltophilia,2.11
+3c4d8d40-d44e-439c-8d27-11fd66edf53b,( ++ ),( A ),Staphylococcus warneri,2.19,Staphylococcus warneri,2.14
+3e003df9-d333-4835-ad53-afbd629d9bdb,( ++ ),( A ),Acinetobacter towneri,2.09,Acinetobacter towneri,1.93
+45da0302-6cdc-42be-9a1b-8080264f51d4,( ++ ),( A ),Acinetobacter baumannii,2.26,Acinetobacter baumannii,2.21
+46e8efbc-ee6d-4653-a5bb-4941564ae9bd,( +++ ),( A ),Acinetobacter haemolyticus,2.4,Acinetobacter haemolyticus,2.39
+4f43aae3-7e1d-4fb3-bdd6-dc1c2686db5c,( ++ ),( A ),Micrococcus luteus,2.03,Micrococcus luteus,2.02
+7c77b81b-263b-49d7-a718-1a9e09e6fa7b,( ++ ),( A ),Acinetobacter towneri,2.02,Acinetobacter towneri,1.87
+8c11d8fc-806b-4fdd-96c5-c33640bd5a38,( ++ ),( A ),Bacillus flexus,2.29,Bacillus flexus,2.04
+92eceeeb-8b40-40c2-b8a3-ce82ac90e1df,( ++ ),( A ),Micrococcus luteus,2.1,Micrococcus luteus,1.99
+99ff3916-6cd4-4608-9b8a-3ae4eb3487f8,( + ),( B ),Klebsiella pneumoniae,1.99,Klebsiella pneumoniae,1.83
+a8e9b016-8ff3-4e60-bb18-be8c53c566ae,( ++ ),( A ),Staphylococcus warneri,2,Staphylococcus warneri,1.92
+b32c1c9c-2ef4-42a3-a454-f8497c92d11b,( +++ ),( A ),MIX!Brevundimonas aurantiaca,2.34,Brevundimonas aurantiaca,2.07
+c1dbb5ea-9de3-4cfb-a968-60051f45df91,( +++ ),( A ),MIX!Ochrobactrum intermedium,2.38,Ochrobactrum intermedium,2.35
+4b0bfd2c-7986-4730-9d59-6dae39003169,( - ),( C ),not reliable identification,1.2,not reliable identification,1.1
+73fb0729-6021-466a-9e27-4a284214c34c,( - ),( C ),not reliable identification,1.39,not reliable identification,1.36
+91d10b06-a299-406c-adcd-c672243f2e12,( - ),( C ),not reliable identification,1.39,not reliable identification,1.36
+060fe279-74f4-4504-a225-d90ac964cc02,( + ),( B ),Stenotrophomonas maltophilia,1.98,Stenotrophomonas maltophilia,1.84
+389e768b-044e-4706-ab51-419c23fc7cbc,( + ),( B ),Candida albicans,1.91,Candida albicans,1.81
+6c9a6a44-83bd-4a7e-8927-0b8b93666f29,( - ),( C ),not reliable identification,1.6,not reliable identification,1.59
+c1f15cb5-00a6-44e5-8cd7-771f76099e4e,( +++ ),( A ),Rothia terrae,2.39,Rothia terrae,2.38
+e522dbbb-fdd2-4cde-9e8f-b64c212ec5ac,( ++ ),( C ),Enterobacter asburiae,2.12,Enterobacter cloacae,2.02
+ffd51324-5fc4-4734-9b36-27fac6415b11,( - ),( C ),no peaks found,< 0 no peaks found,< 0 ,
+a4114b30-b574-4d53-b98d-de1b018d18a7,( - ),( C ),not reliable identification,1.68,not reliable identification,1.64
+0014baec-4eb8-4a78-913a-99cc773b62b7,( +++ ),( A ),Morganella morganii,2.45,Morganella morganii,2.32
+072fd712-1fa1-4d88-bfac-7acc0206a358,( + ),( B ),Candida albicans,1.9,Candida albicans,1.76
+22f74b39-7fe8-426a-b1d3-b3f181016b97,( ++ ),( C ),Klebsiella pneumoniae,2.03,Klebsiella pneumoniae,2.03
+260859b3-de44-474e-8e9b-c15a432256a3,( ++ ),( A ),Escherichia coli,2.22,Escherichia coli,2.12
+30275d87-e396-4048-afc5-70457927960d,( +++ ),( A ),Morganella morganii,2.58,Morganella morganii,2.49
+34a19ad7-5e73-42e7-8a01-38409521673a,( +++ ),( A ),MIX!Citrobacter freundii,2.53,Citrobacter freundii,2.2
+68ec28b1-df59-4a29-9419-0aa3d73b90f0,( ++ ),( A ),Lactobacillus crispatus,2.14,Lactobacillus crispatus,1.98
+6eb62671-f160-4bd2-97f6-72e5953d56c8,( ++ ),( B ),Citrobacter amalonaticus,2.25,Citrobacter amalonaticus,2.2
+85c2ad18-9f92-4f3b-85d5-2b7c3ce931a2,( +++ ),( B ),Klebsiella pneumoniae,2.31,Klebsiella pneumoniae,2.31
+881640b1-8d18-4e94-b33b-fda3a19edcee,( + ),( B ),Lactobacillus crispatus,1.96,Lactobacillus crispatus,1.83
+8a6963e2-d6e5-4b6c-b8b0-9079fcf0138c,( - ),( C ),not reliable identification,1.61,not reliable identification,1.59
+a7f57157-984b-4ad6-96f5-d4e09208be68,( ++ ),( A ),Hafnia alvei,2.14,Hafnia alvei,2.09
+b4122998-e8d0-4049-917d-92b40a8ca0c3,( +++ ),( A ),Escherichia coli,2.39,Escherichia coli,2.36
+bd748689-f8c6-4fb9-93dd-2ae8d04c6b9b,( - ),( C ),not reliable identification,1.35,not reliable identification,1.3
+bf21dd92-ea17-40c2-b803-23b31eba85b5,( +++ ),( B ),Klebsiella pneumoniae,2.49,Klebsiella pneumoniae,2.47
+c138b0ba-40ff-452c-8297-f83ac1077844,( ++ ),( A ),Enterococcus faecium,2.07,Enterococcus faecium,2.02
+c8453902-8332-4f14-a671-c99680185db6,( + ),( B ),Escherichia coli,1.94,Escherichia coli,1.85
+faa22611-601e-4038-af7d-5830c8741626,( - ),( C ),not reliable identification,1.62,not reliable identification,1.51
+fc726064-77c2-4aa9-b837-233c58803d3e,( - ),( C ),not reliable identification,1.45,not reliable identification,1.45
+0f77858d-8fc4-46aa-918b-17732ac47355,( ++ ),( B ),Candida albicans_(africana),2.08,Candida albicans,2.06
+30a45848-3c71-45dd-93dd-2eefe3e6d0f9,( +++ ),( A ),Escherichia coli,2.51,Escherichia coli,2.2
+331d0dce-ccd2-4bbc-a5d1-5e10f63f3fb3,( ++ ),( A ),Escherichia coli,2.29,Escherichia coli,2.28
+43da080c-cf75-4a86-b75d-e8ecdc60133f,( + ),( B ),Candida albicans,1.98,Candida albicans_(africana),1.96
+46b528bb-2632-4641-bc55-5bd7045058d9,( ++ ),( A ),Staphylococcus epidermidis,2.1,Staphylococcus epidermidis,2.02
+5b678dd5-efa0-48b1-8783-e4407cbf875a,( ++ ),( A ),Staphylococcus epidermidis,2.14,Staphylococcus epidermidis,2.13
+abefc38d-328f-4c9e-9ed7-c617d5472d38,( + ),( B ),Candida albicans,1.93,Candida albicans,1.93
+d56d69d2-62bf-40ec-9cd1-ff215bc1c4df,( +++ ),( A ),Escherichia coli,2.37,Escherichia coli,2.13
+ea21472c-185c-4093-a067-5934ea949d42,( +++ ),( A ),Staphylococcus aureus,2.35,Staphylococcus aureus,2.34
+f2f866d1-52cb-48e5-b0a2-6bb0b2c74464,( - ),( C ),no peaks found,< 0 no peaks found,< 0 ,
