@@ -182,7 +182,10 @@ def plot_figure4(args):
             )
 
             df = df.set_index('threshold')
-            df = interpolate_at(df, np.linspace(0.0, 1.0, 100, endpoint=True))
+            df = interpolate_at(
+                df,
+                np.linspace(thresholds[0], thresholds[-1], 100, endpoint=True)
+            )
 
             df = df.to_csv(
                 f'./{args.outfile}_{antibiotic.lower()}_roc.csv',
@@ -212,11 +215,21 @@ def plot_figure4(args):
                    alpha=1.0, where='post', linewidth=3.0)
 
         if args.export:
+            # Add 'fake' threshold to account for length differences.
+            thresholds = thresholds.tolist() + [thresholds[-1] + 1e-4]
+
             df = pd.DataFrame.from_dict(
                     {
                         'precision': precision.tolist(),
                         'recall': recall.tolist(),
+                        'threshold': thresholds,
                     }
+            )
+
+            df = df.set_index('threshold')
+            df = interpolate_at(
+                df,
+                np.linspace(thresholds[0], thresholds[-1], 100, endpoint=True)
             )
 
             df = df.to_csv(
