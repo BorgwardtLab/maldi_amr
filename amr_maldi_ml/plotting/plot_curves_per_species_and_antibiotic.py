@@ -23,6 +23,64 @@ from maldi_learn.metrics import specificity_sensitivity_curve
 from utils import maldi_col_map_seaborn
 from warnings import simplefilter
 
+
+def interpolate_at(df, x, ascending=True):
+    """Interpolate a data frame at certain positions.
+
+    This is an auxiliary function for interpolating an indexed data
+    frame at a certain position or at certain positions.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Input data frame; must have index that is compatible with `x`.
+
+    x : scalar or iterable
+        Index value(s) to interpolate the data frame at. Must be
+        compatible with the data type of the index.
+
+    ascending : bool
+        Determines sorting order of index column. Sorting is
+        always performed to ensure proper interpolation.
+
+    Returns
+    -------
+    pandas.DataFrame
+        Data frame evaluated at the specified index positions.
+    """
+    # Check whether object support iteration. If yes, we can build
+    # a sequence index; if not, we have to convert the object into
+    # something iterable.
+    try:
+        _ = (a for a in x)
+        new_index = pd.Index(x)
+    except TypeError:
+        new_index = pd.Index([x])
+
+    # Ensures that the data frame is sorted correctly based on its
+    # index. We use `mergesort` in order to ensure stability. This
+    # set of options will be reused later on.
+    sort_options = {
+        'ascending': ascending,
+        'kind': 'mergesort',
+    }
+    df = df.sort_index(**sort_options)
+
+    # TODO: have to decide whether to keep first index reaching the
+    # desired level or last. The last has the advantage that it's a
+    # more 'pessimistic' estimate since it will correspond to lower
+    # thresholds (in case the index is sorted in descending order).
+    df = df[~df.index.duplicated(keep='last')]
+
+    # Include the new index, sort again and then finally interpolate the
+    # values.
+    df = df.reindex(df.index.append(new_index).unique())
+    df = df.sort_index(**sort_options)
+    df = df.interpolate()
+
+    return df.loc[new_index]
+
+
 def plot_figure4(args):
     # ignore all future warnings
     simplefilter(action='ignore', category=FutureWarning)
@@ -114,6 +172,23 @@ def plot_figure4(args):
         ax[0].plot(fpr, tpr, color=col_ab, label=lab, linewidth=3.0)
         ax[0].plot([0, 1], [0, 1], color='black', linestyle='--')
 
+        if args.export:
+            df = pd.DataFrame.from_dict(
+                    {
+                        'fpr': fpr.tolist(),
+                        'tpr': tpr.tolist(),
+                        'threshold': thresholds.tolist(),
+                    }
+            )
+
+            df = df.set_index('threshold')
+            df = interpolate_at(df, np.linspace(0.0, 1.0, 100, endpoint=True))
+
+            df = df.to_csv(
+                f'./{args.outfile}_{antibiotic.lower()}_roc.csv',
+                index=False
+            )
+
         # ------------
         # panel2: PRAUC curve
         # ------------
@@ -135,6 +210,19 @@ def plot_figure4(args):
 
         ax[1].step(recall, precision, color=col_ab, label=lab,
                    alpha=1.0, where='post', linewidth=3.0)
+
+        if args.export:
+            df = pd.DataFrame.from_dict(
+                    {
+                        'precision': precision.tolist(),
+                        'recall': recall.tolist(),
+                    }
+            )
+
+            df = df.to_csv(
+                f'./{args.outfile}_{antibiotic.lower()}_pr.csv',
+                index=False
+            )
 
     # ------------
     # axes limits and labels
@@ -166,7 +254,7 @@ def plot_figure4(args):
                 }
         )
 
-        df_summary.to_csv(f'./{args.outfile}_summary.csv')
+        df_summary.to_csv(f'./{args.outfile}_summary.csv', index=False)
 
 
 if __name__ == '__main__':
