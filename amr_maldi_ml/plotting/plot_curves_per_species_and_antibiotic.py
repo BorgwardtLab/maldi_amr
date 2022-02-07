@@ -182,10 +182,8 @@ def plot_figure4(args):
             )
 
             df = df.set_index('threshold')
-            df = interpolate_at(
-                df,
-                np.linspace(thresholds[0], thresholds[-1], 100, endpoint=True)
-            )
+            df = df.round(decimals=3)
+            df = df.drop_duplicates()
 
             df = df.to_csv(
                 f'./{args.outfile}_{args.model}_{antibiotic.lower()}_roc.csv',
