@@ -188,7 +188,7 @@ def plot_figure4(args):
             )
 
             df = df.to_csv(
-                f'./{args.outfile}_{antibiotic.lower()}_roc.csv',
+                f'./{args.outfile}_{args.model}_{antibiotic.lower()}_roc.csv',
                 index=False
             )
 
@@ -233,7 +233,7 @@ def plot_figure4(args):
             )
 
             df = df.to_csv(
-                f'./{args.outfile}_{antibiotic.lower()}_pr.csv',
+                f'./{args.outfile}_{args.model}_{antibiotic.lower()}_pr.csv',
                 index=False
             )
 
@@ -267,7 +267,10 @@ def plot_figure4(args):
                 }
         )
 
-        df_summary.to_csv(f'./{args.outfile}_summary.csv', index=False)
+        df_summary.to_csv(
+            f'./{args.outfile}_{args.model}_summary.csv',
+            index=False
+        )
 
 
 if __name__ == '__main__':
