@@ -158,6 +158,16 @@ def plot_figure4(args):
     plt.savefig(f'./{args.outfile}.png')
     plt.savefig(f'./{args.outfile}.pdf')
 
+    if args.export:
+        df_summary = content.groupby(
+                ['antibiotic', 'site']).agg({
+                    'test_calibrated_auprc': ['mean', 'std'],
+                    'test_calibrated_auroc': ['mean', 'std']
+                }
+        )
+
+        df_summary.to_csv(f'./{args.outfile}_summary.csv')
+
 
 if __name__ == '__main__':
 
@@ -174,6 +184,12 @@ if __name__ == '__main__':
     parser.add_argument('--model',
                         type=str,
                         default='lr')
+    parser.add_argument(
+        '-e', '--export',
+        action='store_true',
+        help='If set, export data in CSV format.'
+    )
+
     args = parser.parse_args()
 
     plot_figure4(args)
