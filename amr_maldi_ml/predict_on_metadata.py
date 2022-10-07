@@ -244,10 +244,8 @@ def train_and_predict(X, y, name=None):
     uniplot.histogram(
         np.max(y_score, axis=1),
         bins=10,
-        # The histogram function has some issues with plotting
-        # everything properly under certain circumstances.
-        x_min=0.49,
-        x_max=0.99,
+        x_min=0.5,
+        x_max=1.0,
         title='Prediction Probabilities'
     )
 
