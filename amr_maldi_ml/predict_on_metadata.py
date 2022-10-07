@@ -51,7 +51,7 @@ def make_dataframes(files, args):
     # Excluding values only works if a single column has been selected.
     # Moreover, this column should usually be categorical, but we have
     # no way of enforcing this here.
-    if len(args.column) == 1 and args.exclude:
+    if args.column and len(args.column) == 1 and args.exclude:
         logging.info(
             f'Excluding value "{args.exclude}" from "{args.column[0]}"'
         )
@@ -170,7 +170,7 @@ def make_dataframes(files, args):
         logging.info(f'Only including categorical columns: {columns}')
     elif args.mode == 'all':
         columns = df_metadata.columns
-        logging.info('Including all column types: {columns}')
+        logging.info(f'Including all column types: {columns}')
 
     if args.single:
         X = []
